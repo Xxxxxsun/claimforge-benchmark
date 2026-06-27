@@ -23,6 +23,8 @@ Important files:
 - `crops/insert/`: orange-box crops for quick visual checking.
 - `masks/`: full-resolution binary masks for insert regions.
 - `overlays/`: source images with blue context boxes and orange insert boxes drawn.
+- `generated_crops/`: generated context crops returned by image-editing models.
+- `spliced_full/`: full source images with generated context crops pasted back.
 
 Expected remote flow:
 1. For each row in `annotations/generation_tasks.jsonl`, run the image-edit model on `context_crop`.
