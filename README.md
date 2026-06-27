@@ -2,6 +2,8 @@
 
 This directory contains source images and local-edit annotations for the lodging/restaurant demo batch.
 
+If you are the remote generation agent, read `AGENT_BRIEF.md` first.
+
 Counts:
 - source images: 22
 - slots: 22
