@@ -10,14 +10,15 @@ Output:
   spliced_full/<model>/manifest.jsonl
 
 The output PNG keeps pixels outside context_region_xyxy identical to the source
-image. The generated crop is expected to already be pixel-preserving outside the
-insert region.
+image. If generated_crops/<model>/manifest.jsonl marks `paste_back: false`, the
+script first composites only the insert region from the generated crop into the
+original context crop.
 """
 import argparse
 import json
 from pathlib import Path
 
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFilter
 
 REPO = Path(__file__).resolve().parent
 
@@ -26,12 +27,21 @@ def load_jsonl(path):
     return [json.loads(line) for line in Path(path).read_text().splitlines() if line.strip()]
 
 
+def feathered_mask(size, box, feather):
+    mask = Image.new("L", size, 0)
+    ImageDraw.Draw(mask).rectangle([int(v) for v in box], fill=255)
+    if feather > 0:
+        mask = mask.filter(ImageFilter.GaussianBlur(feather))
+    return mask
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model-name", default="hunyuan_image3")
     ap.add_argument("--tasks", default="annotations/generation_tasks.jsonl")
     ap.add_argument("--generated-manifest", default=None)
     ap.add_argument("--out-dir", default=None)
+    ap.add_argument("--feather", type=float, default=2.0)
     args = ap.parse_args()
 
     model = args.model_name
@@ -50,14 +60,23 @@ def main():
         crop_path = REPO / row["output_crop"]
 
         source = Image.open(source_path).convert("RGB")
-        crop = Image.open(crop_path).convert("RGB")
+        generated_crop = Image.open(crop_path).convert("RGB")
         x1, y1, x2, y2 = [int(v) for v in task["context_region_xyxy"]]
         expected = (x2 - x1, y2 - y1)
-        if crop.size != expected:
-            raise ValueError(f"{task_id}: crop size {crop.size} != context size {expected}")
+        if generated_crop.size != expected:
+            raise ValueError(f"{task_id}: crop size {generated_crop.size} != context size {expected}")
+
+        if row.get("paste_back") is False:
+            original_crop = source.crop((x1, y1, x2, y2))
+            mask = feathered_mask(expected, task["edit_region_in_context_xyxy"], args.feather)
+            crop_to_paste = Image.composite(generated_crop, original_crop, mask)
+            paste_mode = "masked_insert_region"
+        else:
+            crop_to_paste = generated_crop
+            paste_mode = "full_context_crop"
 
         spliced = source.copy()
-        spliced.paste(crop, (x1, y1))
+        spliced.paste(crop_to_paste, (x1, y1))
         out_path = out_dir / f"{task_id}.png"
         spliced.save(out_path)
 
@@ -70,7 +89,10 @@ def main():
             "image_size": list(source.size),
             "context_region_xyxy": task["context_region_xyxy"],
             "edit_region_xyxy": task["edit_region_xyxy"],
+            "edit_region_in_context_xyxy": task["edit_region_in_context_xyxy"],
             "candidates": task["candidates"],
+            "paste_mode": paste_mode,
+            "source_generated_paste_back": row.get("paste_back"),
             "status": "ok",
         })
         print(f"{task_id}: {out_path}")
