@@ -28,11 +28,24 @@ REPO = Path(__file__).resolve().parent
 MODEL_MIN = 512          # service-enforced minimum side
 ALIGN = 16
 PROMPT_TMPL = (
-    "Add a small realistic {cand} inside the marked target area. Keep the rest "
-    "of the image unchanged. Preserve lighting, shadows, texture, camera "
-    "perspective, and JPEG-like realism. Do not alter unrelated objects or the "
-    "background."
+    "Add a single small realistic {cand} in the {pos} of the image. "
+    "Place only the one {cand}; keep everything else unchanged. Preserve "
+    "lighting, shadows, texture, camera perspective, and JPEG-like realism. "
+    "Do not alter unrelated objects or the background."
 )
+
+
+def position_phrase(box, size):
+    """Coarse 3x3-grid description of the orange box centre within the crop,
+    used to tell a model that has no native region input where to place it."""
+    w, h = size
+    cx = (box[0] + box[2]) / 2 / w
+    cy = (box[1] + box[3]) / 2 / h
+    col = "left" if cx < 1 / 3 else ("right" if cx > 2 / 3 else "center")
+    row = "top" if cy < 1 / 3 else ("bottom" if cy > 2 / 3 else "middle")
+    if row == "middle" and col == "center":
+        return "center"
+    return f"{row}-{col} area"
 
 
 def ceil_to(x, m=ALIGN):
@@ -103,18 +116,21 @@ def run_task(task, args):
     tw, th = upscale_size(W, H)
 
     up = crop.resize((tw, th), Image.LANCZOS)
-    prompt = PROMPT_TMPL.format(cand=task["candidates"])
+    box = [int(v) for v in task["edit_region_in_context_xyxy"]]
+    pos = position_phrase(box, (W, H))
+    prompt = PROMPT_TMPL.format(cand=task["candidates"], pos=pos)
     seed = (abs(hash(task["task_id"])) % 9_000_000) + 1
 
     edited_up = call_edit(args.url, args.model, up, prompt, tw, th,
                           args.steps, seed)
     edited = edited_up.resize((W, H), Image.LANCZOS)
 
-    # Paste edited pixels back only inside the (feathered) insert region so the
-    # rest of the crop stays identical to the source.
-    out = crop.copy()
-    if not args.no_paste_back:
-        box = [int(v) for v in task["edit_region_in_context_xyxy"]]
+    # Default: the saved crop IS the model's full edited blue-box crop, which is
+    # what the downstream pipeline splices back. The orange box is only a
+    # positional hint (encoded in the prompt above), not a compositing mask.
+    # --paste-back optionally reverts everything outside the orange region to
+    # the source pixels (maximally pixel-preserving, but adds a splice seam).
+    if args.paste_back:
         mask = feathered_mask((W, H), box, args.feather)
         out = Image.composite(edited, crop, mask)
     else:
@@ -132,8 +148,10 @@ def main():
     ap.add_argument("--tasks", default="annotations/generation_tasks.jsonl")
     ap.add_argument("--steps", type=int, default=8)
     ap.add_argument("--feather", type=float, default=2.0)
-    ap.add_argument("--no-paste-back", action="store_true",
-                    help="save raw model output (whole crop) instead of masked paste-back")
+    ap.add_argument("--paste-back", action="store_true",
+                    help="revert pixels outside the orange region to source "
+                         "(maximally pixel-preserving; adds a splice seam). "
+                         "Default: save the model's full edited blue crop.")
     ap.add_argument("--only", default=None,
                     help="comma-separated task_ids or 0-based indices to run")
     args = ap.parse_args()
@@ -166,7 +184,7 @@ def main():
                 "prompt": prompt,
                 "seed": seed,
                 "size": [W, H],
-                "paste_back": not args.no_paste_back,
+                "paste_back": args.paste_back,
                 "status": "ok",
             }) + "\n")
             man.flush()
