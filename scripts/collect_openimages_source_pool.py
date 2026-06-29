@@ -13,15 +13,18 @@ import random
 import re
 import time
 import urllib.request
-from collections import defaultdict
+from collections import Counter, defaultdict
+from datetime import date
 from io import BytesIO
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageOps
 
 REPO = Path(__file__).resolve().parents[1]
-OUT = REPO / "source_pool" / "openimages_v7_400"
+OUT = REPO / "source_pool" / "openimages_v7_600"
 CACHE = OUT / "_cache"
+TARGET_PER_CATEGORY = 300
+CONTACT_SHEET_PAGE_SIZE = 50
 
 HEADERS = {
     "User-Agent": "ClaimForgeBenchmark/0.1 source pool collection",
@@ -226,9 +229,7 @@ def download_image(item: dict, max_side: int) -> Image.Image | None:
     return None
 
 
-def write_contact_sheet(items: list[dict], category: str):
-    sheet_dir = OUT / "contact_sheets"
-    sheet_dir.mkdir(parents=True, exist_ok=True)
+def render_contact_sheet(items: list[dict], out_path: Path):
     thumb_w, thumb_h = 220, 165
     cols = 5
     rows = (len(items) + cols - 1) // cols
@@ -245,23 +246,58 @@ def write_contact_sheet(items: list[dict], category: str):
         draw.text((tx, ty), f"{idx:03d} {item['id']} score={item['score']}", fill=(0, 0, 0))
         draw.text((tx, ty + 15), item.get("title", "")[:32], fill=(70, 70, 70))
         draw.text((tx, ty + 29), item.get("license", "").replace("https://creativecommons.org/licenses/", "cc/")[:34], fill=(100, 100, 100))
-    out_path = sheet_dir / f"{category}_contact_sheet.jpg"
     sheet.save(out_path, "JPEG", quality=92)
+
+
+def write_contact_sheet(items: list[dict], category: str):
+    sheet_dir = OUT / "contact_sheets"
+    sheet_dir.mkdir(parents=True, exist_ok=True)
+    render_contact_sheet(items, sheet_dir / f"{category}_contact_sheet.jpg")
+
+    page_dir = sheet_dir / "pages"
+    page_dir.mkdir(parents=True, exist_ok=True)
+    for stale in page_dir.glob(f"{category}_*.jpg"):
+        stale.unlink()
+    for page_idx, start in enumerate(range(0, len(items), CONTACT_SHEET_PAGE_SIZE), start=1):
+        page_items = items[start:start + CONTACT_SHEET_PAGE_SIZE]
+        render_contact_sheet(page_items, page_dir / f"{category}_{page_idx:02d}.jpg")
+
+
+def read_existing_items(category: str) -> list[dict]:
+    manifest_path = OUT / f"{category}_manifest.json"
+    if not manifest_path.exists():
+        return []
+    items = json.loads(manifest_path.read_text(encoding="utf-8"))
+    kept = []
+    for item in items:
+        image_path = OUT / item.get("path", "")
+        if image_path.exists():
+            kept.append(item)
+    return kept
 
 
 def collect_category(category: str, candidates: list[dict], target: int, max_side: int) -> list[dict]:
     out_dir = OUT / category
     out_dir.mkdir(parents=True, exist_ok=True)
-    collected = []
+    collected = read_existing_items(category)
+    used_source_ids = {item["source_image_id"] for item in collected}
+    used_ids = {item["id"] for item in collected}
     failures = []
+    if collected:
+        print(f"{category}: found {len(collected)} existing images", flush=True)
+
     for item in candidates:
         if len(collected) >= target:
             break
+        if item["source_image_id"] in used_source_ids:
+            continue
         img = download_image(item, max_side=max_side)
         if img is None:
             failures.append(item)
             continue
         idx = len(collected)
+        while f"{category}_{idx:03d}" in used_ids:
+            idx += 1
         image_id = f"{category}_{idx:03d}"
         filename = f"{image_id}.jpg"
         img.save(out_dir / filename, "JPEG", quality=92, optimize=True)
@@ -273,6 +309,8 @@ def collect_category(category: str, candidates: list[dict], target: int, max_sid
             **item,
         }
         collected.append(saved)
+        used_source_ids.add(item["source_image_id"])
+        used_ids.add(image_id)
         if len(collected) % 25 == 0:
             print(f"{category}: collected {len(collected)}/{target}", flush=True)
         time.sleep(0.05)
@@ -283,6 +321,46 @@ def collect_category(category: str, candidates: list[dict], target: int, max_sid
     (OUT / f"{category}_failures.json").write_text(json.dumps(failures[:500], ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     write_contact_sheet(collected, category)
     return collected
+
+
+def write_summary(items_by_category: dict[str, list[dict]]):
+    lines = [
+        "# Open Images V7 Source Pool Summary",
+        f"Collected/updated on {date.today().isoformat()} for CLAIMFORGE benchmark expansion.",
+        "This pool is for human screening and annotation, not the final benchmark split.",
+        "",
+    ]
+    for category, items in items_by_category.items():
+        min_sides = [min(item["size"]["width"], item["size"]["height"]) for item in items]
+        max_sides = [max(item["size"]["width"], item["size"]["height"]) for item in items]
+        people_scores = [float(item.get("people_score", 0.0)) for item in items]
+        label_key = f"{category}_labels"
+        labels = Counter()
+        for item in items:
+            labels.update((item.get(label_key) or {}).keys())
+
+        lines.extend([
+            f"## {category}",
+            f"- images: {len(items)}",
+            f"- total size on disk: see `{category}/`",
+            f"- min side median: {round(sorted(min_sides)[len(min_sides) // 2]) if min_sides else 0} px",
+            f"- max side median: {round(sorted(max_sides)[len(max_sides) // 2]) if max_sides else 0} px",
+            f"- people score max: {max(people_scores, default=0.0):.3f} (filtered out >= 0.80)",
+            "- top labels:",
+        ])
+        for label, count in labels.most_common(12):
+            lines.append(f"  - {label}: {count}")
+        lines.append("")
+
+    lines.extend([
+        "## Recommended next step",
+        "- Review `contact_sheets/pages/*.jpg`.",
+        "- Mark keep/reject for each image before slot annotation.",
+        "- Prefer indoor/table/room/bathroom/kitchen surfaces where a small localized defect/object can plausibly be inserted.",
+        "- Reject images dominated by signs, menus, posters, exterior-only views, heavy crowds/faces, or scenes with no plausible local edit surface.",
+        "",
+    ])
+    (OUT / "SUMMARY.md").write_text("\n".join(lines), encoding="utf-8")
 
 
 def main():
@@ -298,18 +376,19 @@ def main():
     candidates = build_candidates()
     (OUT / "candidate_counts.json").write_text(json.dumps({k: len(v) for k, v in candidates.items()}, indent=2) + "\n", encoding="utf-8")
 
-    restaurant = collect_category("restaurant", candidates["restaurant"], target=200, max_side=1800)
-    lodging = collect_category("lodging", candidates["lodging"], target=200, max_side=1800)
+    restaurant = collect_category("restaurant", candidates["restaurant"], target=TARGET_PER_CATEGORY, max_side=1800)
+    lodging = collect_category("lodging", candidates["lodging"], target=TARGET_PER_CATEGORY, max_side=1800)
     all_items = restaurant + lodging
     (OUT / "manifest.json").write_text(json.dumps(all_items, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    write_summary({"restaurant": restaurant, "lodging": lodging})
 
-    readme = """# Open Images V7 400-image Source Pool
+    readme = f"""# Open Images V7 600-image Source Pool
 
 This is a candidate source pool for the CLAIMFORGE benchmark expansion.
 
 Counts:
-- restaurant: 200 images
-- lodging: 200 images
+- restaurant: {len(restaurant)} images
+- lodging: {len(lodging)} images
 
 These are not final benchmark samples yet. They are intended for human screening
 and slot annotation. Source URLs, license URLs, Open Images split, labels, and
@@ -318,11 +397,14 @@ download provenance are in the manifests.
 Contact sheets:
 - contact_sheets/restaurant_contact_sheet.jpg
 - contact_sheets/lodging_contact_sheet.jpg
+- contact_sheets/pages/restaurant_*.jpg
+- contact_sheets/pages/lodging_*.jpg
 
 Primary manifests:
 - manifest.json
 - restaurant_manifest.json
 - lodging_manifest.json
+- SUMMARY.md
 """
     (OUT / "README.md").write_text(readme, encoding="utf-8")
     print("done", OUT, len(all_items), flush=True)

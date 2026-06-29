@@ -4,6 +4,26 @@ This directory contains source images and local-edit annotations for the lodging
 
 If you are the remote generation agent, read `AGENT_BRIEF.md` first.
 
+## Expanded source pool and labeler
+
+The current candidate source pool for the benchmark expansion is:
+
+- `source_pool/openimages_v7_600/restaurant/`: 300 restaurant candidates.
+- `source_pool/openimages_v7_600/lodging/`: 300 lodging/hotel/B&B candidates.
+- `source_pool/openimages_v7_600/manifest.json`: combined 600-image manifest.
+- `source_pool/openimages_v7_600/SUMMARY.md`: source-pool stats and screening notes.
+- `source_pool/openimages_v7_600/contact_sheets/pages/`: 50-image pages for manual review.
+
+The browser labeler is `tools/claimforge-labeler.html`. Serve this repository over
+HTTP and open:
+
+```text
+http://localhost:8000/tools/claimforge-labeler.html
+```
+
+The labeler loads `source_pool/openimages_v7_600/manifest.json` by default.
+Use the orange box for `insert_box` and the blue box for `crop_box`.
+
 Counts:
 - source images: 22
 - slots: 22

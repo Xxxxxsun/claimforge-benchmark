@@ -1,0 +1,1088 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CLAIMFORGE Source Labeler</title>
+  <style>
+    :root {
+      --bg: #f5f5f1;
+      --panel: #ffffff;
+      --text: #1f2933;
+      --muted: #667085;
+      --line: #d9dde3;
+      --blue: #2563eb;
+      --orange: #ea7a18;
+      --green: #178f6d;
+      --red: #d92d20;
+      --shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 14px;
+    }
+
+    main {
+      width: min(1520px, calc(100vw - 28px));
+      margin: 18px auto 28px;
+    }
+
+    header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 23px;
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    .subhead {
+      margin: 7px 0 0;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .toolbar,
+    .panel,
+    .side {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      padding: 10px;
+      margin-bottom: 12px;
+    }
+
+    label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--muted);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    input {
+      height: 34px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 0 10px;
+      color: var(--text);
+      background: #fff;
+      font: inherit;
+    }
+
+    #label-input {
+      width: 150px;
+    }
+
+    #candidate-input {
+      width: min(360px, 42vw);
+    }
+
+    button {
+      height: 34px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--text);
+      cursor: pointer;
+      font-weight: 700;
+      padding: 0 11px;
+    }
+
+    button:hover {
+      border-color: #98a2b3;
+    }
+
+    button.primary {
+      background: var(--text);
+      border-color: var(--text);
+      color: #fff;
+    }
+
+    button.danger {
+      color: var(--red);
+    }
+
+    button.zoom.active,
+    button.image-choice.active,
+    button.draw-mode.active {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: #fff;
+    }
+
+    button.draw-mode.insert.active {
+      background: var(--orange);
+      border-color: var(--orange);
+    }
+
+    .image-tabs {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      flex: 1 1 520px;
+      max-height: 96px;
+      overflow: auto;
+      padding-right: 4px;
+      border-right: 1px solid var(--line);
+    }
+
+    .spacer {
+      flex: 1 1 auto;
+    }
+
+    .status {
+      min-width: 120px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 390px;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .panel {
+      padding: 10px;
+      overflow: hidden;
+    }
+
+    .stage {
+      width: 100%;
+      max-height: calc(100vh - 160px);
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background:
+        linear-gradient(45deg, #f1f2f4 25%, transparent 25%),
+        linear-gradient(-45deg, #f1f2f4 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #f1f2f4 75%),
+        linear-gradient(-45deg, transparent 75%, #f1f2f4 75%);
+      background-position: 0 0, 0 10px, 10px -10px, -10px 0;
+      background-size: 20px 20px;
+    }
+
+    canvas {
+      display: block;
+      background: #e5e7eb;
+      cursor: crosshair;
+      touch-action: none;
+    }
+
+    .side {
+      padding: 12px;
+    }
+
+    .side h2 {
+      margin: 0 0 8px;
+      font-size: 15px;
+      line-height: 1.2;
+    }
+
+    .box-list {
+      display: grid;
+      gap: 8px;
+      max-height: 240px;
+      overflow: auto;
+      padding-right: 2px;
+      margin-bottom: 12px;
+    }
+
+    .box-item {
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      padding: 9px;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    .box-item.active {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.14);
+    }
+
+    .box-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: baseline;
+    }
+
+    .box-name {
+      font-weight: 800;
+    }
+
+    .box-coords {
+      color: var(--muted);
+      font: 11px/1.35 Menlo, Consolas, monospace;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .box-candidates {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .slot-flags {
+      display: flex;
+      gap: 6px;
+      margin-top: 6px;
+      flex-wrap: wrap;
+    }
+
+    .slot-flag {
+      display: inline-flex;
+      align-items: center;
+      height: 20px;
+      border-radius: 999px;
+      padding: 0 7px;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .slot-flag.insert {
+      background: var(--orange);
+    }
+
+    .slot-flag.crop {
+      background: var(--blue);
+    }
+
+    .crop-preview {
+      display: block;
+      width: 100%;
+      min-height: 120px;
+      margin-bottom: 12px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #f2f4f7;
+      object-fit: contain;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 310px;
+      resize: vertical;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 10px;
+      color: var(--text);
+      background: #fbfbfc;
+      font: 12px/1.45 Menlo, Consolas, monospace;
+    }
+
+    .hint {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 980px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .stage {
+        max-height: none;
+      }
+
+      header {
+        display: block;
+      }
+
+      #candidate-input {
+        width: min(100%, 460px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div>
+        <h1>REKEY Method Box Labeler</h1>
+        <p class="subhead">Orange box = where the new object goes. Blue box = context crop to send to the generation model.</p>
+      </div>
+      <p id="image-meta" class="subhead"></p>
+    </header>
+
+    <section class="toolbar" aria-label="Box controls">
+      <div id="image-tabs" class="image-tabs" aria-label="Source image choices"></div>
+      <button id="new-slot" class="primary">New Slot</button>
+      <button class="draw-mode insert active" data-mode="insert">Draw Place Box</button>
+      <button class="draw-mode crop" data-mode="crop">Draw Crop Box</button>
+      <label>
+        Label
+        <input id="label-input" type="text" placeholder="select a box" autocomplete="off">
+      </label>
+      <label>
+        Candidates
+        <input id="candidate-input" type="text" placeholder="bottle, cup, flower" autocomplete="off">
+      </label>
+      <button id="auto-crop">Auto Crop</button>
+      <button id="delete-selected" class="danger">Delete Slot</button>
+      <button id="clear-all" class="danger">Clear Current Image</button>
+      <span class="spacer"></span>
+      <button class="zoom active" data-zoom="fit">Fit</button>
+      <button class="zoom" data-zoom="0.5">50%</button>
+      <button class="zoom" data-zoom="0.75">75%</button>
+      <button class="zoom" data-zoom="1">100%</button>
+      <button class="zoom" data-zoom="1.25">125%</button>
+      <button id="download-crop">Download Crop</button>
+      <button id="download-all-crops">Download All Crops</button>
+      <button id="copy" class="primary">Copy JSON</button>
+      <button id="download">Download</button>
+      <span id="status" class="status"></span>
+    </section>
+
+    <section class="layout">
+      <div class="panel">
+        <div class="stage" id="stage">
+          <canvas id="canvas"></canvas>
+        </div>
+      </div>
+
+      <aside class="side">
+        <h2>Slots</h2>
+        <div id="box-list" class="box-list"></div>
+        <h2>Selected Crop Preview</h2>
+        <img id="crop-preview" class="crop-preview" alt="">
+        <h2>Export JSON</h2>
+        <textarea id="json" readonly></textarea>
+        <p class="hint">Workflow: New Slot -> draw orange place box -> draw blue crop box -> Download Crop. Click a slot in the list or on the image to edit it.</p>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    const defaultManifestPath = '../source_pool/openimages_v7_600/manifest.json';
+    let sourceImages = [];
+    const storageKey = 'claimforge-openimages-v7-600-labels-v1';
+    const legacyStorageKeys = ['rekey-method-box-labels-v2', 'rekey-method-box-labels-v1'];
+    const placeColor = '#ea7a18';
+    const cropColor = '#2563eb';
+
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const stage = document.getElementById('stage');
+    const imageTabsEl = document.getElementById('image-tabs');
+    const labelInput = document.getElementById('label-input');
+    const candidateInput = document.getElementById('candidate-input');
+    const jsonEl = document.getElementById('json');
+    const statusEl = document.getElementById('status');
+    const boxListEl = document.getElementById('box-list');
+    const imageMetaEl = document.getElementById('image-meta');
+    const cropPreviewEl = document.getElementById('crop-preview');
+
+    let image = new Image();
+    let state = loadState();
+    let currentImageId = null;
+    let slots = [];
+    let selectedId = null;
+    let dragging = null;
+    let zoomMode = 'fit';
+    let drawMode = 'insert';
+    let scale = 1;
+
+    async function loadSourceImages() {
+      const params = new URLSearchParams(window.location.search);
+      const manifestPath = params.get('manifest') || defaultManifestPath;
+      const manifestUrl = new URL(manifestPath, window.location.href);
+      const response = await fetch(manifestUrl);
+      if (!response.ok) {
+        throw new Error(`Failed to load manifest: ${response.status} ${response.statusText}`);
+      }
+      const items = await response.json();
+      const baseUrl = new URL('.', manifestUrl);
+      return items.map((item) => {
+        const title = item.title || item.source_image_id || item.id;
+        return {
+          id: item.id,
+          title: `${item.category || 'source'} · ${title}`,
+          path: new URL(item.path, baseUrl).href,
+          manifest_path: item.path,
+          size: item.size || { width: 0, height: 0 },
+          category: item.category,
+          source_image_id: item.source_image_id
+        };
+      });
+    }
+
+    function rectFrom(item) {
+      if (!item || typeof item.x !== 'number') return null;
+      return {
+        x: item.x,
+        y: item.y,
+        width: item.width,
+        height: item.height
+      };
+    }
+
+    function normalizeSlot(item, index) {
+      const id = item.id || `slot_${String(index + 1).padStart(3, '0')}`;
+      return {
+        id,
+        label: item.label || `slot ${index + 1}`,
+        candidates: item.candidates || '',
+        insert_box: item.insert_box || rectFrom(item),
+        crop_box: item.crop_box || null
+      };
+    }
+
+    function normalizeState(raw) {
+      const normalized = {};
+      if (Array.isArray(raw)) {
+        normalized.vstar_0107 = raw.map(normalizeSlot);
+        return normalized;
+      }
+      if (!raw || typeof raw !== 'object') return normalized;
+      Object.keys(raw).forEach((imageId) => {
+        normalized[imageId] = Array.isArray(raw[imageId]) ? raw[imageId].map(normalizeSlot) : [];
+      });
+      return normalized;
+    }
+
+    function loadState() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(storageKey));
+        if (saved) return normalizeState(saved);
+      } catch (_) {}
+
+      for (const key of legacyStorageKeys) {
+        try {
+          const saved = JSON.parse(localStorage.getItem(key));
+          if (saved) return normalizeState(saved);
+        } catch (_) {}
+      }
+
+      return {};
+    }
+
+    function slotsFor(imageId) {
+      state[imageId] = state[imageId] || [];
+      return state[imageId];
+    }
+
+    function saveState() {
+      state[currentImageId] = slots;
+      localStorage.setItem(storageKey, JSON.stringify(state));
+    }
+
+    function currentSource() {
+      return sourceImages.find((item) => item.id === currentImageId);
+    }
+
+    function selectedSlot() {
+      return slots.find((slot) => slot.id === selectedId) || null;
+    }
+
+    function setStatus(text) {
+      statusEl.textContent = text;
+      if (!text) return;
+      window.clearTimeout(setStatus.timer);
+      setStatus.timer = window.setTimeout(() => {
+        statusEl.textContent = '';
+      }, 2200);
+    }
+
+    function renderImageTabs() {
+      imageTabsEl.innerHTML = sourceImages.map((item, index) => {
+        const active = item.id === currentImageId ? ' active' : '';
+        const count = slotsFor(item.id).length;
+        return `<button class="image-choice${active}" data-id="${item.id}">${index + 1}. ${item.id} (${count})</button>`;
+      }).join('');
+      imageTabsEl.querySelectorAll('.image-choice').forEach((button) => {
+        button.addEventListener('click', () => switchImage(button.dataset.id));
+      });
+    }
+
+    function switchImage(id) {
+      if (id === currentImageId) return;
+      saveState();
+      currentImageId = id;
+      slots = slotsFor(currentImageId);
+      selectedId = slots[0] ? slots[0].id : null;
+      dragging = null;
+      loadCurrentImage();
+      setStatus('Switched image');
+    }
+
+    function setDrawMode(mode) {
+      drawMode = mode;
+      document.querySelectorAll('.draw-mode').forEach((button) => {
+        button.classList.toggle('active', button.dataset.mode === mode);
+      });
+      setStatus(mode === 'insert' ? 'Draw orange place box' : 'Draw blue crop box');
+    }
+
+    function nextId() {
+      const used = new Set(slots.map((slot) => slot.id));
+      let index = slots.length + 1;
+      while (used.has(`slot_${String(index).padStart(3, '0')}`)) {
+        index += 1;
+      }
+      return `slot_${String(index).padStart(3, '0')}`;
+    }
+
+    function defaultLabel() {
+      return `slot ${slots.length + 1}`;
+    }
+
+    function createSlot() {
+      const slot = {
+        id: nextId(),
+        label: defaultLabel(),
+        candidates: '',
+        insert_box: null,
+        crop_box: null
+      };
+      slots.push(slot);
+      selectedId = slot.id;
+      updateOutput();
+      selectSlot(slot.id);
+      return slot;
+    }
+
+    function ensureSelectedSlot() {
+      return selectedSlot() || createSlot();
+    }
+
+    function fitScale() {
+      if (!image.naturalWidth) return 1;
+      const available = Math.max(300, stage.clientWidth - 24);
+      return Math.min(1, available / image.naturalWidth);
+    }
+
+    function updateScale() {
+      if (!image.naturalWidth) return;
+      scale = zoomMode === 'fit' ? fitScale() : Number(zoomMode);
+      canvas.width = Math.round(image.naturalWidth * scale);
+      canvas.height = Math.round(image.naturalHeight * scale);
+      canvas.style.width = `${canvas.width}px`;
+      canvas.style.height = `${canvas.height}px`;
+      draw();
+    }
+
+    function naturalToCanvas(rect) {
+      return {
+        x: rect.x * scale,
+        y: rect.y * scale,
+        width: rect.width * scale,
+        height: rect.height * scale
+      };
+    }
+
+    function canvasToNatural(rect) {
+      return {
+        x: Math.round(rect.x / scale),
+        y: Math.round(rect.y / scale),
+        width: Math.round(rect.width / scale),
+        height: Math.round(rect.height / scale)
+      };
+    }
+
+    function clampRect(rect, maxWidth, maxHeight) {
+      const x1 = Math.max(0, Math.min(rect.x, rect.x + rect.width));
+      const y1 = Math.max(0, Math.min(rect.y, rect.y + rect.height));
+      const x2 = Math.min(maxWidth, Math.max(rect.x, rect.x + rect.width));
+      const y2 = Math.min(maxHeight, Math.max(rect.y, rect.y + rect.height));
+      return { x: x1, y: y1, width: x2 - x1, height: y2 - y1 };
+    }
+
+    function drawLabel(text, x, y, color) {
+      const paddingX = 7;
+      const paddingY = 4;
+      ctx.save();
+      ctx.font = '700 13px Arial, Helvetica, sans-serif';
+      const metrics = ctx.measureText(text);
+      const width = Math.ceil(metrics.width + paddingX * 2);
+      const height = 22;
+      const labelX = Math.min(Math.max(0, x), canvas.width - width);
+      const labelY = y > height + 4 ? y - height - 4 : y + 4;
+      ctx.fillStyle = color;
+      ctx.fillRect(labelX, labelY, width, height);
+      ctx.fillStyle = '#fff';
+      ctx.fillText(text, labelX + paddingX, labelY + height - paddingY - 3);
+      ctx.restore();
+    }
+
+    function drawRect(rect, color, label, active, dashed) {
+      if (!rect) return;
+      const canvasRect = naturalToCanvas(rect);
+      ctx.save();
+      ctx.lineWidth = active ? 4 : 3;
+      ctx.strokeStyle = color;
+      ctx.setLineDash(dashed ? [10, 7] : []);
+      ctx.strokeRect(canvasRect.x, canvasRect.y, canvasRect.width, canvasRect.height);
+      ctx.restore();
+      drawLabel(label, canvasRect.x, canvasRect.y, color);
+    }
+
+    function drawSlot(slot) {
+      const active = slot.id === selectedId;
+      drawRect(slot.crop_box, cropColor, `${slot.label || slot.id} crop`, active, true);
+      drawRect(slot.insert_box, placeColor, `${slot.label || slot.id} place`, active, false);
+    }
+
+    function draw() {
+      if (!image.naturalWidth) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+      slots.forEach(drawSlot);
+      if (dragging) {
+        const rect = clampRect(dragging, canvas.width, canvas.height);
+        ctx.save();
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = drawMode === 'insert' ? placeColor : cropColor;
+        ctx.setLineDash(drawMode === 'insert' ? [] : [10, 7]);
+        ctx.strokeRect(rect.x, rect.y, rect.width, rect.height);
+        ctx.restore();
+      }
+    }
+
+    function pointInRect(point, rect) {
+      if (!rect) return false;
+      const canvasRect = naturalToCanvas(rect);
+      return (
+        point.x >= canvasRect.x &&
+        point.x <= canvasRect.x + canvasRect.width &&
+        point.y >= canvasRect.y &&
+        point.y <= canvasRect.y + canvasRect.height
+      );
+    }
+
+    function selectSlotAt(point) {
+      for (let index = slots.length - 1; index >= 0; index -= 1) {
+        const slot = slots[index];
+        if (pointInRect(point, slot.insert_box) || pointInRect(point, slot.crop_box)) {
+          selectSlot(slot.id);
+          setStatus('Selected slot');
+          return true;
+        }
+      }
+      return false;
+    }
+
+    function formatRect(rect) {
+      if (!rect) return 'not set';
+      return `x${rect.x} y${rect.y} · ${rect.width} x ${rect.height}`;
+    }
+
+    function compactSlot(slot) {
+      return {
+        id: slot.id,
+        label: slot.label,
+        candidates: slot.candidates,
+        insert_box: slot.insert_box,
+        crop_box: slot.crop_box
+      };
+    }
+
+    function payload() {
+      saveState();
+      return {
+        version: 2,
+        task: 'rekey_method_slots',
+        coordinate_space: 'original_image_pixels',
+        active_image: currentImageId,
+        images: sourceImages.map((item) => ({
+          id: item.id,
+          title: item.title,
+          image: item.manifest_path || item.path,
+          image_size: item.size,
+          slots: slotsFor(item.id).map(compactSlot)
+        }))
+      };
+    }
+
+    function renderList() {
+      if (!slots.length) {
+        boxListEl.innerHTML = '<div class="hint">No slots yet on this image. Click New Slot, then draw the orange place box.</div>';
+        return;
+      }
+      boxListEl.innerHTML = slots.map((slot) => {
+        const active = slot.id === selectedId ? ' active' : '';
+        const candidates = slot.candidates ? slot.candidates : 'no candidates';
+        const placeFlag = slot.insert_box ? 'Place set' : 'Place missing';
+        const cropFlag = slot.crop_box ? 'Crop set' : 'Crop missing';
+        return `
+          <div class="box-item${active}" data-id="${slot.id}">
+            <div class="box-row">
+              <span class="box-name">${escapeHtml(slot.label || slot.id)}</span>
+              <span class="box-coords">place: ${escapeHtml(formatRect(slot.insert_box))}<br>crop: ${escapeHtml(formatRect(slot.crop_box))}</span>
+            </div>
+            <div class="slot-flags">
+              <span class="slot-flag insert">${placeFlag}</span>
+              <span class="slot-flag crop">${cropFlag}</span>
+            </div>
+            <div class="box-candidates">${escapeHtml(candidates)}</div>
+          </div>
+        `;
+      }).join('');
+      boxListEl.querySelectorAll('.box-item').forEach((item) => {
+        item.addEventListener('click', () => selectSlot(item.dataset.id));
+      });
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+
+    function cropCanvasFromImage(sourceImage, rect, maxSide) {
+      const factor = maxSide ? Math.min(1, maxSide / Math.max(rect.width, rect.height)) : 1;
+      const out = document.createElement('canvas');
+      out.width = Math.max(1, Math.round(rect.width * factor));
+      out.height = Math.max(1, Math.round(rect.height * factor));
+      const outCtx = out.getContext('2d');
+      outCtx.drawImage(
+        sourceImage,
+        rect.x,
+        rect.y,
+        rect.width,
+        rect.height,
+        0,
+        0,
+        out.width,
+        out.height
+      );
+      return out;
+    }
+
+    function renderPreview() {
+      const slot = selectedSlot();
+      if (!slot || !slot.crop_box || !image.naturalWidth) {
+        cropPreviewEl.removeAttribute('src');
+        cropPreviewEl.alt = 'No crop selected';
+        return;
+      }
+      const previewCanvas = cropCanvasFromImage(image, slot.crop_box, 900);
+      cropPreviewEl.src = previewCanvas.toDataURL('image/jpeg', 0.92);
+      cropPreviewEl.alt = `${slot.label || slot.id} crop preview`;
+    }
+
+    function updateOutput() {
+      saveState();
+      jsonEl.value = JSON.stringify(payload(), null, 2);
+      renderList();
+      renderImageTabs();
+      renderPreview();
+    }
+
+    function selectSlot(id) {
+      selectedId = id;
+      const slot = selectedSlot();
+      if (slot) {
+        labelInput.value = slot.label || slot.id;
+        candidateInput.value = slot.candidates || '';
+      } else {
+        labelInput.value = '';
+        candidateInput.value = '';
+      }
+      renderList();
+      renderPreview();
+      draw();
+    }
+
+    function updateSelectedFromInputs() {
+      const slot = selectedSlot();
+      if (!slot) return;
+      slot.label = labelInput.value.trim() || slot.id;
+      slot.candidates = candidateInput.value.trim();
+      updateOutput();
+      draw();
+    }
+
+    function pointFromEvent(event) {
+      const rect = canvas.getBoundingClientRect();
+      return {
+        x: (event.clientX - rect.left) * (canvas.width / rect.width),
+        y: (event.clientY - rect.top) * (canvas.height / rect.height)
+      };
+    }
+
+    function loadCurrentImage() {
+      const source = currentSource();
+      if (!source) {
+        imageMetaEl.textContent = 'No source image loaded';
+        return;
+      }
+      image = new Image();
+      image.onload = () => {
+        source.size = { width: image.naturalWidth, height: image.naturalHeight };
+        imageMetaEl.textContent = `${source.id} · ${source.title} · ${image.naturalWidth} x ${image.naturalHeight} px`;
+        updateScale();
+        updateOutput();
+        selectSlot(selectedId);
+      };
+      image.onerror = () => {
+        imageMetaEl.textContent = `Failed to load ${source.id}`;
+        setStatus('Image error');
+      };
+      image.src = source.path;
+    }
+
+    function downloadCanvas(canvasToDownload, filename) {
+      canvasToDownload.toBlob((blob) => {
+        if (!blob) return;
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+      }, 'image/jpeg', 0.95);
+    }
+
+    function downloadSelectedCrop() {
+      const slot = selectedSlot();
+      if (!slot || !slot.crop_box) {
+        setStatus('Draw/select a blue crop box first');
+        return;
+      }
+      const crop = cropCanvasFromImage(image, slot.crop_box);
+      downloadCanvas(crop, `${currentImageId}-${slot.id}-crop.jpg`);
+      setStatus('Crop downloaded');
+    }
+
+    function loadImageForDownload(path) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = reject;
+        img.src = path;
+      });
+    }
+
+    async function downloadAllCrops() {
+      saveState();
+      let count = 0;
+      for (const source of sourceImages) {
+        const sourceSlots = slotsFor(source.id).filter((slot) => slot.crop_box);
+        if (!sourceSlots.length) continue;
+        const sourceImage = source.id === currentImageId ? image : await loadImageForDownload(source.path);
+        for (const slot of sourceSlots) {
+          const crop = cropCanvasFromImage(sourceImage, slot.crop_box);
+          downloadCanvas(crop, `${source.id}-${slot.id}-crop.jpg`);
+          count += 1;
+        }
+      }
+      setStatus(count ? `Downloaded ${count} crops` : 'No crop boxes to download');
+    }
+
+    function autoCropSelected() {
+      const slot = selectedSlot();
+      if (!slot || !slot.insert_box) {
+        setStatus('Draw/select an orange place box first');
+        return;
+      }
+      const box = slot.insert_box;
+      const width = Math.min(image.naturalWidth, Math.max(box.width * 3.8, 420));
+      const height = Math.min(image.naturalHeight, Math.max(box.height * 3.8, 320));
+      const centerX = box.x + box.width / 2;
+      const centerY = box.y + box.height / 2;
+      slot.crop_box = {
+        x: Math.round(Math.max(0, Math.min(centerX - width / 2, image.naturalWidth - width))),
+        y: Math.round(Math.max(0, Math.min(centerY - height / 2, image.naturalHeight - height))),
+        width: Math.round(width),
+        height: Math.round(height)
+      };
+      setDrawMode('crop');
+      updateOutput();
+      draw();
+      setStatus('Auto crop created');
+    }
+
+    canvas.addEventListener('pointerdown', (event) => {
+      if (!image.naturalWidth) return;
+      canvas.setPointerCapture(event.pointerId);
+      const point = pointFromEvent(event);
+      dragging = { x: point.x, y: point.y, width: 0, height: 0 };
+      draw();
+    });
+
+    canvas.addEventListener('pointermove', (event) => {
+      if (!dragging) return;
+      const point = pointFromEvent(event);
+      dragging.width = point.x - dragging.x;
+      dragging.height = point.y - dragging.y;
+      draw();
+    });
+
+    canvas.addEventListener('pointerup', (event) => {
+      if (!dragging) return;
+      const rect = clampRect(dragging, canvas.width, canvas.height);
+      const point = pointFromEvent(event);
+      dragging = null;
+      if (rect.width >= 5 && rect.height >= 5) {
+        const natural = clampRect(canvasToNatural(rect), image.naturalWidth, image.naturalHeight);
+        const slot = ensureSelectedSlot();
+        if (drawMode === 'insert') {
+          slot.insert_box = natural;
+          setStatus('Place box saved');
+        } else {
+          slot.crop_box = natural;
+          setStatus('Crop box saved');
+        }
+        updateOutput();
+        selectSlot(slot.id);
+      } else {
+        selectSlotAt(point);
+      }
+      draw();
+    });
+
+    labelInput.addEventListener('input', updateSelectedFromInputs);
+    candidateInput.addEventListener('input', updateSelectedFromInputs);
+
+    document.getElementById('new-slot').addEventListener('click', () => {
+      createSlot();
+      setDrawMode('insert');
+      setStatus('New slot created');
+    });
+
+    document.querySelectorAll('.draw-mode').forEach((button) => {
+      button.addEventListener('click', () => setDrawMode(button.dataset.mode));
+    });
+
+    document.getElementById('auto-crop').addEventListener('click', autoCropSelected);
+
+    document.getElementById('delete-selected').addEventListener('click', () => {
+      if (!selectedId) return;
+      slots = slots.filter((slot) => slot.id !== selectedId);
+      selectedId = slots[slots.length - 1] ? slots[slots.length - 1].id : null;
+      updateOutput();
+      selectSlot(selectedId);
+      draw();
+      setStatus('Slot deleted');
+    });
+
+    document.getElementById('clear-all').addEventListener('click', () => {
+      if (!window.confirm('Clear all slots on this image?')) return;
+      slots = [];
+      selectedId = null;
+      updateOutput();
+      selectSlot(null);
+      draw();
+      setStatus('Current image cleared');
+    });
+
+    document.getElementById('download-crop').addEventListener('click', downloadSelectedCrop);
+    document.getElementById('download-all-crops').addEventListener('click', downloadAllCrops);
+
+    document.getElementById('copy').addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(jsonEl.value);
+        setStatus('JSON copied');
+      } catch (_) {
+        jsonEl.focus();
+        jsonEl.select();
+        document.execCommand('copy');
+        setStatus('JSON copied');
+      }
+    });
+
+    document.getElementById('download').addEventListener('click', () => {
+      const blob = new Blob([jsonEl.value], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'claimforge-openimages-v7-600-slots.json';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+      setStatus('JSON downloaded');
+    });
+
+    document.querySelectorAll('.zoom').forEach((button) => {
+      button.addEventListener('click', () => {
+        zoomMode = button.dataset.zoom;
+        document.querySelectorAll('.zoom').forEach((item) => {
+          item.classList.toggle('active', item === button);
+        });
+        updateScale();
+      });
+    });
+
+    window.addEventListener('resize', () => {
+      if (zoomMode === 'fit') updateScale();
+    });
+
+    window.addEventListener('keydown', (event) => {
+      const tagName = document.activeElement.tagName.toLowerCase();
+      if (tagName === 'input' || tagName === 'textarea') return;
+      if ((event.key === 'Delete' || event.key === 'Backspace') && selectedId) {
+        document.getElementById('delete-selected').click();
+      }
+      if (event.key === 'Escape' && dragging) {
+        dragging = null;
+        draw();
+      }
+      if (event.key.toLowerCase() === 'p') setDrawMode('insert');
+      if (event.key.toLowerCase() === 'c') setDrawMode('crop');
+    });
+
+    async function bootstrap() {
+      try {
+        imageMetaEl.textContent = 'Loading source manifest...';
+        sourceImages = await loadSourceImages();
+        if (!sourceImages.length) {
+          imageMetaEl.textContent = 'Manifest has no images';
+          return;
+        }
+        currentImageId = sourceImages[0].id;
+        slots = slotsFor(currentImageId);
+        selectedId = slots[0] ? slots[0].id : null;
+        renderImageTabs();
+        loadCurrentImage();
+        setStatus(`Loaded ${sourceImages.length} images`);
+      } catch (error) {
+        imageMetaEl.textContent = error.message || 'Failed to load manifest';
+        setStatus('Manifest error');
+      }
+    }
+
+    bootstrap();
+  </script>
+</body>
+</html>
