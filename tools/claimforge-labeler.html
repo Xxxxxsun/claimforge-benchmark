@@ -163,6 +163,14 @@
       font-size: 13px;
     }
 
+    .progress-summary {
+      min-width: 210px;
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
     .layout {
       display: grid;
       grid-template-columns: minmax(0, 1fr) 390px;
@@ -341,6 +349,8 @@
 
     <section class="toolbar" aria-label="Box controls">
       <div id="image-tabs" class="image-tabs" aria-label="Source image choices"></div>
+      <span id="progress-summary" class="progress-summary"></span>
+      <button id="next-unlabeled" class="primary">Next</button>
       <button id="new-slot" class="primary">New Slot</button>
       <button class="draw-mode insert active" data-mode="insert">Draw Place Box</button>
       <button class="draw-mode crop" data-mode="crop">Draw Crop Box</button>
@@ -404,6 +414,7 @@
     const candidateInput = document.getElementById('candidate-input');
     const jsonEl = document.getElementById('json');
     const statusEl = document.getElementById('status');
+    const progressSummaryEl = document.getElementById('progress-summary');
     const boxListEl = document.getElementById('box-list');
     const imageMetaEl = document.getElementById('image-meta');
     const cropPreviewEl = document.getElementById('crop-preview');
@@ -515,6 +526,34 @@
       return slots.find((slot) => slot.id === selectedId) || null;
     }
 
+    function slotHasAnyBox(slot) {
+      return Boolean(slot && (slot.insert_box || slot.crop_box));
+    }
+
+    function slotIsComplete(slot) {
+      return Boolean(slot && slot.insert_box && slot.crop_box);
+    }
+
+    function imageAnnotationState(imageId) {
+      const imageSlots = slotsFor(imageId);
+      if (imageSlots.some(slotIsComplete)) return 'complete';
+      if (imageSlots.some(slotHasAnyBox)) return 'partial';
+      return 'unlabeled';
+    }
+
+    function annotationCounts() {
+      const counts = { complete: 0, partial: 0, unlabeled: 0 };
+      sourceImages.forEach((item) => {
+        counts[imageAnnotationState(item.id)] += 1;
+      });
+      return counts;
+    }
+
+    function renderProgressSummary() {
+      const counts = annotationCounts();
+      progressSummaryEl.textContent = `Done ${counts.complete}/${sourceImages.length} · Missing ${counts.unlabeled} · Partial ${counts.partial}`;
+    }
+
     function setStatus(text) {
       statusEl.textContent = text;
       if (!text) return;
@@ -528,7 +567,9 @@
       imageTabsEl.innerHTML = sourceImages.map((item, index) => {
         const active = item.id === currentImageId ? ' active' : '';
         const count = slotsFor(item.id).length;
-        return `<button class="image-choice${active}" data-id="${item.id}">${index + 1}. ${item.id} (${count})</button>`;
+        const annotationState = imageAnnotationState(item.id);
+        const stateMarker = annotationState === 'complete' ? 'ok' : annotationState === 'partial' ? 'part' : '';
+        return `<button class="image-choice${active}" data-id="${item.id}">${index + 1}. ${item.id} (${count}) ${stateMarker}</button>`;
       }).join('');
       imageTabsEl.querySelectorAll('.image-choice').forEach((button) => {
         button.addEventListener('click', () => switchImage(button.dataset.id));
@@ -544,6 +585,21 @@
       dragging = null;
       loadCurrentImage();
       setStatus('Switched image');
+    }
+
+    function switchToNextUnlabeled() {
+      saveState();
+      const startIndex = Math.max(0, sourceImages.findIndex((item) => item.id === currentImageId));
+      for (let offset = 1; offset <= sourceImages.length; offset += 1) {
+        const item = sourceImages[(startIndex + offset) % sourceImages.length];
+        if (imageAnnotationState(item.id) !== 'complete') {
+          switchImage(item.id);
+          setDrawMode('insert');
+          setStatus(`Next: ${item.id}`);
+          return;
+        }
+      }
+      setStatus('All images completed');
     }
 
     function setDrawMode(mode) {
@@ -807,6 +863,7 @@
     function updateOutput() {
       saveState();
       jsonEl.value = JSON.stringify(payload(), null, 2);
+      renderProgressSummary();
       renderList();
       renderImageTabs();
       renderPreview();
@@ -986,6 +1043,8 @@
       setStatus('New slot created');
     });
 
+    document.getElementById('next-unlabeled').addEventListener('click', switchToNextUnlabeled);
+
     document.querySelectorAll('.draw-mode').forEach((button) => {
       button.addEventListener('click', () => setDrawMode(button.dataset.mode));
     });
@@ -1079,6 +1138,7 @@
         currentImageId = sourceImages[0].id;
         slots = slotsFor(currentImageId);
         selectedId = slots[0] ? slots[0].id : null;
+        renderProgressSummary();
         renderImageTabs();
         loadCurrentImage();
         setStatus(`Loaded ${sourceImages.length} images`);
