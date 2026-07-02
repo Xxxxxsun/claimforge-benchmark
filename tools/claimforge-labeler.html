@@ -350,7 +350,7 @@
       </label>
       <label>
         Candidates
-        <input id="candidate-input" type="text" placeholder="bottle, cup, flower" autocomplete="off">
+        <input id="candidate-input" type="text" placeholder="mouse" autocomplete="off">
       </label>
       <button id="auto-crop">Auto Crop</button>
       <button id="delete-selected" class="danger">Delete Slot</button>
@@ -394,6 +394,7 @@
     const legacyStorageKeys = ['rekey-method-box-labels-v2', 'rekey-method-box-labels-v1'];
     const placeColor = '#ea7a18';
     const cropColor = '#2563eb';
+    const defaultCandidates = 'mouse';
 
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
@@ -451,12 +452,17 @@
       };
     }
 
+    function normalizeCandidates(value) {
+      const text = typeof value === 'string' ? value.trim() : '';
+      return text || defaultCandidates;
+    }
+
     function normalizeSlot(item, index) {
       const id = item.id || `slot_${String(index + 1).padStart(3, '0')}`;
       return {
         id,
         label: item.label || `slot ${index + 1}`,
-        candidates: item.candidates || '',
+        candidates: normalizeCandidates(item.candidates),
         insert_box: item.insert_box || rectFrom(item),
         crop_box: item.crop_box || null
       };
@@ -565,7 +571,7 @@
       const slot = {
         id: nextId(),
         label: defaultLabel(),
-        candidates: '',
+        candidates: defaultCandidates,
         insert_box: null,
         crop_box: null
       };
@@ -811,7 +817,7 @@
       const slot = selectedSlot();
       if (slot) {
         labelInput.value = slot.label || slot.id;
-        candidateInput.value = slot.candidates || '';
+        candidateInput.value = slot.candidates || defaultCandidates;
       } else {
         labelInput.value = '';
         candidateInput.value = '';
@@ -825,7 +831,7 @@
       const slot = selectedSlot();
       if (!slot) return;
       slot.label = labelInput.value.trim() || slot.id;
-      slot.candidates = candidateInput.value.trim();
+      slot.candidates = normalizeCandidates(candidateInput.value);
       updateOutput();
       draw();
     }
