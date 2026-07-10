@@ -1,0 +1,25 @@
+\section{Preliminary Repository Status}
+
+The current repository already implements the core data path required by Section~\ref{sec:benchmark}. It contains source manifests, browser-labeler exports, context crops, insertion crops, full-resolution masks, and overlays. The generation handoff file lists one JSON task per edit slot, including the source image path, context crop, insertion mask, insertion box, context crop box, and crop-local edit coordinates. This makes generation reproducible across editors: a model-specific worker only needs to load the context crop, edit inside the local coordinates, and write one output crop plus a manifest row.
+
+The current pilot generation set contains 22 HunyuanImage-3 lodging examples. The composer has already produced full-image splices for those examples using an object-only paste-back mode. This pilot is useful for checking the plausibility of the crop-to-full-image path, but it is not yet a detector benchmark. It is too small, uses one editor, and covers only a small slice of the intended domain and object space.
+
+\begin{table*}[t]
+\centering
+\small
+\begin{tabular}{p{0.20\linewidth}p{0.31\linewidth}p{0.37\linewidth}}
+\toprule
+Component & Current state & Needed for final benchmark paper \\
+\midrule
+Source pool & 600 screened candidates across restaurant and lodging & Provenance audit, release filtering, final train/val/test split \\
+Annotation & 297 complete restaurant edit slots with masks and crop-local coordinates & Complete lodging labels and additional object categories \\
+Generation & 22 HunyuanImage-3 pilot edited crops and spliced images & Multi-editor generation at benchmark scale, with failed-case tracking \\
+Controls & Masked paste-back machinery exists & Real-object controls, real-with-object controls, and matched post-processing audit \\
+Evaluation & Protocol specified in this draft & Full baseline runs, bootstrap confidence intervals, and shortcut audits \\
+\bottomrule
+\end{tabular}
+\caption{Draft status matrix. The present paper draft records the benchmark design and repository state; it does not yet report final detector results.}
+\label{tab:status}
+\end{table*}
+
+The next experimental milestone is to complete one end-to-end evaluation slice: generate the 297 restaurant examples with at least one editor, compose full images, run a small set of representative baselines, and verify that the evaluation code can report both image-level and pixel-level metrics. After that smoke test, the benchmark should scale along the editor, domain, object, and laundering axes before making a broad claim about existing methods.

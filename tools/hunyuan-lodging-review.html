@@ -1,0 +1,868 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ClaimForge Generation Review</title>
+  <style>
+    :root {
+      --bg: #f4f4f0;
+      --panel: #fff;
+      --text: #18212f;
+      --muted: #667085;
+      --line: #d6dbe2;
+      --yellow: rgba(250, 204, 21, 0.74);
+      --good: #15803d;
+      --bad: #b42318;
+      --source: #7c3aed;
+      --shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 14px;
+    }
+
+    main {
+      width: min(1580px, calc(100vw - 28px));
+      margin: 16px auto 28px;
+    }
+
+    header,
+    .toolbar,
+    .stage,
+    .side {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    .meta {
+      color: var(--muted);
+      line-height: 1.45;
+      margin-top: 4px;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      padding: 10px;
+      margin-bottom: 12px;
+    }
+
+    button,
+    select,
+    input,
+    textarea {
+      font: inherit;
+      color: var(--text);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+    }
+
+    button {
+      height: 34px;
+      padding: 0 11px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    button:hover {
+      border-color: #98a2b3;
+    }
+
+    button.primary {
+      color: #fff;
+      border-color: #1d4ed8;
+      background: #2563eb;
+    }
+
+    button.good {
+      color: #fff;
+      border-color: var(--good);
+      background: var(--good);
+    }
+
+    button.bad {
+      color: #fff;
+      border-color: var(--bad);
+      background: var(--bad);
+    }
+
+    button.source {
+      color: #fff;
+      border-color: var(--source);
+      background: var(--source);
+    }
+
+    button.active {
+      outline: 3px solid rgba(37, 99, 235, 0.22);
+    }
+
+    select,
+    input {
+      height: 34px;
+      padding: 0 8px;
+    }
+
+    .spacer {
+      flex: 1 1 auto;
+    }
+
+    .count {
+      color: var(--muted);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 330px;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .stage {
+      padding: 12px;
+      min-height: 560px;
+    }
+
+    .image-wrap {
+      position: relative;
+      width: 100%;
+      min-height: 420px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #111827;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    #main-image {
+      display: block;
+      max-width: 100%;
+      max-height: calc(100vh - 190px);
+      width: auto;
+      height: auto;
+      object-fit: contain;
+    }
+
+    #arrow-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      display: none;
+      overflow: visible;
+      z-index: 3;
+    }
+
+    #target-arrow {
+      fill: none;
+      stroke: var(--yellow);
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      marker-end: url(#arrow-head);
+    }
+
+    #arrow-head path {
+      fill: var(--yellow);
+    }
+
+    #target-label {
+      position: absolute;
+      display: none;
+      pointer-events: none;
+      z-index: 4;
+      height: 24px;
+      padding: 3px 8px;
+      border: 1px solid rgba(250, 204, 21, 0.66);
+      border-radius: 999px;
+      background: rgba(17, 24, 39, 0.78);
+      color: #fff7ad;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 16px;
+      white-space: nowrap;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+    }
+
+    .caption {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding-top: 10px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .task-id {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .side {
+      padding: 12px;
+    }
+
+    .status-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    .status-card strong {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 13px;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      color: var(--muted);
+      margin: 6px 0;
+    }
+
+    .row span:last-child {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 96px;
+      resize: vertical;
+      padding: 8px;
+      line-height: 1.4;
+    }
+
+    .thumb {
+      display: block;
+      width: 100%;
+      margin-top: 10px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #111827;
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+      margin: 8px 0 0;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      height: 24px;
+      padding: 0 9px;
+      border-radius: 999px;
+      font-weight: 700;
+      color: #fff;
+      background: #64748b;
+    }
+
+    .status-pill.good {
+      background: var(--good);
+    }
+
+    .status-pill.bad {
+      background: var(--bad);
+    }
+
+    .status-pill.source_bad {
+      background: var(--source);
+    }
+
+    @media (max-width: 980px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      #main-image {
+        max-height: 70vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div>
+        <h1>ClaimForge Generation Review</h1>
+        <div class="meta">逐张检查 restaurant 与 lodging 的拼回结果；箭头指向 context 区域上角。</div>
+      </div>
+      <div id="save-state" class="count">loading</div>
+    </header>
+
+    <div class="toolbar">
+      <button id="prev-btn">上一张</button>
+      <button id="next-btn" class="primary">下一张</button>
+      <button id="good-btn" class="good">好</button>
+      <button id="bad-btn" class="bad">不好</button>
+      <button id="source-btn" class="source">图本质不行</button>
+      <button id="clear-btn">清除</button>
+      <span class="spacer"></span>
+      <label>筛选
+        <select id="filter-select">
+          <option value="all">全部</option>
+          <option value="unlabeled">未标</option>
+          <option value="good">好</option>
+          <option value="bad">不好</option>
+          <option value="source_bad">图本质不行</option>
+        </select>
+      </label>
+      <label>跳转
+        <input id="jump-input" type="number" min="1" value="1">
+      </label>
+      <button id="export-btn">导出 JSON</button>
+    </div>
+
+    <section class="layout">
+      <div class="stage">
+        <div id="image-wrap" class="image-wrap">
+          <img id="main-image" alt="generated lodging result">
+          <svg id="arrow-layer" aria-hidden="true">
+            <defs>
+              <marker id="arrow-head" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                <path d="M 0 0 L 8 4 L 0 8 z"></path>
+              </marker>
+            </defs>
+            <path id="target-arrow"></path>
+          </svg>
+          <div id="target-label">在这里</div>
+        </div>
+        <div class="caption">
+          <div>
+            <span id="task-id" class="task-id">-</span>
+            <span id="status-pill" class="status-pill">未标</span>
+          </div>
+          <div id="position-text">0 / 0</div>
+        </div>
+      </div>
+
+      <aside class="side">
+        <div class="status-card">
+          <strong>统计</strong>
+          <div class="row"><span>总数</span><span id="total-count">0</span></div>
+          <div class="row"><span>restaurant</span><span id="restaurant-count">0</span></div>
+          <div class="row"><span>lodging</span><span id="lodging-count">0</span></div>
+          <div class="row"><span>好</span><span id="good-count">0</span></div>
+          <div class="row"><span>不好</span><span id="bad-count">0</span></div>
+          <div class="row"><span>图本质不行</span><span id="source-count">0</span></div>
+          <div class="row"><span>未标</span><span id="unlabeled-count">0</span></div>
+        </div>
+
+        <div class="status-card">
+          <strong>备注</strong>
+          <textarea id="note-input" placeholder="可选"></textarea>
+          <p class="small">备注会自动保存到浏览器 localStorage。</p>
+        </div>
+
+        <div class="status-card">
+          <strong>生成 crop</strong>
+          <img id="crop-image" class="thumb" alt="generated crop">
+        </div>
+
+        <div class="status-card">
+          <strong>拼回 crop（蓝框区域）</strong>
+          <canvas id="spliced-crop" class="thumb"></canvas>
+          <p class="small">这里是当前拼回大图里按 context_region 裁出的区域。</p>
+        </div>
+
+        <div class="status-card">
+          <strong>快捷键</strong>
+          <p class="small">1 好，2 不好，3 图本质不行，←/→ 切换，E 导出。</p>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    const STORAGE_KEY = "claimforge-generation-review-v1";
+    const LEGACY_STORAGE_KEYS = ["claimforge-hunyuan-lodging-review-v1"];
+    const MANIFESTS = [
+      {
+        name: "restaurant_new_test",
+        url: "../new_test/spliced_full/manifest.jsonl",
+      },
+      {
+        name: "lodging_hunyuan_image3",
+        url: "../spliced_full/hunyuan_image3/manifest.jsonl",
+      },
+    ];
+
+    const state = {
+      tasks: [],
+      labels: {},
+      filtered: [],
+      index: 0,
+      filter: "all",
+      currentImageRect: null,
+    };
+
+    const els = {
+      save: document.getElementById("save-state"),
+      prev: document.getElementById("prev-btn"),
+      next: document.getElementById("next-btn"),
+      good: document.getElementById("good-btn"),
+      bad: document.getElementById("bad-btn"),
+      source: document.getElementById("source-btn"),
+      clear: document.getElementById("clear-btn"),
+      filter: document.getElementById("filter-select"),
+      jump: document.getElementById("jump-input"),
+      exportBtn: document.getElementById("export-btn"),
+      wrap: document.getElementById("image-wrap"),
+      image: document.getElementById("main-image"),
+      arrowLayer: document.getElementById("arrow-layer"),
+      targetArrow: document.getElementById("target-arrow"),
+      targetLabel: document.getElementById("target-label"),
+      crop: document.getElementById("crop-image"),
+      splicedCrop: document.getElementById("spliced-crop"),
+      taskId: document.getElementById("task-id"),
+      status: document.getElementById("status-pill"),
+      pos: document.getElementById("position-text"),
+      total: document.getElementById("total-count"),
+      restaurantCount: document.getElementById("restaurant-count"),
+      lodgingCount: document.getElementById("lodging-count"),
+      goodCount: document.getElementById("good-count"),
+      badCount: document.getElementById("bad-count"),
+      sourceCount: document.getElementById("source-count"),
+      unlabeledCount: document.getElementById("unlabeled-count"),
+      note: document.getElementById("note-input"),
+    };
+
+    function parseJsonl(text) {
+      return text.trim().split(/\n+/).map((line) => JSON.parse(line));
+    }
+
+    function loadLabels() {
+      state.labels = {};
+      try {
+        for (const key of LEGACY_STORAGE_KEYS) {
+          state.labels = {
+            ...state.labels,
+            ...JSON.parse(localStorage.getItem(key) || "{}"),
+          };
+        }
+        state.labels = {
+          ...state.labels,
+          ...JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"),
+        };
+      } catch {
+        state.labels = {};
+      }
+    }
+
+    function saveLabels() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state.labels));
+      els.save.textContent = "已保存";
+    }
+
+    function currentTask() {
+      return state.filtered[state.index] || null;
+    }
+
+    function getRecord(taskId) {
+      return state.labels[taskId] || {};
+    }
+
+    function setStatus(status) {
+      const task = currentTask();
+      if (!task) return;
+      const old = getRecord(task.task_id);
+      state.labels[task.task_id] = {
+        ...old,
+        status,
+        note: els.note.value || "",
+        updated_at: new Date().toISOString(),
+      };
+      saveLabels();
+      applyFilter(false);
+      moveAfterLabel(task.task_id);
+    }
+
+    function clearStatus() {
+      const task = currentTask();
+      if (!task) return;
+      delete state.labels[task.task_id];
+      saveLabels();
+      applyFilter(false);
+      render();
+    }
+
+    function moveAfterLabel(taskId) {
+      const sameIndex = state.filtered.findIndex((task) => task.task_id === taskId);
+      if (sameIndex >= 0) {
+        state.index = Math.min(sameIndex + 1, state.filtered.length - 1);
+      } else {
+        state.index = Math.min(state.index, state.filtered.length - 1);
+      }
+      render();
+    }
+
+    function noteChanged() {
+      const task = currentTask();
+      if (!task) return;
+      const old = getRecord(task.task_id);
+      if (!old.status && !els.note.value) return;
+      state.labels[task.task_id] = {
+        ...old,
+        note: els.note.value,
+        updated_at: new Date().toISOString(),
+      };
+      saveLabels();
+    }
+
+    function statusText(status) {
+      if (status === "good") return "好";
+      if (status === "bad") return "不好";
+      if (status === "source_bad") return "图本质不行";
+      return "未标";
+    }
+
+    function taskNumber(task) {
+      const match = task.task_id.match(/_(\d+)_slot_/);
+      return match ? Number(match[1]) : Number.MAX_SAFE_INTEGER;
+    }
+
+    function taskDomain(task) {
+      return task.task_id.split("_")[0] || "unknown";
+    }
+
+    function domainOrder(task) {
+      const order = {restaurant: 0, lodging: 1};
+      return order[taskDomain(task)] ?? 99;
+    }
+
+    function repoPath(path) {
+      return "../" + path;
+    }
+
+    function imageSize(task) {
+      if (Array.isArray(task.image_size)) {
+        return {width: task.image_size[0], height: task.image_size[1]};
+      }
+      return task.image_size;
+    }
+
+    function applyFilter(keepTask = true) {
+      const oldTask = keepTask ? currentTask() : null;
+      state.filter = els.filter.value;
+      state.filtered = state.tasks.filter((task) => {
+        const status = getRecord(task.task_id).status || "unlabeled";
+        return state.filter === "all" || status === state.filter;
+      });
+      if (oldTask) {
+        const nextIndex = state.filtered.findIndex((task) => task.task_id === oldTask.task_id);
+        state.index = nextIndex >= 0 ? nextIndex : Math.min(state.index, state.filtered.length - 1);
+      } else {
+        state.index = Math.min(state.index, state.filtered.length - 1);
+      }
+      if (state.index < 0) state.index = 0;
+      updateStats();
+    }
+
+    function updateStats() {
+      let good = 0;
+      let bad = 0;
+      let source = 0;
+      let restaurant = 0;
+      let lodging = 0;
+      for (const task of state.tasks) {
+        if (taskDomain(task) === "restaurant") restaurant += 1;
+        if (taskDomain(task) === "lodging") lodging += 1;
+        const status = getRecord(task.task_id).status;
+        if (status === "good") good += 1;
+        if (status === "bad") bad += 1;
+        if (status === "source_bad") source += 1;
+      }
+      const total = state.tasks.length;
+      els.total.textContent = total;
+      els.restaurantCount.textContent = restaurant;
+      els.lodgingCount.textContent = lodging;
+      els.goodCount.textContent = good;
+      els.badCount.textContent = bad;
+      els.sourceCount.textContent = source;
+      els.unlabeledCount.textContent = total - good - bad - source;
+    }
+
+    function setActiveButtons(status) {
+      for (const btn of [els.good, els.bad, els.source]) {
+        btn.classList.remove("active");
+      }
+      if (status === "good") els.good.classList.add("active");
+      if (status === "bad") els.bad.classList.add("active");
+      if (status === "source_bad") els.source.classList.add("active");
+    }
+
+    function hideMarker() {
+      els.arrowLayer.style.display = "none";
+      els.targetArrow.removeAttribute("d");
+      els.targetLabel.style.display = "none";
+    }
+
+    function clamp(value, min, max) {
+      return Math.max(min, Math.min(max, value));
+    }
+
+    function imagePoint(imgRect, wrapRect, natural, x, y) {
+      return {
+        x: imgRect.left - wrapRect.left + (x / natural.width) * imgRect.width,
+        y: imgRect.top - wrapRect.top + (y / natural.height) * imgRect.height,
+      };
+    }
+
+    function renderMarker() {
+      const task = currentTask();
+      if (!task || !state.currentImageRect) {
+        hideMarker();
+        return;
+      }
+      const [x1, y1, x2, y2] = task.context_region_xyxy;
+      const imgRect = state.currentImageRect;
+      const wrapRect = els.wrap.getBoundingClientRect();
+      const natural = imageSize(task);
+      const useRightCorner = ((x1 + x2) / 2) < (natural.width / 2);
+      const target = imagePoint(imgRect, wrapRect, natural, useRightCorner ? x2 : x1, y1);
+      const targetX = target.x;
+      const targetY = target.y;
+      const wrapW = wrapRect.width;
+      const wrapH = wrapRect.height;
+
+      els.arrowLayer.style.display = "block";
+      els.arrowLayer.setAttribute("width", String(wrapW));
+      els.arrowLayer.setAttribute("height", String(wrapH));
+      els.arrowLayer.setAttribute("viewBox", `0 0 ${wrapW} ${wrapH}`);
+
+      els.targetLabel.style.display = "block";
+      els.targetLabel.style.visibility = "hidden";
+      els.targetLabel.style.left = "0px";
+      els.targetLabel.style.top = "0px";
+      const labelRect = els.targetLabel.getBoundingClientRect();
+      const labelW = labelRect.width;
+      const labelH = labelRect.height;
+
+      let labelLeft = useRightCorner ? targetX + 28 : targetX - labelW - 28;
+      if (labelLeft + labelW > wrapW - 8) labelLeft = targetX - labelW - 28;
+      if (labelLeft < 8) labelLeft = targetX + 28;
+      labelLeft = clamp(labelLeft, 8, Math.max(8, wrapW - labelW - 8));
+
+      let labelTop = targetY - labelH - 20;
+      if (labelTop < 8) labelTop = targetY + 26;
+      labelTop = clamp(labelTop, 8, Math.max(8, wrapH - labelH - 8));
+
+      els.targetLabel.style.left = `${labelLeft}px`;
+      els.targetLabel.style.top = `${labelTop}px`;
+      els.targetLabel.style.visibility = "visible";
+
+      const startX = labelLeft > targetX ? labelLeft : labelLeft + labelW;
+      const startY = labelTop > targetY ? labelTop : labelTop + labelH;
+      els.targetArrow.setAttribute("d", `M ${startX} ${startY} L ${targetX} ${targetY}`);
+    }
+
+    function clearSplicedCrop() {
+      const ctx = els.splicedCrop.getContext("2d");
+      ctx.clearRect(0, 0, els.splicedCrop.width, els.splicedCrop.height);
+      els.splicedCrop.width = 1;
+      els.splicedCrop.height = 1;
+    }
+
+    function renderSplicedCrop() {
+      const task = currentTask();
+      if (!task || !els.image.complete || !els.image.naturalWidth) {
+        clearSplicedCrop();
+        return;
+      }
+      const [x1, y1, x2, y2] = task.context_region_xyxy;
+      const width = Math.max(1, x2 - x1);
+      const height = Math.max(1, y2 - y1);
+      els.splicedCrop.width = width;
+      els.splicedCrop.height = height;
+      const ctx = els.splicedCrop.getContext("2d");
+      ctx.imageSmoothingEnabled = true;
+      ctx.clearRect(0, 0, width, height);
+      ctx.drawImage(els.image, x1, y1, width, height, 0, 0, width, height);
+    }
+
+    function updateImageRect() {
+      state.currentImageRect = els.image.getBoundingClientRect();
+      renderMarker();
+      renderSplicedCrop();
+    }
+
+    function render() {
+      updateStats();
+      const task = currentTask();
+      if (!task) {
+        els.taskId.textContent = "没有图片";
+        els.pos.textContent = `0 / ${state.filtered.length}`;
+        els.image.removeAttribute("src");
+        els.crop.removeAttribute("src");
+        clearSplicedCrop();
+        hideMarker();
+        els.note.value = "";
+        return;
+      }
+
+      const record = getRecord(task.task_id);
+      const status = record.status || "unlabeled";
+      els.taskId.textContent = task.task_id;
+      els.pos.textContent = `${state.index + 1} / ${state.filtered.length}`;
+      els.jump.max = String(state.filtered.length);
+      els.jump.value = String(state.index + 1);
+      els.note.value = record.note || "";
+      els.status.textContent = statusText(status);
+      els.status.className = `status-pill ${status}`;
+      setActiveButtons(status);
+
+      state.currentImageRect = null;
+      hideMarker();
+      clearSplicedCrop();
+      els.image.src = repoPath(task.spliced_full);
+      els.crop.src = repoPath(task.generated_crop);
+    }
+
+    function go(delta) {
+      if (!state.filtered.length) return;
+      state.index = Math.max(0, Math.min(state.filtered.length - 1, state.index + delta));
+      render();
+    }
+
+    function jumpTo(value) {
+      if (!state.filtered.length) return;
+      const next = Number(value) - 1;
+      if (Number.isFinite(next)) {
+        state.index = Math.max(0, Math.min(state.filtered.length - 1, next));
+        render();
+      }
+    }
+
+    function exportLabels() {
+      const records = state.tasks.map((task) => ({
+        task_id: task.task_id,
+        image_id: task.image_id,
+        review_manifest: task.review_manifest,
+        status: getRecord(task.task_id).status || "unlabeled",
+        note: getRecord(task.task_id).note || "",
+        updated_at: getRecord(task.task_id).updated_at || null,
+        spliced_image: task.spliced_full,
+        generated_crop: task.generated_crop,
+        source_image: task.source_image,
+        image_size: task.image_size,
+        edit_region_xyxy: task.edit_region_xyxy,
+        context_region_xyxy: task.context_region_xyxy,
+        candidates: task.candidates,
+      }));
+      const payload = {
+        version: 1,
+        task: "claimforge_generation_review",
+        exported_at: new Date().toISOString(),
+        storage_key: STORAGE_KEY,
+        manifests: MANIFESTS.map((manifest) => manifest.url.replace(/^\.\.\//, "")),
+        counts: {
+          total: records.length,
+          good: records.filter((r) => r.status === "good").length,
+          bad: records.filter((r) => r.status === "bad").length,
+          source_bad: records.filter((r) => r.status === "source_bad").length,
+          unlabeled: records.filter((r) => r.status === "unlabeled").length,
+        },
+        records,
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2) + "\n"], {type: "application/json"});
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "claimforge_generation_review_labels.json";
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }
+
+    async function init() {
+      loadLabels();
+      const manifestRows = await Promise.all(MANIFESTS.map(async (manifest) => {
+        const response = await fetch(manifest.url);
+        if (!response.ok) throw new Error(`failed to load ${manifest.url}`);
+        return parseJsonl(await response.text()).map((task) => ({
+          ...task,
+          review_manifest: manifest.name,
+        }));
+      }));
+      const rows = manifestRows.flat();
+      state.tasks = rows
+        .filter((task) => (task.task_id.startsWith("restaurant_") || task.task_id.startsWith("lodging_")) && task.status === "ok")
+        .sort((a, b) => domainOrder(a) - domainOrder(b) || taskNumber(a) - taskNumber(b) || a.task_id.localeCompare(b.task_id));
+      applyFilter(false);
+      render();
+      els.save.textContent = "已就绪";
+    }
+
+    els.prev.addEventListener("click", () => go(-1));
+    els.next.addEventListener("click", () => go(1));
+    els.good.addEventListener("click", () => setStatus("good"));
+    els.bad.addEventListener("click", () => setStatus("bad"));
+    els.source.addEventListener("click", () => setStatus("source_bad"));
+    els.clear.addEventListener("click", clearStatus);
+    els.filter.addEventListener("change", () => {
+      applyFilter(false);
+      render();
+    });
+    els.jump.addEventListener("change", () => jumpTo(els.jump.value));
+    els.exportBtn.addEventListener("click", exportLabels);
+    els.note.addEventListener("change", noteChanged);
+    els.note.addEventListener("blur", noteChanged);
+    els.image.addEventListener("load", updateImageRect);
+    window.addEventListener("resize", updateImageRect);
+
+    document.addEventListener("keydown", (event) => {
+      if (event.target === els.note) return;
+      if (event.key === "ArrowLeft") go(-1);
+      if (event.key === "ArrowRight") go(1);
+      if (event.key === "1") setStatus("good");
+      if (event.key === "2") setStatus("bad");
+      if (event.key === "3") setStatus("source_bad");
+      if (event.key.toLowerCase() === "e") exportLabels();
+    });
+
+    init().catch((error) => {
+      els.save.textContent = "加载失败";
+      console.error(error);
+      alert(error.message);
+    });
+  </script>
+</body>
+</html>
