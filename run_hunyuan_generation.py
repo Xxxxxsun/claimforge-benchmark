@@ -27,11 +27,18 @@ from PIL import Image, ImageDraw, ImageFilter
 REPO = Path(__file__).resolve().parent
 MODEL_MIN = 512          # service-enforced minimum side
 ALIGN = 16
-PROMPT_TMPL = (
+OBJECT_PROMPT_TMPL = (
     "Add a single small realistic {cand} in the {pos} of the image. "
     "Place only the one {cand}; keep everything else unchanged. Preserve "
     "lighting, shadows, texture, camera perspective, and JPEG-like realism. "
     "Do not alter unrelated objects or the background."
+)
+STAIN_PROMPT_TMPL = (
+    "Add a realistic irregular {cand} in the {pos} of the image. "
+    "Make the stain look naturally embedded on the existing surface, with "
+    "uneven edges, subtle discoloration, and texture matching the surrounding "
+    "material. Keep all objects, layout, lighting, perspective, and background "
+    "unchanged. Do not add text, extra objects, or unrelated marks."
 )
 
 
@@ -99,6 +106,11 @@ def call_edit(url, model, img, prompt, width, height, steps, seed, timeout=900):
     return Image.open(io.BytesIO(base64.b64decode(b64))).convert("RGB")
 
 
+def make_prompt(task, position, prompt_kind):
+    tmpl = STAIN_PROMPT_TMPL if prompt_kind == "stain" else OBJECT_PROMPT_TMPL
+    return tmpl.format(cand=task["candidates"], pos=position)
+
+
 def feathered_mask(size, box, feather):
     """Binary-ish soft mask: white inside `box` (xyxy), blurred edges."""
     w, h = size
@@ -118,7 +130,7 @@ def run_task(task, args):
     up = crop.resize((tw, th), Image.LANCZOS)
     box = [int(v) for v in task["edit_region_in_context_xyxy"]]
     pos = position_phrase(box, (W, H))
-    prompt = PROMPT_TMPL.format(cand=task["candidates"], pos=pos)
+    prompt = make_prompt(task, pos, args.prompt_kind)
     seed = (abs(hash(task["task_id"])) % 9_000_000) + 1
 
     edited_up = call_edit(args.url, args.model, up, prompt, tw, th,
@@ -147,6 +159,8 @@ def main():
                     help="output dir name under generated_crops/")
     ap.add_argument("--tasks", default="annotations/generation_tasks.jsonl")
     ap.add_argument("--steps", type=int, default=8)
+    ap.add_argument("--prompt-kind", choices=["object", "stain"], default="object",
+                    help="prompt family to use; default preserves the original object workflow")
     ap.add_argument("--feather", type=float, default=2.0)
     ap.add_argument("--paste-back", action="store_true",
                     help="revert pixels outside the orange region to source "
