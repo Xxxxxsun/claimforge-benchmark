@@ -28,6 +28,14 @@ http://localhost:8000/tools/stain-labeler.html
 
 This redirects to `tools/claimforge-labeler.html` with stain-specific query parameters.
 
+For automatic repository saving, use the local save server instead of plain `http.server`:
+
+```bash
+python3 scripts/claimforge_label_server.py --port 8000
+```
+
+The URL stays the same. The page will POST annotations to `/api/save-labels`.
+
 ## Input Manifest
 
 The stain source subset is:
@@ -96,6 +104,12 @@ Click `Download` in the labeler after annotation. The expected filename is:
 claimforge-good-mouse-source-stain-275-slots.json
 ```
 
+If the page is served by `scripts/claimforge_label_server.py`, the labeler also shows `Save to Repo` and auto-saves the same payload to:
+
+```text
+annotations/claimforge-good-mouse-source-stain-275-slots.json
+```
+
 Expected payload shape:
 
 ```text
@@ -109,11 +123,22 @@ Each image entry contains one or more slots with:
 - `crop_box`
 - `candidates`
 
-## Current Local State
+## Current Saved State
 
-The source manifest and labeler entrypoint are in the repo. The actual exported annotation JSON is only present if the browser user clicked `Download` and added the JSON file to the repo.
+The current autosaved annotation file is:
 
-If the exported JSON is missing, open the labeler, click `Download`, and place the downloaded JSON at the repo root or under `annotations/` before running generation.
+```text
+annotations/claimforge-good-mouse-source-stain-275-slots.json
+```
+
+At the time of this handoff, it contains:
+
+- 275 total source images
+- 11 complete stain slots
+- 0 partial images
+- 264 empty images
+
+If annotation continues, refresh the labeler or click `Save to Repo`, then recompute these counts from the JSON before generation.
 
 ## Suggested Next Processing Step
 

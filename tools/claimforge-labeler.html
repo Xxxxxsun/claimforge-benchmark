@@ -374,6 +374,7 @@
       <button id="download-crop">Download Crop</button>
       <button id="download-all-crops">Download All Crops</button>
       <button id="copy" class="primary">Copy JSON</button>
+      <button id="save-to-repo" class="primary" style="display:none">Save to Repo</button>
       <button id="download">Download</button>
       <span id="status" class="status"></span>
     </section>
@@ -410,6 +411,8 @@
     const defaultCandidates = queryParams.get('candidates') || 'mouse';
     const payloadTask = queryParams.get('task') || 'rekey_method_slots';
     const downloadFilename = queryParams.get('download') || 'claimforge-openimages-v7-600-slots.json';
+    const remoteSavePath = queryParams.get('savePath') || '';
+    const remoteSaveEnabled = queryParams.get('remoteSave') === '1' || Boolean(remoteSavePath);
 
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
@@ -419,6 +422,7 @@
     const candidateInput = document.getElementById('candidate-input');
     const jsonEl = document.getElementById('json');
     const statusEl = document.getElementById('status');
+    const saveToRepoButton = document.getElementById('save-to-repo');
     const progressSummaryEl = document.getElementById('progress-summary');
     const boxListEl = document.getElementById('box-list');
     const imageMetaEl = document.getElementById('image-meta');
@@ -434,6 +438,9 @@
     let zoomMode = 'fit';
     let drawMode = 'insert';
     let scale = 1;
+    let remoteSaveTimer = null;
+    let lastRemoteSaveText = '';
+    if (remoteSaveEnabled) saveToRepoButton.style.display = '';
 
     async function loadSourceImages() {
       const manifestUrl = new URL(defaultManifestPath, window.location.href);
@@ -871,6 +878,43 @@
       renderList();
       renderImageTabs();
       renderPreview();
+      scheduleRemoteSave();
+    }
+
+    function scheduleRemoteSave() {
+      if (!remoteSaveEnabled || !jsonEl.value) return;
+      window.clearTimeout(remoteSaveTimer);
+      remoteSaveTimer = window.setTimeout(() => {
+        saveToRepo(false);
+      }, 500);
+    }
+
+    async function saveToRepo(showStatus = true) {
+      if (!remoteSaveEnabled || !jsonEl.value) return;
+      if (jsonEl.value === lastRemoteSaveText) {
+        if (showStatus) setStatus('Already saved');
+        return;
+      }
+      try {
+        const response = await fetch('/api/save-labels', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            path: remoteSavePath,
+            payload: JSON.parse(jsonEl.value)
+          })
+        });
+        const result = await response.json();
+        if (!response.ok || !result.ok) {
+          throw new Error(result.error || `HTTP ${response.status}`);
+        }
+        lastRemoteSaveText = jsonEl.value;
+        setStatus(`Saved ${result.path}`);
+      } catch (error) {
+        if (showStatus) {
+          setStatus(`Save failed: ${error.message}`);
+        }
+      }
     }
 
     function selectSlot(id) {
@@ -1089,6 +1133,8 @@
         setStatus('JSON copied');
       }
     });
+
+    saveToRepoButton.addEventListener('click', () => saveToRepo(true));
 
     document.getElementById('download').addEventListener('click', () => {
       const blob = new Blob([jsonEl.value], { type: 'application/json' });
