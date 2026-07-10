@@ -40,6 +40,12 @@ STAIN_PROMPT_TMPL = (
     "material. Keep all objects, layout, lighting, perspective, and background "
     "unchanged. Do not add text, extra objects, or unrelated marks."
 )
+CAT_PROMPT_TMPL = (
+    "Add a single realistic cat in the {pos} of the image. The cat should fit "
+    "naturally in the scene, with plausible scale, contact shadows, lighting, "
+    "camera perspective, and JPEG-like realism. Keep everything else unchanged. "
+    "Do not add text, duplicate cats, or unrelated objects."
+)
 
 
 def position_phrase(box, size):
@@ -107,7 +113,12 @@ def call_edit(url, model, img, prompt, width, height, steps, seed, timeout=900):
 
 
 def make_prompt(task, position, prompt_kind):
-    tmpl = STAIN_PROMPT_TMPL if prompt_kind == "stain" else OBJECT_PROMPT_TMPL
+    if prompt_kind == "cat":
+        tmpl = CAT_PROMPT_TMPL
+    elif prompt_kind == "stain":
+        tmpl = STAIN_PROMPT_TMPL
+    else:
+        tmpl = OBJECT_PROMPT_TMPL
     return tmpl.format(cand=task["candidates"], pos=position)
 
 
@@ -159,7 +170,7 @@ def main():
                     help="output dir name under generated_crops/")
     ap.add_argument("--tasks", default="annotations/generation_tasks.jsonl")
     ap.add_argument("--steps", type=int, default=8)
-    ap.add_argument("--prompt-kind", choices=["object", "stain"], default="object",
+    ap.add_argument("--prompt-kind", choices=["object", "stain", "cat"], default="object",
                     help="prompt family to use; default preserves the original object workflow")
     ap.add_argument("--feather", type=float, default=2.0)
     ap.add_argument("--paste-back", action="store_true",
