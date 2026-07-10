@@ -398,13 +398,18 @@
   </main>
 
   <script>
-    const defaultManifestPath = '../source_pool/openimages_v7_600/manifest.json';
+    const queryParams = new URLSearchParams(window.location.search);
+    const defaultManifestPath = queryParams.get('manifest') || '../source_pool/openimages_v7_600/manifest.json';
     let sourceImages = [];
-    const storageKey = 'claimforge-openimages-v7-600-labels-v1';
-    const legacyStorageKeys = ['rekey-method-box-labels-v2', 'rekey-method-box-labels-v1'];
+    const storageKey = queryParams.get('storageKey') || 'claimforge-openimages-v7-600-labels-v1';
+    const legacyStorageKeys = queryParams.has('legacyStorageKeys')
+      ? queryParams.get('legacyStorageKeys').split(',').map((item) => item.trim()).filter(Boolean)
+      : ['rekey-method-box-labels-v2', 'rekey-method-box-labels-v1'];
     const placeColor = '#ea7a18';
     const cropColor = '#2563eb';
-    const defaultCandidates = 'mouse';
+    const defaultCandidates = queryParams.get('candidates') || 'mouse';
+    const payloadTask = queryParams.get('task') || 'rekey_method_slots';
+    const downloadFilename = queryParams.get('download') || 'claimforge-openimages-v7-600-slots.json';
 
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
@@ -418,6 +423,7 @@
     const boxListEl = document.getElementById('box-list');
     const imageMetaEl = document.getElementById('image-meta');
     const cropPreviewEl = document.getElementById('crop-preview');
+    candidateInput.placeholder = defaultCandidates;
 
     let image = new Image();
     let state = loadState();
@@ -430,9 +436,7 @@
     let scale = 1;
 
     async function loadSourceImages() {
-      const params = new URLSearchParams(window.location.search);
-      const manifestPath = params.get('manifest') || defaultManifestPath;
-      const manifestUrl = new URL(manifestPath, window.location.href);
+      const manifestUrl = new URL(defaultManifestPath, window.location.href);
       const response = await fetch(manifestUrl);
       if (!response.ok) {
         throw new Error(`Failed to load manifest: ${response.status} ${response.statusText}`);
@@ -777,7 +781,7 @@
       saveState();
       return {
         version: 2,
-        task: 'rekey_method_slots',
+        task: payloadTask,
         coordinate_space: 'original_image_pixels',
         active_image: currentImageId,
         images: sourceImages.map((item) => ({
@@ -1091,7 +1095,7 @@
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = 'claimforge-openimages-v7-600-slots.json';
+      link.download = downloadFilename;
       document.body.appendChild(link);
       link.click();
       link.remove();
