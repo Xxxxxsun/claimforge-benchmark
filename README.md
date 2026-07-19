@@ -55,3 +55,57 @@ Expected remote flow:
 2. Ask it to add `candidates` inside `edit_region_in_context_xyxy`.
 3. Save generated crops with the same `task_id`.
 4. Send generated crops back for spliced-back composition using `context_region_xyxy`.
+
+## HunyuanImage-3.0-Instruct-Distil with vLLM-Omni
+
+The local integration uses vLLM-Omni's OpenAI-compatible image edit endpoint.
+Defaults assume an 8x80GB host, the model at
+`/root/models/HunyuanImage-3-Instruct-Distil`, and the service on
+`127.0.0.1:8001`.
+
+Create/update the Python 3.12 environment. The setup script clones vLLM-Omni
+v0.24.1 when needed and idempotently applies the included Distil/MeanFlow
+compatibility patch:
+
+```bash
+scripts/setup_hunyuan_vllm.sh
+```
+
+Download or resume the pinned public snapshot through `hf-mirror` with all
+proxy variables removed:
+
+```bash
+scripts/download_hunyuan_model.sh
+```
+
+Start the 4-GPU AR + 4-GPU DiT service:
+
+```bash
+scripts/start_hunyuan_vllm.sh
+```
+
+Run one task as an end-to-end smoke test:
+
+```bash
+python run_hunyuan_generation.py --only 0 --steps 8 \
+  --model-name hunyuan_image3_distil_smoke
+```
+
+Export and run all completed cat slots, then compose them back into the full
+source images:
+
+```bash
+python scripts/export_cat_generation_tasks.py
+python run_hunyuan_generation.py \
+  --tasks annotations/cat_generation_tasks.jsonl \
+  --prompt-kind cat --model-name hunyuan_image3_distil_cat_272 \
+  --steps 8 --timeout 1800 --resume
+python compose_spliced_full.py \
+  --tasks annotations/cat_generation_tasks.jsonl \
+  --model-name hunyuan_image3_distil_cat_272
+```
+
+The generation client posts multipart requests to `/v1/images/edits`, keeps
+the input and output dimensions equal, disables environment proxy discovery,
+and decodes the returned `b64_json` image. Use `--api-style legacy` only for
+the retired Tencent vLLM fork's custom chat-completions endpoint.

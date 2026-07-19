@@ -1,0 +1,73 @@
+# HunyuanImage-3.0-Instruct-Distil: AR + DiT deployment for one 8x80GB host.
+#
+# The upstream CUDA preset uses two GPUs per stage. The BF16 Distil checkpoint
+# is about 157 GiB, so this preset gives each stage four GPUs and follows the
+# model card's 8x80GB recommendation. Shared memory is used for the same-host
+# AR-to-DiT handoff, avoiding an RDMA/Mooncake runtime dependency.
+pipeline: hunyuan_image_3_moe
+async_chunk: false
+trust_remote_code: true
+
+connectors:
+  shared_memory_connector:
+    name: SharedMemoryConnector
+    extra:
+      shm_threshold_bytes: 65536
+
+stages:
+  - stage_id: 0
+    is_comprehension: true
+    final_output: true
+    final_output_type: text
+    max_num_seqs: 1
+    # A single request uses only ~6k tokens. Keep the KV reservation modest so
+    # repeated image preprocessing/JIT caches have safe headroom; 0.80 still
+    # reached ~80.8/81.6GB after a ten-request image batch.
+    gpu_memory_utilization: 0.70
+    enforce_eager: true
+    max_num_batched_tokens: 32768
+    devices: "0,1,2,3"
+    tensor_parallel_size: 4
+    hf_overrides:
+      rope_parameters:
+        mrope_section: [0, 32, 32]
+        rope_type: default
+    omni_kv_config:
+      need_send_cache: true
+    output_connectors:
+      to_stage_1: shared_memory_connector
+    default_sampling_params:
+      temperature: 0.0
+      top_p: 1
+      top_k: -1
+      max_tokens: 8192
+      detokenize: true
+      skip_special_tokens: false
+      include_stop_str_in_output: true
+
+  - stage_id: 1
+    max_num_seqs: 1
+    gpu_memory_utilization: 0.85
+    enforce_eager: true
+    devices: "4,5,6,7"
+    distributed_executor_backend: mp
+    omni_kv_config:
+      need_recv_cache: true
+      enable_kv_async_prefetch: true
+      kv_prefetch_min_free_mem_ratio: 0.2
+    parallel_config:
+      tensor_parallel_size: 4
+      enable_expert_parallel: true
+    input_connectors:
+      from_stage_0: shared_memory_connector
+    default_sampling_params:
+      num_inference_steps: 8
+      # Distilled guidance is embedded as a scalar token; it is not a second
+      # classifier-free-guidance branch. Match generation_config.json.
+      guidance_scale: 2.5
+
+edges:
+  - from: 0
+    to: 1
+    window_size: -1
+    max_inflight: 1

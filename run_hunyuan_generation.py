@@ -16,6 +16,7 @@ Outputs: generated_crops/<model>/<task_id>.png + manifest.jsonl
 """
 import argparse
 import base64
+import hashlib
 import io
 import json
 import time
@@ -41,10 +42,12 @@ STAIN_PROMPT_TMPL = (
     "unchanged. Do not add text, extra objects, or unrelated marks."
 )
 CAT_PROMPT_TMPL = (
-    "Add a single realistic cat in the {pos} of the image. The cat should fit "
-    "naturally in the scene, with plausible scale, contact shadows, lighting, "
-    "camera perspective, and JPEG-like realism. Keep everything else unchanged. "
-    "Do not add text, duplicate cats, or unrelated objects."
+    "Add a single small but clearly visible realistic cat entirely within the "
+    "{pos} of the image. Keep the whole cat in frame and confined to that local "
+    "area; it should occupy roughly one quarter of the image rather than dominate "
+    "the scene. Match plausible scale, contact shadows, lighting, camera "
+    "perspective, and JPEG-like realism. Keep everything else unchanged. Do not "
+    "add text, duplicate cats, or unrelated objects."
 )
 
 
@@ -76,7 +79,9 @@ def b64_data_uri(img: Image.Image) -> str:
     return "data:image/png;base64," + base64.b64encode(buf.getvalue()).decode()
 
 
-def call_edit(url, model, img, prompt, width, height, steps, seed, timeout=900):
+def call_edit_legacy(url, model, img, prompt, width, height, steps, seed,
+                     timeout=900):
+    """Call the original Tencent vLLM fork's custom chat endpoint."""
     payload = {
         "model": model,
         "messages": [
@@ -112,6 +117,60 @@ def call_edit(url, model, img, prompt, width, height, steps, seed, timeout=900):
     return Image.open(io.BytesIO(base64.b64decode(b64))).convert("RGB")
 
 
+def call_edit_omni(url, model, img, prompt, width, height, steps, seed,
+                   bot_task="think", sys_type="en_unified",
+                   guidance_scale=None, timeout=900):
+    """Call vLLM-Omni's OpenAI-compatible ``/v1/images/edits`` API."""
+    buf = io.BytesIO()
+    img.save(buf, "PNG")
+    form = {
+        "model": model,
+        "prompt": prompt,
+        "size": f"{width}x{height}",
+        "response_format": "b64_json",
+        "output_format": "png",
+        "num_inference_steps": str(steps),
+        "seed": str(seed),
+    }
+    if bot_task:
+        form["bot_task"] = bot_task
+    if sys_type:
+        form["sys_type"] = sys_type
+    if guidance_scale is not None:
+        form["guidance_scale"] = str(guidance_scale)
+
+    sess = requests.Session()
+    sess.trust_env = False
+    resp = sess.post(
+        url,
+        data=form,
+        files={"image": ("input.png", buf.getvalue(), "image/png")},
+        timeout=timeout,
+    )
+    resp.raise_for_status()
+    data = resp.json()
+    images = data.get("data") or []
+    if not images or not images[0].get("b64_json"):
+        raise RuntimeError(f"no image in response: {json.dumps(data)[:300]}")
+    b64 = images[0]["b64_json"]
+    if "," in b64:
+        b64 = b64.split(",", 1)[1]
+    return Image.open(io.BytesIO(base64.b64decode(b64))).convert("RGB")
+
+
+def call_edit(args, img, prompt, width, height, seed):
+    if args.api_style == "legacy":
+        return call_edit_legacy(
+            args.url, args.model, img, prompt, width, height,
+            args.steps, seed, args.timeout,
+        )
+    return call_edit_omni(
+        args.url, args.model, img, prompt, width, height,
+        args.steps, seed, args.bot_task, args.sys_type,
+        args.guidance_scale, args.timeout,
+    )
+
+
 def make_prompt(task, position, prompt_kind):
     if prompt_kind == "cat":
         tmpl = CAT_PROMPT_TMPL
@@ -142,10 +201,12 @@ def run_task(task, args):
     box = [int(v) for v in task["edit_region_in_context_xyxy"]]
     pos = position_phrase(box, (W, H))
     prompt = make_prompt(task, pos, args.prompt_kind)
-    seed = (abs(hash(task["task_id"])) % 9_000_000) + 1
+    # Python's built-in hash is randomized for every process, which makes a
+    # resumed batch produce different images. Derive a stable per-task seed.
+    digest = hashlib.sha256(task["task_id"].encode("utf-8")).digest()
+    seed = (int.from_bytes(digest[:8], "big") % 9_000_000) + 1
 
-    edited_up = call_edit(args.url, args.model, up, prompt, tw, th,
-                          args.steps, seed)
+    edited_up = call_edit(args, up, prompt, tw, th, seed)
     edited = edited_up.resize((W, H), Image.LANCZOS)
 
     # Default: the saved crop IS the model's full edited blue-box crop, which is
@@ -164,8 +225,18 @@ def run_task(task, args):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--url", default="http://127.0.0.1:8001/v1/chat/completions")
+    ap.add_argument("--url", default="http://127.0.0.1:8001/v1/images/edits")
     ap.add_argument("--model", default="vllm_hunyuan_image3")
+    ap.add_argument("--api-style", choices=["omni", "legacy"], default="omni",
+                    help="vLLM-Omni image edit API or the older custom chat API")
+    ap.add_argument("--bot-task", default="think",
+                    choices=["think", "recaption", "think_recaption", "vanilla"],
+                    help="Hunyuan Instruct prompt mode used by vLLM-Omni")
+    ap.add_argument("--sys-type", default="en_unified",
+                    help="Hunyuan system prompt type; pass an empty string to omit")
+    ap.add_argument("--guidance-scale", type=float, default=None,
+                    help="optional override; Distil deployment defaults to 2.5")
+    ap.add_argument("--timeout", type=float, default=900)
     ap.add_argument("--model-name", default="hunyuan_image3",
                     help="output dir name under generated_crops/")
     ap.add_argument("--tasks", default="annotations/generation_tasks.jsonl")
@@ -179,6 +250,8 @@ def main():
                          "Default: save the model's full edited blue crop.")
     ap.add_argument("--only", default=None,
                     help="comma-separated task_ids or 0-based indices to run")
+    ap.add_argument("--resume", action="store_true",
+                    help="skip tasks already marked ok whose output files exist")
     args = ap.parse_args()
 
     rows = [json.loads(l) for l in open(REPO / args.tasks)]
@@ -190,6 +263,22 @@ def main():
     out_dir = REPO / "generated_crops" / args.model_name
     out_dir.mkdir(parents=True, exist_ok=True)
     man_path = out_dir / "manifest.jsonl"
+
+    if args.resume and man_path.exists():
+        completed = set()
+        for line in man_path.read_text(encoding="utf-8").splitlines():
+            if not line.strip():
+                continue
+            row = json.loads(line)
+            output_crop = row.get("output_crop")
+            if (row.get("status") == "ok" and output_crop
+                    and (REPO / output_crop).is_file()):
+                completed.add(row["task_id"])
+        before = len(rows)
+        rows = [row for row in rows if row["task_id"] not in completed]
+        print(f"resume: skipping {before - len(rows)} completed task(s); "
+              f"{len(rows)} remaining", flush=True)
+
     man = open(man_path, "a")
 
     ok = 0
