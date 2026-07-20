@@ -2,6 +2,8 @@
 
 *定稿日期 2026-07-09。配套调研：`survey_opensource_detectors_2026-07-09.md`（开源方法，权重可用性已逐一验证）、`survey_commercial_mllm_2026-07-09.md`（商用 API + MLLM + 文献证据）。早期设计讨论见 `CLAIMFORGE_paper_design.md`，本文件取代其中的实验部分。*
 
+*商用 API 状态更新（2026-07-20）：Illuminarty 当前不可用，active roster 改为 Sightengine + Hive + Resemble，并对 Alibaba Ultra、AI or Not、Reality Defender 做分级 preflight。完整核验见 `COMMERCIAL_API_STATUS_2026-07-20.md`。原始时间线与 7/9 定稿内容保留作为计划快照。*
+
 ---
 
 ## 0. 一页总览
@@ -55,7 +57,8 @@ AISI 评审按六项打分（问题重要性 / 跨学科文献 / 对 AI 社区�
 - 统一管线：`real = decode(source.jpg) → encode JPEG q=95`；`fake = decode(source.jpg) + paste(object) → encode JPEG q=95`。两类经过**完全相同**的最终编码，EXIF 全部剥离，文件名随机化（不含 real/fake 线索）。
 - GT 定位掩码两套都存：`object mask`（实际被替换像素，用 pre-encode diff>0 计算）与 `box mask`（insert_box 矩形）。主指标用 object mask，box 级命中率作次要指标（物体极小，pixel F1 很苛刻，box hit 更贴近"审核员能不能被指到位置"）。
 - 输出 `benchmark_release/v1/{images,masks,manifest.jsonl}`；manifest 含 task_id、label、domain、editor、object、mask 路径、insert 面积占比。
-- **之前 Sightengine/Illuminarty 的旧结果作废重跑**：旧跑法是 PNG 伪图 vs JPEG 真图（格式混淆），且 Sightengine 2026 年 5 月刚升级了 AI-edit 检测——论文数字必须来自规范化后的 v1 集。旧结果文件（sightengine_genai.jsonl 等）留作附录对比可以，主表不可用。
+- **旧商业 API 结果不可进入主表**：旧跑法是 PNG 伪图 vs JPEG 真图（格式混淆），论文数字必须来自规范化后的 paired v1 集。Sightengine 仍需在 canonical 数据上重跑；`SIGHTENGINE_MOUSE_PILOT_RESULTS_2026-07-20.md` 的 99/275 forged-only original-PNG pilot 只能作为失效现象与工程验证，不能计算主表所需的 AUC、FPR 或 paired accuracy。
+- **Illuminarty 不再重跑**：7/9 曾验证可用，但 7/20 官方 Webapp 已显示 service unavailable，当前 API 不能作为可执行基线。保留历史 adapter 和失败记录用于 availability/provenance 说明，不再购买额度或依赖网页内部 localization 接口。
 
 ### D3（P1）第二编辑器 + 物体多样化
 - 编辑器 2：**FLUX.1-Fill-dev**（开源、掩码原生 inpainting、diffusers 直接跑，与 Hunyuan 架构谱系不同）。备选/替换：Qwen-Image-Edit（本地或 DashScope API）。产出再 +594 forged。
@@ -92,10 +95,14 @@ AISI 评审按六项打分（问题重要性 / 跨学科文献 / 对 AI 社区�
 - 开源通用（可选第 4 个）：Qwen 系旗舰 VL 零样本。
 - 统一 prompt 协议：固定两问("这张照片是否被 AI 编辑过？给 0-100 置信度" / "若有，给出编辑区域 bounding box")，温度 0，每图 1 次；box→mask 作为**非原生定位 adapter** 明确标注。
 
-### 家族 E：商用 API — 2 个（用户已定）+1 可选
-- **Sightengine genai**：成熟商业 pixel-only 整图基线（注意其 2026-05 刚上线 AI-edit 检测——无论它跑好跑坏都是新闻：好=首个能扛局部编辑的商用工具？坏=升级后依然失效）。结果文件沿用 `sightengine_genai.jsonl` / `sightengine_summary.md` 命名。
-- **Illuminarty**：classify + localization 双输出（localization 是网页内部接口返回的 [x,y] 点列，公开 API 无该端点——论文必须写明这个 adapter：点列→圆盘→coarse mask）。结果文件沿用 `illuminarty_classify.jsonl` / `illuminarty_localization_eval.jsonl` / `illuminarty_localization_summary.md`。
-- 可选 +**Hive**（$6/1k，自助开通）：与 Sightengine 凑成 INP-X 测过的商用对，可直接对话该文献。预算 ~$30-60。
+### 家族 E：商用 API — 核心 3 个 + 分级 preflight
+- **Sightengine genai（核心，T1）**：成熟 pixel-only 整图基线，2026-05 刚升级 AI-edit 检测。当前已有 99 张 forged-only pilot，但 canonical paired v1 仍待跑。未来主结果使用 `results/commercial/sightengine/` 下独立 run ID，不能与 pilot 混合。
+- **Hive AI-generated image + deepfake classifier（核心，T1）**：文献可比性最强的新增商业基线；自助 V3、$6/1k、默认 100 requests/day，返回整图 AI/Human 分数和生成器归因，无定位。与 Sightengine 组成 INP-X 同款商用对。
+- **Resemble Detect（核心候选，T1；T2 需 preflight）**：返回整图 fake/real 分数；官方 schema 在 `visualize=true` 时可返回 image heatmap。先用 5–10 对验证 heatmap 是否稳定、是否与输入空间对齐、是否真正响应局部编辑；验证失败则 T2 记 N/A，不能把可视化直接当 GT-compatible mask。
+- **Alibaba Cloud `aigcDetector_ultra_global`（专项候选，T1）**：官方明确输出 `risk_edit`、`risk_aigc`、`risk_fake`，最贴合 AI local-edit 威胁；但官方页面在 service code/region 上存在不一致，先跑 1 张确认接入与计费。
+- **AI or Not（可选，T1）**：低成本自助 whole-image 基线，使用 `only=ai_generated` 避免额外计费；免费 20 次适合先跑 10 对。
+- **Reality Defender（coverage pilot）**：每月免费 50 次，但无脸或脸太小时可能 `NOT_APPLICABLE`。先量化 restaurant/lodging coverage；coverage 不足则只进附录。
+- **Illuminarty（retired/unavailable）**：7/20 起移出 active baseline，不再分配预算。7/9 的可用性记录保留为历史状态变化，不能写成未经证实的团队状况判断。
 - 主表附两行 trivial 基线：随机分数；location-prior（永远预测所有 insert_box 的先验热区）——给定位指标一个诚实下限。
 
 ### 明确不跑、只引用的
@@ -110,7 +117,7 @@ AISI 评审按六项打分（问题重要性 / 跨学科文献 / 对 AI 社区�
 **T2 定位（pixel-level，只在 forged 上算）**：pixel F1（固定 0.5 + best-threshold 两个都报）、IoU、MCC、pixel-AP（对 object mask）；次要指标 **box-hit rate**（预测 mask 与 insert_box IoU>0.3 记命中）。
 **联合**：S_joint = F1_img × F1_pix（防止只解一半排名靠前；两个榜单也分开给）。
 **统计**：所有数字带 95% bootstrap CI（按图重采样 1000 次）；主表按家族分组、组内按 S_joint 排序。
-**适配器披露**：非原生输出（MLLM box→mask、Illuminarty 点列→mask、AIGC 检测器无 mask 记 N/A）在表注中逐一说明。AIGC 家族不强行造 mask（省时间，且"无原生定位能力"本身就是论点）。
+**适配器披露**：非原生输出（MLLM box→mask、Resemble visualization/heatmap→score map、整图 AIGC 检测器无 mask 记 N/A）在表注中逐一说明。Resemble 只有在有效 API 响应确实返回空间 heatmap 后才评 T2，阈值化规则在看 GT 前固定；其余整图 API 不强行造 mask。
 
 ---
 
@@ -119,6 +126,8 @@ AISI 评审按六项打分（问题重要性 / 跨学科文献 / 对 AI 社区�
 ### E1 主实验（P0）：零样本跨范式评测
 规范化 v1 全集（594 real + 594×k forged，k=编辑器数）上跑 §3 全部方法 → **Table 2（主表）**：家族 × {AUC, AP, Acc, TPR@5%FPR | pixel-F1, IoU, box-hit | S_joint}。
 预期故事线：家族 B 与商用整图 API 接近随机（INP-X 的域内复现）；家族 A/C 定位显著高于随机但远低于其在 CASIA/OpenSDI 上的自报成绩（跨域+小物体崩塌）;MLLM 偏"真"、定位不可用；没有方法过"解决线"。
+
+商业 API 在批跑前默认使用相同的 5 对 canonical `real + forged` 做 preflight，先验证分数方向、有效 coverage、计费、响应 schema 和数据保留行为；Alibaba 先用 1 张确认 service code，Reality Defender 先用 5–10 张测 coverage。无效或 `NOT_APPLICABLE` 单独报告 coverage，不静默丢弃或直接混入主指标分母。
 
 ### E2 鲁棒性 / laundering（P1）
 条件（作用于规范化图，两类同变换）：JPEG q ∈ {95(基准), 85, 75, 65, 50}；缩放 {0.75×, 0.5×}；"社交媒体模拟"（长边 1280 + q72）。共 8 个条件。
@@ -153,7 +162,7 @@ results/
 ```
 - 统一结果 schema 是关键：所有 20 个方法只在 adapter 层有差异，metrics 一份代码。
 - 环境：IMDL-BenCo 一个 venv 吃掉 5 个模型；TruFor 用 Docker；SAFIRE/RelayFormer/FakeShield 各自 venv。GPU：24GB 可跑除 FakeShield 外全部；FakeShield 需 40GB+（或砍成 SIDA-7B）。
-- API 成本估算：Sightengine starter $29（10k 次够 E1+E2 子样本）；Illuminarty Basic ~$11；Hive ~$50；GPT-5.5 + Gemini 3.1 Pro 约 3-4k 图 × 2 问 ≈ $100-200。总计 < $350。
+- API 成本估算：Sightengine 当前免费日额度已用于 pilot（99 mouse=495 ops，另有 5-op smoke）；canonical paired/E2 需后续额度或付费计划。Hive 为 $6/1k（275/550 张约 $1.65/$3.30）；AI or Not 为 $0.02/张（约 $5.50/$11）；Alibaba 最新文档为 $0.60/1k（约 $0.165/$0.33，须 preflight 核账）；Resemble 按秒计费，静态图最小单位待 smoke 后确认；Reality Defender 前 50 次/月免费。GPT-5.5 + Gemini 3.1 Pro 约 3-4k 图 × 2 问 ≈ $100-200。总计仍以 MLLM 成本为主。
 - 数据发布：HF gated dataset（研究用途条款）+ GitHub 代码；datasheet + 来源许可清单（Open Images CC BY 2.0 / Wikimedia Commons，可再分发）。
 
 ---
@@ -171,7 +180,7 @@ results/
 | 7/26–7/28 | 全文打磨 + Reproducibility Checklist + 双盲检查；**7/28 交全文** | P0 |
 | 7/29–7/31 | 补充材料：代码打包、full 结果表、datasheet | P0 |
 
-砍单原则：进度落后先砍 E4 → 编辑器 3 → Hive/AI-or-Not → FakeShield（改 SIDA-7B 或砍）→ E2 商用子样本减半。**E1 + D2/D4 对照 + E2 开源曲线是不可砍的最小完整论文。**
+砍单原则：进度落后先砍 E4 → 编辑器 3 → Reality Defender → AI or Not → Alibaba（若 region/service code 阻塞）→ Resemble T2（若无有效 heatmap）→ FakeShield（改 SIDA-7B 或砍）→ E2 商用子样本减半。Hive 因文献可比性优先保留。**E1 + D2/D4 对照 + E2 开源曲线是不可砍的最小完整论文。**
 
 ---
 
@@ -194,7 +203,10 @@ results/
 |---|---|
 | 时间不够 | §7 砍单序列；最小完整论文已定义 |
 | Sightengine 5 月升级后表现很好 | 也是重要结果（"商用已开始响应此威胁，但定位仍缺失"）；且有 laundering 曲线兜底 |
-| Illuminarty localization 接口不稳定/不可用 | adapter 已定义；不可用则该行定位记 N/A，正文说明 |
+| Illuminarty 当前服务不可用 | 移出 active baseline，不再分配预算；保留 7/9→7/20 状态变化和失败 adapter 作为 reproducibility/availability 说明，不推断团队状况 |
+| Resemble heatmap 不稳定或不对应编辑区域 | paired preflight 先验证尺寸、空间对齐和响应语义；失败则只报 T1、T2=N/A |
+| Alibaba Ultra service/region 文档不一致 | 先用 1 张 preflight 确认 service code、region、`risk_edit` 和账单；未通过则不批跑 |
+| Reality Defender 对无脸图返回 N/A | 先报告 5–10 对 coverage；coverage 不足则移到附录，不进入主表有效分母 |
 | 单物体类别捷径质疑 | D3 多样化 + D4-3 real-with-object FPR + 正文明说 mouse 集为受控子集 |
 | IML 方法其实靠贴痕拿高分 | D4-2 真贴回对照直接回答；无论结果如何都是有内容的一列 |
 | MaskCLIP adapter 费时 | 与 IMDL-BenCo dataset-JSON 复用；预算半天，超时先跑其余 |

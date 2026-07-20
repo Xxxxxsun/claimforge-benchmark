@@ -2,6 +2,8 @@
 
 Method: 5 parallel search tracks with primary-source fetches (vendor docs/pricing pages fetched live, live API probes for Illuminarty, arXiv API verification of every cited paper), followed by an independent verification pass. Confidence flagged where a claim rests on a single or secondary source.
 
+> **Commercial API availability update — 2026-07-20.** The 2026-07-09 observations below remain a historical snapshot, but Illuminarty is no longer an executable baseline: its official webapp now reports that the service is unavailable. The active replacement ranking is Hive → Resemble Detect → Alibaba Cloud Ultra → AI or Not → Reality Defender. Full endpoints, probes, costs, and execution rules are recorded in `COMMERCIAL_API_STATUS_2026-07-20.md`.
+
 ## 1. Sightengine GenAI detection (integrated)
 
 - **Output: whole-image score only, no localization.** The `genai` model returns `type.ai_generated` (0–1) plus optional per-generator scores (`type.ai_generators`: dalle, firefly, flux, gan, gpt, midjourney, imagen, nano-banana class, qwen, seedream, stable_diffusion, etc.). No regions, masks, or heatmaps anywhere in the documented schema. Docs: https://sightengine.com/docs/ai-generated-image-detection
@@ -9,26 +11,26 @@ Method: 5 parallel search tracks with primary-source fetches (vendor docs/pricin
 - **Pricing:** Free 2,000 ops/month (500/day); Starter $29/mo = 10k ops; Pro $99/mo = 40k ops; overage $0.002/op. https://sightengine.com/pricing
 - **Independent evidence:** ranked #1 commercial detector on fully-generated images in the ARIA study (98.3% acc; Li et al. 2024, per https://sightengine.com/best-ai-image-detectors-benchmark); but see Section 6 — on inpainted images with global artifacts removed it collapses to ~55% acc / 0.12 recall (INP-X, tested ~Jan 2026, i.e., pre-May-2026 upgrade — worth noting in the paper).
 
-## 2. Illuminarty (integrated)
+## 2. Illuminarty (historical; unavailable as of 2026-07-20)
 
-- **Alive and operational** (site, webapp v1.4 backend, and API all responded to live probes on 2026-07-09). `POST https://api.illuminarty.ai/v1/image/classify` exists and enforces auth (`X-API-Key` header, multipart `file`); returns an AI probability. https://illuminarty.ai/en/
-- **Localization: real feature, but not a documented public-API endpoint.** Probes confirm there is **no** `/v1/image/localize` (404, along with ~10 variants). Localization ("we denote the specific regions… that increased the likelihood of AI generation", a paid Basic-plan feature, $11/mo live price) is served through the webapp's internal endpoint as `details.localization` — an array of [x, y] points rendered client-side as highlighted circular regions, not a server heatmap image. Whether the paid v1 classify response includes this field is **unverified** (no public schema doc); if your integration receives it, that is worth stating explicitly in the paper since it is undocumented. Plans: Free (classification), Basic $10–11/mo (localization + API, 10k req/day), Pro $30–33/mo.
-- **Reputation:** a common academic commercial baseline, consistently the weakest one: Ha et al. CCS'24 (arXiv:2402.03214) report 72.65% acc with a **67.4% false-positive rate on human art**; arXiv:2411.13553 reports 0.80 acc dropping to 0.57 under Gaussian noise; Gold Penguin (June 2026) found it missed 3/7 AI images. Its localization makes it uniquely relevant to a local-edit benchmark despite weak classification.
+- **Status changed after the original survey.** The site, webapp backend, and classify API responded to probes on 2026-07-09. On 2026-07-20, the official webapp displayed `Service currently not available: Cannot connect to server`, and no valid inference could be obtained. This supports an operational `unavailable` label, not a claim about the company's staff or cause of failure. https://app.illuminarty.ai/
+- **The historical localization path is not a stable public API.** The public API never documented a localization endpoint; the webapp used an internal response field rendered as coarse points. Because the service is now unavailable, this interface cannot support a reproducible benchmark and must not receive further budget or adapter work.
+- **Prior literature remains citable.** Ha et al. CCS'24 (arXiv:2402.03214) reported 72.65% accuracy with a 67.4% false-positive rate on human art; arXiv:2411.13553 reported 0.80 accuracy dropping to 0.57 under Gaussian noise. These are historical vendor results, not evidence of current availability.
 
 ## 3. Other commercial detectors (status verified July 2026)
 
-| Service | Alive? | API | Output granularity | Targets |
-|---|---|---|---|---|
-| **Hive AI** (thehive.ai) | Yes | Yes, self-serve, $6/1k images (https://docs.thehive.ai/docs/ai-image-and-video-detection) | Whole-image only ("determines whether or not the input is **entirely AI-generated**") + ~100-class generator attribution (incl. `sdxlinpaint`, `stablediffusioninpaint`) + per-face deepfake score | Fully-generated + deepfake faces |
-| **AI or Not** (Optic, aiornot.com) | Yes | Yes (`api.aiornot.com/v2/image/sync`, https://docs.aiornot.com) | Whole-image verdict + generator attribution; face bboxes (`rois[]`) for deepfakes only — no edit-region localization | Generated + "tampered by generative-AI"; deepfakes |
-| **Reality Defender** | Yes (Gartner "Market Shaper" 2026) | Yes — public API + SDKs since Aug 2025 (https://docs.realitydefender.com); Free 50 scans/mo, Business $399/mo | Whole-file `overallStatus` + ensemble score + per-model scores; "highlights where altered" is marketing/UI, not in API schema | Deepfake/impersonation across image/audio/video |
-| **Winston AI** (gowinston.ai) | Yes | Yes (`POST /v2/image-detection`, credit-based) | Whole-image human/AI score; web-only forensic visualizations (ELA, noise, edge heatmap) not confirmed in API | Fully-generated images |
-| **Decopy AI** | Yes | **No API found** (web tool + extension only) | Whole-image | Fully-generated |
-| **IsItAI** | Yes | Yes (API in all plans, incl. free 5/mo) | Whole-image + generator guess | Fully-generated; mixed Trustpilot reviews |
-| **TrueMedia.org** | **Shut down Jan 14, 2025** (https://www.truemedia.org/post/shutting-down-truemedia); code open-sourced (github.com/truemediaorg); relaunched 2026 as a Georgetown University academic project in closed beta | No commercial API | — | Political deepfakes |
-| **Deepware** (deepware.ai) | Site alive, activity stale (flag) | Contact-gated API | Per-video score | **Video-only** deepfake faces — irrelevant for images |
+| Service | 2026-07-20 access | Output granularity | CLAIMFORGE role / caveat |
+|---|---|---|---|
+| **Hive AI** | Self-serve V3; $6/1k; default 100 requests/day (https://thehive.ai/pricing) | Whole-image AI/Human + generator attribution (including Hunyuan and inpainting sources) + deepfake score | Highest-priority literature-comparable T1 baseline; no localization |
+| **Resemble Detect** | Self-serve Flex; `POST /api/v2/detect`; listed at $0.04/second for images (https://www.resemble.ai/pricing) | Whole-image fake/real score plus optional `ifl.heatmap` visualization | Closest active localization candidate; heatmap semantics and static-image billing require paired preflight |
+| **Alibaba Cloud Ultra** | Self-serve signed `ImageModeration`; latest docs list $0.60/1k | Whole-image `risk_aigc`, `risk_fake`, and explicit `risk_edit` confidence | Best semantic match to local edits; service code/region documentation is inconsistent, so one-image preflight is mandatory |
+| **AI or Not** | Self-serve `POST /v2/image/sync`; free 20 image checks, then $0.02/image | Whole-image AI/Human `is_detected` + confidence + generator attribution; face ROI only for deepfake | Cheap optional T1 baseline; use `only=ai_generated`; no general edit localization |
+| **Reality Defender** | Self-serve API; free 50 image/audio scans/month | Ensemble authenticity/deepfake status and scores; no public general-edit mask | Recognized vendor, but non-face CLAIMFORGE images may return `NOT_APPLICABLE`; coverage pilot only |
+| **Sensity** | API/auth online; developer account is contact-sales | Whole-image AI-generated/deepfake analysis; some vendor visualizations | Apply for trial in parallel; no public price and continuous-score behavior needs confirmation |
+| **Winston AI** | Self-serve developer API; 2,000 starter credits | Basic whole-image AI/Human score; advanced forensic report | Backup only: image API requires a public URL and forensic visualization is not yet validated as an edit map |
+| **Google AI Content Detection** | Private Preview; application required | Detects generated or modified images; no public localization schema | Watchlist, not an immediately executable baseline |
 
-**Cross-cutting finding:** none of the eight documents pixel/region-level localization of AI-edited or inpainted areas; the ecosystem is built around whole-image "entirely AI-generated" verdicts, which is precisely the assumption your benchmark's local-insertion edits violate.
+**Cross-cutting finding:** most commercial APIs still expose only whole-image scores. Resemble documents an optional image heatmap and Alibaba documents an edit-specific whole-image label, but neither capability has yet been validated on CLAIMFORGE. Vendor visualization must not be treated as a ground-truth-compatible edit mask before a paired spatial preflight.
 
 ## 4. Frontier MLLMs as zero-shot forgery detectors
 
@@ -54,15 +56,19 @@ C2PA Content Credentials (spec now at v2.3/2.4, with a conformance program) has 
 - **The key citation — INP-X** (arXiv:2602.00192, Jan 2026, "AI-Generated Image Detectors Overrely on Global Artifacts: Evidence from Inpainting Exchange"; verified verbatim): 90K-image benchmark; tested 11 academic detectors + **Hive and Sightengine**. When original pixels are restored outside the edit mask (isolating truly local content), commercial detectors "exhibit a dramatic drop in accuracy (e.g., from 91% to 55%), frequently approaching chance level" — Sightengine 0.926 → 0.550 acc, recall 0.12. Direct prior evidence that commercial detectors key on global VAE artifacts, not local edits. Code: https://github.com/emirhanbilgic/INP-X
 - **VendorBench-100** (arXiv:2607.06254, published 2026-07-07; verified): first unified cross-paradigm comparison — commercial APIs (Reality Defender, Hive, Sightengine, TruthScan, Neural Defend) vs zero-shot VLMs vs open detectors, on 100 adversarial images incl. an **"AI photo edits"** family; commercial APIs win on median but show a consistent AUC-vs-MCC (threshold) divergence. Tiny corpus — cite as concurrent work.
 - **Deepfake-Eval-2024** (arXiv:2503.02857): 22 commercial models (Hive, Reality Defender, AI or Not, Sensity, …; results anonymized) on in-the-wild fakes; commercial > open-source but below forensic analysts; largest error increases on selective/non-facial manipulations.
-- Supporting: Ha et al. (arXiv:2402.03214, Hive/Optic/Illuminarty on generated art), arXiv:2411.13553 (Hive/Illuminarty fragile to perturbations), RAID (arXiv:2506.03988, adversarial transfer to Hive/Sightengine), TGIF/TGIF2 (arXiv:2407.11566, 2603.28613 — academic localizers fail on regenerative inpainting). **Gap your paper fills:** no existing work evaluates Illuminarty or AI-or-Not on inpainted images, and none does so in a realistic fraud scenario (evidence-photo object insertion).
+- Supporting: Ha et al. (arXiv:2402.03214, Hive/Optic/Illuminarty on generated art), arXiv:2411.13553 (Hive/Illuminarty fragile to perturbations), RAID (arXiv:2506.03988, adversarial transfer to Hive/Sightengine), TGIF/TGIF2 (arXiv:2407.11566, 2603.28613 — academic localizers fail on regenerative inpainting). **Gap your paper fills:** current commercial APIs have not been publicly evaluated as a paired set on tiny, non-facial, evidence-photo object insertions; their advertised edit scores and visualizations also lack quantitative localization validation in this setting.
 
 ## 7. Recommended baseline set
 
-**Commercial (4):**
-1. **Sightengine genai** (integrated) — top-ranked commercial detector on fully-generated images, now advertising AI-edit detection (May 2026), yet shown to collapse on isolated local edits (INP-X) — the perfect "strong global detector" baseline.
-2. **Illuminarty** (integrated) — the only commercial service with region-level localization output, directly comparable to your localization task; known-weak classifier makes it a useful lower anchor.
-3. **Hive AI** (add) — the field's de-facto commercial SOTA baseline (Ha et al., ImageDetectBench, RAID, INP-X, FragFake all use it), self-serve API at $6/1k; pairing it with Sightengine reproduces INP-X's exact commercial pair on your data.
-4. **AI or Not** (optional add) — cheap self-serve API with generator attribution and explicit "tampered by generative-AI" claim; appears in Deepfake-Eval-2024's vendor pool but has never been tested on inpainting. (Reality Defender is the alternative, but its API is deepfake/impersonation-oriented and pricing is less benchmark-friendly.)
+**Commercial active roster:**
+1. **Sightengine genai** — retained core T1 baseline; the 99-image 2026-07-20 result is forged-only pilot evidence, while the canonical paired run remains required.
+2. **Hive AI** — first replacement to add; strongest literature comparability and a self-serve $6/1k API. Pairing Hive with Sightengine reproduces the INP-X commercial pair.
+3. **Resemble Detect** — preferred active replacement for the lost Illuminarty localization path. Include T2 only if `visualize=true` returns a stable, spatially aligned heatmap in paired preflight.
+4. **Alibaba Cloud Ultra** — edit-specific T1 stress test via `risk_edit`; add after service/region/billing preflight succeeds.
+5. **AI or Not** — low-cost optional whole-image baseline; free allocation supports a 10-pair smoke test.
+6. **Reality Defender** — coverage pilot only; promote to the main table only if non-face images produce enough valid results.
+
+**Retired:** Illuminarty is unavailable as of 2026-07-20 and no longer counts toward the active commercial baseline total.
 
 **MLLMs (3):**
 1. **GPT-5.5** (or GPT-5.6 Sol once GA this week) — OpenAI flagship; extends the GPT-4V/4o/5 lineage used in FakeBench, LOKI, and arXiv:2511.13442, giving longitudinal comparability.
