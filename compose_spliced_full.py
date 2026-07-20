@@ -60,24 +60,38 @@ def box_mask(shape, box):
     return mask
 
 
-def object_mask(original_crop, generated_crop, box, thr, feather, object_pad=20, min_px=6):
+def object_mask(
+    original_crop,
+    generated_crop,
+    box,
+    thr,
+    feather,
+    object_pad=20,
+    min_px=6,
+    search_mode="padded",
+):
     """Paste only the pixels the model actually *added* (the object), not the
     whole orange rectangle.
 
-    The model re-decodes the whole crop, so the orange box also picks up a faint
-    low-frequency brightness/color shift on flat background (walls, table) which
-    shows up as a visible bright rectangle when pasted. We isolate the object by:
-      diff > thr in a padded edit box -> morphological opening
-      ->  keep the largest connected blob (the object)  ->  dilate (contact
-      shadow)  ->  feather. Falls back to the box mask if nothing strong is found
-      (very subtle edits).
+    The model re-decodes the whole crop, so the crop can pick up a faint
+    low-frequency brightness/color shift on flat background (walls, table). We
+    threshold the difference, retain the largest component anchored in the
+    orange box, then dilate for contact shadow and feather the boundary. The
+    legacy mode searches an orange-box neighborhood; context mode searches the
+    complete blue crop so the orange box cannot clip the generated object.
     """
     o = np.asarray(original_crop, np.int16)
     g = np.asarray(generated_crop, np.int16)
     d = np.abs(o - g).max(2)
 
-    search_box = padded_box(box, object_pad, original_crop.size)
-    inbox = box_mask(d.shape, search_box)
+    if search_mode == "context":
+        # Search the complete blue context crop. The orange edit box remains an
+        # anchor for selecting the intended connected component, not a hard
+        # clipping boundary for the generated object.
+        inbox = np.ones_like(d, dtype=bool)
+    else:
+        search_box = padded_box(box, object_pad, original_crop.size)
+        inbox = box_mask(d.shape, search_box)
     original_box = box_mask(d.shape, box)
 
     m = (d > thr) & inbox
@@ -90,6 +104,11 @@ def object_mask(original_crop, generated_crop, box, thr, feather, object_pad=20,
         if candidates:
             best = max(candidates, key=lambda i: sizes[i])
             m = lbl == (best + 1)
+            if search_mode == "context":
+                # Restore low-difference holes inside fur, limbs, and other
+                # thin object structure before feathering the boundary.
+                m = ndimage.binary_closing(m, iterations=2)
+                m = ndimage.binary_fill_holes(m)
             m = ndimage.binary_dilation(m, iterations=2) & inbox
         else:
             m = np.zeros_like(m)
@@ -119,6 +138,9 @@ def main():
                     help="per-pixel max-channel diff threshold for object detection")
     ap.add_argument("--object-pad", type=int, default=20,
                     help="pixels to expand the edit box when detecting the object mask")
+    ap.add_argument("--object-search", choices=["padded", "context"], default="padded",
+                    help="search for changed pixels inside the padded orange box "
+                         "or across the complete blue context crop")
     args = ap.parse_args()
 
     model = args.model_name
@@ -149,8 +171,11 @@ def main():
             if args.blend == "object":
                 mask = object_mask(original_crop, generated_crop, box,
                                    args.object_thr, args.feather,
-                                   object_pad=args.object_pad)
-                paste_mode = "object_only"
+                                   object_pad=args.object_pad,
+                                   search_mode=args.object_search)
+                paste_mode = ("object_only_context_diff"
+                              if args.object_search == "context"
+                              else "object_only")
             else:
                 mask = feathered_mask(expected, box, args.feather)
                 paste_mode = "masked_insert_region"
@@ -176,7 +201,11 @@ def main():
             "edit_region_in_context_xyxy": task["edit_region_in_context_xyxy"],
             "candidates": task["candidates"],
             "paste_mode": paste_mode,
-            "object_pad": args.object_pad if args.blend == "object" else 0,
+            "object_pad": (args.object_pad
+                           if args.blend == "object" and args.object_search == "padded"
+                           else 0),
+            "object_search": args.object_search if args.blend == "object" else None,
+            "object_threshold": args.object_thr if args.blend == "object" else None,
             "source_generated_paste_back": row.get("paste_back"),
             "status": "ok",
         })
