@@ -1,0 +1,49 @@
+{
+  "completed_images": 275,
+  "confidence_by_label": {
+    "risk_aigc": {
+      "count": 0,
+      "max": null,
+      "mean": null,
+      "median": null,
+      "min": null
+    },
+    "risk_edit": {
+      "count": 30,
+      "max": 99.47,
+      "mean": 86.38433333333333,
+      "median": 86.305,
+      "min": 70.58
+    },
+    "risk_fake": {
+      "count": 1,
+      "max": 82.39,
+      "mean": 82.39,
+      "median": 82.39,
+      "min": 82.39
+    }
+  },
+  "detected_by_kind": {
+    "forged": {
+      "risk_aigc": 0,
+      "risk_edit": 30,
+      "risk_fake": 1
+    },
+    "real": {
+      "risk_aigc": 0,
+      "risk_edit": 0,
+      "risk_fake": 0
+    }
+  },
+  "error_images": 0,
+  "error_types": {},
+  "expected_images": 275,
+  "expected_tasks": 275,
+  "generated_at": "2026-07-20T20:04:46.850582+00:00",
+  "include": "forged",
+  "input_manifest_sha256": "a44669ac27c7b8abac6a4adb59db2786d7b527969814b293508e72d5d164bae7",
+  "paired_risk_edit_outcomes": {},
+  "results_path": "/Users/macbook/Desktop/research/claimforge-benchmark/results/commercial/alibaba/good275_mouse_forged_canonical_jpeg_q95_20260720.jsonl",
+  "schema_version": "alibaba_ultra_summary_v1",
+  "valid_images": 275
+}

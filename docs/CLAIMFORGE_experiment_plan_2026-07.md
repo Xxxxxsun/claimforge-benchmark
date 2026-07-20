@@ -2,7 +2,7 @@
 
 *定稿日期 2026-07-09。配套调研：`survey_opensource_detectors_2026-07-09.md`（开源方法，权重可用性已逐一验证）、`survey_commercial_mllm_2026-07-09.md`（商用 API + MLLM + 文献证据）。早期设计讨论见 `CLAIMFORGE_paper_design.md`，本文件取代其中的实验部分。*
 
-*商用 API 状态更新（2026-07-20）：Illuminarty 当前不可用，active roster 改为 Sightengine + Hive + Resemble，并对 Alibaba Ultra、AI or Not、Reality Defender 做分级 preflight。完整核验见 `COMMERCIAL_API_STATUS_2026-07-20.md`。原始时间线与 7/9 定稿内容保留作为计划快照。*
+*商用 API 状态更新（2026-07-20）：Illuminarty 当前不可用；active roster 包含 Sightengine、Hive、Copyleaks 与 Resemble，并对 Alibaba Ultra、AI or Not、Reality Defender 做分级执行。Copyleaks 已完成 forged-only 固定顺序前 102 张，38/102 正判，并验证了命中样本上的原生 RLE 定位。完整核验见 `COMMERCIAL_API_STATUS_2026-07-20.md`。原始时间线与 7/9 定稿内容保留作为计划快照。*
 
 ---
 
@@ -95,12 +95,13 @@ AISI 评审按六项打分（问题重要性 / 跨学科文献 / 对 AI 社区�
 - 开源通用（可选第 4 个）：Qwen 系旗舰 VL 零样本。
 - 统一 prompt 协议：固定两问("这张照片是否被 AI 编辑过？给 0-100 置信度" / "若有，给出编辑区域 bounding box")，温度 0，每图 1 次；box→mask 作为**非原生定位 adapter** 明确标注。
 
-### 家族 E：商用 API — 核心 3 个 + 分级 preflight
+### 家族 E：商用 API — 核心 4 个 + 分级 preflight
 - **Sightengine genai（核心，T1）**：成熟 pixel-only 整图基线，2026-05 刚升级 AI-edit 检测。当前已有 99 张 forged-only pilot，但 canonical paired v1 仍待跑。未来主结果使用 `results/commercial/sightengine/` 下独立 run ID，不能与 pilot 混合。
 - **Hive AI-generated image + deepfake classifier（核心，T1）**：文献可比性最强的新增商业基线；自助 V3、$6/1k、默认 100 requests/day，返回整图 AI/Human 分数和生成器归因，无定位。与 Sightengine 组成 INP-X 同款商用对。
 - **Resemble Detect（核心候选，T1；T2 需 preflight）**：返回整图 fake/real 分数；官方 schema 在 `visualize=true` 时可返回 image heatmap。先用 5–10 对验证 heatmap 是否稳定、是否与输入空间对齐、是否真正响应局部编辑；验证失败则 T2 记 N/A，不能把可视化直接当 GT-compatible mask。
-- **Alibaba Cloud `aigcDetector_ultra_global`（专项候选，T1）**：官方明确输出 `risk_edit`、`risk_aigc`、`risk_fake`，最贴合 AI local-edit 威胁；但官方页面在 service code/region 上存在不一致，先跑 1 张确认接入与计费。
-- **AI or Not（可选，T1）**：低成本自助 whole-image 基线，使用 `only=ai_generated` 避免额外计费；免费 20 次适合先跑 10 对。
+- **Copyleaks `ai-image-1-ultra`（核心，T1+T2）**：生产端点已完成前 102 张 unique mouse forged，38/102（37.25%）正判。命中的 38 张上，原生 RLE mask 对 SP 精确像素差分 GT 的平均 precision 0.9804、recall 0.8433、IoU 0.8266；计入空 mask 漏检后的全体 mean IoU 0.3080。断点还剩 173/275，不能把 conditional localization 质量写成整体定位性能。
+- **Alibaba Cloud `aigcDetector_ultra`（已验证专项基线，T1）**：国内版北京地域已完成 275 张 mouse forged-only 运行，275/275 有效；30 张命中 `risk_edit`，另 1 张命中 `risk_fake`。该 API 只返回越过厂商阈值的图片级标签，`nonLabel` 无连续分数，因此当前不能直接算 AUROC/AP，也不提供定位 mask。
+- **AI or Not（已验证，T1）**：使用 `only=ai_generated` 的 275 张 mouse forged-only 运行已完成，275/275 有效，仅 4/275（1.45%）正判；5 对 paired pilot 中 real 与 forged 均 0/5 正判且分数几乎不变。保留连续 confidence，完整 paired 集完成后可算 AUROC/AP。
 - **Reality Defender（coverage pilot）**：每月免费 50 次，但无脸或脸太小时可能 `NOT_APPLICABLE`。先量化 restaurant/lodging coverage；coverage 不足则只进附录。
 - **Illuminarty（retired/unavailable）**：7/20 起移出 active baseline，不再分配预算。7/9 的可用性记录保留为历史状态变化，不能写成未经证实的团队状况判断。
 - 主表附两行 trivial 基线：随机分数；location-prior（永远预测所有 insert_box 的先验热区）——给定位指标一个诚实下限。
@@ -117,7 +118,7 @@ AISI 评审按六项打分（问题重要性 / 跨学科文献 / 对 AI 社区�
 **T2 定位（pixel-level，只在 forged 上算）**：pixel F1（固定 0.5 + best-threshold 两个都报）、IoU、MCC、pixel-AP（对 object mask）；次要指标 **box-hit rate**（预测 mask 与 insert_box IoU>0.3 记命中）。
 **联合**：S_joint = F1_img × F1_pix（防止只解一半排名靠前；两个榜单也分开给）。
 **统计**：所有数字带 95% bootstrap CI（按图重采样 1000 次）；主表按家族分组、组内按 S_joint 排序。
-**适配器披露**：非原生输出（MLLM box→mask、Resemble visualization/heatmap→score map、整图 AIGC 检测器无 mask 记 N/A）在表注中逐一说明。Resemble 只有在有效 API 响应确实返回空间 heatmap 后才评 T2，阈值化规则在看 GT 前固定；其余整图 API 不强行造 mask。
+**适配器披露**：非原生输出（MLLM box→mask、Resemble visualization/heatmap→score map、整图 AIGC 检测器无 mask 记 N/A）在表注中逐一说明。Copyleaks RLE 是原生二值像素 mask，按官方零基 row-major 示例直接解码，不做阈值搜索；Resemble 只有在有效 API 响应确实返回空间 heatmap 后才评 T2，其余整图 API 不强行造 mask。
 
 ---
 
@@ -127,7 +128,7 @@ AISI 评审按六项打分（问题重要性 / 跨学科文献 / 对 AI 社区�
 规范化 v1 全集（594 real + 594×k forged，k=编辑器数）上跑 §3 全部方法 → **Table 2（主表）**：家族 × {AUC, AP, Acc, TPR@5%FPR | pixel-F1, IoU, box-hit | S_joint}。
 预期故事线：家族 B 与商用整图 API 接近随机（INP-X 的域内复现）；家族 A/C 定位显著高于随机但远低于其在 CASIA/OpenSDI 上的自报成绩（跨域+小物体崩塌）;MLLM 偏"真"、定位不可用；没有方法过"解决线"。
 
-商业 API 在批跑前默认使用相同的 5 对 canonical `real + forged` 做 preflight，先验证分数方向、有效 coverage、计费、响应 schema 和数据保留行为；Alibaba 先用 1 张确认 service code，Reality Defender 先用 5–10 张测 coverage。无效或 `NOT_APPLICABLE` 单独报告 coverage，不静默丢弃或直接混入主指标分母。
+商业 API 在批跑前默认使用相同的 5 对 canonical `real + forged` 做 preflight，先验证分数方向、有效 coverage、计费、响应 schema 和数据保留行为；Alibaba 已完成单张 preflight、5 对 pilot 和 275 张 forged-only 全量；Copyleaks 已完成前 2 对和 forged-only 前 102 张，断点剩余 173 张；Reality Defender 仍先用 5–10 张测 coverage。无效或 `NOT_APPLICABLE` 单独报告 coverage，不静默丢弃或直接混入主指标分母。
 
 ### E2 鲁棒性 / laundering（P1）
 条件（作用于规范化图，两类同变换）：JPEG q ∈ {95(基准), 85, 75, 65, 50}；缩放 {0.75×, 0.5×}；"社交媒体模拟"（长边 1280 + q72）。共 8 个条件。
@@ -162,7 +163,7 @@ results/
 ```
 - 统一结果 schema 是关键：所有 20 个方法只在 adapter 层有差异，metrics 一份代码。
 - 环境：IMDL-BenCo 一个 venv 吃掉 5 个模型；TruFor 用 Docker；SAFIRE/RelayFormer/FakeShield 各自 venv。GPU：24GB 可跑除 FakeShield 外全部；FakeShield 需 40GB+（或砍成 SIDA-7B）。
-- API 成本估算：Sightengine 当前免费日额度已用于 pilot（99 mouse=495 ops，另有 5-op smoke）；canonical paired/E2 需后续额度或付费计划。Hive 为 $6/1k（275/550 张约 $1.65/$3.30）；AI or Not 为 $0.02/张（约 $5.50/$11）；Alibaba 最新文档为 $0.60/1k（约 $0.165/$0.33，须 preflight 核账）；Resemble 按秒计费，静态图最小单位待 smoke 后确认；Reality Defender 前 50 次/月免费。GPT-5.5 + Gemini 3.1 Pro 约 3-4k 图 × 2 问 ≈ $100-200。总计仍以 MLLM 成本为主。
+- API 成本估算：Sightengine 当前免费日额度已用于 pilot（99 mouse=495 ops，另有 5-op smoke）；canonical paired/E2 需后续额度或付费计划。Hive 为 $6/1k（275/550 张约 $1.65/$3.30）；AI or Not 为 $0.02/张（约 $5.50/$11）；Alibaba 国内 `aigcDetector_ultra` 为 200 元/万次（275/550 张约 5.50/11 元）；Copyleaks 实测 1 credit/图但当前公开资料不足以稳定换算美元，账户 5 starter credits 已耗尽；Resemble 按秒计费；Reality Defender 前 50 次/月免费。GPT-5.5 + Gemini 3.1 Pro 约 3-4k 图 × 2 问 ≈ $100-200。总计仍以 MLLM 成本为主。
 - 数据发布：HF gated dataset（研究用途条款）+ GitHub 代码；datasheet + 来源许可清单（Open Images CC BY 2.0 / Wikimedia Commons，可再分发）。
 
 ---
@@ -205,6 +206,7 @@ results/
 | Sightengine 5 月升级后表现很好 | 也是重要结果（"商用已开始响应此威胁，但定位仍缺失"）；且有 laundering 曲线兜底 |
 | Illuminarty 当前服务不可用 | 移出 active baseline，不再分配预算；保留 7/9→7/20 状态变化和失败 adapter 作为 reproducibility/availability 说明，不推断团队状况 |
 | Resemble heatmap 不稳定或不对应编辑区域 | paired preflight 先验证尺寸、空间对齐和响应语义；失败则只报 T1、T2=N/A |
+| Copyleaks conditional localization 很高但 62.75% forged 漏检 | 主表同时报告 image-level coverage、全体 T2 和 positive-only T2；补 173 credits 完成 forged-only 后再下总体结论 |
 | Alibaba Ultra service/region 文档不一致 | 先用 1 张 preflight 确认 service code、region、`risk_edit` 和账单；未通过则不批跑 |
 | Reality Defender 对无脸图返回 N/A | 先报告 5–10 对 coverage；coverage 不足则移到附录，不进入主表有效分母 |
 | 单物体类别捷径质疑 | D3 多样化 + D4-3 real-with-object FPR + 正文明说 mouse 集为受控子集 |

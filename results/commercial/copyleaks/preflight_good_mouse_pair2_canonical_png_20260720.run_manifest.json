@@ -1,0 +1,51 @@
+{
+  "adapter_sha256": "02bc1d72242bcaee6612630cbccf4f9a3ec85885d2402523997f63f586e46c56",
+  "candidate": "mouse",
+  "created_at": "2026-07-20T20:48:55.603788+00:00",
+  "endpoint_template": "https://api.copyleaks.com/v1/ai-image-detector/{scan_id}/check",
+  "expected_images": 2,
+  "include": "paired_real_and_forged",
+  "input_manifest_sha256": "72397d215706027a9cdf5de34b971252e769cfe7640d0a7a91913823397dfe46",
+  "localization": {
+    "channel_absolute_difference_threshold": 0,
+    "ground_truth": "canonical_source_vs_forged_exact_pixel_difference",
+    "rle_order": "row_major_zero_based_per_vendor_example"
+  },
+  "login_endpoint": "https://id.copyleaks.com/v3/account/login/api",
+  "model": "ai-image-1-ultra",
+  "ordered_inputs": [
+    {
+      "domain": "restaurant",
+      "file_bytes": 499170,
+      "id": "restaurant_089_slot_001__real",
+      "image_path": "source_pool/openimages_v7_600/restaurant/restaurant_089.jpg",
+      "image_sha256": "cb455e02fb8eab0f8c2ee75722eb06fd6c9fbecbc0692fd83f9e64e412c23529",
+      "kind": "real",
+      "rank": 0,
+      "task_id": "restaurant_089_slot_001"
+    },
+    {
+      "domain": "restaurant",
+      "file_bytes": 2838252,
+      "id": "restaurant_089_slot_001__forged",
+      "image_path": "new_test/spliced_full/restaurant_089_slot_001.png",
+      "image_sha256": "7de0cbf90f03834da64c0d8da273b4d0b320ebd15b7336ee7d124771efde993b",
+      "kind": "forged",
+      "rank": 1,
+      "task_id": "restaurant_089_slot_001"
+    }
+  ],
+  "pillow_version": "12.2.0",
+  "requests_version": "2.34.2",
+  "run_id": "copyleaks_mouse_pair2_20260720",
+  "sandbox": false,
+  "schema_version": "copyleaks_run_manifest_v1",
+  "upload": {
+    "color_mode": "RGB",
+    "filename": "image.png",
+    "format": "PNG",
+    "metadata": "stripped",
+    "minimum_side": 512,
+    "resize_filter": "Lanczos"
+  }
+}

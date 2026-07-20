@@ -1,0 +1,51 @@
+{
+  "adapter_sha256": "1a88c0072f3d34a585d75e72747d5823be4aff7fb0d2c34ea25a7a470db41bac",
+  "candidate": "mouse",
+  "created_at": "2026-07-20T20:46:52.611043+00:00",
+  "endpoint_template": "https://api.copyleaks.com/v1/ai-image-detector/{scan_id}/check",
+  "expected_images": 2,
+  "include": "paired_real_and_forged",
+  "input_manifest_sha256": "822d1d3f1c70b36d489b6163b34f1c97be2c3b264311984fce056caa79f7427b",
+  "localization": {
+    "channel_absolute_difference_threshold": 0,
+    "ground_truth": "canonical_source_vs_forged_exact_pixel_difference",
+    "rle_order": "row_major_zero_based_per_vendor_example"
+  },
+  "login_endpoint": "https://id.copyleaks.com/v3/account/login/api",
+  "model": "ai-image-1-ultra",
+  "ordered_inputs": [
+    {
+      "domain": "lodging",
+      "file_bytes": 511086,
+      "id": "lodging_088_slot_001__real",
+      "image_path": "source_pool/openimages_v7_600/lodging/lodging_088.jpg",
+      "image_sha256": "9a0e995fc573aa8c2c879ac6472a8d6ef45d30b7f569561150e84933510faa55",
+      "kind": "real",
+      "rank": 0,
+      "task_id": "lodging_088_slot_001"
+    },
+    {
+      "domain": "lodging",
+      "file_bytes": 3009074,
+      "id": "lodging_088_slot_001__forged",
+      "image_path": "spliced_full/hunyuan_image3/lodging_088_slot_001.png",
+      "image_sha256": "59810b92d588569025f723151da10dd5eca143f0ac44364dff15ca2716abc38a",
+      "kind": "forged",
+      "rank": 1,
+      "task_id": "lodging_088_slot_001"
+    }
+  ],
+  "pillow_version": "12.2.0",
+  "requests_version": "2.34.2",
+  "run_id": "copyleaks_mouse_pair1_20260720",
+  "sandbox": false,
+  "schema_version": "copyleaks_run_manifest_v1",
+  "upload": {
+    "color_mode": "RGB",
+    "filename": "image.png",
+    "format": "PNG",
+    "metadata": "stripped",
+    "minimum_side": 512,
+    "resize_filter": "Lanczos"
+  }
+}

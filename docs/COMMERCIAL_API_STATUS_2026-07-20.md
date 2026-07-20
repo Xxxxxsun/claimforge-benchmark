@@ -1,28 +1,31 @@
 # 商业图片检测 API 可用性与替代计划（2026-07-20）
 
-本文记录 CLAIMFORGE 商业图片检测服务的当前可用性、接入方式和实验优先级。它更新并取代 `survey_commercial_mllm_2026-07-09.md` 中关于 Illuminarty 仍可运行以及商业基线排序的结论。
+本文记录 CLAIMFORGE 商业图片检测服务的当前可用性、接入方式和实验优先级。它更新并取代 `survey_commercial_mllm_2026-07-09.md` 中关于 Illuminarty 仍可运行以及商业基线排序的结论。所有已保存结果及 completed/partial/not-run 状态的统一入口见 `results/commercial/README.md`。
 
 ## 1. 当前结论
 
 - **Illuminarty 停止使用。** 官方 Webapp 当前显示 `Service currently not available: Cannot connect to server`；已有 key 也无法完成有效推理。无法仅凭这些现象判断团队状况，但从实验执行角度应将其标为 unavailable，不再购买额度或开发新 adapter。官方状态：https://app.illuminarty.ai/
 - **Sightengine 保留。** 2026-07-20 已在 99 张 good-mouse forged PNG 上获得 99/99 个有效响应；详细结果见 `SIGHTENGINE_MOUSE_PILOT_RESULTS_2026-07-20.md`。该批仍是 forged-only pilot，不是 canonical paired 主表结果。
-- **新增首选：Hive 与 Resemble Detect。** Hive 提供最强的论文可比性；Resemble 是当前最接近 Illuminarty 定位能力的替代项。
-- **新增专项候选：Alibaba Cloud AI-Generated Image Detection Ultra。** 官方明确返回 AI local-edit 风险标签，但正式批跑前必须先确认账号区域和实际 service code。
-- **新增低成本补充：AI or Not。** 自助、便宜、可直接上传本地图片，适合快速增加一个 whole-image 商业黑盒基线。
+- **Hive 已完成 authenticated paired preflight。** 2026-07-20 在 5 对 good-mouse `real + forged` 上获得 10/10 个有效响应；厂商阈值 0.9 下 real 与 forged 均为 0/5 检出。Hive 提供较强的论文可比性，现保留为核心 whole-image 商业基线。
+- **Resemble Detect 已完成 authenticated paired preflight。** 5 对 mouse 输入获得 10/10 个有效分类和 10/10 个 IFL heatmap artifact，但仅 1/5 forged 被标为 `Likely fake`，且当前返回的可视化没有形成可用的 mouse 局部定位信号。
+- **Alibaba Cloud Ultra 已完成全量 forged-only 运行。** 国内版北京地域的 `aigcDetector_ultra` 已通过鉴权和本地临时上传验证；275/275 请求有效，30 张命中 `risk_edit`，另 1 张命中 `risk_fake`，任一风险检出率为 31/275（11.27%）。
+- **AI or Not 已完成全量 forged-only 运行。** 275/275 请求有效，仅 4/275（1.45%）被厂商判为 AI；271/275（98.55%）未检出。5 对 paired pilot 中 real 与 forged 均为 0/5 检出，且成对分数几乎不变。
+- **Copyleaks Ultra 已完成前 102 张 forged。** 102/102 有效，38/102（37.25%）被判为 AI。原生 RLE 在 38 个命中样本上平均 precision 0.9804、recall 0.8433、IoU 0.8266；把 64 个空 mask 漏检计入后，全体 mean IoU 为 0.3080。当前是 275 张计划的可断点前缀，尚余 173 张。
 - **Reality Defender 仅做 coverage pilot。** 它是成熟商业服务，但无脸或脸过小的图片可能返回 `NOT_APPLICABLE`，与 restaurant/lodging 数据存在明显适配风险。
 
 ## 2. “当前可用”的验证边界
 
-本次状态检查只使用官方文档、官方价格页和无凭据连通性探测，不创建账号、不消耗推理额度：
+本次服务盘点主要使用官方文档、官方价格页和无凭据连通性探测；Copyleaks、Hive、Resemble、Alibaba、AI or Not 与 Sightengine 另已完成带有效凭据的推理验证：
 
 | Service | 2026-07-20 无凭据探测 | 说明 |
 |---|---|---|
-| AI or Not | health HTTP 200，`is_live=true`；image API HTTP 401 | 健康检查与鉴权路由在线 |
-| Hive V3 | HTTP 401，`Authorization header missing` | 官方 V3 路由在线并拒绝无凭据请求 |
-| Resemble Detect | HTTP 401 | 正式 endpoint 在线并执行鉴权 |
+| Copyleaks Ultra | authenticated 102/102 unique mouse forged 请求有效 | production `ai-image-1-ultra`、multipart PNG、离散 verdict、AI-pixel fraction 和原生 RLE mask 均已验证；38/102 正判 |
+| AI or Not | authenticated 275/275 forged 请求有效 | `only=ai_generated` 本地上传、连续分数和厂商 verdict 均已验证 |
+| Hive V3 | authenticated HTTP 200，10/10 mouse paired 请求有效 | API、凭据和 multipart 图片推理均已验证 |
+| Resemble Detect | authenticated HTTP 200，10/10 mouse paired 请求有效 | 分类、IFL score 和 heatmap artifact 均已验证 |
 | Reality Defender | HTTP 401 | 正式 endpoint 在线并执行鉴权 |
 | Sensity | HTTP 401 | 正式 endpoint 在线并执行鉴权 |
-| Alibaba Cloud | 官方 endpoint 可达；无签名根路径返回 HTTP 404 | 服务域名在线；RAM 签名、服务开通状态和 region 仍须 authenticated smoke test 验证 |
+| Alibaba Cloud | authenticated 275/275 forged 请求有效 | 国内版 `cn-beijing` / `aigcDetector_ultra`、RAM 签名、本地临时上传及局部编辑标签均已验证 |
 
 HTTP 401 在无 key 探测中是预期结果，只能确认 DNS/TLS/路由/鉴权层当前存在，**不能替代带有效凭据的推理 smoke test**。每家服务在进入批量运行前仍须完成少量 paired preflight；正式纳入还必须保存至少一个 authenticated HTTP 200 原始响应。
 
@@ -49,7 +52,22 @@ HTTP 401 在无 key 探测中是预期结果，只能确认 DNS/TLS/路由/鉴�
 
 **实验角色：** 与 Sightengine 组成核心 whole-image 商业检测对，并与 INP-X 等已有工作直接比较。
 
-### 3.2 Resemble Detect — Illuminarty 定位能力的首选替代
+**2026-07-20 mouse paired preflight：**
+
+- 样本：按 Sightengine pilot 的固定顺序选取前 5 个审核为 `good` 的 mouse task，共 5 张真实原图和 5 张对应拼回图。
+- 输入控制：两类图片均先解码为 RGB，再编码为无元数据 JPEG quality 95、4:4:4 subsampling，并统一以 `image.jpg` 上传。
+- API coverage：10/10 HTTP 200，10/10 返回有效 `ai_generated` 分数。
+- 厂商阈值 0.9：real 0/5 检出，forged 0/5 检出。
+- forged 分数：范围 0.0000123–0.0026269，均值 0.0007090，中位数 0.0001605。
+- real 分数：范围 0.0000116–0.0026285，均值 0.0007127，中位数 0.0001621。
+- paired `forged - real`：均值 -0.00000371；这 5 对中编辑前后的输出几乎不变。`hunyuan`、`sdxlinpaint` 与 `stablediffusioninpaint` 子类分数同样接近零。
+- 解释边界：该结果只证明当前 5 对局部 mouse 编辑构成了明确失败案例，不足以替代 275 对主实验或估计稳定的总体检测率。
+- Runner：`eval/commercial/run_hive.py`。
+- 结果：`results/commercial/hive/pilot_good_mouse_pairs5_canonical_jpeg_q95_20260720.jsonl`、对应 `.run_manifest.json` 和 `.summary.json`。
+
+**275 张 mouse forged-only 批跑状态：** 2026-07-20 已完成 88/275 个有效请求，0/88 达到 0.9 阈值；最高分 0.0095834，均值 0.0006725。第 89 个待测输入触发 HTTP 429，与 V3 self-serve 100 requests/day 限额一致；剩余 187 张保留为断点任务。当前结果位于 `results/commercial/hive/good275_mouse_forged_canonical_jpeg_q95_20260720.jsonl`，再次运行同一命令会跳过这 88 个成功 ID。
+
+### 3.2 Resemble Detect — 已验证但定位能力较弱
 
 - Endpoint：`POST https://app.resemble.ai/api/v2/detect`
 - 鉴权：`Authorization: Bearer <API_TOKEN>`
@@ -69,25 +87,51 @@ HTTP 401 在无 key 探测中是预期结果，只能确认 DNS/TLS/路由/鉴�
 
 **实验角色：** 商业分类 + 候选定位输出；优先用 5–10 对图确认 heatmap 是否真正响应局部 mouse 编辑。
 
-### 3.3 Alibaba Cloud Ultra — local-edit 专项候选
+**2026-07-20 mouse paired preflight：**
+
+- 样本与输入控制：使用 Hive pilot 相同的 5 对 `real + forged`，两类图片统一转为无元数据 JPEG quality 95、4:4:4 subsampling。
+- API coverage：10/10 HTTP 200；10/10 返回 `image_metrics.score`、`ifl.score`、heatmap 和 visualization artifact。
+- real 标签：`Real` 3 张、`Likely real` 1 张、`Neutral/Uncertain` 1 张；整图 score 均值 0.2049。
+- forged 标签：`Real` 3 张、`Likely real` 1 张、`Likely fake` 1 张；整图 score 均值 0.2403。
+- paired 整图 score `forged - real`：均值 0.0354，中位数 0.0173；最大增量 0.1055 来自唯一的 `Likely fake` 样本。
+- paired IFL score `forged - real`：均值 0.00989，中位数 0.00084。该小样本中整体变化很弱。
+- 定位检查：4/5 forged 的 heatmap 与 visualization 在解码后像素完全相同，没有可见热区；唯一 `Likely fake` 样本的 visualization 是全图红色覆盖，GT mouse 框内的覆盖变化没有高于框外。`ifl.heatmap` 是厂商渲染后的 RGB/JPEG artifact，不是带有明确数值语义的单通道 score map，因此不能直接当作原生编辑 mask 计算 pixel-AP。
+- 隐私限制：当前账号套餐不支持 `zero_retention_mode`；带该参数的请求返回 HTTP 400。正式扩大样本前需要接受默认存储策略或联系 Resemble 开通该能力。
+- Runner：`eval/commercial/run_resemble.py`。
+- 结果：`results/commercial/resemble/pilot_good_mouse_pairs5_canonical_jpeg_q95_20260720.jsonl`、对应 `.run_manifest.json`、`.summary.json` 及同名 artifact 目录。
+
+**275 张 mouse forged-only 批跑状态：** 已获得 274/275 个有效结果和 274/274 个 heatmap artifact；`Fake` 30、`Likely fake` 11，合并为厂商正判时是 41/274（14.96%）。最后一张因 wallet 余额比单次费用少 1 cent 而返回 HTTP 402，补充余额后可断点补跑。详细记录见 `RESEMBLE_MOUSE_FULL_RESULTS_2026-07-20.md`。
+
+### 3.3 Alibaba Cloud Ultra — 已验证的 local-edit 专项基线
 
 - API operation：`ImageModeration`
-- 服务名：最新国际文档写作 `aigcDetector_ultra_global`。
+- 服务名：阿里云中国站 `aigcDetector_ultra`。
+- 地域与 endpoint：`cn-beijing` / `green-cip.cn-beijing.aliyuncs.com`。
 - 鉴权：Alibaba Cloud RAM AccessKey 签名；使用专用 RAM user 和厂商要求的 `AliyunYundunGreenWebFullAccess` policy，绝不使用 root AccessKey。
 - 输入：公开 URL、OSS 对象或 SDK 本地文件上传；本地文件在服务端短暂保存 30 分钟。
-- 输出标签：`risk_aigc`、`risk_fake`、`risk_edit`，每项 confidence 为 0–100。
+- 输出标签：`risk_aigc`、`risk_fake`、`risk_edit`，命中标签的 confidence 为 0–100；未触发账号默认阈值时只返回无 confidence 的 `nonLabel`，因此当前输出不能直接用于 AUROC/AP。
 - 定位：`risk_edit` 是整图风险分数，不返回像素 mask。
-- 价格：最新国际文档列 USD 0.60 / 1,000 calls；275 张约 USD 0.165，550 张约 USD 0.33。
-- 阻断性注意：同一官方页面在 Ultra 的 service code、区域支持和计费分类上存在不一致。必须先用 1 张做 preflight，确认实际 service、region、返回标签和账单，再批跑。
+- 国内价格：人民币 200 元/万次；275 张约 5.50 元，550 张 paired 集约 11 元。
 
 官方资料：
 
-- https://www.alibabacloud.com/help/en/content-moderation/latest/image-audit-enhanced-edition-detects-aigc-infringement
-- https://www.alibabacloud.com/help/en/content-moderation/latest/billing-description
+- https://help.aliyun.com/zh/document_detail/2672918.html
+- https://help.aliyun.com/zh/document_detail/467828.html
+- https://help.aliyun.com/zh/document_detail/477720.html
 
 **实验角色：** 唯一明确把“AI local editing”写入官方检测目标的候选；即使 `risk_edit` 失败，也能形成直接可写的 vendor-claim stress test。
 
-### 3.4 AI or Not — 最容易增加的低成本黑盒基线
+**2026-07-20 mouse 运行结果：**
+
+- 单张 preflight：1/1 有效，返回 `nonLabel`，证明 RAM 权限、北京 Ultra service 和临时上传链路可用。
+- paired pilot：与 Hive/Resemble 相同的前 5 对 canonical `real + forged` 共 10/10 有效；real 与 forged 均 0/5 命中任一风险标签。
+- forged-only 全量：275/275 有效、0 错误；`risk_edit` 30/275（10.91%），另有 1/275 仅命中 `risk_fake`，任一风险共 31/275（11.27%）；`risk_aigc` 0/275。
+- `risk_edit` 命中 confidence：均值 86.38，中位数 86.31，范围 70.58–99.47。风险等级为 high 13、medium 8、low 10、none 244。
+- domain：lodging 的 `risk_edit` 为 11/147（7.48%）；restaurant 为 19/128（14.84%）。该切片差异仅作描述，尚未控制编辑面积等混杂因素。
+- Runner：`eval/commercial/run_alibaba.py`。
+- 结果：`results/commercial/alibaba/good275_mouse_forged_canonical_jpeg_q95_20260720.jsonl`、对应 `.run_manifest.json` 和 `.summary.json`。详细记录见 `ALIBABA_MOUSE_FULL_RESULTS_2026-07-20.md`。
+
+### 3.4 AI or Not — 已验证的低检出率 whole-image 基线
 
 - Endpoint：`POST https://api.aiornot.com/v2/image/sync`
 - 鉴权：`Authorization: Bearer <API_KEY>`
@@ -95,7 +139,7 @@ HTTP 401 在无 key 探测中是预期结果，只能确认 DNS/TLS/路由/鉴�
 - 调用参数：使用 `only=ai_generated`。默认请求还会运行 deepfake、NSFW 和 quality，其中 AI-generated 与 deepfake 分别计费。
 - 输出：`ai_generated.ai` / `ai_generated.human` 下的 `is_detected` 与 `confidence`、生成器归因和图片元数据。解析器必须容忍未来新增生成器字段。
 - 定位：`ai_generated` 没有 ROI；只有 face-deepfake 分支返回 bbox，不能当作通用 local-edit 定位。
-- 价格：免费页列 20 次 image checks；其后 USD 0.02 / image。275 张约 USD 5.50，550 张约 USD 11。
+- 价格：当前免费页列 20 次 image checks 和 API key；Pro 为 USD 5/月并列出 500 image checks。实际调用只启用 `ai_generated`，避免 deepfake 等报告的独立计费。
 
 官方资料：
 
@@ -104,9 +148,41 @@ HTTP 401 在无 key 探测中是预期结果，只能确认 DNS/TLS/路由/鉴�
 - https://www.aiornot.com/pricing
 - https://www.aiornot.com/register
 
-**实验角色：** 先用免费 20 次运行 10 对 paired smoke；coverage 和 score 正常后再决定是否全量。
+**实验角色：** 低成本 whole-image 连续分数基线；没有通用 edit localization。
 
-### 3.5 Reality Defender — 知名服务但低优先级
+**2026-07-20 mouse 运行结果：**
+
+- paired pilot：与其他商业 API 相同的前 5 对 canonical `real + forged`，10/10 有效；real 与 forged 均 0/5 被判为 AI。
+- pilot real 分数均值 0.04957，forged 均值 0.04949；paired `forged - real` 均值 -0.0000818。5 对分数几乎完全相同。
+- forged-only 全量：275/275 有效、0 错误；4/275（1.45%）`ai_detected=true`，271/275（98.55%）未检出。
+- forged `ai_confidence`：均值 0.03982，中位数 0.01462，P95 0.13041，范围 0.00173–0.90252。4 个正判 confidence 为 0.59555、0.83564、0.89352、0.90252；最高负判为 0.32095。
+- domain：4 个正判全部来自 lodging，即 lodging 4/147（2.72%）、restaurant 0/128。该结果只作描述，不足以推断稳定领域差异。
+- Runner：`eval/commercial/run_aiornot.py`。
+- 结果：`results/commercial/aiornot/good275_mouse_forged_canonical_jpeg_q95_20260720.jsonl`、对应 `.run_manifest.json` 和 `.summary.json`。详细记录见 `AIORNOT_MOUSE_FULL_RESULTS_2026-07-20.md`。
+
+### 3.5 Copyleaks AI Image Detection Ultra — 已验证的原生定位基线
+
+- Endpoint：`POST https://api.copyleaks.com/v1/ai-image-detector/{scanId}/check`。
+- 鉴权：先用账户邮箱和永久 API key 调用 `POST https://id.copyleaks.com/v3/account/login/api`，再使用 48 小时 Bearer token。
+- 模型：`ai-image-1-ultra`；production 请求必须显式使用 `sandbox=false`，否则只返回不计费的 mock result。
+- 输入：multipart PNG/JPEG 等；最小 512x512，最大 6000x4500 / 27 MP，文件小于 32 MB。
+- 输出：`isAiDetected`、AI/Human 像素比例，以及由 `starts` / `lengths` 构成的像素级 RLE mask。
+- 计费：当前实测 1 credit/image；可用 `GET /v3/scans/credits` 查询余额。公开文档未给出足以稳定换算的单张美元价格，因此预算以 credits 报告。
+
+官方资料：
+
+- https://docs.copyleaks.com/guides/ai-detector/ai-image-detection/
+- https://docs.copyleaks.com/reference/actions/ai-image-detector/check
+- https://docs.copyleaks.com/using-the-apis/authentication/
+- https://docs.copyleaks.com/reference/actions/admin/check-credits/
+
+**2026-07-20 mouse 结果：** 固定顺序前两对共 4/4 有效；real 0/2 正判，forged 2/2 正判。随后优先扩跑 100 张未测 forged，最终得到前 102 张 unique forged 的完整结果：38/102（37.25%）正判，lodging 21/54、restaurant 17/48。命中的 38 张上，RLE 对 canonical real-vs-forged 精确像素差分 mask 的平均 precision 0.9804、recall 0.8433、IoU 0.8266，且预测像素全部位于 context box 内；若把 64 个漏检的空 mask 纳入，mean IoU 为 0.3080、median 为 0。该结果说明“命中后定位很准”但不能掩盖 62.75% image-level miss rate。
+
+- Runner：`eval/commercial/run_copyleaks.py`。
+- 详细记录：`COPYLEAKS_MOUSE_PILOT_RESULTS_2026-07-20.md`、`COPYLEAKS_MOUSE_FORGED_102_RESULTS_2026-07-20.md`。
+- 当前 forged-only 进度：102/275，断点文件已验证还剩 173 张；按实测 1 credit/image 还需 173 credits。
+
+### 3.6 Reality Defender — 知名服务但低优先级
 
 - 鉴权：`X-API-KEY`。
 - 流程：请求 AWS presigned upload URL，上传本地文件，再按 `request_id` 轮询结果。
@@ -134,22 +210,24 @@ HTTP 401 在无 key 探测中是预期结果，只能确认 DNS/TLS/路由/鉴�
 
 ### Phase A：paired preflight
 
-默认每家先跑相同的 5 对 `real + forged`，且 real/forged 使用同一 canonical 编码；Alibaba 先用 1 张确认 service code，Reality Defender 先用 5–10 张测 coverage。检查：
+默认每家先跑相同的 5 对 `real + forged`，且 real/forged 使用同一 canonical 编码；Alibaba 先用 1 张确认 service code，Copyleaks 当前完成前 2 对和 forged-only 前 102 张，Reality Defender 先用 5–10 张测 coverage。检查：
 
 1. HTTP/API 成功率与有效 coverage。
 2. 原始连续分数、厂商 verdict、版本字段和计费单位。
 3. 是否回显文件名、任务 ID 或凭据相关字段。
 4. Resemble heatmap 是否能下载、是否与输入尺寸对齐、是否对 mouse 区域有响应。
 5. Alibaba 是否实际返回 `risk_edit`，以及 Ultra service code 与区域是否可用。
-6. Reality Defender 在无脸图片上的 `NOT_APPLICABLE` 比例。
+6. Copyleaks RLE 与精确像素差分 GT 的 IoU/precision/recall，以及 `summary.ai` 是否与 RLE 面积一致。
+7. Reality Defender 在无脸图片上的 `NOT_APPLICABLE` 比例。
 
 ### Phase B：核心商业主表
 
 1. Sightengine `genai`
 2. Hive AI-generated image + deepfake classifier
-3. Resemble Detect
+3. Copyleaks `ai-image-1-ultra`（T1 + 原生 T2）
+4. Resemble Detect（T1；当前 heatmap 不作为 T2）
 
-若 Phase A 正常，再增加 Alibaba Ultra 与 AI or Not。Reality Defender 只有在有效 coverage 足够时进入主表，否则作为 coverage/failure appendix。
+Alibaba Ultra 与 AI or Not 已完成 mouse forged-only 全量，作为已验证补充行保留。Copyleaks 在补充 credits 后优先扩跑；Reality Defender 只有在有效 coverage 足够时进入主表，否则作为 coverage/failure appendix。
 
 ### Phase C：统一报告规则
 
@@ -158,6 +236,7 @@ HTTP 401 在无 key 探测中是预期结果，只能确认 DNS/TLS/路由/鉴�
 - paired real/forged 必须使用完全相同的编码与元数据处理，避免 PNG-vs-JPEG 捷径。
 - 无效/`NOT_APPLICABLE` 单独报告 coverage，不静默丢弃，也不直接当预测错误混入主指标。
 - 商业 heatmap 必须保留原文件、尺寸、颜色空间和 score-to-mask adapter；任何阈值化规则在看 GT 前固定。
+- Copyleaks 原生二值 RLE 不做后验阈值搜索；按官方零基 row-major 示例解码，并同时报告与 exact-diff mask 和标注框的重合。
 - 每条结果记录 endpoint/model、请求时间、延迟、原始响应、输入 SHA-256、计费字段和 adapter SHA-256。
 
 ## 6. 凭据与 runner 约定
@@ -170,6 +249,7 @@ HTTP 401 在无 key 探测中是预期结果，只能确认 DNS/TLS/路由/鉴�
 | Resemble | `RESEMBLE_API_TOKEN` |
 | Alibaba Cloud | `ALIBABA_CLOUD_ACCESS_KEY_ID`, `ALIBABA_CLOUD_ACCESS_KEY_SECRET` |
 | AI or Not | `AIORNOT_API_KEY` |
+| Copyleaks | `COPYLEAKS_EMAIL`, `COPYLEAKS_API_KEY`（只用于换取短期 Bearer token） |
 | Reality Defender | `REALITY_DEFENDER_API_KEY` |
 | Sensity | `SENSITY_USERNAME`, `SENSITY_PASSWORD`（只用于换取短期 Bearer token） |
 

@@ -14,7 +14,9 @@ config/mllm_eval.example.json
 source_pool/**/_cache/
 spliced_full/**/contact_sheet*.jpg
 paper-overleaf/
-results/
+results/*
+!results/commercial/
+!results/commercial/**
 *.aux
 *.bbl
 *.blg
