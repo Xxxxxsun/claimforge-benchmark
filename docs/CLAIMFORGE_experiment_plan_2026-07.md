@@ -2,7 +2,7 @@
 
 *定稿日期 2026-07-09。配套调研：`survey_opensource_detectors_2026-07-09.md`（开源方法，权重可用性已逐一验证）、`survey_commercial_mllm_2026-07-09.md`（商用 API + MLLM + 文献证据）。早期设计讨论见 `CLAIMFORGE_paper_design.md`，本文件取代其中的实验部分。*
 
-*商用 API 状态更新（2026-07-21）：Illuminarty 当前不可用；active roster 包含 Sightengine、Hive、Copyleaks 与 Resemble，并对 Alibaba Ultra、AI or Not、Reality Defender 做分级执行。Copyleaks 已完成 forged-only 全量 275 张，111/275 正判，并验证了命中样本上的原生 RLE 定位；全体 mean IoU 为 0.3296。完整核验见 `COMMERCIAL_API_STATUS_2026-07-20.md`。原始时间线与 7/9 定稿内容保留作为计划快照。*
+*商用 API 状态更新（2026-07-21）：Illuminarty 当前不可用；active roster 包含 Sightengine、Hive、Copyleaks 与 Resemble，并对 Alibaba Ultra、AI or Not、Reality Defender 做分级执行。Hive 与 Copyleaks 均已完成 forged-only 全量 275 张：Hive 在厂商阈值下 0/275 正判；Copyleaks 111/275 正判，原生 RLE 的全体 mean IoU 为 0.3296。完整核验见 `COMMERCIAL_API_STATUS_2026-07-20.md`。原始时间线与 7/9 定稿内容保留作为计划快照。*
 
 ---
 
@@ -97,7 +97,7 @@ AISI 评审按六项打分（问题重要性 / 跨学科文献 / 对 AI 社区�
 
 ### 家族 E：商用 API — 核心 4 个 + 分级 preflight
 - **Sightengine genai（核心，T1）**：成熟 pixel-only 整图基线，2026-05 刚升级 AI-edit 检测。当前已有 199 张 forged-only original-PNG pilot，但 canonical paired v1 仍待跑。未来主结果使用 `results/commercial/sightengine/` 下独立 run ID，不能与 pilot 混合。
-- **Hive AI-generated image + deepfake classifier（核心，T1）**：文献可比性最强的新增商业基线；自助 V3、$6/1k、默认 100 requests/day，返回整图 AI/Human 分数和生成器归因，无定位。与 Sightengine 组成 INP-X 同款商用对。
+- **Hive AI-generated image + deepfake classifier（核心，T1）**：文献可比性最强的新增商业基线；forged-only 已完成 275/275，厂商阈值 0.9 下 0/275 检出，最高分 0.033728。自助 V3、$6/1k、默认 100 requests/day，返回整图 AI/Human 分数和生成器归因，无定位。与 Sightengine 组成 INP-X 同款商用对；完整 paired real 仍待跑。
 - **Resemble Detect（核心候选，T1；T2 需 preflight）**：返回整图 fake/real 分数；官方 schema 在 `visualize=true` 时可返回 image heatmap。先用 5–10 对验证 heatmap 是否稳定、是否与输入空间对齐、是否真正响应局部编辑；验证失败则 T2 记 N/A，不能把可视化直接当 GT-compatible mask。
 - **Copyleaks `ai-image-1-ultra`（核心，T1+T2）**：生产端点已完成 275/275 unique mouse forged，111/275（40.36%）正判。命中的 111 张上，原生 RLE mask 对 SP 精确像素差分 GT 的平均 precision 0.9739、recall 0.8389、IoU 0.8165；计入 164 个空 mask 漏检后的全体 mean IoU 0.3296。不能把 conditional localization 质量写成整体定位性能。
 - **Alibaba Cloud `aigcDetector_ultra`（已验证专项基线，T1）**：国内版北京地域已完成 275 张 mouse forged-only 运行，275/275 有效；30 张命中 `risk_edit`，另 1 张命中 `risk_fake`。该 API 只返回越过厂商阈值的图片级标签，`nonLabel` 无连续分数，因此当前不能直接算 AUROC/AP，也不提供定位 mask。

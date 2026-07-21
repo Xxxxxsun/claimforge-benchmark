@@ -6,7 +6,7 @@
 
 - **Illuminarty 停止使用。** 官方 Webapp 当前显示 `Service currently not available: Cannot connect to server`；已有 key 也无法完成有效推理。无法仅凭这些现象判断团队状况，但从实验执行角度应将其标为 unavailable，不再购买额度或开发新 adapter。官方状态：https://app.illuminarty.ai/
 - **Sightengine 保留。** 2026-07-20 至 2026-07-21 已在 199 张 good-mouse forged PNG 上获得 199/199 个有效响应，0/199 达到 0.5 阈值，尚余 76 张；详细结果见 `SIGHTENGINE_MOUSE_PILOT_RESULTS_2026-07-20.md`。该批仍是 forged-only original-PNG pilot，不是 canonical paired 主表结果。
-- **Hive 已完成 authenticated paired preflight。** 2026-07-20 在 5 对 good-mouse `real + forged` 上获得 10/10 个有效响应；厂商阈值 0.9 下 real 与 forged 均为 0/5 检出。Hive 提供较强的论文可比性，现保留为核心 whole-image 商业基线。
+- **Hive 已完成 forged-only 全量与 authenticated paired preflight。** 275/275 张 good-mouse forged 均获得有效响应，0/275 达到厂商 0.9 阈值；此前 5 对 `real + forged` pilot 为 10/10 有效，real 与 forged 均 0/5 检出。Hive 提供较强的论文可比性，保留为核心 whole-image 商业基线。
 - **Resemble Detect 已完成 authenticated paired preflight。** 5 对 mouse 输入获得 10/10 个有效分类和 10/10 个 IFL heatmap artifact，但仅 1/5 forged 被标为 `Likely fake`，且当前返回的可视化没有形成可用的 mouse 局部定位信号。
 - **Alibaba Cloud Ultra 已完成全量 forged-only 运行。** 国内版北京地域的 `aigcDetector_ultra` 已通过鉴权和本地临时上传验证；275/275 请求有效，30 张命中 `risk_edit`，另 1 张命中 `risk_fake`，任一风险检出率为 31/275（11.27%）。
 - **AI or Not 已完成全量 forged-only 运行。** 275/275 请求有效，仅 4/275（1.45%）被厂商判为 AI；271/275（98.55%）未检出。5 对 paired pilot 中 real 与 forged 均为 0/5 检出，且成对分数几乎不变。
@@ -22,7 +22,7 @@
 | Sightengine `genai` | authenticated 199/199 mouse forged 请求有效 | original-PNG 工程 pilot，0/199 达到 0.5 阈值；尚未运行 canonical paired 条件 |
 | Copyleaks Ultra | authenticated 275/275 unique mouse forged 请求有效 | production `ai-image-1-ultra`、multipart PNG、离散 verdict、AI-pixel fraction 和原生 RLE mask 均已验证；111/275 正判 |
 | AI or Not | authenticated 275/275 forged 请求有效 | `only=ai_generated` 本地上传、连续分数和厂商 verdict 均已验证 |
-| Hive V3 | authenticated HTTP 200，10/10 mouse paired 请求有效 | API、凭据和 multipart 图片推理均已验证 |
+| Hive V3 | authenticated 275/275 mouse forged 与 10/10 paired 请求有效 | API、凭据和 multipart 图片推理均已验证；forged 在 0.9 阈值下 0/275 检出 |
 | Resemble Detect | authenticated HTTP 200，10/10 mouse paired 请求有效 | 分类、IFL score 和 heatmap artifact 均已验证 |
 | Reality Defender | HTTP 401 | 正式 endpoint 在线并执行鉴权 |
 | Sensity | HTTP 401 | 正式 endpoint 在线并执行鉴权 |
@@ -66,7 +66,7 @@ HTTP 401 在无 key 探测中是预期结果，只能确认 DNS/TLS/路由/鉴�
 - Runner：`eval/commercial/run_hive.py`。
 - 结果：`results/commercial/hive/pilot_good_mouse_pairs5_canonical_jpeg_q95_20260720.jsonl`、对应 `.run_manifest.json` 和 `.summary.json`。
 
-**275 张 mouse forged-only 批跑状态：** 2026-07-20 已完成前 88 个有效请求，随后一个待测输入触发 HTTP 429。2026-07-21 续跑新增 100 个有效结果后，下一输入再次返回 HTTP 429；当前累计 188/275 有效，0/188 达到 0.9 阈值，最高分 0.0337280，均值 0.0008636，尚余 87 张。结果位于 `results/commercial/hive/good275_mouse_forged_canonical_jpeg_q95_20260720.jsonl`；同一命令会跳过已成功 ID，`--max-pending N` 可限制单次只处理前 N 个待测输入。
+**275 张 mouse forged-only 批跑状态：** 2026-07-20 至 2026-07-21 经断点续跑已完成 275/275 个有效请求，当前无错误；0/275 达到 0.9 阈值，最高分 0.0337280，均值 0.0007397，中位数 0.0001733，P95 为 0.0027711。原始 append-only JSONL 保留 3 条已被同 ID 成功行覆盖的历史 HTTP 429，summary 按最新行统计。结果位于 `results/commercial/hive/good275_mouse_forged_canonical_jpeg_q95_20260720.jsonl`，详细记录见 `HIVE_MOUSE_FULL_RESULTS_2026-07-21.md`。
 
 ### 3.2 Resemble Detect — 已验证但定位能力较弱
 
