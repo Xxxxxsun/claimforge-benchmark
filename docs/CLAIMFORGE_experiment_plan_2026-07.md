@@ -57,7 +57,7 @@ AISI 评审按六项打分（问题重要性 / 跨学科文献 / 对 AI 社区�
 - 统一管线：`real = decode(source.jpg) → encode JPEG q=95`；`fake = decode(source.jpg) + paste(object) → encode JPEG q=95`。两类经过**完全相同**的最终编码，EXIF 全部剥离，文件名随机化（不含 real/fake 线索）。
 - GT 定位掩码两套都存：`object mask`（实际被替换像素，用 pre-encode diff>0 计算）与 `box mask`（insert_box 矩形）。主指标用 object mask，box 级命中率作次要指标（物体极小，pixel F1 很苛刻，box hit 更贴近"审核员能不能被指到位置"）。
 - 输出 `benchmark_release/v1/{images,masks,manifest.jsonl}`；manifest 含 task_id、label、domain、editor、object、mask 路径、insert 面积占比。
-- **旧商业 API 结果不可进入主表**：旧跑法是 PNG 伪图 vs JPEG 真图（格式混淆），论文数字必须来自规范化后的 paired v1 集。Sightengine 仍需在 canonical 数据上重跑；`SIGHTENGINE_MOUSE_PILOT_RESULTS_2026-07-20.md` 的 99/275 forged-only original-PNG pilot 只能作为失效现象与工程验证，不能计算主表所需的 AUC、FPR 或 paired accuracy。
+- **旧商业 API 结果不可进入主表**：旧跑法是 PNG 伪图 vs JPEG 真图（格式混淆），论文数字必须来自规范化后的 paired v1 集。Sightengine 仍需在 canonical 数据上重跑；`SIGHTENGINE_MOUSE_PILOT_RESULTS_2026-07-20.md` 的 199/275 forged-only original-PNG pilot 只能作为失效现象与工程验证，不能计算主表所需的 AUC、FPR 或 paired accuracy。
 - **Illuminarty 不再重跑**：7/9 曾验证可用，但 7/20 官方 Webapp 已显示 service unavailable，当前 API 不能作为可执行基线。保留历史 adapter 和失败记录用于 availability/provenance 说明，不再购买额度或依赖网页内部 localization 接口。
 
 ### D3（P1）第二编辑器 + 物体多样化
@@ -96,7 +96,7 @@ AISI 评审按六项打分（问题重要性 / 跨学科文献 / 对 AI 社区�
 - 统一 prompt 协议：固定两问("这张照片是否被 AI 编辑过？给 0-100 置信度" / "若有，给出编辑区域 bounding box")，温度 0，每图 1 次；box→mask 作为**非原生定位 adapter** 明确标注。
 
 ### 家族 E：商用 API — 核心 4 个 + 分级 preflight
-- **Sightengine genai（核心，T1）**：成熟 pixel-only 整图基线，2026-05 刚升级 AI-edit 检测。当前已有 99 张 forged-only pilot，但 canonical paired v1 仍待跑。未来主结果使用 `results/commercial/sightengine/` 下独立 run ID，不能与 pilot 混合。
+- **Sightengine genai（核心，T1）**：成熟 pixel-only 整图基线，2026-05 刚升级 AI-edit 检测。当前已有 199 张 forged-only original-PNG pilot，但 canonical paired v1 仍待跑。未来主结果使用 `results/commercial/sightengine/` 下独立 run ID，不能与 pilot 混合。
 - **Hive AI-generated image + deepfake classifier（核心，T1）**：文献可比性最强的新增商业基线；自助 V3、$6/1k、默认 100 requests/day，返回整图 AI/Human 分数和生成器归因，无定位。与 Sightengine 组成 INP-X 同款商用对。
 - **Resemble Detect（核心候选，T1；T2 需 preflight）**：返回整图 fake/real 分数；官方 schema 在 `visualize=true` 时可返回 image heatmap。先用 5–10 对验证 heatmap 是否稳定、是否与输入空间对齐、是否真正响应局部编辑；验证失败则 T2 记 N/A，不能把可视化直接当 GT-compatible mask。
 - **Copyleaks `ai-image-1-ultra`（核心，T1+T2）**：生产端点已完成前 102 张 unique mouse forged，38/102（37.25%）正判。命中的 38 张上，原生 RLE mask 对 SP 精确像素差分 GT 的平均 precision 0.9804、recall 0.8433、IoU 0.8266；计入空 mask 漏检后的全体 mean IoU 0.3080。断点还剩 173/275，不能把 conditional localization 质量写成整体定位性能。
@@ -163,7 +163,7 @@ results/
 ```
 - 统一结果 schema 是关键：所有 20 个方法只在 adapter 层有差异，metrics 一份代码。
 - 环境：IMDL-BenCo 一个 venv 吃掉 5 个模型；TruFor 用 Docker；SAFIRE/RelayFormer/FakeShield 各自 venv。GPU：24GB 可跑除 FakeShield 外全部；FakeShield 需 40GB+（或砍成 SIDA-7B）。
-- API 成本估算：Sightengine 当前免费日额度已用于 pilot（99 mouse=495 ops，另有 5-op smoke）；canonical paired/E2 需后续额度或付费计划。Hive 为 $6/1k（275/550 张约 $1.65/$3.30）；AI or Not 为 $0.02/张（约 $5.50/$11）；Alibaba 国内 `aigcDetector_ultra` 为 200 元/万次（275/550 张约 5.50/11 元）；Copyleaks 实测 1 credit/图但当前公开资料不足以稳定换算美元，账户 5 starter credits 已耗尽；Resemble 按秒计费；Reality Defender 前 50 次/月免费。GPT-5.5 + Gemini 3.1 Pro 约 3-4k 图 × 2 问 ≈ $100-200。总计仍以 MLLM 成本为主。
+- API 成本估算：Sightengine 两个日批次已用于 pilot（199 mouse=995 ops，另有首日 5-op smoke），尚余 76 张 original-PNG forged；canonical paired/E2 需后续额度或付费计划。Hive 为 $6/1k（275/550 张约 $1.65/$3.30）；AI or Not 为 $0.02/张（约 $5.50/$11）；Alibaba 国内 `aigcDetector_ultra` 为 200 元/万次（275/550 张约 5.50/11 元）；Copyleaks 实测 1 credit/图但当前公开资料不足以稳定换算美元，账户 5 starter credits 已耗尽；Resemble 按秒计费；Reality Defender 前 50 次/月免费。GPT-5.5 + Gemini 3.1 Pro 约 3-4k 图 × 2 问 ≈ $100-200。总计仍以 MLLM 成本为主。
 - 数据发布：HF gated dataset（研究用途条款）+ GitHub 代码；datasheet + 来源许可清单（Open Images CC BY 2.0 / Wikimedia Commons，可再分发）。
 
 ---

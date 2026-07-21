@@ -5,7 +5,7 @@
 ## 1. 当前结论
 
 - **Illuminarty 停止使用。** 官方 Webapp 当前显示 `Service currently not available: Cannot connect to server`；已有 key 也无法完成有效推理。无法仅凭这些现象判断团队状况，但从实验执行角度应将其标为 unavailable，不再购买额度或开发新 adapter。官方状态：https://app.illuminarty.ai/
-- **Sightengine 保留。** 2026-07-20 已在 99 张 good-mouse forged PNG 上获得 99/99 个有效响应；详细结果见 `SIGHTENGINE_MOUSE_PILOT_RESULTS_2026-07-20.md`。该批仍是 forged-only pilot，不是 canonical paired 主表结果。
+- **Sightengine 保留。** 2026-07-20 至 2026-07-21 已在 199 张 good-mouse forged PNG 上获得 199/199 个有效响应，0/199 达到 0.5 阈值，尚余 76 张；详细结果见 `SIGHTENGINE_MOUSE_PILOT_RESULTS_2026-07-20.md`。该批仍是 forged-only original-PNG pilot，不是 canonical paired 主表结果。
 - **Hive 已完成 authenticated paired preflight。** 2026-07-20 在 5 对 good-mouse `real + forged` 上获得 10/10 个有效响应；厂商阈值 0.9 下 real 与 forged 均为 0/5 检出。Hive 提供较强的论文可比性，现保留为核心 whole-image 商业基线。
 - **Resemble Detect 已完成 authenticated paired preflight。** 5 对 mouse 输入获得 10/10 个有效分类和 10/10 个 IFL heatmap artifact，但仅 1/5 forged 被标为 `Likely fake`，且当前返回的可视化没有形成可用的 mouse 局部定位信号。
 - **Alibaba Cloud Ultra 已完成全量 forged-only 运行。** 国内版北京地域的 `aigcDetector_ultra` 已通过鉴权和本地临时上传验证；275/275 请求有效，30 张命中 `risk_edit`，另 1 张命中 `risk_fake`，任一风险检出率为 31/275（11.27%）。
@@ -19,6 +19,7 @@
 
 | Service | 2026-07-20 无凭据探测 | 说明 |
 |---|---|---|
+| Sightengine `genai` | authenticated 199/199 mouse forged 请求有效 | original-PNG 工程 pilot，0/199 达到 0.5 阈值；尚未运行 canonical paired 条件 |
 | Copyleaks Ultra | authenticated 102/102 unique mouse forged 请求有效 | production `ai-image-1-ultra`、multipart PNG、离散 verdict、AI-pixel fraction 和原生 RLE mask 均已验证；38/102 正判 |
 | AI or Not | authenticated 275/275 forged 请求有效 | `only=ai_generated` 本地上传、连续分数和厂商 verdict 均已验证 |
 | Hive V3 | authenticated HTTP 200，10/10 mouse paired 请求有效 | API、凭据和 multipart 图片推理均已验证 |

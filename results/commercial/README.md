@@ -8,7 +8,7 @@ The forged-only target is the fixed set of 275 reviewed mouse edits. A standard 
 
 | Service | Paired pilot | Forged-only progress | Current result | Status / next action |
 |---|---:|---:|---|---|
-| Sightengine `genai` | Not run in canonical paired form | 99/275 valid | 0/99 detected at threshold 0.5 | **Partial.** Original-PNG engineering pilot consumed the daily operation allowance; 176 forged remain, and the canonical paired run is still required. |
+| Sightengine `genai` | Not run in canonical paired form | 199/275 valid | 0/199 detected at threshold 0.5 | **Partial.** The 2026-07-21 resume added 100 valid results using 500 operations; 76 forged remain, and the canonical paired run is still required. |
 | Hive V3 | 10/10 valid (5 pairs) | 188/275 valid | 0/188 detected at vendor threshold 0.9 | **Partial.** The 2026-07-21 resume added 100 valid forged results before the next request returned HTTP 429; 87 forged results remain. |
 | Resemble Detect | 10/10 valid (5 pairs) | 275/275 valid | 30 `Fake` + 11 `Likely fake` = 41/275 positive under the combined reporting rule | **Forged-only complete.** All 275 classifications, IFL heatmaps, and visualizations are saved. |
 | Alibaba Cloud Ultra | 10/10 valid (5 pairs), plus one-image preflight | 275/275 valid | 30 `risk_edit` + 1 separate `risk_fake` = 31/275 any-risk | **Forged-only complete.** No errors; paired pilot also complete. |
@@ -21,9 +21,9 @@ Sensity, Winston AI, Tencent Cloud `IMAGE_AIGC`, and Google AI Content Detection
 
 ## Directory contents
 
-- `sightengine/`: 99-image original-PNG forged pilot.
+- `sightengine/`: resumable 199-image original-PNG forged pilot.
 - `hive/`: five-pair canonical pilot and resumable partial forged run.
-- `resemble/`: five-pair canonical pilot, 274-image forged run, and all returned heatmap/visualization JPEG artifacts.
+- `resemble/`: five-pair canonical pilot, complete 275-image forged run, and all returned heatmap/visualization JPEG artifacts.
 - `alibaba/`: one-image preflight, five-pair canonical pilot, and complete 275-image forged run.
 - `aiornot/`: five-pair canonical pilot and complete 275-image forged run.
 - `copyleaks/`: two paired preflights, the 100-image expansion, and a resumable 275-image file seeded with the first 102 unique forged results. Copyleaks RLE masks are stored directly in JSONL rows.

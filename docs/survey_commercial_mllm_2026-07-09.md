@@ -63,7 +63,7 @@ C2PA Content Credentials (spec now at v2.3/2.4, with a conformance program) has 
 
 **Commercial active roster:**
 1. **Copyleaks Ultra** — highest-priority T1+T2 expansion; the first 102 forged images are complete and the resumable 275-image run needs 173 more credits.
-2. **Sightengine genai** — retained core T1 baseline; the 99-image 2026-07-20 result is forged-only pilot evidence, while the canonical paired run remains required.
+2. **Sightengine genai** — retained core T1 baseline; the 199-image 2026-07-20/21 result is forged-only original-PNG pilot evidence, while the canonical paired run remains required.
 3. **Hive AI** — strongest literature comparability and a self-serve $6/1k API. Pairing Hive with Sightengine reproduces the INP-X commercial pair.
 4. **Resemble Detect** — retain T1, but do not use its current visualization as a GT-compatible T2 mask.
 5. **Alibaba Cloud Ultra** — validated edit-specific T1 baseline via China (Beijing) `risk_edit`; 275/275 forged run complete, with 30 `risk_edit` and one additional `risk_fake` detection.
