@@ -100,7 +100,7 @@ HTTP 401 在无 key 探测中是预期结果，只能确认 DNS/TLS/路由/鉴�
 - Runner：`eval/commercial/run_resemble.py`。
 - 结果：`results/commercial/resemble/pilot_good_mouse_pairs5_canonical_jpeg_q95_20260720.jsonl`、对应 `.run_manifest.json`、`.summary.json` 及同名 artifact 目录。
 
-**275 张 mouse forged-only 批跑状态：** 已获得 274/275 个有效结果和 274/274 个 heatmap artifact；`Fake` 30、`Likely fake` 11，合并为厂商正判时是 41/274（14.96%）。最后一张因 wallet 余额比单次费用少 1 cent 而返回 HTTP 402，补充余额后可断点补跑。详细记录见 `RESEMBLE_MOUSE_FULL_RESULTS_2026-07-20.md`。
+**275 张 mouse forged-only 批跑状态：** 2026-07-21 已完成最后一个断点，现有 275/275 个有效结果、275/275 个 heatmap artifact 和 275/275 个 visualization artifact；`Fake` 30、`Likely fake` 11，合并为厂商正判时是 41/275（14.91%）。详细记录见 `RESEMBLE_MOUSE_FULL_RESULTS_2026-07-20.md`。
 
 ### 3.3 Alibaba Cloud Ultra — 已验证的 local-edit 专项基线
 
