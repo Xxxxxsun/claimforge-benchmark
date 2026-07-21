@@ -1,11 +1,13 @@
 {
-  "completed_images": 89,
-  "error_images": 0,
+  "completed_images": 189,
+  "error_images": 1,
   "expected_images": 275,
   "expected_pairs": 0,
   "expected_tasks": 275,
-  "generated_at": "2026-07-21T11:22:31.703111+00:00",
-  "http_error_counts": {},
+  "generated_at": "2026-07-21T12:19:56.865355+00:00",
+  "http_error_counts": {
+    "429": 1
+  },
   "include": "forged",
   "input_manifest_sha256": "a44669ac27c7b8abac6a4adb59db2786d7b527969814b293508e72d5d164bae7",
   "paired_delta": {
@@ -19,14 +21,14 @@
   "schema_version": "hive_summary_v1",
   "score_by_kind": {
     "forged": {
-      "count": 89,
+      "count": 188,
       "detected": 0,
       "detection_rate": 0.0,
-      "max": 0.009583411262748052,
-      "mean": 0.0006677394989747942,
-      "median": 0.0002026093230532862,
-      "min": 1.1041532920912734e-06,
-      "p95": 0.002767391546761721
+      "max": 0.03372797449170257,
+      "mean": 0.000863647104409298,
+      "median": 0.00016569485848579165,
+      "min": 8.03807653680546e-07,
+      "p95": 0.003973404282770721
     },
     "real": {
       "count": 0,
@@ -40,5 +42,5 @@
     }
   },
   "threshold": 0.9,
-  "valid_images": 89
+  "valid_images": 188
 }

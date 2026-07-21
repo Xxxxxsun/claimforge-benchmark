@@ -65,7 +65,7 @@ HTTP 401 在无 key 探测中是预期结果，只能确认 DNS/TLS/路由/鉴�
 - Runner：`eval/commercial/run_hive.py`。
 - 结果：`results/commercial/hive/pilot_good_mouse_pairs5_canonical_jpeg_q95_20260720.jsonl`、对应 `.run_manifest.json` 和 `.summary.json`。
 
-**275 张 mouse forged-only 批跑状态：** 2026-07-20 已完成前 88 个有效请求，随后一个待测输入触发 HTTP 429。2026-07-21 的 authenticated resume smoke test 已让该输入返回 HTTP 200；当前累计 89/275 有效，0/89 达到 0.9 阈值，最高分 0.0095834，均值 0.0006677，尚余 186 张。结果位于 `results/commercial/hive/good275_mouse_forged_canonical_jpeg_q95_20260720.jsonl`；同一命令会跳过已成功 ID，`--max-pending N` 可限制单次只处理前 N 个待测输入。
+**275 张 mouse forged-only 批跑状态：** 2026-07-20 已完成前 88 个有效请求，随后一个待测输入触发 HTTP 429。2026-07-21 续跑新增 100 个有效结果后，下一输入再次返回 HTTP 429；当前累计 188/275 有效，0/188 达到 0.9 阈值，最高分 0.0337280，均值 0.0008636，尚余 87 张。结果位于 `results/commercial/hive/good275_mouse_forged_canonical_jpeg_q95_20260720.jsonl`；同一命令会跳过已成功 ID，`--max-pending N` 可限制单次只处理前 N 个待测输入。
 
 ### 3.2 Resemble Detect — 已验证但定位能力较弱
 
