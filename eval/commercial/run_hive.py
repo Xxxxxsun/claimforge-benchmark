@@ -449,6 +449,11 @@ def main() -> None:
     parser.add_argument("--connect-timeout", type=float, default=15.0)
     parser.add_argument("--read-timeout", type=float, default=180.0)
     parser.add_argument("--minimum-interval", type=float, default=0.25)
+    parser.add_argument(
+        "--max-pending",
+        type=int,
+        help="process at most this many currently pending images",
+    )
     parser.add_argument("--run-id", default="hive_pilot_good_mouse_pairs5_20260720")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
@@ -456,6 +461,8 @@ def main() -> None:
         parser.error("--tasks must be positive and JPEG quality must be in [1, 100]")
     if not 0 <= args.threshold <= 1 or args.max_attempts < 1:
         parser.error("threshold must be in [0, 1] and max attempts must be positive")
+    if args.max_pending is not None and args.max_pending < 1:
+        parser.error("--max-pending must be positive")
 
     repo_root = args.repo_root.resolve()
     review_path = args.review if args.review.is_absolute() else repo_root / args.review
@@ -471,14 +478,18 @@ def main() -> None:
     manifest_sha256 = input_digest(items)
     latest = read_latest(output_path)
     pending = [item for item in items if latest.get(item.id, {}).get("status") != "ok"]
+    pending_total = len(pending)
+    if args.max_pending is not None:
+        pending = pending[: args.max_pending]
     print(
         json.dumps(
             {
                 "selected_tasks": args.task_count,
                 "include": args.include,
                 "selected_images": len(items),
-                "already_valid": len(items) - len(pending),
-                "pending": len(pending),
+                "already_valid": len(items) - pending_total,
+                "pending": pending_total,
+                "scheduled": len(pending),
                 "output": output_path.as_posix(),
                 "dry_run": args.dry_run,
             }

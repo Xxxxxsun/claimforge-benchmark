@@ -9,7 +9,7 @@ The forged-only target is the fixed set of 275 reviewed mouse edits. A standard 
 | Service | Paired pilot | Forged-only progress | Current result | Status / next action |
 |---|---:|---:|---|---|
 | Sightengine `genai` | Not run in canonical paired form | 99/275 valid | 0/99 detected at threshold 0.5 | **Partial.** Original-PNG engineering pilot consumed the daily operation allowance; 176 forged remain, and the canonical paired run is still required. |
-| Hive V3 | 10/10 valid (5 pairs) | 88/275 valid | 0/88 detected at vendor threshold 0.9 | **Partial.** Request 89 returned HTTP 429 under the self-serve daily quota; 187 valid forged results remain. |
+| Hive V3 | 10/10 valid (5 pairs) | 89/275 valid | 0/89 detected at vendor threshold 0.9 | **Partial.** A 2026-07-21 authenticated resume smoke test completed the previously quota-blocked request; 186 forged results remain. |
 | Resemble Detect | 10/10 valid (5 pairs) | 274/275 valid | 30 `Fake` + 11 `Likely fake` = 41/274 positive under the combined reporting rule | **Almost complete.** One image returned HTTP 402 because the wallet was one cent short; rerun that ID after adding balance. |
 | Alibaba Cloud Ultra | 10/10 valid (5 pairs), plus one-image preflight | 275/275 valid | 30 `risk_edit` + 1 separate `risk_fake` = 31/275 any-risk | **Forged-only complete.** No errors; paired pilot also complete. |
 | AI or Not | 10/10 valid (5 pairs) | 275/275 valid | 4/275 detected (1.45%) | **Forged-only complete.** No errors; paired pilot also complete. |
@@ -22,7 +22,7 @@ Sensity, Winston AI, Tencent Cloud `IMAGE_AIGC`, and Google AI Content Detection
 ## Directory contents
 
 - `sightengine/`: 99-image original-PNG forged pilot.
-- `hive/`: five-pair canonical pilot and quota-stopped forged run.
+- `hive/`: five-pair canonical pilot and resumable partial forged run.
 - `resemble/`: five-pair canonical pilot, 274-image forged run, and all returned heatmap/visualization JPEG artifacts.
 - `alibaba/`: one-image preflight, five-pair canonical pilot, and complete 275-image forged run.
 - `aiornot/`: five-pair canonical pilot and complete 275-image forged run.
