@@ -1,4 +1,4 @@
-# Commercial API Result Index (2026-07-20)
+# Commercial API Result Index (updated 2026-07-21)
 
 This directory contains the raw JSONL responses, run manifests, generated summaries, and provider-returned artifacts for CLAIMFORGE commercial detector experiments.
 
@@ -15,7 +15,7 @@ The forged-only target is the fixed set of 275 reviewed mouse edits. A standard 
 | AI or Not | 10/10 valid (5 pairs) | 275/275 valid | 4/275 detected (1.45%) | **Forged-only complete.** No errors; paired pilot also complete. |
 | Copyleaks Ultra | 4/4 valid (2 pairs) | 102/275 valid | 38/102 detected (37.25%); detected-only mask IoU 0.8266, all-image IoU 0.3080 | **Partial.** Balance is zero; 173 additional credits are required to finish forged-only. The next three pilot forgeries are included in the 102, but their corresponding real controls remain untested. |
 | Illuminarty | No current valid run | 0/275 | Service unavailable during the 2026-07-20 recheck | **Unavailable.** Do not treat the historical endpoint as an executable baseline. |
-| Reality Defender | Not run | 0/275 | No authenticated result | **Not started.** Requires credentials and a non-face coverage pilot before inclusion. |
+| Reality Defender | Not run | 0/275 | No authenticated result | **Runner ready; execution blocked on credentials.** The resumable five-pair coverage runner was dry-run and unit-tested on 2026-07-21; an authenticated result is still required. |
 
 Sensity, Winston AI, Tencent Cloud `IMAGE_AIGC`, and Google AI Content Detection have no local result artifacts in this snapshot. They remain access/trial candidates rather than executed baselines.
 
@@ -27,6 +27,7 @@ Sensity, Winston AI, Tencent Cloud `IMAGE_AIGC`, and Google AI Content Detection
 - `alibaba/`: one-image preflight, five-pair canonical pilot, and complete 275-image forged run.
 - `aiornot/`: five-pair canonical pilot and complete 275-image forged run.
 - `copyleaks/`: two paired preflights, the 100-image expansion, and a resumable 275-image file seeded with the first 102 unique forged results. Copyleaks RLE masks are stored directly in JSONL rows.
+- `reality_defender/`: reserved for the five-pair canonical coverage pilot produced by `eval/commercial/run_reality_defender.py`; no authenticated artifacts exist yet.
 
 Every run uses three primary files:
 

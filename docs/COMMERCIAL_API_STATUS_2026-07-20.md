@@ -190,10 +190,20 @@ HTTP 401 在无 key 探测中是预期结果，只能确认 DNS/TLS/路由/鉴�
 - 额度：Free 为每月 50 次 image/audio scans；适合先跑 5–10 对。
 - 风险：官方结果文档列出图片在“无脸或脸太小”时可能返回 `NOT_APPLICABLE`。CLAIMFORGE 多数图片不是人脸任务，因此必须先量化有效 coverage，不能直接纳入主表分母。
 
+**2026-07-21 接入更新：** 已新增 `eval/commercial/run_reality_defender.py`，固定使用与 Hive 相同的五对 canonical JPEG Q95 输入。runner 会在上传完成后立即保存 `requestId`，轮询中断时复用原请求而不重复上传；summary 将 terminal response、applicable coverage、`NOT_APPLICABLE` 原因和 paired score delta 分开统计。当前已完成 dry-run、单元测试和无凭据 401 连通检查，但本地会话未提供 `REALITY_DEFENDER_API_KEY`，因此仍没有 authenticated result。
+
+凭据注入后运行：
+
+```bash
+python -m eval.commercial.run_reality_defender
+```
+
 官方资料：
 
 - https://docs.realitydefender.com/api-reference/quickstart
+- https://docs.realitydefender.com/api-reference/endpoint/presigned
 - https://docs.realitydefender.com/api-reference/endpoint/get_media_detail
+- https://github.com/Reality-Defender/realitydefender-sdk-python
 - https://www.realitydefender.com/product/realapi
 
 ## 4. 次级候选与明确排除
