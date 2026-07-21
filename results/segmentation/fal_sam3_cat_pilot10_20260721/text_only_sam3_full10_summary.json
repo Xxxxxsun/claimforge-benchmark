@@ -1,0 +1,50 @@
+{
+  "all_quality_gates_pass": true,
+  "api_rows_latest": 10,
+  "api_status_counts": {
+    "ok": 10
+  },
+  "by_endpoint": {
+    "sam3": {
+      "completed": 10,
+      "endpoint": "fal-ai/sam-3/image-rle",
+      "mean_hybrid_area_fraction": 0.10602386152683102,
+      "mean_hybrid_growth": 0.11389141833045564,
+      "mean_hybrid_iou_with_current_t30": 0.5699524315283058,
+      "mean_provider_score": 0.9382863163948059,
+      "mean_semantic_area_fraction": 0.09503237595666966,
+      "outside_context_invariance_failures": 0,
+      "quality_gate_failure_ids": [],
+      "quality_gate_failures": 0
+    }
+  },
+  "comparison_to_quality_selected_output": {
+    "mean_hybrid_iou": 0.9487003295029994,
+    "mean_semantic_iou": 0.9259253182283036,
+    "paired_tasks": 10
+  },
+  "comparison_to_text_box_primary": {
+    "all_tasks_mean_hybrid_iou": 0.7603259452665462,
+    "all_tasks_mean_semantic_iou": 0.7259253182283035,
+    "passing_primary_mean_hybrid_iou": 0.9358754118787492,
+    "passing_primary_mean_semantic_iou": 0.9074066477853795,
+    "passing_primary_tasks": 8
+  },
+  "endpoint_pair_agreement": {
+    "mean_hybrid_iou": null,
+    "mean_semantic_iou": null,
+    "paired_tasks": 0
+  },
+  "estimated_cost_if_all_requested_usd": 0.05,
+  "estimated_text_only_cost_usd": 0.05,
+  "expected_requests": 10,
+  "expected_tasks": 10,
+  "materialized_results": 10,
+  "missing": [],
+  "schema_version": "fal_sam3_text_only_full10_summary_v1",
+  "source_result_dirs": [
+    "results/segmentation/fal_sam3_cat_textonly_remaining8_20260721",
+    "results/segmentation/fal_sam3_cat_textonly_fallback2_20260721"
+  ],
+  "updated_at": "2026-07-21T18:30:54.789724+00:00"
+}

@@ -2,15 +2,15 @@
 
 ## Conclusion
 
-SAM 3 can be used through production-style hosted APIs without deploying the model locally. For CLAIMFORGE, the most direct option is fal's latest SAM 3.1 RLE endpoint:
+SAM 3 can be used through production-style hosted APIs without deploying the model locally. The completed CLAIMFORGE cat pilot recommends fal's older SAM 3 RLE endpoint with a text-only prompt:
 
-- Endpoint: `fal-ai/sam-3-1/image-rle`
-- Price shown by fal on 2026-07-21: USD 0.01 per request.
+- Endpoint: `fal-ai/sam-3/image-rle`
+- Price shown by fal on 2026-07-21: USD 0.005 per request.
 - Prompts: text, foreground/background points, and boxes.
 - Output: one or more RLE masks, per-mask scores, and boxes.
-- Estimated cost: USD 0.10 for a 10-image pilot, USD 2.72 for the current 272-image cat set, or USD 5.94 for 594 images.
+- Estimated cost: USD 0.05 for 10 images, USD 1.36 for the current 272-image cat set, or USD 2.97 for 594 images.
 
-The older `fal-ai/sam-3/image-rle` endpoint costs USD 0.005 per request, but the SAM 3.1 endpoint is preferable for a new reproducible pipeline unless the pilot shows no practical quality gain.
+The 10-image A/B pilot found no practical gain from SAM 3.1: after quality-gated fallback, SAM 3 versus SAM 3.1 mean IoU was 0.985 for semantic masks and 0.991 for hybrid masks. A complete SAM 3 text-only run passed 10/10 local quality gates. See `docs/SAM3_CAT_SPLICE_PILOT_RESULTS_2026-07-21.md` for results and artifacts.
 
 Meta itself publishes the SAM 3/3.1 code, gated checkpoints, notebooks, and an interactive Playground. The official release surfaces do not currently advertise a server-to-server hosted inference API, so a batch pipeline needs either a third-party provider or self-hosting.
 
@@ -18,8 +18,8 @@ Meta itself publishes the SAM 3/3.1 code, gated checkpoints, notebooks, and an i
 
 | Option | What is available | Cost/access | Assessment |
 |---|---|---|---|
-| fal SAM 3.1 | `image` and `image-rle`; text/point/box prompts; masks, scores, and boxes | USD 0.01/request; API key | **Recommended.** Small adapter, explicit RLE output, latest named release. |
-| fal SAM 3 | Same image and RLE interfaces | USD 0.005/request; API key | Good low-cost fallback and useful as an ablation against 3.1. |
+| fal SAM 3.1 | `image` and `image-rle`; text/point/box prompts; masks, scores, and boxes | USD 0.01/request; API key | Useful comparison endpoint, but the cat pilot found no practical gain over SAM 3. |
+| fal SAM 3 | Same image and RLE interfaces | USD 0.005/request; API key | **Recommended after pilot.** Text-only passed 10/10 cat quality gates at half the SAM 3.1 price. |
 | Roboflow Serverless | PCS text/exemplar endpoint and PVS point/box endpoint; polygon/RLE/JSON output | Roboflow key and credit billing | Mature fallback, but the public model ID is `sam3/sam3_final` rather than an explicit SAM 3.1 version. |
 | Replicate community models | Several public SAM 3 deployments with text/box/point prompts | Usage-priced; model owner/version varies | Usable for exploration, but weaker for a benchmark because these are community-owned deployments and must be version-pinned carefully. |
 | Self-hosted Meta code | Full control over weights, batching, and artifacts | Python 3.12+, PyTorch 2.7+, CUDA 12.6+ GPU; gated checkpoint access | Best control, highest setup and maintenance cost. Not needed for the first pilot. |

@@ -109,3 +109,25 @@ The generation client posts multipart requests to `/v1/images/edits`, keeps
 the input and output dimensions equal, disables environment proxy discovery,
 and decodes the returned `b64_json` image. Use `--api-style legacy` only for
 the retired Tencent vLLM fork's custom chat-completions endpoint.
+
+## Hosted SAM 3 semantic splice masks
+
+The fal SAM 3 runner segments the generated object, adds only nearby
+source/generated residual pixels for shadow and fine edges, and pastes the
+hybrid result back inside the context crop. It is append-only and resumes saved
+queue request IDs without duplicate submissions.
+
+For generated cat crops, use the cheaper SAM 3 RLE endpoint with a text-only
+prompt:
+
+```bash
+export FAL_KEY='<fal-key>'
+python -m eval.segmentation.run_fal_sam3 \
+  --prompt-mode text_only --endpoints sam3 --tasks 10 \
+  --output-dir results/segmentation/my_sam3_cat_pilot
+unset FAL_KEY
+```
+
+The 2026-07-21 pilot, prompt/endpoint comparison, quality gate, and saved
+artifacts are documented in
+`docs/SAM3_CAT_SPLICE_PILOT_RESULTS_2026-07-21.md`.
