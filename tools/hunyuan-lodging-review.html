@@ -324,8 +324,8 @@
   <main>
     <header>
       <div>
-        <h1>ClaimForge Generation Review</h1>
-        <div class="meta">逐张检查 restaurant 与 lodging 的拼回结果；箭头指向 context 区域上角。</div>
+        <h1 id="page-title">ClaimForge Generation Review</h1>
+        <div id="page-subtitle" class="meta">逐张检查 restaurant 与 lodging 的拼回结果；箭头指向 context 区域上角。</div>
       </div>
       <div id="save-state" class="count">loading</div>
     </header>
@@ -414,9 +414,8 @@
   </main>
 
   <script>
-    const STORAGE_KEY = "claimforge-generation-review-v1";
-    const LEGACY_STORAGE_KEYS = ["claimforge-hunyuan-lodging-review-v1"];
-    const MANIFESTS = [
+    const REVIEW_PARAMS = new URLSearchParams(window.location.search);
+    const DEFAULT_MANIFESTS = [
       {
         name: "restaurant_new_test",
         url: "../new_test/spliced_full/manifest.jsonl",
@@ -426,6 +425,29 @@
         url: "../spliced_full/hunyuan_image3/manifest.jsonl",
       },
     ];
+    const REQUESTED_MANIFESTS = REVIEW_PARAMS.getAll("manifest");
+    const REQUESTED_MANIFEST_NAMES = REVIEW_PARAMS.getAll("manifestName");
+    const MANIFESTS = REQUESTED_MANIFESTS.length
+      ? REQUESTED_MANIFESTS.map((url, index) => ({
+          name: REQUESTED_MANIFEST_NAMES[index] || `manifest_${index + 1}`,
+          url,
+        }))
+      : DEFAULT_MANIFESTS;
+    const STORAGE_KEY = REVIEW_PARAMS.get("storage") || "claimforge-generation-review-v1";
+    const LEGACY_STORAGE_KEYS = REVIEW_PARAMS.has("storage")
+      ? []
+      : ["claimforge-hunyuan-lodging-review-v1"];
+    const PAGE_TITLE = REVIEW_PARAMS.get("title") || "ClaimForge Generation Review";
+    const PAGE_SUBTITLE = REVIEW_PARAMS.get("subtitle")
+      || "逐张检查 restaurant 与 lodging 的拼回结果；箭头指向 context 区域上角。";
+    const EXPORT_FILENAME = REVIEW_PARAMS.get("export")
+      || "claimforge_generation_review_labels.json";
+    const REVIEW_TASK = REVIEW_PARAMS.get("task") || "claimforge_generation_review";
+    const SAVE_PATH = REVIEW_PARAMS.get("savePath");
+    let repoSaveTimer = null;
+    document.title = PAGE_TITLE;
+    document.getElementById("page-title").textContent = PAGE_TITLE;
+    document.getElementById("page-subtitle").textContent = PAGE_SUBTITLE;
 
     const state = {
       tasks: [],
@@ -492,6 +514,7 @@
     function saveLabels() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state.labels));
       els.save.textContent = "已保存";
+      scheduleRepoSave();
     }
 
     function currentTask() {
@@ -562,7 +585,8 @@
     }
 
     function taskDomain(task) {
-      return task.task_id.split("_")[0] || "unknown";
+      const match = task.task_id.match(/(?:^|_)(restaurant|lodging)_/);
+      return match ? match[1] : "unknown";
     }
 
     function domainOrder(task) {
@@ -773,7 +797,7 @@
       }
     }
 
-    function exportLabels() {
+    function buildPayload() {
       const records = state.tasks.map((task) => ({
         task_id: task.task_id,
         image_id: task.image_id,
@@ -789,9 +813,9 @@
         context_region_xyxy: task.context_region_xyxy,
         candidates: task.candidates,
       }));
-      const payload = {
+      return {
         version: 1,
-        task: "claimforge_generation_review",
+        task: REVIEW_TASK,
         exported_at: new Date().toISOString(),
         storage_key: STORAGE_KEY,
         manifests: MANIFESTS.map((manifest) => manifest.url.replace(/^\.\.\//, "")),
@@ -804,10 +828,38 @@
         },
         records,
       };
+    }
+
+    async function saveToRepo() {
+      if (!SAVE_PATH) return;
+      const response = await fetch("/api/save-labels", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({path: SAVE_PATH, payload: buildPayload()}),
+      });
+      if (!response.ok) {
+        throw new Error(`保存标注失败 (${response.status})`);
+      }
+      const result = await response.json();
+      els.save.textContent = `已写入 ${result.path}`;
+    }
+
+    function scheduleRepoSave() {
+      if (!SAVE_PATH) return;
+      window.clearTimeout(repoSaveTimer);
+      repoSaveTimer = window.setTimeout(() => {
+        saveToRepo().catch((error) => {
+          els.save.textContent = error.message;
+        });
+      }, 150);
+    }
+
+    function exportLabels() {
+      const payload = buildPayload();
       const blob = new Blob([JSON.stringify(payload, null, 2) + "\n"], {type: "application/json"});
       const a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
-      a.download = "claimforge_generation_review_labels.json";
+      a.download = EXPORT_FILENAME;
       a.click();
       URL.revokeObjectURL(a.href);
     }
@@ -824,11 +876,15 @@
       }));
       const rows = manifestRows.flat();
       state.tasks = rows
-        .filter((task) => (task.task_id.startsWith("restaurant_") || task.task_id.startsWith("lodging_")) && task.status === "ok")
+        .filter((task) => ["restaurant", "lodging"].includes(taskDomain(task)) && task.status === "ok")
         .sort((a, b) => domainOrder(a) - domainOrder(b) || taskNumber(a) - taskNumber(b) || a.task_id.localeCompare(b.task_id));
       applyFilter(false);
       render();
-      els.save.textContent = "已就绪";
+      if (SAVE_PATH) {
+        await saveToRepo();
+      } else {
+        els.save.textContent = "已就绪";
+      }
     }
 
     els.prev.addEventListener("click", () => go(-1));

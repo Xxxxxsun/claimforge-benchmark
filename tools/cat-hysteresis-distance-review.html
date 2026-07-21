@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>正在打开 Cat Distance Review</title>
+</head>
+<body>
+  <p>正在打开新的猫生成结果标注页面……</p>
+  <script>
+    const target = new URL("./hunyuan-lodging-review.html", window.location.href);
+    target.searchParams.set(
+      "manifest",
+      "../spliced_full/hunyuan_image3_distil_cat_272_hysteresis_distance/manifest.jsonl",
+    );
+    target.searchParams.set("manifestName", "cat_hysteresis_distance_272");
+    target.searchParams.set("storage", "claimforge-cat-hysteresis-distance-review-v1");
+    target.searchParams.set("title", "ClaimForge Cat Distance-Aware Review");
+    target.searchParams.set(
+      "subtitle",
+      "审核 272 张 distance-aware mask 拼回结果；标签与旧审核页面完全隔离。",
+    );
+    target.searchParams.set("task", "claimforge_cat_hysteresis_distance_review");
+    target.searchParams.set(
+      "export",
+      "claimforge_cat_hysteresis_distance_review_labels.json",
+    );
+    target.searchParams.set(
+      "savePath",
+      "annotations/claimforge_cat_hysteresis_distance_review_labels.json",
+    );
+    window.location.replace(target);
+  </script>
+</body>
+</html>
