@@ -102,7 +102,7 @@ AISI 评审按六项打分（问题重要性 / 跨学科文献 / 对 AI 社区�
 - **Copyleaks `ai-image-1-ultra`（核心，T1+T2）**：生产端点已完成 275/275 unique mouse forged，111/275（40.36%）正判。命中的 111 张上，原生 RLE mask 对 SP 精确像素差分 GT 的平均 precision 0.9739、recall 0.8389、IoU 0.8165；计入 164 个空 mask 漏检后的全体 mean IoU 0.3296。不能把 conditional localization 质量写成整体定位性能。
 - **Alibaba Cloud `aigcDetector_ultra`（已验证专项基线，T1）**：国内版北京地域已完成 275 张 mouse forged-only 运行，275/275 有效；30 张命中 `risk_edit`，另 1 张命中 `risk_fake`。该 API 只返回越过厂商阈值的图片级标签，`nonLabel` 无连续分数，因此当前不能直接算 AUROC/AP，也不提供定位 mask。
 - **AI or Not（已验证，T1）**：使用 `only=ai_generated` 的 275 张 mouse forged-only 运行已完成，275/275 有效，仅 4/275（1.45%）正判；5 对 paired pilot 中 real 与 forged 均 0/5 正判且分数几乎不变。保留连续 confidence，完整 paired 集完成后可算 AUROC/AP。
-- **Reality Defender（coverage pilot）**：每月免费 50 次，但无脸或脸太小时可能 `NOT_APPLICABLE`。先量化 restaurant/lodging coverage；coverage 不足则只进附录。
+- **Reality Defender（forged-50 coverage pilot 已完成）**：50/50 restaurant/lodging 输入均 overall applicable，但全部判为 `AUTHENTIC`，归一化分数仅 0.01–0.03。可作为 T1 前缀失败结果；额外 real controls 需要新的月度或付费额度。
 - **Illuminarty（retired/unavailable）**：7/20 起移出 active baseline，不再分配预算。7/9 的可用性记录保留为历史状态变化，不能写成未经证实的团队状况判断。
 - 主表附两行 trivial 基线：随机分数；location-prior（永远预测所有 insert_box 的先验热区）——给定位指标一个诚实下限。
 
@@ -128,7 +128,7 @@ AISI 评审按六项打分（问题重要性 / 跨学科文献 / 对 AI 社区�
 规范化 v1 全集（594 real + 594×k forged，k=编辑器数）上跑 §3 全部方法 → **Table 2（主表）**：家族 × {AUC, AP, Acc, TPR@5%FPR | pixel-F1, IoU, box-hit | S_joint}。
 预期故事线：家族 B 与商用整图 API 接近随机（INP-X 的域内复现）；家族 A/C 定位显著高于随机但远低于其在 CASIA/OpenSDI 上的自报成绩（跨域+小物体崩塌）;MLLM 偏"真"、定位不可用；没有方法过"解决线"。
 
-商业 API 在批跑前默认使用相同的 5 对 canonical `real + forged` 做 preflight，先验证分数方向、有效 coverage、计费、响应 schema 和数据保留行为；Alibaba 已完成单张 preflight、5 对 pilot 和 275 张 forged-only 全量；Copyleaks 已完成前 2 对和 forged-only 全量 275 张；Reality Defender 仍先用 5–10 张测 coverage。无效或 `NOT_APPLICABLE` 单独报告 coverage，不静默丢弃或直接混入主指标分母。
+商业 API 在批跑前默认使用相同的 5 对 canonical `real + forged` 做 preflight，先验证分数方向、有效 coverage、计费、响应 schema 和数据保留行为；Alibaba 已完成单张 preflight、5 对 pilot 和 275 张 forged-only 全量；Copyleaks 已完成前 2 对和 forged-only 全量 275 张；Reality Defender 已完成 forged-only 前 50 张，coverage 为 100%。无效或 `NOT_APPLICABLE` 单独报告 coverage，不静默丢弃或直接混入主指标分母。
 
 ### E2 鲁棒性 / laundering（P1）
 条件（作用于规范化图，两类同变换）：JPEG q ∈ {95(基准), 85, 75, 65, 50}；缩放 {0.75×, 0.5×}；"社交媒体模拟"（长边 1280 + q72）。共 8 个条件。
@@ -163,7 +163,7 @@ results/
 ```
 - 统一结果 schema 是关键：所有 20 个方法只在 adapter 层有差异，metrics 一份代码。
 - 环境：IMDL-BenCo 一个 venv 吃掉 5 个模型；TruFor 用 Docker；SAFIRE/RelayFormer/FakeShield 各自 venv。GPU：24GB 可跑除 FakeShield 外全部；FakeShield 需 40GB+（或砍成 SIDA-7B）。
-- API 成本估算：Sightengine 两个日批次已用于 pilot（199 mouse=995 ops，另有首日 5-op smoke），尚余 76 张 original-PNG forged；canonical paired/E2 需后续额度或付费计划。Hive 为 $6/1k（275/550 张约 $1.65/$3.30）；AI or Not 为 $0.02/张（约 $5.50/$11）；Alibaba 国内 `aigcDetector_ultra` 为 200 元/万次（275/550 张约 5.50/11 元）；Copyleaks forged-only 全量实测 275 credits（1 credit/图），但当前公开资料不足以稳定换算美元；Resemble 按秒计费；Reality Defender 前 50 次/月免费。GPT-5.5 + Gemini 3.1 Pro 约 3-4k 图 × 2 问 ≈ $100-200。总计仍以 MLLM 成本为主。
+- API 成本估算：Sightengine 两个日批次已用于 pilot（199 mouse=995 ops，另有首日 5-op smoke），尚余 76 张 original-PNG forged；canonical paired/E2 需后续额度或付费计划。Hive 为 $6/1k（275/550 张约 $1.65/$3.30）；AI or Not 为 $0.02/张（约 $5.50/$11）；Alibaba 国内 `aigcDetector_ultra` 为 200 元/万次（275/550 张约 5.50/11 元）；Copyleaks forged-only 全量实测 275 credits（1 credit/图），但当前公开资料不足以稳定换算美元；Resemble 按秒计费；Reality Defender 本次 forged coverage pilot 提交了 50 次 scan，若账户按公开 free tier 且无额外额度计，则会占满月度 50 次。GPT-5.5 + Gemini 3.1 Pro 约 3-4k 图 × 2 问 ≈ $100-200。总计仍以 MLLM 成本为主。
 - 数据发布：HF gated dataset（研究用途条款）+ GitHub 代码；datasheet + 来源许可清单（Open Images CC BY 2.0 / Wikimedia Commons，可再分发）。
 
 ---
@@ -208,7 +208,7 @@ results/
 | Resemble heatmap 不稳定或不对应编辑区域 | paired preflight 先验证尺寸、空间对齐和响应语义；失败则只报 T1、T2=N/A |
 | Copyleaks conditional localization 很高但 59.64% forged 漏检 | 主表同时报告 image-level coverage、全体 T2 和 positive-only T2；全量 forged-only 已完成，paired real controls 另行扩充 |
 | Alibaba Ultra service/region 文档不一致 | 先用 1 张 preflight 确认 service code、region、`risk_edit` 和账单；未通过则不批跑 |
-| Reality Defender 对无脸图返回 N/A | 先报告 5–10 对 coverage；coverage 不足则移到附录，不进入主表有效分母 |
+| Reality Defender 对无脸图返回 N/A | 实测 forged-50 overall coverage 为 100%，但 50/50 均判 `AUTHENTIC`；报告 coverage 与漏检，并在无 real controls 时限制为前缀结果 |
 | 单物体类别捷径质疑 | D3 多样化 + D4-3 real-with-object FPR + 正文明说 mouse 集为受控子集 |
 | IML 方法其实靠贴痕拿高分 | D4-2 真贴回对照直接回答；无论结果如何都是有内容的一列 |
 | MaskCLIP adapter 费时 | 与 IMDL-BenCo dataset-JSON 复用；预算半天，超时先跑其余 |

@@ -15,7 +15,7 @@ The forged-only target is the fixed set of 275 reviewed mouse edits. A standard 
 | AI or Not | 10/10 valid (5 pairs) | 275/275 valid | 4/275 detected (1.45%) | **Forged-only complete.** No errors; paired pilot also complete. |
 | Copyleaks Ultra | 4/4 valid (2 pairs) | 275/275 valid | 111/275 detected (40.36%); detected-only mask IoU 0.8165, all-image IoU 0.3296 | **Forged-only complete.** All native RLE masks and exact-difference localization metrics are saved; paired real controls remain limited to two tasks. |
 | Illuminarty | No current valid run | 0/275 | Service unavailable during the 2026-07-20 recheck | **Unavailable.** Do not treat the historical endpoint as an executable baseline. |
-| Reality Defender | Not run | 0/275 | No authenticated result | **Runner ready; execution blocked on credentials.** The resumable five-pair coverage runner was dry-run and unit-tested on 2026-07-21; an authenticated result is still required. |
+| Reality Defender | Not run in paired form | 50/275 valid prefix | 50/50 `AUTHENTIC`; 100% applicable; normalized score 0.01–0.03 | **Coverage pilot complete.** Non-face coverage is sufficient in this slice, but all 50 local edits evade the overall verdict; real controls and additional quota are still required. |
 
 Sensity, Winston AI, Tencent Cloud `IMAGE_AIGC`, and Google AI Content Detection have no local result artifacts in this snapshot. They remain access/trial candidates rather than executed baselines.
 
@@ -27,7 +27,7 @@ Sensity, Winston AI, Tencent Cloud `IMAGE_AIGC`, and Google AI Content Detection
 - `alibaba/`: one-image preflight, five-pair canonical pilot, and complete 275-image forged run.
 - `aiornot/`: five-pair canonical pilot and complete 275-image forged run.
 - `copyleaks/`: two paired preflights, the historical 100-image expansion, and the complete 275-image forged run. Copyleaks RLE masks are stored directly in JSONL rows.
-- `reality_defender/`: reserved for the five-pair canonical coverage pilot produced by `eval/commercial/run_reality_defender.py`; no authenticated artifacts exist yet.
+- `reality_defender/`: authenticated 50-image forged-only canonical coverage pilot produced by `eval/commercial/run_reality_defender.py`.
 
 Every run uses three primary files:
 

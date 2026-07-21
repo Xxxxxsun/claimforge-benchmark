@@ -26,7 +26,7 @@ Method: 5 parallel search tracks with primary-source fetches (vendor docs/pricin
 | **Resemble Detect** | Self-serve Flex; `POST /api/v2/detect`; listed at $0.04/second for images (https://www.resemble.ai/pricing) | Whole-image fake/real score plus optional `ifl.heatmap` visualization | Closest active localization candidate; heatmap semantics and static-image billing require paired preflight |
 | **Alibaba Cloud Ultra** | China (Beijing) `aigcDetector_ultra` validated; CNY 200/10k | Thresholded whole-image `risk_aigc`, `risk_fake`, and explicit `risk_edit` labels | 275/275 valid on mouse forgeries; 30 `risk_edit` plus 1 `risk_fake`, for 31/275 any-risk detections |
 | **AI or Not** | Self-serve `POST /v2/image/sync`; authenticated 275/275 forged run complete | Whole-image AI/Human verdict and continuous confidence; no general edit localization | Only 4/275 mouse forgeries detected (1.45%); 5-pair pilot scores were nearly unchanged by editing |
-| **Reality Defender** | Self-serve API; free 50 image/audio scans/month | Ensemble authenticity/deepfake status and scores; no public general-edit mask | Recognized vendor, but non-face CLAIMFORGE images may return `NOT_APPLICABLE`; coverage pilot only |
+| **Reality Defender** | Self-serve API; free 50 image/audio scans/month | Ensemble authenticity/deepfake status and scores; no public general-edit mask | Authenticated forged-50 pilot: 50/50 applicable but 50/50 `AUTHENTIC`, normalized scores 0.01–0.03 |
 | **Sensity** | API/auth online; developer account is contact-sales | Whole-image AI-generated/deepfake analysis; some vendor visualizations | Apply for trial in parallel; no public price and continuous-score behavior needs confirmation |
 | **Winston AI** | Self-serve developer API; 2,000 starter credits | Basic whole-image AI/Human score; advanced forensic report | Backup only: image API requires a public URL and forensic visualization is not yet validated as an edit map |
 | **Google AI Content Detection** | Private Preview; application required | Detects generated or modified images; no public localization schema | Watchlist, not an immediately executable baseline |
@@ -68,7 +68,7 @@ C2PA Content Credentials (spec now at v2.3/2.4, with a conformance program) has 
 4. **Resemble Detect** — retain T1, but do not use its current visualization as a GT-compatible T2 mask.
 5. **Alibaba Cloud Ultra** — validated edit-specific T1 baseline via China (Beijing) `risk_edit`; 275/275 forged run complete, with 30 `risk_edit` and one additional `risk_fake` detection.
 6. **AI or Not** — validated low-cost whole-image baseline; 275/275 forged run complete with 4/275 positive verdicts and no API errors.
-7. **Reality Defender** — coverage pilot only; promote to the main table only if non-face images produce enough valid results.
+7. **Reality Defender** — forged-50 coverage pilot is complete and 100% applicable, but all 50 edits were labeled `AUTHENTIC`; retain as a T1 prefix result and add real controls only with more quota.
 
 **Retired:** Illuminarty is unavailable as of 2026-07-20 and no longer counts toward the active commercial baseline total.
 
