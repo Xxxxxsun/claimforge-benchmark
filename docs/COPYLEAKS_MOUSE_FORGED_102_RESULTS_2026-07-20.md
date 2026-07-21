@@ -1,5 +1,7 @@
 # Copyleaks Mouse Forged-Only Results: First 102 Images (2026-07-20)
 
+> Historical prefix snapshot. The 275-image run was completed on 2026-07-21; current aggregate results are in `COPYLEAKS_MOUSE_FULL_RESULTS_2026-07-21.md`.
+
 ## 1. Scope
 
 This run evaluates the first 102 unique reviewed mouse forgeries in the fixed commercial-API ordering. It contains 54 lodging and 48 restaurant images. The two images from the earlier paired pilot were reused without another API call; the next 100 previously untested forged images were submitted with `sandbox=false` to Copyleaks model `ai-image-1-ultra`.

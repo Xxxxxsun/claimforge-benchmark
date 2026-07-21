@@ -44,7 +44,7 @@ Important interpretation:
 
 Each successful image costs one credit. The account's five starter credits were exhausted by one integration probe plus the four pilot images; the post-run balance is zero.
 
-The account was subsequently refilled with 100 credits and used for the next 100 previously untested forged images. Together with the two forged pilot images, the resumable forged-only run now contains 102/275 unique valid results; see `COPYLEAKS_MOUSE_FORGED_102_RESULTS_2026-07-20.md`. Completing forged-only coverage requires 173 additional credits.
+The account was subsequently refilled with 100 credits and used for the next 100 previously untested forged images, producing the historical 102-image prefix in `COPYLEAKS_MOUSE_FORGED_102_RESULTS_2026-07-20.md`. A later refill completed all 275 forged images on 2026-07-21; current aggregate results are in `COPYLEAKS_MOUSE_FULL_RESULTS_2026-07-21.md`.
 
 ## 5. Reproducibility artifacts
 

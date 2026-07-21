@@ -10,7 +10,7 @@
 - **Resemble Detect 已完成 authenticated paired preflight。** 5 对 mouse 输入获得 10/10 个有效分类和 10/10 个 IFL heatmap artifact，但仅 1/5 forged 被标为 `Likely fake`，且当前返回的可视化没有形成可用的 mouse 局部定位信号。
 - **Alibaba Cloud Ultra 已完成全量 forged-only 运行。** 国内版北京地域的 `aigcDetector_ultra` 已通过鉴权和本地临时上传验证；275/275 请求有效，30 张命中 `risk_edit`，另 1 张命中 `risk_fake`，任一风险检出率为 31/275（11.27%）。
 - **AI or Not 已完成全量 forged-only 运行。** 275/275 请求有效，仅 4/275（1.45%）被厂商判为 AI；271/275（98.55%）未检出。5 对 paired pilot 中 real 与 forged 均为 0/5 检出，且成对分数几乎不变。
-- **Copyleaks Ultra 已完成前 102 张 forged。** 102/102 有效，38/102（37.25%）被判为 AI。原生 RLE 在 38 个命中样本上平均 precision 0.9804、recall 0.8433、IoU 0.8266；把 64 个空 mask 漏检计入后，全体 mean IoU 为 0.3080。当前是 275 张计划的可断点前缀，尚余 173 张。
+- **Copyleaks Ultra 已完成全量 forged-only 运行。** 275/275 有效，111/275（40.36%）被判为 AI。原生 RLE 在 111 个命中样本上平均 precision 0.9739、recall 0.8389、IoU 0.8165；把 164 个空 mask 漏检计入后，全体 mean IoU 为 0.3296。
 - **Reality Defender 仅做 coverage pilot。** 它是成熟商业服务，但无脸或脸过小的图片可能返回 `NOT_APPLICABLE`，与 restaurant/lodging 数据存在明显适配风险。
 
 ## 2. “当前可用”的验证边界
@@ -20,7 +20,7 @@
 | Service | 2026-07-20 无凭据探测 | 说明 |
 |---|---|---|
 | Sightengine `genai` | authenticated 199/199 mouse forged 请求有效 | original-PNG 工程 pilot，0/199 达到 0.5 阈值；尚未运行 canonical paired 条件 |
-| Copyleaks Ultra | authenticated 102/102 unique mouse forged 请求有效 | production `ai-image-1-ultra`、multipart PNG、离散 verdict、AI-pixel fraction 和原生 RLE mask 均已验证；38/102 正判 |
+| Copyleaks Ultra | authenticated 275/275 unique mouse forged 请求有效 | production `ai-image-1-ultra`、multipart PNG、离散 verdict、AI-pixel fraction 和原生 RLE mask 均已验证；111/275 正判 |
 | AI or Not | authenticated 275/275 forged 请求有效 | `only=ai_generated` 本地上传、连续分数和厂商 verdict 均已验证 |
 | Hive V3 | authenticated HTTP 200，10/10 mouse paired 请求有效 | API、凭据和 multipart 图片推理均已验证 |
 | Resemble Detect | authenticated HTTP 200，10/10 mouse paired 请求有效 | 分类、IFL score 和 heatmap artifact 均已验证 |
@@ -177,11 +177,11 @@ HTTP 401 在无 key 探测中是预期结果，只能确认 DNS/TLS/路由/鉴�
 - https://docs.copyleaks.com/using-the-apis/authentication/
 - https://docs.copyleaks.com/reference/actions/admin/check-credits/
 
-**2026-07-20 mouse 结果：** 固定顺序前两对共 4/4 有效；real 0/2 正判，forged 2/2 正判。随后优先扩跑 100 张未测 forged，最终得到前 102 张 unique forged 的完整结果：38/102（37.25%）正判，lodging 21/54、restaurant 17/48。命中的 38 张上，RLE 对 canonical real-vs-forged 精确像素差分 mask 的平均 precision 0.9804、recall 0.8433、IoU 0.8266，且预测像素全部位于 context box 内；若把 64 个漏检的空 mask 纳入，mean IoU 为 0.3080、median 为 0。该结果说明“命中后定位很准”但不能掩盖 62.75% image-level miss rate。
+**2026-07-20 至 2026-07-21 mouse 结果：** 固定顺序前两对共 4/4 有效；real 0/2 正判，forged 2/2 正判。forged-only 全量现为 275/275 有效、0 错误：111/275（40.36%）正判，lodging 66/147（44.90%）、restaurant 45/128（35.16%）。命中的 111 张上，RLE 对 canonical real-vs-forged 精确像素差分 mask 的平均 precision 0.9739、recall 0.8389、IoU 0.8165；若把 164 个漏检的空 mask 纳入，mean IoU 为 0.3296、median 为 0。110/111 个正 mask 的预测像素全部位于 context box 内，剩余一个也有 96.30% 位于框内。该结果说明“命中后定位很准”但不能掩盖 59.64% image-level miss rate。
 
 - Runner：`eval/commercial/run_copyleaks.py`。
-- 详细记录：`COPYLEAKS_MOUSE_PILOT_RESULTS_2026-07-20.md`、`COPYLEAKS_MOUSE_FORGED_102_RESULTS_2026-07-20.md`。
-- 当前 forged-only 进度：102/275，断点文件已验证还剩 173 张；按实测 1 credit/image 还需 173 credits。
+- 详细记录：`COPYLEAKS_MOUSE_PILOT_RESULTS_2026-07-20.md`、历史前缀 `COPYLEAKS_MOUSE_FORGED_102_RESULTS_2026-07-20.md`、当前全量 `COPYLEAKS_MOUSE_FULL_RESULTS_2026-07-21.md`。
+- 当前 forged-only 进度：275/275 完成；summary 记录累计 275 credits，实测仍为 1 credit/image。
 
 ### 3.6 Reality Defender — 知名服务但低优先级
 
@@ -221,7 +221,7 @@ python -m eval.commercial.run_reality_defender
 
 ### Phase A：paired preflight
 
-默认每家先跑相同的 5 对 `real + forged`，且 real/forged 使用同一 canonical 编码；Alibaba 先用 1 张确认 service code，Copyleaks 当前完成前 2 对和 forged-only 前 102 张，Reality Defender 先用 5–10 张测 coverage。检查：
+默认每家先跑相同的 5 对 `real + forged`，且 real/forged 使用同一 canonical 编码；Alibaba 先用 1 张确认 service code，Copyleaks 当前完成前 2 对和 forged-only 全量 275 张，Reality Defender 先用 5–10 张测 coverage。检查：
 
 1. HTTP/API 成功率与有效 coverage。
 2. 原始连续分数、厂商 verdict、版本字段和计费单位。
@@ -238,7 +238,7 @@ python -m eval.commercial.run_reality_defender
 3. Copyleaks `ai-image-1-ultra`（T1 + 原生 T2）
 4. Resemble Detect（T1；当前 heatmap 不作为 T2）
 
-Alibaba Ultra 与 AI or Not 已完成 mouse forged-only 全量，作为已验证补充行保留。Copyleaks 在补充 credits 后优先扩跑；Reality Defender 只有在有效 coverage 足够时进入主表，否则作为 coverage/failure appendix。
+Alibaba Ultra、AI or Not、Resemble 与 Copyleaks 已完成 mouse forged-only 全量，作为已验证结果保留。Reality Defender 只有在有效 coverage 足够时进入主表，否则作为 coverage/failure appendix。
 
 ### Phase C：统一报告规则
 

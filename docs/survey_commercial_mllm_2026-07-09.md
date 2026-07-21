@@ -2,7 +2,7 @@
 
 Method: 5 parallel search tracks with primary-source fetches (vendor docs/pricing pages fetched live, live API probes for Illuminarty, arXiv API verification of every cited paper), followed by an independent verification pass. Confidence flagged where a claim rests on a single or secondary source.
 
-> **Commercial API availability update — 2026-07-20.** The 2026-07-09 observations below remain a historical snapshot, but Illuminarty is no longer an executable baseline. Alibaba Cloud Ultra and AI or Not have since completed authenticated runs on all 275 mouse forgeries. Copyleaks Ultra has completed the first 102 forged images: 38/102 were detected, and positive masks aligned strongly with the exact SP difference mask. Full endpoints, results, costs, and execution rules are recorded in `COMMERCIAL_API_STATUS_2026-07-20.md`.
+> **Commercial API availability update — 2026-07-21.** The 2026-07-09 observations below remain a historical snapshot, but Illuminarty is no longer an executable baseline. Alibaba Cloud Ultra, AI or Not, Resemble Detect, and Copyleaks Ultra have since completed authenticated runs on all 275 mouse forgeries. Copyleaks detected 111/275; positive masks aligned strongly with the exact SP difference mask, while 164 empty-mask misses remain explicit. Full endpoints, results, costs, and execution rules are recorded in `COMMERCIAL_API_STATUS_2026-07-20.md`.
 
 ## 1. Sightengine GenAI detection (integrated)
 
@@ -21,7 +21,7 @@ Method: 5 parallel search tracks with primary-source fetches (vendor docs/pricin
 
 | Service | 2026-07-20 access | Output granularity | CLAIMFORGE role / caveat |
 |---|---|---|---|
-| **Copyleaks Ultra** | Self-serve `POST /v1/ai-image-detector/{scanId}/check`; 1 credit/image in authenticated runs | Image verdict, AI-pixel fraction, and native binary RLE mask | First 102 mouse forgeries: 38/102 detected; positive-only mean IoU 0.8266 versus exact-difference GT, but all-image mean IoU is 0.3080 after empty-mask misses |
+| **Copyleaks Ultra** | Self-serve `POST /v1/ai-image-detector/{scanId}/check`; 1 credit/image in authenticated runs | Image verdict, AI-pixel fraction, and native binary RLE mask | 275/275 mouse forgeries complete: 111/275 detected; positive-only mean IoU 0.8165 versus exact-difference GT, but all-image mean IoU is 0.3296 after empty-mask misses |
 | **Hive AI** | Self-serve V3; $6/1k; default 100 requests/day (https://thehive.ai/pricing) | Whole-image AI/Human + generator attribution (including Hunyuan and inpainting sources) + deepfake score | Highest-priority literature-comparable T1 baseline; no localization |
 | **Resemble Detect** | Self-serve Flex; `POST /api/v2/detect`; listed at $0.04/second for images (https://www.resemble.ai/pricing) | Whole-image fake/real score plus optional `ifl.heatmap` visualization | Closest active localization candidate; heatmap semantics and static-image billing require paired preflight |
 | **Alibaba Cloud Ultra** | China (Beijing) `aigcDetector_ultra` validated; CNY 200/10k | Thresholded whole-image `risk_aigc`, `risk_fake`, and explicit `risk_edit` labels | 275/275 valid on mouse forgeries; 30 `risk_edit` plus 1 `risk_fake`, for 31/275 any-risk detections |
@@ -31,7 +31,7 @@ Method: 5 parallel search tracks with primary-source fetches (vendor docs/pricin
 | **Winston AI** | Self-serve developer API; 2,000 starter credits | Basic whole-image AI/Human score; advanced forensic report | Backup only: image API requires a public URL and forensic visualization is not yet validated as an edit map |
 | **Google AI Content Detection** | Private Preview; application required | Detects generated or modified images; no public localization schema | Watchlist, not an immediately executable baseline |
 
-**Cross-cutting finding:** most commercial APIs still expose only whole-image scores. Copyleaks is the first verified exception in this study: among the first 102 forgeries it detected 38, whose native RLE masks achieved mean IoU 0.8266 against exact SP differences. However, counting 64 empty-mask misses reduces all-image mean IoU to 0.3080, so localization quality must never be reported without detection coverage. Resemble's optional image heatmap did not yield a usable local-edit map. Alibaba's edit-specific label is operational but thresholded and image-level: 30/275 mouse forgeries triggered `risk_edit`, while non-hits returned `nonLabel` without a continuous score.
+**Cross-cutting finding:** most commercial APIs still expose only whole-image scores. Copyleaks is the first verified exception in this study: across all 275 forgeries it detected 111, whose native RLE masks achieved mean IoU 0.8165 against exact SP differences. However, counting 164 empty-mask misses reduces all-image mean IoU to 0.3296, so localization quality must never be reported without detection coverage. Resemble's optional image heatmap did not yield a usable local-edit map. Alibaba's edit-specific label is operational but thresholded and image-level: 30/275 mouse forgeries triggered `risk_edit`, while non-hits returned `nonLabel` without a continuous score.
 
 ## 4. Frontier MLLMs as zero-shot forgery detectors
 
@@ -62,7 +62,7 @@ C2PA Content Credentials (spec now at v2.3/2.4, with a conformance program) has 
 ## 7. Recommended baseline set
 
 **Commercial active roster:**
-1. **Copyleaks Ultra** — highest-priority T1+T2 expansion; the first 102 forged images are complete and the resumable 275-image run needs 173 more credits.
+1. **Copyleaks Ultra** — completed 275-image forged-only T1+T2 baseline; retain both positive-only and all-image localization metrics, and expand paired real controls separately.
 2. **Sightengine genai** — retained core T1 baseline; the 199-image 2026-07-20/21 result is forged-only original-PNG pilot evidence, while the canonical paired run remains required.
 3. **Hive AI** — strongest literature comparability and a self-serve $6/1k API. Pairing Hive with Sightengine reproduces the INP-X commercial pair.
 4. **Resemble Detect** — retain T1, but do not use its current visualization as a GT-compatible T2 mask.
