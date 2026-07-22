@@ -98,12 +98,18 @@ source images:
 python scripts/export_cat_generation_tasks.py
 python run_hunyuan_generation.py \
   --tasks annotations/cat_generation_tasks.jsonl \
-  --prompt-kind cat --model-name hunyuan_image3_distil_cat_272 \
+  --prompt-kind cat \
+  --model-name hunyuan_image3_distil_cat_272_native_style_v2_20260722 \
   --steps 8 --timeout 1800 --resume
 python compose_spliced_full.py \
   --tasks annotations/cat_generation_tasks.jsonl \
-  --model-name hunyuan_image3_distil_cat_272
+  --model-name hunyuan_image3_distil_cat_272_native_style_v2_20260722
 ```
+
+The cat prompt matches the source crop's style and image quality, including
+blur and compression artifacts, and deterministically varies natural poses and
+off-camera orientations by task ID. The versioned output directory preserves
+the earlier cat run and its downstream review artifacts.
 
 The generation client posts multipart requests to `/v1/images/edits`, keeps
 the input and output dimensions equal, disables environment proxy discovery,

@@ -42,12 +42,32 @@ STAIN_PROMPT_TMPL = (
     "unchanged. Do not add text, extra objects, or unrelated marks."
 )
 CAT_PROMPT_TMPL = (
-    "Add a single small but clearly visible realistic cat entirely within the "
-    "{pos} of the image. Keep the whole cat in frame and confined to that local "
-    "area; it should occupy roughly one quarter of the image rather than dominate "
-    "the scene. Match plausible scale, contact shadows, lighting, camera "
-    "perspective, and JPEG-like realism. Keep everything else unchanged. Do not "
-    "add text, duplicate cats, or unrelated objects."
+    "Add a single small but clearly visible cat entirely within the {pos} of the "
+    "image. Make the cat look native to the source image: match the surrounding "
+    "visual style, resolution, level of detail, sharpness or blur, noise and "
+    "compression artifacts, color, lighting, perspective, and depth of field. "
+    "Do not make the cat cleaner, sharper, or more photorealistic than the rest "
+    "of the image. Show the cat {pose}, {orientation}. Keep its head and eyes "
+    "directed into the scene, never toward the viewer or camera. This must feel "
+    "like an unposed candid moment, not a front-facing pet portrait. Keep the "
+    "whole cat in frame and "
+    "confined to that local area; it should occupy roughly one quarter of the "
+    "image without dominating the scene. Keep everything else unchanged. Do not "
+    "add text, additional cats, or unrelated objects."
+)
+CAT_POSES = (
+    "walking naturally through the scene",
+    "standing casually while observing something nearby",
+    "sitting in a relaxed, unposed way",
+    "crouching as if inspecting or sniffing a nearby surface",
+    "resting comfortably",
+    "stretching or turning naturally",
+)
+CAT_ORIENTATIONS = (
+    "seen in side profile and facing toward the left side of the scene",
+    "seen in side profile and facing toward the right side of the scene",
+    "seen from a three-quarter angle and facing away from the viewer",
+    "with its back mostly toward the viewer and attention on the surrounding scene",
 )
 
 
@@ -173,7 +193,12 @@ def call_edit(args, img, prompt, width, height, seed):
 
 def make_prompt(task, position, prompt_kind):
     if prompt_kind == "cat":
-        tmpl = CAT_PROMPT_TMPL
+        digest = hashlib.sha256(task["task_id"].encode("utf-8")).digest()
+        return CAT_PROMPT_TMPL.format(
+            pos=position,
+            pose=CAT_POSES[digest[8] % len(CAT_POSES)],
+            orientation=CAT_ORIENTATIONS[digest[9] % len(CAT_ORIENTATIONS)],
+        )
     elif prompt_kind == "stain":
         tmpl = STAIN_PROMPT_TMPL
     else:
