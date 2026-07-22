@@ -111,6 +111,25 @@ blur and compression artifacts, and deterministically varies natural poses and
 off-camera orientations by task ID. The versioned output directory preserves
 the earlier cat run and its downstream review artifacts.
 
+Export and run all completed trash-can slots, then compose them back into the
+full source images:
+
+```bash
+python scripts/export_trash_can_generation_tasks.py
+python run_hunyuan_generation.py \
+  --tasks annotations/trash_can_generation_tasks.jsonl \
+  --prompt-kind trash-can \
+  --model-name hunyuan_image3_distil_trash_can_260_native_style_v1_20260722 \
+  --steps 8 --timeout 1800 --resume
+python compose_spliced_full.py \
+  --tasks annotations/trash_can_generation_tasks.jsonl \
+  --model-name hunyuan_image3_distil_trash_can_260_native_style_v1_20260722
+```
+
+The trash-can prompt likewise matches source sharpness or blur, detail, noise,
+compression, lighting, perspective, and depth of field instead of forcing a
+uniformly photorealistic insert.
+
 The generation client posts multipart requests to `/v1/images/edits`, keeps
 the input and output dimensions equal, disables environment proxy discovery,
 and decodes the returned `b64_json` image. Use `--api-style legacy` only for

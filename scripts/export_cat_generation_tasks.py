@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Export the completed cat labeler payload into generation tasks and crops."""
+"""Export a completed slot-labeler payload into generation tasks and crops.
+
+The command-line defaults preserve the original cat workflow.  Other object
+families can supply their own paths, task prefix, and fallback candidate.
+"""
 
 from __future__ import annotations
 
@@ -34,14 +38,21 @@ def source_relative_path(raw_path: str) -> Path:
     return relative
 
 
-def task_id_for(image_id: str, slot: dict, slot_count: int) -> str:
+def task_id_for(prefix: str, image_id: str, slot: dict, slot_count: int) -> str:
     if slot_count == 1:
-        return f"cat_{image_id}"
+        return f"{prefix}_{image_id}"
     slot_id = str(slot.get("id") or "slot_unknown")
-    return f"cat_{image_id}_{slot_id}"
+    return f"{prefix}_{image_id}_{slot_id}"
 
 
 def export(args: argparse.Namespace) -> dict:
+    task_prefix = str(getattr(args, "task_prefix", "cat")).strip().strip("_")
+    default_candidate = str(getattr(args, "default_candidate", "cat")).strip()
+    if not task_prefix or not all(ch.isalnum() or ch == "_" for ch in task_prefix):
+        raise ValueError(f"invalid task prefix: {task_prefix!r}")
+    if not default_candidate:
+        raise ValueError("default candidate must not be empty")
+
     slots_path = args.slots_json if args.slots_json.is_absolute() else REPO / args.slots_json
     tasks_path = args.tasks if args.tasks.is_absolute() else REPO / args.tasks
     crop_dir = args.crop_dir if args.crop_dir.is_absolute() else REPO / args.crop_dir
@@ -54,7 +65,7 @@ def export(args: argparse.Namespace) -> dict:
     payload = json.loads(slots_path.read_text(encoding="utf-8"))
     images = payload.get("images")
     if not isinstance(images, list):
-        raise ValueError("cat annotation payload must contain an images list")
+        raise ValueError("annotation payload must contain an images list")
 
     tasks: list[dict] = []
     seen_task_ids: set[str] = set()
@@ -99,7 +110,7 @@ def export(args: argparse.Namespace) -> dict:
                     f"{item['id']}: insert {insert_xyxy} outside crop {crop_xyxy}"
                 )
 
-            task_id = task_id_for(str(item["id"]), slot, len(slots))
+            task_id = task_id_for(task_prefix, str(item["id"]), slot, len(slots))
             if task_id in seen_task_ids:
                 raise ValueError(f"duplicate task id: {task_id}")
             seen_task_ids.add(task_id)
@@ -111,7 +122,10 @@ def export(args: argparse.Namespace) -> dict:
                 ix2 - cx1,
                 iy2 - cy1,
             ]
-            candidate = str(slot.get("candidates") or "cat").strip() or "cat"
+            candidate = (
+                str(slot.get("candidates") or default_candidate).strip()
+                or default_candidate
+            )
             tasks.append(
                 {
                     "task_id": task_id,
@@ -148,6 +162,8 @@ def export(args: argparse.Namespace) -> dict:
         "empty_image_ids": empty_images,
         "generation_tasks": len(tasks),
         "unique_task_ids": len(seen_task_ids),
+        "task_prefix": task_prefix,
+        "default_candidate": default_candidate,
         "tasks_path": str(tasks_path),
         "crop_dir": str(crop_dir),
         "dry_run": args.dry_run,
@@ -159,6 +175,8 @@ def main() -> None:
     parser.add_argument("--slots-json", type=Path, default=DEFAULT_SLOTS)
     parser.add_argument("--tasks", type=Path, default=DEFAULT_TASKS)
     parser.add_argument("--crop-dir", type=Path, default=DEFAULT_CROPS)
+    parser.add_argument("--task-prefix", default="cat")
+    parser.add_argument("--default-candidate", default="cat")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
     print(json.dumps(export(args), ensure_ascii=False, indent=2))
