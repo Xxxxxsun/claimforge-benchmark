@@ -117,18 +117,40 @@ full source images:
 ```bash
 python scripts/export_trash_can_generation_tasks.py
 python run_hunyuan_generation.py \
-  --tasks annotations/trash_can_generation_tasks.jsonl \
+  --tasks annotations/trash_can_generation_tasks_natural_112.jsonl \
   --prompt-kind trash-can \
-  --model-name hunyuan_image3_distil_trash_can_260_native_style_v1_20260722 \
-  --steps 8 --timeout 1800 --resume
+  --model-name hunyuan_image3_distil_trash_can_complete_natural_v4 \
+  --steps 8 --timeout 1800 \
+  --seed-salt complete-natural-v4 --resume
 python compose_spliced_full.py \
-  --tasks annotations/trash_can_generation_tasks.jsonl \
-  --model-name hunyuan_image3_distil_trash_can_260_native_style_v1_20260722
+  --tasks annotations/trash_can_generation_tasks_natural_112.jsonl \
+  --model-name hunyuan_image3_distil_trash_can_complete_natural_v4
 ```
 
-The trash-can prompt likewise matches source sharpness or blur, detail, noise,
-compression, lighting, perspective, and depth of field instead of forcing a
-uniformly photorealistic insert.
+The trash-can prompt asks for a small, complete, unobstructed bin safely inset
+from every crop edge, in an unobtrusive and physically sensible floor/ground
+location that does not block a doorway, walkway, seat, or work area. It also
+matches source sharpness or blur, detail, noise, compression, lighting,
+perspective, and depth of field instead of forcing a uniformly photorealistic
+insert.
+
+The original 260 generic insert slots were also reviewed for trash-can
+suitability. The strict 112-task manifest above removes targets on beds, sofas,
+counters, bathroom fixtures, people, and furniture-crowded or border-constrained
+regions where a complete freestanding bin cannot also look natural. See
+`docs/TRASH_CAN_SOURCE_SUITABILITY_2026-07-23.md` for the full audit and excluded
+IDs.
+
+The reviewed 2026-07-23 deliverable is
+`generated_crops/hunyuan_image3_distil_trash_can_112_complete_natural_reviewed_20260723/`.
+It selects 12 successful targeted repairs over the initial batch and retains all
+112 task IDs in task order. Strict visual QA marks 85/112 usable (restaurant
+29/41, lodging 56/71); the remaining 27 are explicitly excluded rather than
+silently treated as valid. Per-task status and reasons are in
+`annotations/trash_can_complete_natural_review_20260723.jsonl`, and the generation
+and QA summary is in
+`docs/TRASH_CAN_COMPLETE_NATURAL_QA_2026-07-23.md`. The initial and both raw
+repair directories are retained for provenance.
 
 The generation client posts multipart requests to `/v1/images/edits`, keeps
 the input and output dimensions equal, disables environment proxy discovery,

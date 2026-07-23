@@ -70,28 +70,16 @@ CAT_ORIENTATIONS = (
     "with its back mostly toward the viewer and attention on the surrounding scene",
 )
 TRASH_CAN_PROMPT_TMPL = (
-    "Add one new freestanding trash can on the floor, entirely within the {pos} "
-    "of the image. It must be unmistakably present as a separate object, not part "
-    "of any existing cabinet or furniture, with a visible rim, opening, or lid "
-    "and a distinct body silhouette. Make it look native to the source image "
-    "rather than forcing "
-    "photorealism: match the surrounding visual style, resolution, level of "
-    "detail, sharpness or blur, noise and compression artifacts, color, lighting, "
-    "perspective, and depth of field. Do not make the trash can cleaner, sharper, "
-    "more detailed, or more photorealistic than the rest of the image. "
-    "If the source is soft, blurry, low-resolution, or compressed, give the bin "
-    "equally soft edges and limited detail; never introduce crisp high-frequency "
-    "detail that is absent from its surroundings. Choose an "
-    "ordinary trash-can design, material, size, and orientation appropriate to "
-    "this specific setting. Place it upright on a plausible floor or supporting "
-    "surface with correct scale, contact shadow, and occlusion. Keep the local "
-    "contrast natural, but do not conceal the bin in deep shadow or behind "
-    "furniture. Center it within that local area and keep its rim or lid, both "
-    "side edges, and base fully visible, with clear margin from every image edge; "
-    "no part may be cropped by the frame. Keep it confined to that local area "
-    "without dominating the scene. Keep everything "
-    "else unchanged. Do not add text, logos, additional trash cans, loose trash, "
-    "litter, or unrelated objects."
+    "Add exactly one small, ordinary trash can {pos}. Choose a conventional, "
+    "unobtrusive floor or ground spot for this exact scene, near a wall or cabinet "
+    "when available and clear of walkways, doors, seating, and work areas. Show "
+    "the entire bin unobstructed: full rim or lid, both side contours, complete "
+    "base, a clear background gap around its whole silhouette, and ample distance "
+    "from every image edge. Use modest scene-appropriate scale and perspective "
+    "with a subtle contact shadow. Match the source visual style, lighting, color, "
+    "depth of field, sharpness or blur, noise, and compression; never make the bin "
+    "cleaner, sharper, or more realistic than the source. Keep everything else "
+    "unchanged. No furniture-top placement, extra bins, text, logos, crop, or zoom."
 )
 
 
@@ -106,6 +94,26 @@ def position_phrase(box, size, low=1 / 3, high=2 / 3):
     if row == "middle" and col == "center":
         return "center"
     return f"{row}-{col} area"
+
+
+def trash_can_position_phrase(box, size):
+    """Give the trash can a small, center-anchored envelope inside the edit box.
+
+    Coarse direction words such as ``bottom-right`` and bottom-edge coordinates
+    encouraged the model to put a large bin on a crop boundary.  Every exported
+    trash-can edit region can contain a 15%-wide by 25%-high silhouette when its
+    centre is clamped to this safe central range.
+    """
+    w, h = size
+    center_x = min(0.65, max(0.35, (box[0] + box[2]) / 2 / w))
+    center_y = min(0.62, max(0.40, (box[1] + box[3]) / 2 / h))
+    return (
+        "in safe interior space near the requested area (rough guide: center near "
+        f"{round(center_x * 100)}% from the left and "
+        f"{round(center_y * 100)}% from the top). Use the nearest physically "
+        "sensible spot and keep it below about 15% of the crop width and 25% of "
+        "its height"
+    )
 
 
 def ceil_to(x, m=ALIGN):
@@ -251,9 +259,7 @@ def run_task(task, args):
     up = crop.resize((tw, th), Image.LANCZOS)
     box = [int(v) for v in task["edit_region_in_context_xyxy"]]
     if args.prompt_kind == "trash-can":
-        # Trash-can boxes are often large and lie close to a 1/3 grid boundary.
-        # A narrower center band gives the edit model a less ambiguous floor area.
-        pos = position_phrase(box, (W, H), low=0.4, high=0.6)
+        pos = trash_can_position_phrase(box, (W, H))
     else:
         pos = position_phrase(box, (W, H))
     prompt = make_prompt(task, pos, args.prompt_kind)
