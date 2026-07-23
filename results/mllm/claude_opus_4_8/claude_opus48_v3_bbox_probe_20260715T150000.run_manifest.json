@@ -1,0 +1,67 @@
+{
+  "api": {
+    "api_base": "https://llm-chat-api.alibaba-inc.com/openai",
+    "model_omitted_extra_body_keys": [
+      "thinking",
+      "thinking_type"
+    ],
+    "provider_extra_body_keys": [
+      "access_key",
+      "app",
+      "quota_id",
+      "user_id"
+    ],
+    "provider_header_keys": [],
+    "timeout_seconds": 120
+  },
+  "condition": "v3_bbox_schema_probe",
+  "config_fingerprint_sha256": "cdba83ea95a0a626fa5ce154dadc21c22af16019818f2833b194d1c30bcf755d",
+  "created_at_utc": "2026-07-15T07:17:54.094360+00:00",
+  "image": {
+    "detail": "high",
+    "maxLongSide": 2048,
+    "transport": "base64"
+  },
+  "input": {
+    "images": 6,
+    "include_source_pairs": null,
+    "list": "config/claude_v3_bbox_probe.local.jsonl",
+    "manifest_sha256": "caf5ffe239c0ce2014fa7f123400c2015d30cb9750a1fe2dfbe2c7f95ad0c933",
+    "review_export": null,
+    "review_status": null,
+    "source": "list"
+  },
+  "model": {
+    "concurrency": 6,
+    "id": "claude-opus-4-8",
+    "max_tokens": 600,
+    "request_format": "openai_chat_completions",
+    "slug": "claude_opus_4_8",
+    "temperature": null
+  },
+  "outputs": {
+    "aggregate_jsonl": "results/mllm/claude_opus_4_8/claude_opus48_v3_bbox_probe_20260715T150000.jsonl",
+    "metrics_dir": "results/mllm/claude_opus_4_8/metrics/claude_opus48_v3_bbox_probe_20260715T150000",
+    "raw_jsonl": "results/mllm/claude_opus_4_8/claude_opus48_v3_bbox_probe_20260715T150000.raw.jsonl",
+    "run_manifest": "results/mllm/claude_opus_4_8/claude_opus48_v3_bbox_probe_20260715T150000.run_manifest.json"
+  },
+  "protocol": {
+    "keys": [
+      "localization"
+    ],
+    "replicates_required": 3,
+    "version": "mllm_protocol_v3_reasoning_image_coordinates"
+  },
+  "retry": {
+    "base_backoff_seconds": [
+      2,
+      4,
+      8,
+      16,
+      32
+    ],
+    "max_retries_per_replicate": 5
+  },
+  "run_id": "claude_opus48_v3_bbox_probe_20260715T150000",
+  "schema_version": "mllm_run_manifest_v1"
+}

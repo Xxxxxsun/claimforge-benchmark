@@ -1,6 +1,13 @@
 """Frozen protocol prompts. Bump PROTOCOL_VERSION when changing any text."""
 
-PROTOCOL_VERSION = "mllm_protocol_v3_reasoning_image_coordinates"
+DETECTION_PROTOCOL_VERSION = "mllm_protocol_v3_reasoning_image_coordinates"
+LOCALIZATION_PROTOCOL_VERSION = "mllm_protocol_v4_reasoning_pixel_coordinates"
+PROTOCOL_VERSIONS = {
+    "detection": DETECTION_PROTOCOL_VERSION,
+    "localization": LOCALIZATION_PROTOCOL_VERSION,
+}
+# Backward-compatible alias for code that imports the latest protocol version.
+PROTOCOL_VERSION = LOCALIZATION_PROTOCOL_VERSION
 
 SYSTEM_PROMPT = """You are an image-forensics assistant. Your task is to examine a given image and determine whether any object in the image has been digitally modified or manipulated. Pay close attention to subtle inconsistencies in lighting, shadows, textures, edges, perspective, or logical composition. Carefully analyze these visual cues before making a judgment."""
 
@@ -27,11 +34,11 @@ LOCALIZATION_PROMPT = """
 Instructions:
 1. Provide a **detailed explanation** of your reasoning.
 2. Then, based on your analysis, provide a final decision on "localized_edit", "no_localized_edit".
-3. If your decision is "localized_edit", provide a list of regions in the format of { "bbox_1000": [<x1>, <y1>, <x2>, <y2>], "confidence": <integer 0-100>, "evidence": "<short visible-evidence statement>" }.
+3. If your decision is "localized_edit", provide a list of regions in the format of { "bbox_px": [<x1>, <y1>, <x2>, <y2>], "confidence": <integer 0-100>, "evidence": "<short visible-evidence statement>" }.
 
 Important Constraints:
 - Your reasoning must come before the result statement.
-- Coordinates are normalized to the full image, not a crop.
+- Coordinates are original full-image pixel coordinates, not normalized coordinates and not coordinates from a crop.
 - Do not invent a region when there is no visual evidence. Use an empty regions array when no specific region can be supported by visible evidence.
 - Return no more than 3 regions, ordered by confidence.
 
@@ -41,7 +48,7 @@ Return exactly one JSON object and no Markdown:
   \"decision\": \"localized_edit\" | \"no_localized_edit\",
   \"p_ai_edited\": <integer 0-100>,
   \"regions\": [{
-    \"bbox_1000\": [<x1>, <y1>, <x2>, <y2>],
+    \"bbox_px\": [<x1>, <y1>, <x2>, <y2>],
     \"confidence\": <integer 0-100>,
     \"evidence\": \"<short visible-evidence statement>\"
   }]

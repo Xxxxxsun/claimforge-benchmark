@@ -196,6 +196,16 @@ def _overlaps(a: list[float], b: list[float]) -> bool:
     return max(a[0], b[0]) < min(a[2], b[2]) and max(a[1], b[1]) < min(a[3], b[3])
 
 
+def _iou(a: list[float], b: list[float]) -> float:
+    intersection_width = max(0.0, min(a[2], b[2]) - max(a[0], b[0]))
+    intersection_height = max(0.0, min(a[3], b[3]) - max(a[1], b[1]))
+    intersection = intersection_width * intersection_height
+    area_a = (a[2] - a[0]) * (a[3] - a[1])
+    area_b = (b[2] - b[0]) * (b[3] - b[1])
+    union = area_a + area_b - intersection
+    return intersection / union if union > 0 else 0.0
+
+
 def _inside(inner: list[float], outer: list[float]) -> bool:
     return outer[0] <= inner[0] and outer[1] <= inner[1] and inner[2] <= outer[2] and inner[3] <= outer[3]
 
@@ -274,12 +284,20 @@ def evaluate_review_export(
         boxes = _boxes(result) if is_valid else []
         if gt.edit_region_xyxy is not None:
             gt_box = list(map(float, gt.edit_region_xyxy))
-            any_overlap = any(_overlaps(box, gt_box) for box in boxes)
-            all_inside = bool(boxes) and all(_inside(box, gt_box) for box in boxes)
+            best_iou = max((_iou(box, gt_box) for box in boxes), default=0.0) if is_valid else None
+            any_overlap = any(_overlaps(box, gt_box) for box in boxes) if is_valid else None
+            iou_at_0_1 = best_iou >= 0.10 if best_iou is not None else None
+            iou_at_0_25 = best_iou >= 0.25 if best_iou is not None else None
+            iou_at_0_5 = best_iou >= 0.50 if best_iou is not None else None
+            all_inside = bool(boxes) and all(_inside(box, gt_box) for box in boxes) if is_valid else None
             real_rejection_correct = None
         else:
             gt_box = None
             any_overlap = None
+            best_iou = None
+            iou_at_0_1 = None
+            iou_at_0_25 = None
+            iou_at_0_5 = None
             all_inside = None
             real_rejection_correct = is_valid and result.get("decision") == "no_localized_edit" and not boxes
         localization_rows.append({
@@ -298,6 +316,10 @@ def evaluate_review_export(
             "model_aggregate": result.get("result") if is_valid else None,
             "has_predicted_region": bool(boxes) if is_valid else None,
             "any_box_overlaps_gt": any_overlap,
+            "best_box_iou": best_iou,
+            "box_iou_at_0_1": iou_at_0_1,
+            "box_iou_at_0_25": iou_at_0_25,
+            "box_iou_at_0_5": iou_at_0_5,
             "all_predicted_boxes_inside_gt": all_inside,
             "real_no_edit_correct": real_rejection_correct,
             "result_line": result.get("_result_line") if result else None,
@@ -307,6 +329,9 @@ def evaluate_review_export(
     real_localization = [row for row in localization_rows if row["gt_label"] == "not_edited"]
     valid_real = [row for row in real_localization if row["valid_for_metrics"]]
     overlap_success = sum(bool(row["any_box_overlaps_gt"]) for row in valid_forged)
+    iou_at_0_1_success = sum(bool(row["box_iou_at_0_1"]) for row in valid_forged)
+    iou_at_0_25_success = sum(bool(row["box_iou_at_0_25"]) for row in valid_forged)
+    iou_at_0_5_success = sum(bool(row["box_iou_at_0_5"]) for row in valid_forged)
     contained_success = sum(bool(row["all_predicted_boxes_inside_gt"]) for row in valid_forged)
     real_rejection_success = sum(bool(row["real_no_edit_correct"]) for row in valid_real)
     localization_summary: dict[str, Any] = {
@@ -320,6 +345,12 @@ def evaluate_review_export(
         "forged_coverage": _safe_div(len(valid_forged), len(forged_localization)),
         "box_overlap_successes": overlap_success,
         "box_overlap_accuracy": _safe_div(overlap_success, len(valid_forged)),
+        "box_iou_at_0_1_successes": iou_at_0_1_success,
+        "box_iou_at_0_1_accuracy": _safe_div(iou_at_0_1_success, len(valid_forged)),
+        "box_iou_at_0_25_successes": iou_at_0_25_success,
+        "box_iou_at_0_25_accuracy": _safe_div(iou_at_0_25_success, len(valid_forged)),
+        "box_iou_at_0_5_successes": iou_at_0_5_success,
+        "box_iou_at_0_5_accuracy": _safe_div(iou_at_0_5_success, len(valid_forged)),
         "all_boxes_inside_gt_successes": contained_success,
         "all_boxes_inside_gt_accuracy": _safe_div(contained_success, len(valid_forged)),
         "real_expected": len(real_localization),

@@ -32,7 +32,7 @@ def _prob(value: Any) -> int:
     return int(value)
 
 
-def parse(protocol: str, raw: str) -> dict[str, Any]:
+def parse(protocol: str, raw: str, image_size: tuple[int, int] | None = None) -> dict[str, Any]:
     value = _json(raw)
     p = _prob(value.get("p_ai_edited"))
     reasoning = value.get("reasoning")
@@ -49,6 +49,11 @@ def parse(protocol: str, raw: str) -> dict[str, Any]:
     decision = value.get("decision")
     if decision not in {"localized_edit", "no_localized_edit"}:
         raise SchemaError("invalid localization decision")
+    if image_size is None:
+        raise SchemaError("localization parsing requires image dimensions")
+    width, height = image_size
+    if width <= 0 or height <= 0:
+        raise SchemaError("image dimensions must be positive")
     regions = value.get("regions", [])
     if not isinstance(regions, list) or len(regions) > 3:
         raise SchemaError("regions must be an array of at most 3 items")
@@ -56,13 +61,13 @@ def parse(protocol: str, raw: str) -> dict[str, Any]:
     for region in regions:
         if not isinstance(region, dict):
             raise SchemaError("region must be an object")
-        box = region.get("bbox_1000")
+        box = region.get("bbox_px")
         if not isinstance(box, list) or len(box) != 4 or not all(isinstance(x, (int, float)) and not isinstance(x, bool) for x in box):
-            raise SchemaError("bbox_1000 must contain four numbers")
+            raise SchemaError("bbox_px must contain four numbers")
         x1, y1, x2, y2 = map(float, box)
-        if not (0 <= x1 < x2 <= 1000 and 0 <= y1 < y2 <= 1000):
-            raise SchemaError("bbox_1000 is out of range or degenerate")
-        parsed.append({"bbox_1000": [x1, y1, x2, y2], "confidence": _prob(region.get("confidence")), "evidence": str(region.get("evidence", ""))})
+        if not (0 <= x1 < x2 <= width and 0 <= y1 < y2 <= height):
+            raise SchemaError(f"bbox_px is out of range or degenerate for {width}x{height} image")
+        parsed.append({"bbox_px": [x1, y1, x2, y2], "confidence": _prob(region.get("confidence")), "evidence": str(region.get("evidence", ""))})
     if decision == "localized_edit" and not parsed:
         raise SchemaError("localized_edit requires a region")
     return {"reasoning": reasoning, "decision": decision, "p_ai_edited": p, "regions": parsed}
@@ -91,14 +96,14 @@ def aggregate(protocol: str, replies: list[dict[str, Any]]) -> dict[str, Any]:
         for region in item["regions"]:
             placed = False
             for cluster in regions:
-                if any(_iou(region["bbox_1000"], member["bbox_1000"]) >= 0.10 for member in cluster):
+                if any(_iou(region["bbox_px"], member["bbox_px"]) >= 0.10 for member in cluster):
                     cluster.append({**region, "replicate": replicate}); placed = True; break
             if not placed:
                 regions.append([{**region, "replicate": replicate}])
     consensus = []
     for cluster in regions:
         if len({member["replicate"] for member in cluster}) >= 2:
-            coords = [statistics.median(member["bbox_1000"][i] for member in cluster) for i in range(4)]
-            consensus.append({"bbox_1000": coords, "confidence": int(statistics.median(member["confidence"] for member in cluster)), "support": len({member["replicate"] for member in cluster})})
+            coords = [statistics.median(member["bbox_px"][i] for member in cluster) for i in range(4)]
+            consensus.append({"bbox_px": coords, "confidence": int(statistics.median(member["confidence"] for member in cluster)), "support": len({member["replicate"] for member in cluster})})
     decision = "localized_edit" if len(positive) >= 2 else "no_localized_edit"
     return {"decision": decision, "p_ai_edited": probability, "regions": consensus, "positive_votes": len(positive), "reasoning": [x["reasoning"] for x in replies]}

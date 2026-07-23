@@ -1,0 +1,67 @@
+{
+  "api": {
+    "api_base": "https://llm-chat-api.alibaba-inc.com/openai",
+    "model_omitted_extra_body_keys": [
+      "thinking",
+      "thinking_type"
+    ],
+    "provider_extra_body_keys": [
+      "access_key",
+      "app",
+      "quota_id",
+      "user_id"
+    ],
+    "provider_header_keys": [],
+    "timeout_seconds": 120
+  },
+  "condition": "large_image_probe",
+  "config_fingerprint_sha256": "b8d8a12ef06ca0ac2040e7afff16ca07f50f7f4497b6495d511e4952f5eaed86",
+  "created_at_utc": "2026-07-15T06:34:00.940163+00:00",
+  "image": {
+    "detail": "high",
+    "maxLongSide": 2048,
+    "transport": "base64"
+  },
+  "input": {
+    "images": 1,
+    "include_source_pairs": null,
+    "list": "config/doubao_large_image_probe.local.jsonl",
+    "manifest_sha256": "19db2dc2aa732d6effb8fd3c9375b3e2400ff3f5a95f46a1f16742c75ec482dd",
+    "review_export": null,
+    "review_status": null,
+    "source": "list"
+  },
+  "model": {
+    "concurrency": 3,
+    "id": "glm-5.2",
+    "max_tokens": 600,
+    "request_format": "openai_chat_completions",
+    "slug": "glm_5_2",
+    "temperature": null
+  },
+  "outputs": {
+    "aggregate_jsonl": "results/mllm/glm_5_2/glm52_large_image_probe_20260715T143500.jsonl",
+    "metrics_dir": "results/mllm/glm_5_2/metrics/glm52_large_image_probe_20260715T143500",
+    "raw_jsonl": "results/mllm/glm_5_2/glm52_large_image_probe_20260715T143500.raw.jsonl",
+    "run_manifest": "results/mllm/glm_5_2/glm52_large_image_probe_20260715T143500.run_manifest.json"
+  },
+  "protocol": {
+    "keys": [
+      "detection"
+    ],
+    "replicates_required": 3,
+    "version": "mllm_protocol_v2_reasoning"
+  },
+  "retry": {
+    "base_backoff_seconds": [
+      2,
+      4,
+      8,
+      16,
+      32
+    ],
+    "max_retries_per_replicate": 5
+  },
+  "run_id": "glm52_large_image_probe_20260715T143500",
+  "schema_version": "mllm_run_manifest_v1"
+}

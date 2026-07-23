@@ -1,0 +1,67 @@
+{
+  "api": {
+    "api_base": "https://llm-chat-api.alibaba-inc.com/openai",
+    "model_omitted_extra_body_keys": [
+      "thinking",
+      "thinking_type"
+    ],
+    "provider_extra_body_keys": [
+      "access_key",
+      "app",
+      "quota_id",
+      "user_id"
+    ],
+    "provider_header_keys": [],
+    "timeout_seconds": 120
+  },
+  "condition": "cat_hysteresis_good210_v4_bboxpx",
+  "config_fingerprint_sha256": "3db6dea0f74dc036eabf09d43d08a57af97e324fde68df88acc131b9fe84faf2",
+  "created_at_utc": "2026-07-22T07:29:13.761992+00:00",
+  "image": {
+    "detail": "high",
+    "maxLongSide": 2048,
+    "transport": "base64"
+  },
+  "input": {
+    "images": 420,
+    "include_source_pairs": true,
+    "list": null,
+    "manifest_sha256": "73ae0a59f5ab658848ae749ceaae2a7ded01910578c415c9f303657556f4477d",
+    "review_export": "annotations/claimforge_cat_hysteresis_distance_review_labels.json",
+    "review_status": "good",
+    "source": "review-export"
+  },
+  "model": {
+    "concurrency": 15,
+    "id": "glm-5.2",
+    "max_tokens": 600,
+    "request_format": "openai_chat_completions",
+    "slug": "glm_5_2",
+    "temperature": null
+  },
+  "outputs": {
+    "aggregate_jsonl": "results/mllm/glm_5_2/glm52_cat_hysteresis_good210_c15_v4_20260722T1529020800.jsonl",
+    "metrics_dir": "results/mllm/glm_5_2/metrics/glm52_cat_hysteresis_good210_c15_v4_20260722T1529020800",
+    "raw_jsonl": "results/mllm/glm_5_2/glm52_cat_hysteresis_good210_c15_v4_20260722T1529020800.raw.jsonl",
+    "run_manifest": "results/mllm/glm_5_2/glm52_cat_hysteresis_good210_c15_v4_20260722T1529020800.run_manifest.json"
+  },
+  "protocol": {
+    "keys": [
+      "localization"
+    ],
+    "replicates_required": 3,
+    "version": "mllm_protocol_v4_reasoning_pixel_coordinates"
+  },
+  "retry": {
+    "base_backoff_seconds": [
+      2,
+      4,
+      8,
+      16,
+      32
+    ],
+    "max_retries_per_replicate": 5
+  },
+  "run_id": "glm52_cat_hysteresis_good210_c15_v4_20260722T1529020800",
+  "schema_version": "mllm_run_manifest_v1"
+}

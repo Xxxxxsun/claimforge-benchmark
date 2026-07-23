@@ -9,9 +9,29 @@ from pathlib import Path
 def boxes_to_pixels(boxes: list[dict], width: int, height: int) -> list[list[int]]:
     output = []
     for region in boxes:
-        x1, y1, x2, y2 = region["bbox_1000"]
-        output.append([max(0, min(width, round(x1 * width / 1000))), max(0, min(height, round(y1 * height / 1000))), max(0, min(width, round(x2 * width / 1000))), max(0, min(height, round(y2 * height / 1000)))])
+        x1, y1, x2, y2 = region["bbox_px"]
+        output.append([max(0, min(width, round(x1))), max(0, min(height, round(y1))), max(0, min(width, round(x2))), max(0, min(height, round(y2)))])
     return [box for box in output if box[0] < box[2] and box[1] < box[3]]
+
+
+def boxes_to_1000(boxes: list[dict], width: int, height: int) -> list[dict]:
+    """Derive resolution-independent boxes from authoritative pixel boxes."""
+    output = []
+    for region in boxes:
+        x1, y1, x2, y2 = region["bbox_px"]
+        normalized = {
+            "bbox_1000": [
+                x1 * 1000 / width,
+                y1 * 1000 / height,
+                x2 * 1000 / width,
+                y2 * 1000 / height,
+            ],
+            "confidence": region["confidence"],
+        }
+        if "support" in region:
+            normalized["support"] = region["support"]
+        output.append(normalized)
+    return output
 
 
 def write_union_mask(path: Path, width: int, height: int, boxes: list[list[int]]) -> None:
