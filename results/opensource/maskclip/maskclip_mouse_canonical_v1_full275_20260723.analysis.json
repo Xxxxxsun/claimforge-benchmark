@@ -1,0 +1,921 @@
+{
+  "schema_version": "maskclip_posthoc_analysis_v1",
+  "run_id": "maskclip_mouse_canonical_v1_full275_20260723",
+  "created_at": "2026-07-23T14:19:03.655473+00:00",
+  "sources": {
+    "results_path": "results/opensource/maskclip/maskclip_mouse_canonical_v1_full275_20260723.jsonl",
+    "results_sha256": "ac6e631215cdb9d0d93cf022eeb697f69588274da4b331db240f7aee78c020d4",
+    "run_manifest_path": "results/opensource/maskclip/maskclip_mouse_canonical_v1_full275_20260723.run_manifest.json",
+    "run_manifest_sha256": "04d1b70ba115f0fb34c555dc4e845633026b1334b3a0b74b725aba3a8c28e7bb",
+    "summary_path": "results/opensource/maskclip/maskclip_mouse_canonical_v1_full275_20260723.summary.json",
+    "summary_sha256": "461c0d68349484bdecaf6a7fbed4f7d7bb2f23c5721b467c6da930b385282d64",
+    "inputs_path": "outputs/opensource/mouse_canonical_v1/inputs.jsonl",
+    "inputs_sha256": "e4cb3d6a78fa68f06341457e2234c630a455a9b6b9789e59abf45c15b292060a"
+  },
+  "bootstrap": {
+    "unit": "paired task (real and forged resampled together)",
+    "iterations": 1000,
+    "seed": 20260723,
+    "interval": "2.5th and 97.5th percentile"
+  },
+  "overall": {
+    "pairs": 275,
+    "images": 550,
+    "auroc": {
+      "estimate": 0.5072793388429753,
+      "ci95_percentile": [
+        0.5042112396694216,
+        0.5117497520661157
+      ]
+    },
+    "average_precision": {
+      "estimate": 0.5117874696880687,
+      "ci95_percentile": [
+        0.5098803217241115,
+        0.5225687232079518
+      ]
+    },
+    "tpr_at_fpr_5_percent": {
+      "estimate": 0.05090909090909091,
+      "ci95_percentile": [
+        0.04363636363636364,
+        0.06909090909090909
+      ]
+    },
+    "accuracy_at_0_5": {
+      "estimate": 0.5,
+      "ci95_percentile": [
+        0.5,
+        0.5
+      ]
+    },
+    "image_f1_at_0_5": {
+      "estimate": 0.04844290657439446,
+      "ci95_percentile": [
+        0.014336917562724014,
+        0.0802675585284281
+      ]
+    },
+    "paired_ranking_accuracy": {
+      "estimate": 0.6472727272727272,
+      "ci95_percentile": [
+        0.5926363636363636,
+        0.7054545454545454
+      ]
+    },
+    "paired_score_delta_mean": {
+      "estimate": 0.004019190142869113,
+      "ci95_percentile": [
+        0.0020480417333679536,
+        0.0062119840107384226
+      ]
+    },
+    "pixel_ap_macro": {
+      "estimate": 0.04740141852789598,
+      "ci95_percentile": [
+        0.03135266866386957,
+        0.065523223957859
+      ]
+    },
+    "pixel_f1_macro_at_0_5": {
+      "estimate": 0.005640883656092056,
+      "ci95_percentile": [
+        0.0007754688503092328,
+        0.012194342854684166
+      ]
+    },
+    "pixel_iou_macro_at_0_5": {
+      "estimate": 0.0036656398987595165,
+      "ci95_percentile": [
+        0.00041694732430253457,
+        0.008117755481607834
+      ]
+    },
+    "pixel_f1_micro_at_0_5": {
+      "estimate": 0.006218752631993163,
+      "ci95_percentile": [
+        0.0012311164259780497,
+        0.012549259564934358
+      ]
+    },
+    "pixel_iou_micro_at_0_5": {
+      "estimate": 0.0031190746929747413,
+      "ci95_percentile": [
+        0.0006159373617744584,
+        0.006314249549440466
+      ]
+    },
+    "image_confusion_at_0_5": {
+      "tp": 7,
+      "fp": 7,
+      "fn": 268,
+      "tn": 268
+    },
+    "paired_sign_test": {
+      "wins": 178,
+      "losses": 97,
+      "ties": 0,
+      "two_sided_exact_p": 1.1870792984159263e-06
+    },
+    "edit_fraction": {
+      "min": 0.0002486111111111111,
+      "median": 0.0011263888888888888,
+      "mean": 0.0016845802356947838,
+      "max": 0.01292724609375
+    },
+    "pixel_ap_median": 0.0046333105320774575
+  },
+  "by_domain": {
+    "lodging": {
+      "pairs": 147,
+      "images": 294,
+      "auroc": {
+        "estimate": 0.5087694941922347,
+        "ci95_percentile": [
+          0.5046496830024527,
+          0.515479661252256
+        ]
+      },
+      "average_precision": {
+        "estimate": 0.5194029638200193,
+        "ci95_percentile": [
+          0.5152496614020171,
+          0.5347456789897146
+        ]
+      },
+      "tpr_at_fpr_5_percent": {
+        "estimate": 0.05442176870748299,
+        "ci95_percentile": [
+          0.04081632653061224,
+          0.07482993197278912
+        ]
+      },
+      "accuracy_at_0_5": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "image_f1_at_0_5": {
+        "estimate": 0.05161290322580645,
+        "ci95_percentile": [
+          0.013422818791946308,
+          0.09815950920245399
+        ]
+      },
+      "paired_ranking_accuracy": {
+        "estimate": 0.6598639455782312,
+        "ci95_percentile": [
+          0.5782312925170068,
+          0.7278911564625851
+        ]
+      },
+      "paired_score_delta_mean": {
+        "estimate": 0.003886677401027134,
+        "ci95_percentile": [
+          0.0014179404165863816,
+          0.006404856819517822
+        ]
+      },
+      "pixel_ap_macro": {
+        "estimate": 0.0702317508062809,
+        "ci95_percentile": [
+          0.04496635213098166,
+          0.09762257969549744
+        ]
+      },
+      "pixel_f1_macro_at_0_5": {
+        "estimate": 0.00971026470312267,
+        "ci95_percentile": [
+          0.0007548620218156645,
+          0.02322385459945778
+        ]
+      },
+      "pixel_iou_macro_at_0_5": {
+        "estimate": 0.00640848411052294,
+        "ci95_percentile": [
+          0.0003978328238501637,
+          0.015702608374203467
+        ]
+      },
+      "pixel_f1_micro_at_0_5": {
+        "estimate": 0.01239105927588949,
+        "ci95_percentile": [
+          0.0016996267022956427,
+          0.027579606441939294
+        ]
+      },
+      "pixel_iou_micro_at_0_5": {
+        "estimate": 0.006234153520850673,
+        "ci95_percentile": [
+          0.0008505361558837738,
+          0.013982621114130908
+        ]
+      },
+      "image_confusion_at_0_5": {
+        "tp": 4,
+        "fp": 4,
+        "fn": 143,
+        "tn": 143
+      },
+      "paired_sign_test": {
+        "wins": 97,
+        "losses": 50,
+        "ties": 0,
+        "two_sided_exact_p": 0.00013135994838869253
+      },
+      "edit_fraction": {
+        "min": 0.00025673050235914516,
+        "median": 0.0011379310344827587,
+        "mean": 0.0017604505022597971,
+        "max": 0.01292724609375
+      },
+      "pixel_ap_median": 0.006132464608709393
+    },
+    "restaurant": {
+      "pairs": 128,
+      "images": 256,
+      "auroc": {
+        "estimate": 0.50714111328125,
+        "ci95_percentile": [
+          0.5028060913085938,
+          0.515625
+        ]
+      },
+      "average_precision": {
+        "estimate": 0.513971262795522,
+        "ci95_percentile": [
+          0.5115934348932542,
+          0.5347303956776664
+        ]
+      },
+      "tpr_at_fpr_5_percent": {
+        "estimate": 0.0546875,
+        "ci95_percentile": [
+          0.03125,
+          0.1015625
+        ]
+      },
+      "accuracy_at_0_5": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "image_f1_at_0_5": {
+        "estimate": 0.04477611940298507,
+        "ci95_percentile": [
+          0.0,
+          0.09859154929577464
+        ]
+      },
+      "paired_ranking_accuracy": {
+        "estimate": 0.6328125,
+        "ci95_percentile": [
+          0.5546875,
+          0.7109375
+        ]
+      },
+      "paired_score_delta_mean": {
+        "estimate": 0.004171372744828261,
+        "ci95_percentile": [
+          0.0012432337592835907,
+          0.008084914405705135
+        ]
+      },
+      "pixel_ap_macro": {
+        "estimate": 0.02118220880193828,
+        "ci95_percentile": [
+          0.007533342124109885,
+          0.03820230879477596
+        ]
+      },
+      "pixel_f1_macro_at_0_5": {
+        "estimate": 0.0009674538598928359,
+        "ci95_percentile": [
+          0.0,
+          0.002902361579678508
+        ]
+      },
+      "pixel_iou_macro_at_0_5": {
+        "estimate": 0.0005156547493124603,
+        "ci95_percentile": [
+          0.0,
+          0.001546964247937381
+        ]
+      },
+      "pixel_f1_micro_at_0_5": {
+        "estimate": 0.0015177607191850793,
+        "ci95_percentile": [
+          0.0,
+          0.005655438120877565
+        ]
+      },
+      "pixel_iou_micro_at_0_5": {
+        "estimate": 0.0007594566963633709,
+        "ci95_percentile": [
+          0.0,
+          0.002835737738486416
+        ]
+      },
+      "image_confusion_at_0_5": {
+        "tp": 3,
+        "fp": 3,
+        "fn": 125,
+        "tn": 125
+      },
+      "paired_sign_test": {
+        "wins": 81,
+        "losses": 47,
+        "ties": 0,
+        "two_sided_exact_p": 0.0033741850200922
+      },
+      "edit_fraction": {
+        "min": 0.0002486111111111111,
+        "median": 0.0010983539094650205,
+        "mean": 0.001597447976436526,
+        "max": 0.01141357421875
+      },
+      "pixel_ap_median": 0.0028757443219400193
+    }
+  },
+  "by_edit_fraction_quintile": {
+    "q1_smallest": {
+      "pairs": 55,
+      "images": 110,
+      "auroc": {
+        "estimate": 0.5018181818181818,
+        "ci95_percentile": [
+          0.4948760330578513,
+          0.5120661157024793
+        ]
+      },
+      "average_precision": {
+        "estimate": 0.5218396223531389,
+        "ci95_percentile": [
+          0.5201458273454118,
+          0.5520813282997943
+        ]
+      },
+      "tpr_at_fpr_5_percent": {
+        "estimate": 0.05454545454545454,
+        "ci95_percentile": [
+          0.01818181818181818,
+          0.09090909090909091
+        ]
+      },
+      "accuracy_at_0_5": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "image_f1_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "paired_ranking_accuracy": {
+        "estimate": 0.5636363636363636,
+        "ci95_percentile": [
+          0.43636363636363634,
+          0.6909090909090909
+        ]
+      },
+      "paired_score_delta_mean": {
+        "estimate": 0.00019218996610974995,
+        "ci95_percentile": [
+          3.4735589913452714e-05,
+          0.0004127860984148542
+        ]
+      },
+      "pixel_ap_macro": {
+        "estimate": 0.014146967457714417,
+        "ci95_percentile": [
+          0.002912135853128561,
+          0.03484529038598355
+        ]
+      },
+      "pixel_f1_macro_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "pixel_iou_macro_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "pixel_f1_micro_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "pixel_iou_micro_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "image_confusion_at_0_5": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 55,
+        "tn": 55
+      },
+      "paired_sign_test": {
+        "wins": 31,
+        "losses": 24,
+        "ties": 0,
+        "two_sided_exact_p": 0.41875418826901556
+      },
+      "edit_fraction": {
+        "min": 0.0002486111111111111,
+        "median": 0.0005347222222222222,
+        "mean": 0.0005073585542357395,
+        "max": 0.0006723958333333333
+      },
+      "pixel_ap_median": 0.001267444831205551
+    },
+    "q2": {
+      "pairs": 55,
+      "images": 110,
+      "auroc": {
+        "estimate": 0.5067768595041322,
+        "ci95_percentile": [
+          0.4988429752066115,
+          0.5190165289256198
+        ]
+      },
+      "average_precision": {
+        "estimate": 0.5254735114271268,
+        "ci95_percentile": [
+          0.5248698789614923,
+          0.5562469870981323
+        ]
+      },
+      "tpr_at_fpr_5_percent": {
+        "estimate": 0.05454545454545454,
+        "ci95_percentile": [
+          0.03636363636363636,
+          0.10909090909090909
+        ]
+      },
+      "accuracy_at_0_5": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "image_f1_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "paired_ranking_accuracy": {
+        "estimate": 0.6727272727272727,
+        "ci95_percentile": [
+          0.5454545454545454,
+          0.8
+        ]
+      },
+      "paired_score_delta_mean": {
+        "estimate": -0.00015065861744005814,
+        "ci95_percentile": [
+          -0.0012790506857252445,
+          0.0007155687368260094
+        ]
+      },
+      "pixel_ap_macro": {
+        "estimate": 0.0067500969014462914,
+        "ci95_percentile": [
+          0.0035255935451272884,
+          0.010829719994182007
+        ]
+      },
+      "pixel_f1_macro_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "pixel_iou_macro_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "pixel_f1_micro_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "pixel_iou_micro_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "image_confusion_at_0_5": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 55,
+        "tn": 55
+      },
+      "paired_sign_test": {
+        "wins": 37,
+        "losses": 18,
+        "ties": 0,
+        "two_sided_exact_p": 0.014453833533827731
+      },
+      "edit_fraction": {
+        "min": 0.0006726582845052084,
+        "median": 0.0007779947916666666,
+        "mean": 0.000794618878789085,
+        "max": 0.0009384259259259259
+      },
+      "pixel_ap_median": 0.002908651049141221
+    },
+    "q3": {
+      "pairs": 55,
+      "images": 110,
+      "auroc": {
+        "estimate": 0.5031404958677685,
+        "ci95_percentile": [
+          0.4945371900826446,
+          0.5163636363636364
+        ]
+      },
+      "average_precision": {
+        "estimate": 0.5268199561409876,
+        "ci95_percentile": [
+          0.5234840673171177,
+          0.5596367769817938
+        ]
+      },
+      "tpr_at_fpr_5_percent": {
+        "estimate": 0.05454545454545454,
+        "ci95_percentile": [
+          0.01818181818181818,
+          0.10909090909090909
+        ]
+      },
+      "accuracy_at_0_5": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "image_f1_at_0_5": {
+        "estimate": 0.03508771929824561,
+        "ci95_percentile": [
+          0.0,
+          0.09836065573770492
+        ]
+      },
+      "paired_ranking_accuracy": {
+        "estimate": 0.6363636363636364,
+        "ci95_percentile": [
+          0.5086363636363637,
+          0.7636363636363637
+        ]
+      },
+      "paired_score_delta_mean": {
+        "estimate": 0.0024003498889214824,
+        "ci95_percentile": [
+          0.0005891254165759495,
+          0.004576802986070601
+        ]
+      },
+      "pixel_ap_macro": {
+        "estimate": 0.013692792282796434,
+        "ci95_percentile": [
+          0.007577032357452865,
+          0.02255963876870167
+        ]
+      },
+      "pixel_f1_macro_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "pixel_iou_macro_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "pixel_f1_micro_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "pixel_iou_micro_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "image_confusion_at_0_5": {
+        "tp": 1,
+        "fp": 1,
+        "fn": 54,
+        "tn": 54
+      },
+      "paired_sign_test": {
+        "wins": 35,
+        "losses": 20,
+        "ties": 0,
+        "two_sided_exact_p": 0.058064146792409066
+      },
+      "edit_fraction": {
+        "min": 0.0009533355301698887,
+        "median": 0.0011263888888888888,
+        "mean": 0.0011215761459197108,
+        "max": 0.0012953016493055555
+      },
+      "pixel_ap_median": 0.005062475639252081
+    },
+    "q4": {
+      "pairs": 55,
+      "images": 110,
+      "auroc": {
+        "estimate": 0.5051239669421488,
+        "ci95_percentile": [
+          0.4948760330578512,
+          0.5196694214876033
+        ]
+      },
+      "average_precision": {
+        "estimate": 0.5255884951126094,
+        "ci95_percentile": [
+          0.5191594276088797,
+          0.5591836391419929
+        ]
+      },
+      "tpr_at_fpr_5_percent": {
+        "estimate": 0.03636363636363636,
+        "ci95_percentile": [
+          0.01818181818181818,
+          0.10909090909090909
+        ]
+      },
+      "accuracy_at_0_5": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "image_f1_at_0_5": {
+        "estimate": 0.06779661016949153,
+        "ci95_percentile": [
+          0.0,
+          0.15384615384615385
+        ]
+      },
+      "paired_ranking_accuracy": {
+        "estimate": 0.6,
+        "ci95_percentile": [
+          0.4727272727272727,
+          0.7272727272727273
+        ]
+      },
+      "paired_score_delta_mean": {
+        "estimate": 0.003942577860967008,
+        "ci95_percentile": [
+          0.0011841309866469437,
+          0.007211154184252873
+        ]
+      },
+      "pixel_ap_macro": {
+        "estimate": 0.0354106400437886,
+        "ci95_percentile": [
+          0.016339402946104326,
+          0.05638788565275085
+        ]
+      },
+      "pixel_f1_macro_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "pixel_iou_macro_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "pixel_f1_micro_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "pixel_iou_micro_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "image_confusion_at_0_5": {
+        "tp": 2,
+        "fp": 2,
+        "fn": 53,
+        "tn": 53
+      },
+      "paired_sign_test": {
+        "wins": 33,
+        "losses": 22,
+        "ties": 0,
+        "two_sided_exact_p": 0.17700136477035816
+      },
+      "edit_fraction": {
+        "min": 0.0013095238095238095,
+        "median": 0.0016293333333333333,
+        "mean": 0.0016492318466411284,
+        "max": 0.0021784107946026987
+      },
+      "pixel_ap_median": 0.006276103946510648
+    },
+    "q5_largest": {
+      "pairs": 55,
+      "images": 110,
+      "auroc": {
+        "estimate": 0.5338842975206611,
+        "ci95_percentile": [
+          0.5180165289256198,
+          0.5652975206611569
+        ]
+      },
+      "average_precision": {
+        "estimate": 0.5330577672945865,
+        "ci95_percentile": [
+          0.5245125752893127,
+          0.5767601988987947
+        ]
+      },
+      "tpr_at_fpr_5_percent": {
+        "estimate": 0.05454545454545454,
+        "ci95_percentile": [
+          0.0,
+          0.09090909090909091
+        ]
+      },
+      "accuracy_at_0_5": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "image_f1_at_0_5": {
+        "estimate": 0.12698412698412698,
+        "ci95_percentile": [
+          0.03508771929824561,
+          0.22535211267605634
+        ]
+      },
+      "paired_ranking_accuracy": {
+        "estimate": 0.7636363636363637,
+        "ci95_percentile": [
+          0.6540909090909092,
+          0.8727272727272727
+        ]
+      },
+      "paired_score_delta_mean": {
+        "estimate": 0.013711491615787384,
+        "ci95_percentile": [
+          0.00516351203481954,
+          0.02520620200433949
+        ]
+      },
+      "pixel_ap_macro": {
+        "estimate": 0.16700659595373415,
+        "ci95_percentile": [
+          0.10269094458038411,
+          0.23971562642652697
+        ]
+      },
+      "pixel_f1_macro_at_0_5": {
+        "estimate": 0.028204418280460285,
+        "ci95_percentile": [
+          0.004033177992479266,
+          0.06456795486831843
+        ]
+      },
+      "pixel_iou_macro_at_0_5": {
+        "estimate": 0.018328199493797583,
+        "ci95_percentile": [
+          0.0022109830234262324,
+          0.04303985898800048
+        ]
+      },
+      "pixel_f1_micro_at_0_5": {
+        "estimate": 0.01881503699093085,
+        "ci95_percentile": [
+          0.004076946565199518,
+          0.041593373611659545
+        ]
+      },
+      "pixel_iou_micro_at_0_5": {
+        "estimate": 0.009496860385187935,
+        "ci95_percentile": [
+          0.0020426372458101634,
+          0.021238374651901093
+        ]
+      },
+      "image_confusion_at_0_5": {
+        "tp": 4,
+        "fp": 4,
+        "fn": 51,
+        "tn": 51
+      },
+      "paired_sign_test": {
+        "wins": 42,
+        "losses": 13,
+        "ties": 0,
+        "two_sided_exact_p": 0.00011361060320691507
+      },
+      "edit_fraction": {
+        "min": 0.0021961805555555554,
+        "median": 0.0037441383352872218,
+        "mean": 0.004350115752888254,
+        "max": 0.01292724609375
+      },
+      "pixel_ap_median": 0.016091561180185208
+    }
+  },
+  "artifact_integrity": {
+    "status": "ok",
+    "checked_files": 2475,
+    "pairs": 275,
+    "result_images": 550,
+    "checks": [
+      "all expected IDs are present exactly once in the latest rows",
+      "every latest result has status=ok",
+      "canonical image, both score maps, threshold mask, and GT hashes",
+      "score-map dtype, dimensions, finiteness, and [0,1] range",
+      "saved threshold mask equals native score map >= 0.5"
+    ]
+  },
+  "localization_best_threshold": {
+    "approximation": "native score maps quantized into 65536 uniform bins over [0,1]",
+    "per_image_oracle": {
+      "images": 275,
+      "f1_mean": 0.06746733039526756,
+      "f1_median": 0.013706543430311942,
+      "iou_mean": 0.043808272796833914,
+      "iou_median": 0.006900563149406446
+    },
+    "single_global_oracle": {
+      "threshold": 0.2732585641260395,
+      "micro_f1": 0.035234954766829446,
+      "micro_iou": 0.017933418986822366,
+      "tp": 23994,
+      "fp": 742046,
+      "fn": 571909
+    }
+  },
+  "box_hit_at_mask_threshold_0_5": {
+    "definition": "IoU(predicted native binary mask, edit_region_xyxy) > 0.3",
+    "hits": 1,
+    "images": 275,
+    "rate": 0.0036363636363636364,
+    "iou_mean": 0.004216768891472466,
+    "iou_median": 0.0,
+    "iou_max": 0.3545994065281899
+  }
+}

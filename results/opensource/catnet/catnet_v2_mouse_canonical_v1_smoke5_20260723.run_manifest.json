@@ -1,0 +1,251 @@
+{
+  "schema_version": "opensource_run_manifest_v1",
+  "run_id": "catnet_v2_mouse_canonical_v1_smoke5_20260723",
+  "condition": "mouse_canonical_v1",
+  "input": {
+    "dataset_id": "claimforge-mouse-good275-canonical-jpeg-q95-v1",
+    "dataset_manifest": "outputs/opensource/mouse_canonical_v1/manifest.json",
+    "dataset_contract_sha256": "c419e24d6f9d69822ca575e00e30f2c769ba7a28a2fcea1f6634466caf540757",
+    "inputs_manifest": "outputs/opensource/mouse_canonical_v1/inputs.jsonl",
+    "inputs_sha256": "e4cb3d6a78fa68f06341457e2234c630a455a9b6b9789e59abf45c15b292060a",
+    "selection_sha256": "987a3e044d7bfab8b34019834b3abd8bc7f6fe37b85e53c94e664491c916d9b9",
+    "encoding": {
+      "quality": 95,
+      "subsampling": 0,
+      "optimize": false,
+      "metadata": "stripped",
+      "encoder": {
+        "pillow": "11.1.0",
+        "libjpeg": "6.2"
+      }
+    }
+  },
+  "ordered_inputs": [
+    {
+      "rank": 0,
+      "pair_rank": 0,
+      "sample_id": "0cca3f606edf434904f7bea5",
+      "task_id": "lodging_088_slot_001",
+      "kind": "real",
+      "label": 0,
+      "canonical_path": "outputs/opensource/mouse_canonical_v1/images/0cca3f606edf434904f7bea5.jpg",
+      "canonical_sha256": "cdb08c8fe5b488b2f1cd5a5defba65e9cb1e7a4be965c9609e42210faa752d96",
+      "gt_mask_sha256": null
+    },
+    {
+      "rank": 1,
+      "pair_rank": 0,
+      "sample_id": "ae5f5c15ded9fb7d08809d31",
+      "task_id": "lodging_088_slot_001",
+      "kind": "forged",
+      "label": 1,
+      "canonical_path": "outputs/opensource/mouse_canonical_v1/images/ae5f5c15ded9fb7d08809d31.jpg",
+      "canonical_sha256": "f90c849192fd53e2e9560192d91b5b37a6162f80c14c862e24d37482784b8078",
+      "gt_mask_sha256": "178782445ab34cded97e1bce55e87533e019706638e5849c54066afff8e1a577"
+    },
+    {
+      "rank": 2,
+      "pair_rank": 1,
+      "sample_id": "0757160e6912ebe6d3bdaeb8",
+      "task_id": "restaurant_089_slot_001",
+      "kind": "real",
+      "label": 0,
+      "canonical_path": "outputs/opensource/mouse_canonical_v1/images/0757160e6912ebe6d3bdaeb8.jpg",
+      "canonical_sha256": "d946ada86878738b62106eecae721c31644f68580f8d7be77d1a6620bc1f710a",
+      "gt_mask_sha256": null
+    },
+    {
+      "rank": 3,
+      "pair_rank": 1,
+      "sample_id": "90d6a8fe135d78909c688dae",
+      "task_id": "restaurant_089_slot_001",
+      "kind": "forged",
+      "label": 1,
+      "canonical_path": "outputs/opensource/mouse_canonical_v1/images/90d6a8fe135d78909c688dae.jpg",
+      "canonical_sha256": "e8ad38f6e44b21a5d3cb7e2a290110e9e5995eaa770d5328723b3b717c168e50",
+      "gt_mask_sha256": "4948f57ebb6fb37c2fd565b107079593bec9c07b8f6035c94168eaa72f33e56b"
+    },
+    {
+      "rank": 4,
+      "pair_rank": 2,
+      "sample_id": "b260b4ea209c39e746e1e718",
+      "task_id": "lodging_202_slot_001",
+      "kind": "real",
+      "label": 0,
+      "canonical_path": "outputs/opensource/mouse_canonical_v1/images/b260b4ea209c39e746e1e718.jpg",
+      "canonical_sha256": "5b15a89457ac08687850a9cf7b1904bb5cf3112534a73d71621747a8f308f277",
+      "gt_mask_sha256": null
+    },
+    {
+      "rank": 5,
+      "pair_rank": 2,
+      "sample_id": "dea8400c9a29eb08e3e59ecd",
+      "task_id": "lodging_202_slot_001",
+      "kind": "forged",
+      "label": 1,
+      "canonical_path": "outputs/opensource/mouse_canonical_v1/images/dea8400c9a29eb08e3e59ecd.jpg",
+      "canonical_sha256": "03796733939afbb76a3b4025fc9308d5391d3e65b202372dcdb11205b24a6b37",
+      "gt_mask_sha256": "b5e8d440be3b72edd12907d016e249ecc7f1ae7c8566904b4ae5b0823edca0b0"
+    },
+    {
+      "rank": 6,
+      "pair_rank": 3,
+      "sample_id": "1ee60135d95ae17050977cf7",
+      "task_id": "lodging_071_slot_001",
+      "kind": "real",
+      "label": 0,
+      "canonical_path": "outputs/opensource/mouse_canonical_v1/images/1ee60135d95ae17050977cf7.jpg",
+      "canonical_sha256": "c9bbbb2a38513e3a570a886b436eaf40b819936f4377fe0815997d9a9dd976f5",
+      "gt_mask_sha256": null
+    },
+    {
+      "rank": 7,
+      "pair_rank": 3,
+      "sample_id": "50df11321257619a3a37605f",
+      "task_id": "lodging_071_slot_001",
+      "kind": "forged",
+      "label": 1,
+      "canonical_path": "outputs/opensource/mouse_canonical_v1/images/50df11321257619a3a37605f.jpg",
+      "canonical_sha256": "a8072f1da2e7b2b6fc35710815a24dec6d9cb3f2060f4e2b1ce29105d56b3e36",
+      "gt_mask_sha256": "d46b79a0f70122fd56751245fa8ba04dcb82809c4528b55b0eb3e6e46207fe07"
+    },
+    {
+      "rank": 8,
+      "pair_rank": 4,
+      "sample_id": "ff437e8bbe6e8f4f22031d3a",
+      "task_id": "restaurant_196_slot_001",
+      "kind": "real",
+      "label": 0,
+      "canonical_path": "outputs/opensource/mouse_canonical_v1/images/ff437e8bbe6e8f4f22031d3a.jpg",
+      "canonical_sha256": "63d67e5320382ad580a2fcc935ab0e1a5db58224f365ccb6605b45162e0125c7",
+      "gt_mask_sha256": null
+    },
+    {
+      "rank": 9,
+      "pair_rank": 4,
+      "sample_id": "a79b23d1e93d7055241331ea",
+      "task_id": "restaurant_196_slot_001",
+      "kind": "forged",
+      "label": 1,
+      "canonical_path": "outputs/opensource/mouse_canonical_v1/images/a79b23d1e93d7055241331ea.jpg",
+      "canonical_sha256": "6aac64751ec1d771ecec2c8045bc371137ec7dc72aaa7a8fa29c7fce3798d365",
+      "gt_mask_sha256": "63e89c4c817cc4a7e28b5ac875486a1f88546bc9b09a423b048469301e5cc456"
+    }
+  ],
+  "model": {
+    "name": "CAT-Net v2",
+    "model_slug": "catnet_v2_ijcv2022",
+    "repo_url": "https://github.com/mjkwon2021/CAT-Net",
+    "source_commit": "b50d391ffc423d3631fd7947714468788c791805",
+    "source_tracked_clean": true,
+    "configuration": {
+      "path": "experiments/CAT_full.yaml",
+      "sha256": "81210f5f283504549d4e15a162bda453caea8b1692022d816a46bcc5427ed95d",
+      "network_sha256": "7177d18a814d6eb55f43eee77aa652f5c9983ecbfc1d392f55a7261339ffc00f"
+    },
+    "network_implementation": {
+      "path": "lib/models/network_CAT.py",
+      "sha256": "7177d18a814d6eb55f43eee77aa652f5c9983ecbfc1d392f55a7261339ffc00f"
+    },
+    "license": {
+      "path": "LICENSE of HRNet",
+      "sha256": "f1f33c3bec144f048d1cbff4dcae8d47a28faf263930ce779c61a7f4913bf055",
+      "scope": "hrnet_component_only",
+      "project_wide_status": "no_project_wide_license_found",
+      "classification": "source_available_research_release"
+    },
+    "checkpoint": {
+      "provider": "official_author_google_drive",
+      "drive_file_id": "1tyOKVdx6UMys2OcNpUj9r6scxNIpcoLE",
+      "filename": "CAT_full_v2.pth.tar",
+      "bytes": 915503873,
+      "sha256": "f82aaafdd1142775231feedcea0bb7027f7370561d9e8d107465454001865989",
+      "epoch": 196,
+      "state_keys": 2926,
+      "safe_load": "torch.load(weights_only=True) with three NumPy dtype/scalar allowlisted globals",
+      "strict_load": true,
+      "safe_weights_only_load": true
+    },
+    "class_names": [
+      "authentic",
+      "tampered"
+    ],
+    "positive_class_index": 1,
+    "supports_image_level_t1": false,
+    "supports_pixel_level_t2": true
+  },
+  "inference": {
+    "precision": "float32",
+    "batch_size": 1,
+    "seed": 42,
+    "deterministic": true,
+    "input_source": "canonical_jpeg_original_bytes",
+    "input_resize": "none",
+    "input_crop": null,
+    "input_reencode": false,
+    "jpeg_reader": "jpegio",
+    "jpeg_component": "luminance_y",
+    "rgb_normalization": "(uint8 - 127.5) / 127.5",
+    "padding": {
+      "alignment": 8,
+      "sides": [
+        "bottom",
+        "right"
+      ],
+      "rgb_value": 127.5,
+      "dct_value": 0
+    },
+    "dct_volume": {
+      "channels": 21,
+      "bins": "0, abs=1..19, abs>=20"
+    },
+    "qtable": "original_luminance_quantization_table",
+    "raw_output": "two_channel_logits_at_quarter_resolution",
+    "map_restore": "bilinear_logits_to_padded_native_align_corners_false_then_softmax_channel_1_then_crop",
+    "map_semantics": "probability_of_channel_1_tampered",
+    "mask_threshold": 0.5,
+    "mask_threshold_comparison": "greater_than_or_equal",
+    "t1_policy": "unsupported_no_derived_image_score"
+  },
+  "metrics": {
+    "task": "T2_pixel_localization_only",
+    "positive_class": "tampered",
+    "fixed_threshold": 0.5,
+    "prediction_inversion": false
+  },
+  "expected_pairs": 5,
+  "expected_images": 10,
+  "artifact_dir": "outputs/opensource/catnet/catnet_v2_mouse_canonical_v1_smoke5_20260723",
+  "adapter_contract": [
+    {
+      "path": "eval/opensource/run_catnet.py",
+      "sha256": "ca454e8ec92a86e9fab5d79f614d4777f2254a853498d6ad325afee8e0d9ad60"
+    },
+    {
+      "path": "eval/opensource/catnet_metrics.py",
+      "sha256": "32d22f9999464e1889cbd7d1a5dce7b18a127bd4414fb26598154aae96d8d972"
+    },
+    {
+      "path": "eval/opensource/common.py",
+      "sha256": "66ee7134e8398bb8121034fb7f9aef007137a09e03426af24e0faae886188c9f"
+    }
+  ],
+  "fingerprint": "021c68e6b2c5c04541916472dffb2ef891f7f3014570a53578604856f00758f7",
+  "created_at": "2026-07-23T17:36:00.541885+00:00",
+  "adapter": {
+    "path": "eval/opensource/run_catnet.py",
+    "sha256": "ca454e8ec92a86e9fab5d79f614d4777f2254a853498d6ad325afee8e0d9ad60",
+    "repo_commit": "9a8cd2635767800bf4f64df1e13379373a2d73ba"
+  },
+  "environment": {
+    "python": "3.12.3",
+    "torch": "2.8.0.dev20250627+cu128",
+    "numpy": "1.26.4",
+    "pillow": "11.1.0",
+    "jpegio": "0.2.8",
+    "yacs": "0.1.8",
+    "device": "cuda:0",
+    "cuda": "12.8",
+    "gpu": "NVIDIA L20Z"
+  }
+}
