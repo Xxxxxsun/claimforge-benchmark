@@ -63,7 +63,62 @@ class PilotItem:
     input_bytes: int
     edit_area_fraction: float
     threshold_disagreement: float
+    reference_path: Path | None = None
+    reference_relative: str | None = None
     selection_reason: str = ""
+
+
+@dataclass(frozen=True)
+class HybridConfig:
+    mode: str = "local"
+    diff_threshold: float = 20.0
+    support_radius: int = 6
+    alpha_feather: float = 1.0
+    edge_diff_threshold: float = 8.0
+    edge_radius: int = 6
+    shadow_feather: float = 3.0
+    far_diff_threshold: float = 40.0
+    far_shadow_luma_min: float = 5.0
+    far_shadow_min_y_ratio: float = 0.4
+    shadow_output_grow: int = 1
+    hysteresis_close: int = 3
+    hysteresis_grow: int = 2
+    hysteresis_seed_radius: int = 2
+    hysteresis_reach_ratio: float = 0.5
+    hysteresis_auto_expand_ratio: float = 0.75
+    hysteresis_distance_power: float = 1.0
+    max_hybrid_growth: float = 3.5
+    max_added_fraction: float = 0.08
+
+    def manifest_record(self) -> dict[str, Any]:
+        base: dict[str, Any] = {
+            "mode": self.mode,
+            "diff_threshold": self.diff_threshold,
+            "support_radius": self.support_radius,
+            "alpha_feather": self.alpha_feather,
+        }
+        if self.mode in {"semantic_hysteresis", "semantic_shadow"}:
+            base.update(
+                {
+                    "reference": "exact_generation_input_context",
+                    "edge_diff_threshold": self.edge_diff_threshold,
+                    "edge_radius": self.edge_radius,
+                    "shadow_feather": self.shadow_feather,
+                    "far_diff_threshold": self.far_diff_threshold,
+                    "far_shadow_luma_min": self.far_shadow_luma_min,
+                    "far_shadow_min_y_ratio": self.far_shadow_min_y_ratio,
+                    "shadow_output_grow": self.shadow_output_grow,
+                    "hysteresis_close": self.hysteresis_close,
+                    "hysteresis_grow": self.hysteresis_grow,
+                    "hysteresis_seed_radius": self.hysteresis_seed_radius,
+                    "hysteresis_reach_ratio": self.hysteresis_reach_ratio,
+                    "hysteresis_auto_expand_ratio": self.hysteresis_auto_expand_ratio,
+                    "hysteresis_distance_power": self.hysteresis_distance_power,
+                    "max_hybrid_growth": self.max_hybrid_growth,
+                    "max_added_fraction": self.max_added_fraction,
+                }
+            )
+        return base
 
 
 def utc_now() -> str:
@@ -179,6 +234,7 @@ def domain_from_task_id(task_id: str) -> str:
 
 def load_pilot_candidates(repo_root: Path, manifest_path: Path) -> list[PilotItem]:
     candidates: list[PilotItem] = []
+    generation_manifest_cache: dict[Path, dict[str, dict[str, Any]]] = {}
     for row in load_jsonl(manifest_path):
         if row.get("status") != "ok" or row.get("candidates") != "cat":
             continue
@@ -187,6 +243,26 @@ def load_pilot_candidates(repo_root: Path, manifest_path: Path) -> list[PilotIte
         generated_relative = str(row["generated_crop"])
         source_path = safe_repo_path(repo_root, source_relative)
         generated_path = safe_repo_path(repo_root, generated_relative)
+        generation_manifest_path = generated_path.parent / "manifest.jsonl"
+        generation_rows = generation_manifest_cache.get(generation_manifest_path)
+        if generation_rows is None:
+            generation_rows = (
+                {
+                    str(generation_row["task_id"]): generation_row
+                    for generation_row in load_jsonl(generation_manifest_path)
+                    if isinstance(generation_row.get("task_id"), str)
+                }
+                if generation_manifest_path.is_file()
+                else {}
+            )
+            generation_manifest_cache[generation_manifest_path] = generation_rows
+        generation_row = generation_rows.get(task_id, {})
+        reference_relative = generation_row.get("input_context_crop")
+        reference_path = (
+            safe_repo_path(repo_root, reference_relative)
+            if isinstance(reference_relative, str) and reference_relative
+            else None
+        )
         context_box = tuple(int(value) for value in row["context_region_xyxy"])
         edit_box = tuple(int(value) for value in row["edit_region_in_context_xyxy"])
         if len(context_box) != 4 or len(edit_box) != 4:
@@ -225,6 +301,8 @@ def load_pilot_candidates(repo_root: Path, manifest_path: Path) -> list[PilotIte
                 input_bytes=generated_path.stat().st_size,
                 edit_area_fraction=edit_fraction,
                 threshold_disagreement=disagreement,
+                reference_path=reference_path,
+                reference_relative=reference_relative,
             )
         )
     if not candidates:
@@ -313,6 +391,7 @@ def item_record(item: PilotItem, rank: int | None = None) -> dict[str, Any]:
         "domain": item.domain,
         "source_image": item.source_relative,
         "generated_crop": item.generated_relative,
+        "mask_reference": item.reference_relative,
         "generated_sha256": item.input_sha256,
         "generated_bytes": item.input_bytes,
         "crop_size": list(item.crop_size),
@@ -348,14 +427,13 @@ def ensure_run_manifest(
     endpoint_tags: Sequence[str],
     prompt: str,
     max_masks: int,
-    diff_threshold: float,
-    support_radius: int,
-    feather: float,
+    hybrid_config: HybridConfig,
     use_box_prompt: bool,
+    api_results_path: Path | None = None,
 ) -> Path:
     path = output_dir / "run_manifest.json"
     expected = {
-        "schema_version": "fal_sam3_splice_run_v1",
+        "schema_version": "fal_sam3_splice_run_v2",
         "provider": "fal",
         "endpoints": [ENDPOINTS[tag] for tag in endpoint_tags],
         "prompt": prompt,
@@ -374,11 +452,7 @@ def ensure_run_manifest(
             "include_scores": True,
             "include_boxes": True,
         },
-        "postprocess": {
-            "diff_threshold": diff_threshold,
-            "support_radius": support_radius,
-            "alpha_feather": feather,
-        },
+        "postprocess": hybrid_config.manifest_record(),
         "fal_platform_headers": {
             "X-Fal-Store-IO": "0",
             "X-Fal-Object-Lifecycle-Preference": {
@@ -386,6 +460,9 @@ def ensure_run_manifest(
             },
         },
     }
+    if api_results_path is not None:
+        expected["api_results_source"] = relative_to_repo(api_results_path)
+        expected["api_results_source_sha256"] = sha256_file(api_results_path)
     if path.exists():
         existing = json.loads(path.read_text(encoding="utf-8"))
         mismatches = {
@@ -1004,9 +1081,271 @@ def hybrid_mask(
     return semantic | support, support
 
 
+def _semantic_hysteresis_propagation(
+    semantic: np.ndarray,
+    difference: np.ndarray,
+    shadow_darkening: np.ndarray | None,
+    edit_box: Sequence[int],
+    config: HybridConfig,
+    reach_ratio: float,
+    seed_mask: np.ndarray,
+) -> tuple[np.ndarray, dict[str, Any]]:
+    """Grow changed pixels connected to a trusted SAM semantic seed.
+
+    The edit box limits how far model reconstruction noise may propagate, but
+    the reachable region is also centered on the actual SAM mask so a generated
+    cat that shifted outside the intended box is not clipped.  The required
+    difference increases with distance from the semantic object, which keeps a
+    long, high-contrast cast shadow while rejecting weak far-field drift.
+    """
+    structure = np.ones((3, 3), dtype=bool)
+    semantic_distance = ndimage.distance_transform_edt(~semantic)
+    x1, y1, x2, y2 = [int(value) for value in edit_box]
+    reach_pad = max(
+        1,
+        int(round(max(1, x2 - x1, y2 - y1) * reach_ratio)),
+    )
+    reach = box_mask(
+        semantic.shape,
+        (x1 - reach_pad, y1 - reach_pad, x2 + reach_pad, y2 + reach_pad),
+    )
+    reach |= semantic_distance <= reach_pad
+    distance_fraction = np.clip(semantic_distance / reach_pad, 0.0, 1.0)
+    support_threshold = config.diff_threshold + (
+        config.far_diff_threshold - config.diff_threshold
+    ) * (distance_fraction ** config.hysteresis_distance_power)
+    raw_support = (difference > support_threshold) & reach
+    shadow_exempt_radius = max(config.edge_radius, config.support_radius) * 2
+    semantic_rows = np.flatnonzero(semantic.any(axis=1))
+    shadow_min_y = int(
+        np.floor(
+            semantic_rows[0]
+            + config.far_shadow_min_y_ratio
+            * (semantic_rows[-1] - semantic_rows[0] + 1)
+        )
+    )
+    if shadow_darkening is not None:
+        # Fine object-boundary changes may be either brighter or darker, but a
+        # far-field cast shadow must lower luminance.  This prevents connected
+        # reconstruction changes in pillows, counters, taps, and other nearby
+        # context from being mistaken for part of the generated object.
+        image_y = np.arange(semantic.shape[0])[:, None]
+        raw_support &= (semantic_distance <= shadow_exempt_radius) | (
+            (shadow_darkening > config.far_shadow_luma_min)
+            & (image_y >= shadow_min_y)
+        )
+    support = raw_support
+    if config.hysteresis_close > 0:
+        support = ndimage.binary_closing(
+            support,
+            structure=structure,
+            iterations=config.hysteresis_close,
+        ) & reach
+    seed_neighborhood = ndimage.binary_dilation(
+        seed_mask,
+        structure=structure,
+        iterations=config.hysteresis_seed_radius,
+    )
+    seeds = support & seed_neighborhood
+    propagated = (
+        ndimage.binary_propagation(seeds, structure=structure, mask=support)
+        if seeds.any()
+        else np.zeros_like(semantic)
+    )
+    propagated = ndimage.binary_fill_holes(propagated)
+    if config.hysteresis_grow > 0 and propagated.any():
+        propagated = ndimage.binary_dilation(
+            propagated,
+            structure=structure,
+            iterations=config.hysteresis_grow,
+        ) & reach
+
+    context_edge = np.zeros_like(semantic)
+    context_edge[[0, -1], :] = True
+    context_edge[:, [0, -1]] = True
+    reach_boundary = reach & ~ndimage.binary_erosion(
+        reach,
+        structure=structure,
+        border_value=0,
+    )
+    artificial_reach_boundary = reach_boundary & ~context_edge
+    return propagated, {
+        "reach_ratio": reach_ratio,
+        "reach_pad": reach_pad,
+        "reach_pixels": int(reach.sum()),
+        "raw_support_pixels": int(raw_support.sum()),
+        "shadow_direction_filter_applied": shadow_darkening is not None,
+        "shadow_exempt_radius": shadow_exempt_radius,
+        "shadow_min_y": shadow_min_y,
+        "shadow_min_y_ratio": config.far_shadow_min_y_ratio,
+        "closed_support_pixels": int(support.sum()),
+        "seed_pixels": int(seeds.sum()),
+        "propagated_pixels": int(propagated.sum()),
+        "touches_reach_boundary": bool(
+            np.logical_and(propagated, artificial_reach_boundary).any()
+        ),
+        "touches_context_edge": bool(
+            np.logical_and(propagated, context_edge).any()
+        ),
+    }
+
+
+def semantic_hysteresis_mask(
+    semantic: np.ndarray,
+    difference: np.ndarray,
+    edit_box: Sequence[int],
+    config: HybridConfig,
+    shadow_darkening: np.ndarray | None = None,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray, dict[str, Any]]:
+    """Combine SAM object semantics with internal edge and cast-shadow support.
+
+    SAM supplies the identity-safe object core. A low-threshold local band can
+    either be emitted (semantic_hysteresis) or used only as a connectivity
+    bridge (semantic_shadow). Distance-aware hysteresis grows only difference
+    components connected to that trusted core. Guardrails discard far support
+    instead of emitting a visibly clipped or runaway mask.
+    """
+    if semantic.shape != difference.shape:
+        raise ValueError(
+            f"semantic shape {semantic.shape} != difference shape {difference.shape}"
+        )
+    if difference.ndim != 2:
+        raise ValueError("difference must be a two-dimensional array")
+    if shadow_darkening is not None and shadow_darkening.shape != semantic.shape:
+        raise ValueError(
+            "shadow darkening shape "
+            f"{shadow_darkening.shape} != semantic shape {semantic.shape}"
+        )
+    if not semantic.any():
+        empty = np.zeros_like(semantic)
+        return empty, empty, empty, {
+            "mode": config.mode,
+            "guard_fallback": True,
+            "guard_reasons": ["empty_semantic_mask"],
+        }
+
+    structure = np.ones((3, 3), dtype=bool)
+    local_hybrid, local_support = hybrid_mask(
+        semantic,
+        difference > config.diff_threshold,
+        config.support_radius,
+    )
+    edge_zone = ndimage.binary_dilation(
+        semantic,
+        structure=structure,
+        iterations=config.edge_radius,
+    )
+    edge_candidates = (difference > config.edge_diff_threshold) & edge_zone
+    edge_connected = ndimage.binary_propagation(
+        semantic,
+        structure=structure,
+        mask=edge_candidates | semantic,
+    )
+    core = local_hybrid | edge_connected
+    edge_support = core & ~semantic
+
+    propagated, propagation_stats = _semantic_hysteresis_propagation(
+        semantic,
+        difference,
+        shadow_darkening,
+        edit_box,
+        config,
+        config.hysteresis_reach_ratio,
+        core,
+    )
+    auto_expand_attempted = False
+    auto_expand_applied = False
+    if (
+        propagation_stats["touches_reach_boundary"]
+        and not propagation_stats["touches_context_edge"]
+        and config.hysteresis_auto_expand_ratio > config.hysteresis_reach_ratio
+    ):
+        auto_expand_attempted = True
+        expanded, expanded_stats = _semantic_hysteresis_propagation(
+            semantic,
+            difference,
+            shadow_darkening,
+            edit_box,
+            config,
+            config.hysteresis_auto_expand_ratio,
+            core,
+        )
+        propagated = expanded
+        propagation_stats = expanded_stats
+        auto_expand_applied = True
+
+    edge_support_emitted = config.mode != "semantic_shadow"
+    if config.mode == "semantic_shadow":
+        image_y = np.arange(semantic.shape[0])[:, None]
+        shadow_output_zone = image_y >= propagation_stats["shadow_min_y"]
+        if shadow_darkening is not None:
+            shadow_output_zone = shadow_output_zone & (
+                shadow_darkening > config.far_shadow_luma_min
+            )
+        visible_distance = propagated & shadow_output_zone & ~semantic
+        if config.shadow_output_grow > 0 and visible_distance.any():
+            visible_distance = ndimage.binary_dilation(
+                visible_distance,
+                structure=structure,
+                iterations=config.shadow_output_grow,
+            ) & (image_y >= propagation_stats["shadow_min_y"]) & ~semantic
+        candidate = semantic | visible_distance
+    else:
+        visible_distance = propagated & ~core
+        candidate = core | propagated
+    semantic_pixels = int(semantic.sum())
+    candidate_pixels = int(candidate.sum())
+    candidate_growth = candidate_pixels / max(1, semantic_pixels)
+    candidate_added_fraction = float(np.logical_and(candidate, ~semantic).mean())
+    guard_reasons: list[str] = []
+    if propagation_stats["touches_reach_boundary"]:
+        guard_reasons.append("distance_support_touches_reach_boundary")
+    if propagation_stats["touches_context_edge"]:
+        guard_reasons.append("distance_support_touches_context_edge")
+    if candidate_growth > config.max_hybrid_growth:
+        guard_reasons.append("hybrid_growth_exceeds_limit")
+    if candidate_added_fraction > config.max_added_fraction:
+        guard_reasons.append("hybrid_added_fraction_exceeds_limit")
+
+    guard_fallback = bool(guard_reasons)
+    fallback = semantic if config.mode == "semantic_shadow" else core
+    hybrid = fallback if guard_fallback else candidate
+    distance_support = (
+        np.zeros_like(semantic)
+        if guard_fallback
+        else visible_distance
+    )
+    return hybrid, edge_support, distance_support, {
+        "mode": config.mode,
+        "reference": "exact_generation_input_context",
+        "semantic_pixels": semantic_pixels,
+        "local_support_pixels": int(local_support.sum()),
+        "edge_support_pixels": int(edge_support.sum()),
+        "edge_support_emitted": edge_support_emitted,
+        "internal_propagated_pixels": int(propagated.sum()),
+        "distance_support_pixels": int(distance_support.sum()),
+        "candidate_pixels": candidate_pixels,
+        "output_pixels": int(hybrid.sum()),
+        "candidate_growth_over_semantic": candidate_growth,
+        "candidate_added_fraction": candidate_added_fraction,
+        "guard_fallback": guard_fallback,
+        "guard_reasons": guard_reasons,
+        "auto_expand_attempted": auto_expand_attempted,
+        "auto_expand_applied": auto_expand_applied,
+        "propagation": propagation_stats,
+    }
+
+
 def alpha_mask(mask: np.ndarray, feather: float) -> Image.Image:
     image = Image.fromarray(mask.astype(np.uint8) * 255, mode="L")
     return image.filter(ImageFilter.GaussianBlur(feather)) if feather > 0 else image
+
+
+def inner_alpha_mask(mask: np.ndarray, feather: float) -> Image.Image:
+    """Feather inside a mask without ever sampling generated background outside it."""
+    alpha = np.asarray(alpha_mask(mask, feather), dtype=np.uint8).copy()
+    alpha[~mask] = 0
+    return Image.fromarray(alpha, mode="L")
 
 
 def mask_metrics(mask: np.ndarray, reference: np.ndarray) -> dict[str, float | int]:
@@ -1047,19 +1386,37 @@ def materialize_one(
     item: PilotItem,
     api_row: dict[str, Any],
     output_dir: Path,
-    diff_threshold: float,
-    support_radius: int,
-    feather: float,
+    hybrid_config: HybridConfig,
 ) -> tuple[dict[str, Any], dict[str, Image.Image]]:
     endpoint_tag = str(api_row["endpoint_tag"])
     with Image.open(item.source_path) as source_image, Image.open(item.generated_path) as generated_image:
         source = source_image.convert("RGB")
         generated = generated_image.convert("RGB")
     original = source.crop(item.context_box)
-    difference = np.abs(
-        np.asarray(original, dtype=np.int16) - np.asarray(generated, dtype=np.int16)
-    ).max(axis=2)
-    residual = difference > diff_threshold
+    if hybrid_config.mode in {"semantic_hysteresis", "semantic_shadow"}:
+        if item.reference_path is None:
+            raise ValueError(
+                f"{item.task_id}: {hybrid_config.mode} needs the exact "
+                "generation input crop"
+            )
+        with Image.open(item.reference_path) as reference_image:
+            difference_reference = reference_image.convert("RGB")
+        if difference_reference.size != generated.size:
+            raise ValueError(
+                f"{item.task_id}: reference size {difference_reference.size} "
+                f"!= generated size {generated.size}"
+            )
+    else:
+        difference_reference = original
+    reference_array = np.asarray(difference_reference, dtype=np.float32)
+    generated_array = np.asarray(generated, dtype=np.float32)
+    signed_difference = reference_array - generated_array
+    difference = np.abs(signed_difference).max(axis=2)
+    shadow_darkening = signed_difference @ np.asarray(
+        [0.2126, 0.7152, 0.0722],
+        dtype=np.float32,
+    )
+    residual = difference > hybrid_config.diff_threshold
     t30 = current_threshold_mask(original, generated, item.edit_box, 30)
     t40 = current_threshold_mask(original, generated, item.edit_box, 40)
     provider_result = api_row.get("provider_output")
@@ -1076,9 +1433,56 @@ def materialize_one(
     selected = candidates[0]
     quality_gate = semantic_quality(selected)
     semantic = selected["mask"]
-    hybrid, support = hybrid_mask(semantic, residual, support_radius)
-    semantic_alpha = alpha_mask(semantic, feather)
-    hybrid_alpha = alpha_mask(hybrid, feather)
+    if hybrid_config.mode in {"semantic_hysteresis", "semantic_shadow"}:
+        hybrid, edge_support, distance_support, hybrid_guard = (
+            semantic_hysteresis_mask(
+                semantic,
+                difference,
+                item.edit_box,
+                hybrid_config,
+                shadow_darkening=shadow_darkening,
+            )
+        )
+        support = (
+            distance_support
+            if hybrid_config.mode == "semantic_shadow"
+            else edge_support | distance_support
+        )
+        core = hybrid & ~distance_support
+        core_alpha_image = (
+            inner_alpha_mask(core, hybrid_config.alpha_feather)
+            if hybrid_config.mode == "semantic_shadow"
+            else alpha_mask(core, hybrid_config.alpha_feather)
+        )
+        core_alpha = np.asarray(core_alpha_image, dtype=np.uint8)
+        shadow_alpha = np.asarray(
+            alpha_mask(distance_support, hybrid_config.shadow_feather),
+            dtype=np.uint8,
+        )
+        hybrid_alpha = Image.fromarray(
+            np.maximum(core_alpha, shadow_alpha),
+            mode="L",
+        )
+    else:
+        hybrid, support = hybrid_mask(
+            semantic,
+            residual,
+            hybrid_config.support_radius,
+        )
+        edge_support = support.copy()
+        distance_support = np.zeros_like(support)
+        hybrid_guard = {
+            "mode": "local",
+            "guard_fallback": False,
+            "guard_reasons": [],
+            "output_pixels": int(hybrid.sum()),
+        }
+        hybrid_alpha = alpha_mask(hybrid, hybrid_config.alpha_feather)
+    semantic_alpha = (
+        inner_alpha_mask(semantic, hybrid_config.alpha_feather)
+        if hybrid_config.mode == "semantic_shadow"
+        else alpha_mask(semantic, hybrid_config.alpha_feather)
+    )
     semantic_crop = Image.composite(generated, original, semantic_alpha)
     hybrid_crop = Image.composite(generated, original, hybrid_alpha)
     full_hybrid = source.copy()
@@ -1090,6 +1494,8 @@ def materialize_one(
     full_dir = output_dir / "spliced_hybrid" / endpoint_tag
     semantic_path = mask_dir / f"{stem}_semantic.png"
     support_path = mask_dir / f"{stem}_residual_support.png"
+    edge_support_path = mask_dir / f"{stem}_edge_support.png"
+    distance_support_path = mask_dir / f"{stem}_distance_support.png"
     hybrid_path = mask_dir / f"{stem}_hybrid.png"
     alpha_path = mask_dir / f"{stem}_hybrid_alpha.png"
     semantic_crop_path = context_dir / f"{stem}_semantic_composite.png"
@@ -1097,6 +1503,8 @@ def materialize_one(
     full_path = full_dir / f"{stem}.png"
     save_mask(semantic_path, semantic)
     save_mask(support_path, support)
+    save_mask(edge_support_path, edge_support)
+    save_mask(distance_support_path, distance_support)
     save_mask(hybrid_path, hybrid)
     alpha_path.parent.mkdir(parents=True, exist_ok=True)
     hybrid_alpha.save(alpha_path)
@@ -1117,7 +1525,7 @@ def materialize_one(
         for candidate in candidates
     ]
     row = {
-        "schema_version": "fal_sam3_splice_result_v1",
+        "schema_version": "fal_sam3_splice_result_v2",
         "id": api_row["id"],
         "task_id": item.task_id,
         "domain": item.domain,
@@ -1126,6 +1534,11 @@ def materialize_one(
         "request_id": api_row["request_id"],
         "input_image": item.generated_relative,
         "input_sha256": item.input_sha256,
+        "difference_reference": (
+            item.reference_relative
+            if hybrid_config.mode in {"semantic_hysteresis", "semantic_shadow"}
+            else item.source_relative
+        ),
         "prompt": api_row.get("request", {}).get("prompt"),
         "prompt_box_xyxy": list(item.edit_box),
         "selected_candidate_index": selected["index"],
@@ -1144,6 +1557,16 @@ def materialize_one(
             "fraction": float(support.mean()),
             "path": relative_to_repo(support_path),
         },
+        "edge_support": {
+            "pixels": int(edge_support.sum()),
+            "fraction": float(edge_support.mean()),
+            "path": relative_to_repo(edge_support_path),
+        },
+        "distance_support": {
+            "pixels": int(distance_support.sum()),
+            "fraction": float(distance_support.mean()),
+            "path": relative_to_repo(distance_support_path),
+        },
         "hybrid": {
             **mask_metrics(hybrid, t30),
             "growth_over_semantic": float(hybrid.sum() / max(1, semantic.sum()) - 1.0),
@@ -1154,11 +1577,8 @@ def materialize_one(
         "hybrid_context_composite": relative_to_repo(hybrid_crop_path),
         "hybrid_spliced_full": relative_to_repo(full_path),
         "outside_context_identical_to_source": outside_equal,
-        "postprocess": {
-            "diff_threshold": diff_threshold,
-            "support_radius": support_radius,
-            "alpha_feather": feather,
-        },
+        "hybrid_guard": hybrid_guard,
+        "postprocess": hybrid_config.manifest_record(),
         "status": "ok",
     }
     visuals = {
@@ -1287,6 +1707,21 @@ def summarize_materialized(
                 for row in group
                 if not row.get("quality_gate", {}).get("pass", False)
             ],
+            "hybrid_guard_fallbacks": sum(
+                bool(row.get("hybrid_guard", {}).get("guard_fallback"))
+                for row in group
+            ),
+            "hybrid_guard_fallback_ids": [
+                row["id"]
+                for row in group
+                if row.get("hybrid_guard", {}).get("guard_fallback")
+            ],
+            "mean_edge_support_fraction": mean_or_none(
+                row.get("edge_support", {}).get("fraction") for row in group
+            ),
+            "mean_distance_support_fraction": mean_or_none(
+                row.get("distance_support", {}).get("fraction") for row in group
+            ),
         }
     pair_semantic: list[float] = []
     pair_hybrid: list[float] = []
@@ -1326,11 +1761,12 @@ def materialize_all(
     items: Sequence[PilotItem],
     output_dir: Path,
     endpoint_tags: Sequence[str],
-    diff_threshold: float,
-    support_radius: int,
-    feather: float,
+    hybrid_config: HybridConfig,
+    api_results_path: Path | None = None,
 ) -> dict[str, Any]:
-    api_path = output_dir / "api_results.jsonl"
+    api_path = api_results_path or output_dir / "api_results.jsonl"
+    if not api_path.is_file():
+        raise FileNotFoundError(f"API results not found: {api_path}")
     latest = read_latest(api_path)
     item_lookup = {item.task_id: item for item in items}
     rows: list[dict[str, Any]] = []
@@ -1344,14 +1780,24 @@ def materialize_all(
         if not api_row or api_row.get("status") != "ok":
             continue
         item = item_lookup[str(api_row["task_id"])]
+        if api_row.get("input_sha256") != item.input_sha256:
+            errors.append(
+                {
+                    "id": row_id,
+                    "error_type": "InputDigestMismatch",
+                    "error_message": (
+                        f"saved API input {api_row.get('input_sha256')} != "
+                        f"current generated crop {item.input_sha256}"
+                    ),
+                }
+            )
+            continue
         try:
             row, row_visuals = materialize_one(
                 item,
                 api_row,
                 output_dir,
-                diff_threshold,
-                support_radius,
-                feather,
+                hybrid_config,
             )
         except Exception as exc:
             errors.append(
@@ -1368,6 +1814,10 @@ def materialize_all(
     make_contact_sheet(rows, visuals, output_dir / "contact_sheet.jpg")
     summary = summarize_materialized(rows, endpoint_tags, len(items), latest)
     summary["materialization_errors"] = errors
+    summary["api_results_source"] = relative_to_repo(api_path)
+    summary["reused_api_results"] = api_path.resolve().parent != output_dir.resolve()
+    summary["new_api_cost_usd"] = 0.0 if summary["reused_api_results"] else None
+    summary["postprocess"] = hybrid_config.manifest_record()
     write_json(output_dir / "summary.json", summary)
     return summary
 
@@ -1630,6 +2080,31 @@ def main() -> None:
     parser.add_argument("--diff-threshold", type=float, default=20.0)
     parser.add_argument("--support-radius", type=int, default=6)
     parser.add_argument("--feather", type=float, default=1.0)
+    parser.add_argument(
+        "--hybrid-mode",
+        choices=("local", "semantic_hysteresis", "semantic_shadow"),
+        default="local",
+        help=(
+            "local keeps the legacy near-mask support; semantic_hysteresis "
+            "emits connected fur and shadow differences; semantic_shadow uses "
+            "the edge ring only as an internal bridge and emits SAM + shadow"
+        ),
+    )
+    parser.add_argument("--edge-diff-threshold", type=float, default=8.0)
+    parser.add_argument("--edge-radius", type=int, default=6)
+    parser.add_argument("--shadow-feather", type=float, default=3.0)
+    parser.add_argument("--far-diff-threshold", type=float, default=40.0)
+    parser.add_argument("--far-shadow-luma-min", type=float, default=5.0)
+    parser.add_argument("--far-shadow-min-y-ratio", type=float, default=0.4)
+    parser.add_argument("--shadow-output-grow", type=int, default=1)
+    parser.add_argument("--hysteresis-close", type=int, default=3)
+    parser.add_argument("--hysteresis-grow", type=int, default=2)
+    parser.add_argument("--hysteresis-seed-radius", type=int, default=2)
+    parser.add_argument("--hysteresis-reach-ratio", type=float, default=0.5)
+    parser.add_argument("--hysteresis-auto-expand-ratio", type=float, default=0.75)
+    parser.add_argument("--hysteresis-distance-power", type=float, default=1.0)
+    parser.add_argument("--max-hybrid-growth", type=float, default=3.5)
+    parser.add_argument("--max-added-fraction", type=float, default=0.08)
     parser.add_argument("--connect-timeout", type=float, default=20.0)
     parser.add_argument("--read-timeout", type=float, default=120.0)
     parser.add_argument("--poll-interval", type=float, default=2.0)
@@ -1645,6 +2120,12 @@ def main() -> None:
         "--materialize-only",
         action="store_true",
         help="do no network work; rebuild masks/composites from saved API rows",
+    )
+    parser.add_argument(
+        "--api-results-dir",
+        type=Path,
+        default=None,
+        help="with --materialize-only, reuse api_results.jsonl from another result directory",
     )
     parser.add_argument(
         "--fallback-dir",
@@ -1664,11 +2145,28 @@ def main() -> None:
         or args.diff_threshold < 0
         or args.support_radius < 1
         or args.feather < 0
+        or args.edge_diff_threshold < 0
+        or args.edge_radius < 1
+        or args.shadow_feather < 0
+        or args.far_diff_threshold < args.diff_threshold
+        or args.far_shadow_luma_min < 0
+        or not 0 <= args.far_shadow_min_y_ratio <= 1
+        or args.shadow_output_grow < 0
+        or args.hysteresis_close < 0
+        or args.hysteresis_grow < 0
+        or args.hysteresis_seed_radius < 1
+        or args.hysteresis_reach_ratio <= 0
+        or args.hysteresis_auto_expand_ratio < 0
+        or args.hysteresis_distance_power <= 0
+        or args.max_hybrid_growth < 1
+        or not 0 <= args.max_added_fraction <= 1
         or args.poll_interval < 0
         or args.max_poll_seconds <= 0
         or args.new_submission_limit < 0
     ):
         parser.error("invalid numeric argument")
+    if args.api_results_dir is not None and not args.materialize_only:
+        parser.error("--api-results-dir requires --materialize-only")
     try:
         endpoint_tags = parse_endpoint_tags(args.endpoints)
     except ValueError as exc:
@@ -1683,6 +2181,16 @@ def main() -> None:
     output_dir = (
         args.output_dir if args.output_dir.is_absolute() else repo_root / args.output_dir
     ).resolve()
+    external_api_results_path = (
+        None
+        if args.api_results_dir is None
+        else (
+            args.api_results_dir
+            if args.api_results_dir.is_absolute()
+            else repo_root / args.api_results_dir
+        ).resolve()
+        / "api_results.jsonl"
+    )
     fallback_dir = (
         None
         if args.fallback_dir is None
@@ -1717,13 +2225,45 @@ def main() -> None:
     else:
         items = select_pilot_items(candidates, args.tasks)
     use_box_prompt = args.prompt_mode == "text_box"
+    hybrid_config = HybridConfig(
+        mode=args.hybrid_mode,
+        diff_threshold=args.diff_threshold,
+        support_radius=args.support_radius,
+        alpha_feather=args.feather,
+        edge_diff_threshold=args.edge_diff_threshold,
+        edge_radius=args.edge_radius,
+        shadow_feather=args.shadow_feather,
+        far_diff_threshold=args.far_diff_threshold,
+        far_shadow_luma_min=args.far_shadow_luma_min,
+        far_shadow_min_y_ratio=args.far_shadow_min_y_ratio,
+        shadow_output_grow=args.shadow_output_grow,
+        hysteresis_close=args.hysteresis_close,
+        hysteresis_grow=args.hysteresis_grow,
+        hysteresis_seed_radius=args.hysteresis_seed_radius,
+        hysteresis_reach_ratio=args.hysteresis_reach_ratio,
+        hysteresis_auto_expand_ratio=args.hysteresis_auto_expand_ratio,
+        hysteresis_distance_power=args.hysteresis_distance_power,
+        max_hybrid_growth=args.max_hybrid_growth,
+        max_added_fraction=args.max_added_fraction,
+    )
     selected_summary = {
         "selected_tasks": len(items),
         "domains": dict(sorted(Counter(item.domain for item in items).items())),
         "endpoints": endpoint_tags,
         "prompt_mode": args.prompt_mode,
+        "hybrid_mode": hybrid_config.mode,
+        "api_results_source": (
+            relative_to_repo(external_api_results_path)
+            if external_api_results_path is not None
+            else None
+        ),
         "expected_requests": len(items) * len(endpoint_tags),
-        "estimated_cost_usd": sum(
+        "estimated_cost_usd": (
+            0.0
+            if args.materialize_only and external_api_results_path is not None
+            else sum(ENDPOINT_COST_USD[tag] * len(items) for tag in endpoint_tags)
+        ),
+        "historical_endpoint_cost_usd": sum(
             ENDPOINT_COST_USD[tag] * len(items) for tag in endpoint_tags
         ),
         "selection": [
@@ -1750,19 +2290,17 @@ def main() -> None:
         endpoint_tags,
         args.prompt,
         args.max_masks,
-        args.diff_threshold,
-        args.support_radius,
-        args.feather,
+        hybrid_config,
         use_box_prompt,
+        external_api_results_path,
     )
     if args.materialize_only:
         summary = materialize_all(
             items,
             output_dir,
             endpoint_tags,
-            args.diff_threshold,
-            args.support_radius,
-            args.feather,
+            hybrid_config,
+            external_api_results_path,
         )
         print(json.dumps(summary, ensure_ascii=False, sort_keys=True), flush=True)
         if fallback_dir is not None:
@@ -1921,9 +2459,7 @@ def main() -> None:
         items,
         output_dir,
         endpoint_tags,
-        args.diff_threshold,
-        args.support_radius,
-        args.feather,
+        hybrid_config,
     )
     print(json.dumps(summary, ensure_ascii=False, sort_keys=True), flush=True)
     if fallback_dir is not None:

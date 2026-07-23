@@ -1,5 +1,10 @@
 # SAM 3 cat-mask splice pilot results (2026-07-21)
 
+> Follow-up: a distance-aware shadow experiment was run on all 272 cats, but
+> manual review found background halos in many images. It is retained only as
+> an experimental artifact in `SAM3_CAT_SHADOW_SPLICE_RESULTS_2026-07-22.md`.
+> The experiment is not promoted and does not supersede this baseline.
+
 ## Decision
 
 Use fal's older `fal-ai/sam-3/image-rle` endpoint with a **text-only `cat`

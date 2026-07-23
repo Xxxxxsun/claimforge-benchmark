@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SAM3 小猫回贴 Review</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0c1016;
+      --panel: #141a23;
+      --panel-2: #1a2230;
+      --line: #2a3545;
+      --text: #edf3fa;
+      --muted: #93a1b5;
+      --accent: #66d9b7;
+      --accent-2: #75a7ff;
+      --good: #5fdaa1;
+      --bad: #ff6f7d;
+      --warn: #f4c76d;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; background: var(--bg); color: var(--text); }
+    body { font: 14px/1.45 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    button, input, select, textarea { font: inherit; }
+    button, select, input, textarea {
+      color: var(--text);
+      background: #101722;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+    }
+    button { cursor: pointer; padding: 8px 12px; }
+    button:hover { border-color: #52657e; background: #1b2635; }
+    button:disabled { cursor: default; opacity: .45; }
+    a { color: inherit; }
+
+    .app { display: grid; grid-template-columns: 330px minmax(0, 1fr); min-height: 100vh; }
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid var(--line);
+      background: #0f141c;
+    }
+    .sidebar-head { padding: 18px; border-bottom: 1px solid var(--line); }
+    h1 { margin: 0 0 5px; font-size: 19px; letter-spacing: .01em; }
+    .subtitle { color: var(--muted); font-size: 12px; }
+    .summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 14px; }
+    .summary div { padding: 8px 5px; border-radius: 8px; text-align: center; background: var(--panel); }
+    .summary strong { display: block; font-size: 16px; }
+    .summary span { color: var(--muted); font-size: 10px; }
+    .filters { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 12px; border-bottom: 1px solid var(--line); }
+    .filters input { grid-column: 1 / -1; width: 100%; padding: 9px 10px; }
+    .filters select { width: 100%; padding: 8px; }
+    .task-list { flex: 1; overflow: auto; padding: 7px; }
+    .task {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 9px 1fr auto;
+      gap: 9px;
+      align-items: center;
+      margin-bottom: 4px;
+      padding: 9px;
+      text-align: left;
+      border-color: transparent;
+      background: transparent;
+    }
+    .task:hover { background: var(--panel); }
+    .task.active { border-color: var(--accent-2); background: #1b2638; }
+    .task-id { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 12px; }
+    .task-score { color: var(--muted); font-variant-numeric: tabular-nums; font-size: 11px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--good); }
+    .dot.warning { background: var(--warn); }
+    .dot.bad { background: var(--bad); }
+    .dot.uncertain { background: var(--accent-2); }
+    .sidebar-foot { padding: 10px 12px; border-top: 1px solid var(--line); }
+    .sidebar-foot button { width: 100%; }
+    #saveStatus { min-height: 18px; margin-top: 6px; color: var(--muted); font-size: 11px; }
+
+    main { min-width: 0; padding: 18px 22px 44px; }
+    .topbar { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+    .identity { min-width: 0; flex: 1; }
+    .identity h2 { margin: 0 0 7px; font-size: 20px; word-break: break-all; }
+    .badges { display: flex; flex-wrap: wrap; gap: 6px; }
+    .badge { padding: 4px 8px; border-radius: 999px; background: var(--panel-2); color: #cbd7e8; font-size: 11px; }
+    .badge.good { color: var(--good); border: 1px solid #275f4c; }
+    .badge.warning { color: var(--warn); border: 1px solid #6b5529; }
+    .nav { display: flex; gap: 7px; }
+
+    .reviewbar {
+      display: grid;
+      grid-template-columns: auto auto auto auto minmax(160px, 1fr);
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 14px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--panel);
+    }
+    .reviewbar button[data-label="good"].selected { background: #164b39; border-color: var(--good); }
+    .reviewbar button[data-label="bad"].selected { background: #56252d; border-color: var(--bad); }
+    .reviewbar button[data-label="uncertain"].selected { background: #263b67; border-color: var(--accent-2); }
+    .reviewbar textarea { width: 100%; min-height: 37px; max-height: 110px; padding: 8px 10px; resize: vertical; }
+
+    .section {
+      margin-bottom: 16px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--panel);
+    }
+    .section-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+    .section-head h3 { margin: 0 auto 0 0; font-size: 14px; }
+    .section-head select { padding: 6px 8px; }
+    .quick { padding: 5px 8px; font-size: 11px; }
+    .compare-stage {
+      --split: 50%;
+      position: relative;
+      height: min(64vh, 690px);
+      min-height: 390px;
+      overflow: hidden;
+      background: #07090d;
+    }
+    .compare-stage img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+    .compare-stage .top { clip-path: inset(0 calc(100% - var(--split)) 0 0); }
+    .divider { position: absolute; z-index: 2; top: 0; bottom: 0; left: var(--split); width: 2px; background: white; box-shadow: 0 0 0 1px #0008; pointer-events: none; }
+    .divider::before { content: "↔"; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; color: #111; background: white; font-weight: 800; }
+    #split { width: 190px; accent-color: var(--accent); }
+
+    .full-grid, .diagnostic-grid { display: grid; gap: 1px; background: var(--line); }
+    .full-grid { grid-template-columns: repeat(3, 1fr); }
+    .diagnostic-grid { grid-template-columns: repeat(4, 1fr); }
+    .image-card { min-width: 0; background: #0d1219; }
+    .image-card header { display: flex; justify-content: space-between; gap: 8px; padding: 8px 10px; color: #c7d3e2; font-size: 12px; }
+    .image-card header a { color: var(--muted); text-decoration: none; }
+    .image-card a.image-link { display: block; background: #090c11; }
+    .image-card img { display: block; width: 100%; height: 290px; object-fit: contain; }
+    .diagnostic-grid .image-card img { height: 245px; }
+    .crop-wrap { position: relative; width: 100%; height: 245px; background: #090c11; }
+    .crop-wrap img { height: 100%; }
+    .edit-box { position: absolute; border: 2px solid #ff566d; box-shadow: 0 0 0 1px #000; pointer-events: none; }
+    .legend { padding: 8px 11px 11px; color: var(--muted); font-size: 11px; }
+    .metadata { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--line); }
+    .metric { min-width: 0; padding: 12px; background: var(--panel); }
+    .metric span { display: block; color: var(--muted); font-size: 11px; }
+    .metric strong { display: block; margin-top: 3px; overflow: hidden; text-overflow: ellipsis; font-variant-numeric: tabular-nums; }
+    .empty { padding: 30px; color: var(--muted); text-align: center; }
+
+    @media (max-width: 1050px) {
+      .app { grid-template-columns: 275px minmax(0, 1fr); }
+      .diagnostic-grid { grid-template-columns: repeat(2, 1fr); }
+      .metadata { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 760px) {
+      .app { display: block; }
+      .sidebar { position: static; height: auto; border-right: 0; }
+      .task-list { max-height: 240px; }
+      main { padding: 14px; }
+      .full-grid, .diagnostic-grid { grid-template-columns: 1fr; }
+      .reviewbar { grid-template-columns: repeat(4, auto); }
+      .reviewbar textarea { grid-column: 1 / -1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="sidebar-head">
+        <h1>SAM3 小猫回贴 Review</h1>
+        <div id="runSubtitle" class="subtitle">272 张 · SAM3 + 方向约束差分</div>
+        <div class="summary">
+          <div><strong id="countTotal">–</strong><span>当前</span></div>
+          <div><strong id="countGood">0</strong><span>通过</span></div>
+          <div><strong id="countBad">0</strong><span>问题</span></div>
+          <div><strong id="countTodo">–</strong><span>未审</span></div>
+        </div>
+      </div>
+      <div class="filters">
+        <input id="search" type="search" placeholder="搜索 task id…">
+        <select id="domainFilter" aria-label="场景筛选">
+          <option value="all">全部场景</option>
+          <option value="restaurant">餐厅</option>
+          <option value="lodging">住宿</option>
+        </select>
+        <select id="reviewFilter" aria-label="状态筛选">
+          <option value="all">全部状态</option>
+          <option value="warning">自动告警</option>
+          <option value="unreviewed">未审</option>
+          <option value="good">人工通过</option>
+          <option value="bad">人工有问题</option>
+          <option value="uncertain">人工待定</option>
+        </select>
+        <select id="sort" aria-label="排序">
+          <option value="warning">告警优先</option>
+          <option value="task">Task ID</option>
+          <option value="score">置信度从低到高</option>
+          <option value="area">mask 面积从大到小</option>
+        </select>
+        <button id="resetFilters">重置筛选</button>
+      </div>
+      <div id="taskList" class="task-list"><div class="empty">加载中…</div></div>
+      <div class="sidebar-foot">
+        <button id="saveReviews">保存 review 到仓库</button>
+        <div id="saveStatus">标签会先自动保存在浏览器本地。</div>
+      </div>
+    </aside>
+
+    <main>
+      <div class="topbar">
+        <div class="identity">
+          <h2 id="taskTitle">加载中…</h2>
+          <div id="badges" class="badges"></div>
+        </div>
+        <div class="nav">
+          <button id="prev">← 上一张</button>
+          <button id="next">下一张 →</button>
+        </div>
+      </div>
+
+      <div class="reviewbar">
+        <button data-label="good">G · 通过</button>
+        <button data-label="bad">B · 有问题</button>
+        <button data-label="uncertain">U · 待定</button>
+        <button id="clearLabel">清除</button>
+        <textarea id="note" placeholder="这张的备注（自动本地保存）"></textarea>
+      </div>
+
+      <section class="section">
+        <div class="section-head">
+          <h3>全图拖动对比</h3>
+          <select id="compareA" aria-label="底图"></select>
+          <span>↔</span>
+          <select id="compareB" aria-label="顶图"></select>
+          <input id="split" type="range" min="0" max="100" value="50" aria-label="对比分割线">
+          <button class="quick" data-pair="source,sam3">原图 / SAM3</button>
+          <button class="quick" data-pair="t30,sam3">旧 t30 / SAM3</button>
+          <button class="quick" data-pair="t40,sam3">旧 t40 / SAM3</button>
+        </div>
+        <div id="compareStage" class="compare-stage">
+          <img id="compareBase" alt="底图">
+          <img id="compareTop" class="top" alt="顶图">
+          <div class="divider"></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head"><h3>旧机械结果 vs SAM3</h3></div>
+        <div class="full-grid">
+          <article class="image-card"><header><span>旧机械 t30</span><a id="t30Open" target="_blank">打开原图</a></header><a id="t30Link" class="image-link" target="_blank"><img id="t30Img" alt="旧 t30"></a></article>
+          <article class="image-card"><header><span>旧机械 t40</span><a id="t40Open" target="_blank">打开原图</a></header><a id="t40Link" class="image-link" target="_blank"><img id="t40Img" alt="旧 t40"></a></article>
+          <article class="image-card"><header><span>SAM3 + diff 新结果</span><a id="sam3Open" target="_blank">打开原图</a></header><a id="sam3Link" class="image-link" target="_blank"><img id="sam3Img" alt="SAM3 新结果"></a></article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head"><h3>局部诊断</h3></div>
+        <div class="diagnostic-grid">
+          <article class="image-card">
+            <header><span>生成 crop</span><a id="generatedOpen" target="_blank">打开</a></header>
+            <div class="crop-wrap"><img id="generatedImg" alt="生成 crop"><div id="editBox" class="edit-box"></div></div>
+            <div class="legend">红框是旧 edit box；猫偏出红框时，text-only SAM3 仍可找到。</div>
+          </article>
+          <article class="image-card"><header><span>SAM3 语义 mask</span><a id="semanticOpen" target="_blank">打开</a></header><a id="semanticLink" class="image-link" target="_blank"><img id="semanticImg" alt="SAM3 mask"></a><div class="legend">仅表示 SAM3 判断属于猫的像素。</div></article>
+          <article id="edgeCard" class="image-card"><header><span>内部连通桥（不贴回）</span><a id="edgeOpen" target="_blank">打开</a></header><a id="edgeLink" class="image-link" target="_blank"><img id="edgeImg" alt="内部连通桥"></a><div class="legend">这圈差分仅帮助搜索投影，最终 alpha 明确排除它，不会贴回背景。</div></article>
+          <article id="distanceCard" class="image-card"><header><span>远距离投影支持</span><a id="distanceOpen" target="_blank">打开</a></header><a id="distanceLink" class="image-link" target="_blank"><img id="distanceImg" alt="远距离投影支持"></a><div class="legend">只保留从猫下半部连出的变暗区域；安全回退时为空。</div></article>
+          <article id="residualCard" class="image-card"><header><span>全部差分支持</span><a id="residualOpen" target="_blank">打开</a></header><a id="residualLink" class="image-link" target="_blank"><img id="residualImg" alt="全部差分支持"></a><div class="legend">近缘与远距离支持的并集，便于诊断。</div></article>
+          <article class="image-card"><header><span>最终 hybrid mask</span><a id="hybridOpen" target="_blank">打开</a></header><a id="hybridLink" class="image-link" target="_blank"><img id="hybridImg" alt="最终 mask"></a><div class="legend">SAM3 语义 mask ∪ 邻近差分，最终用于回贴。</div></article>
+          <article class="image-card"><header><span>仅 SAM3 回贴局部</span><a id="semanticCompositeOpen" target="_blank">打开</a></header><a id="semanticCompositeLink" class="image-link" target="_blank"><img id="semanticCompositeImg" alt="仅 SAM3 回贴"></a></article>
+          <article class="image-card"><header><span>Hybrid 回贴局部</span><a id="hybridCompositeOpen" target="_blank">打开</a></header><a id="hybridCompositeLink" class="image-link" target="_blank"><img id="hybridCompositeImg" alt="Hybrid 回贴"></a></article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head"><h3>指标</h3></div>
+        <div id="metadata" class="metadata"></div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    "use strict";
+
+    const query = new URLSearchParams(window.location.search);
+    const resultDir = query.get("resultDir") || "results/segmentation/fal_sam3_cat_textonly_full272_20260721_v1";
+    const runName = resultDir.split("/").filter(Boolean).at(-1) || "sam3-cat";
+    const CONFIG = {
+      resultDir,
+      baseManifest: "spliced_full/hunyuan_image3_distil_cat_272_fullblue_t30/manifest.jsonl",
+      storageKey: `claimforge-sam3-cat-review:${resultDir}`,
+      savePath: `annotations/${runName}-review.json`
+    };
+
+    const state = {
+      rows: [],
+      manifest: new Map(),
+      filtered: [],
+      currentId: null,
+      labels: loadLabels(),
+      assets: null
+    };
+
+    const $ = (id) => document.getElementById(id);
+    const repoUrl = (path) => new URL("../" + String(path).replace(/^\/+/, ""), window.location.href).href;
+    const fmt = (value, digits = 3) => Number.isFinite(Number(value)) ? Number(value).toFixed(digits) : "–";
+
+    function loadLabels() {
+      try { return JSON.parse(localStorage.getItem(CONFIG.storageKey) || "{}"); }
+      catch (_) { return {}; }
+    }
+
+    function persistLabels() {
+      localStorage.setItem(CONFIG.storageKey, JSON.stringify(state.labels));
+      renderCounts();
+    }
+
+    async function loadJsonl(path) {
+      const response = await fetch(repoUrl(path));
+      if (!response.ok) throw new Error(`${response.status} ${response.statusText}: ${path}`);
+      const text = await response.text();
+      return text.split(/\r?\n/).filter(Boolean).map((line) => JSON.parse(line));
+    }
+
+    function rowAssets(row) {
+      const base = state.manifest.get(row.task_id);
+      if (!base) throw new Error(`manifest missing ${row.task_id}`);
+      return {
+        source: base.source_image,
+        t30: base.spliced_full,
+        t40: base.spliced_full.replace("_fullblue_t30/", "_fullblue_t40/"),
+        sam3: row.hybrid_spliced_full,
+        generated: row.input_image,
+        semantic: row.semantic.path,
+        residual: row.residual_support.path,
+        edge: row.edge_support?.path || null,
+        distance: row.distance_support?.path || null,
+        hybrid: row.hybrid.path,
+        semanticComposite: row.semantic_context_composite,
+        hybridComposite: row.hybrid_context_composite
+      };
+    }
+
+    function renderCounts() {
+      const values = Object.values(state.labels);
+      const good = values.filter((x) => x.label === "good").length;
+      const bad = values.filter((x) => x.label === "bad").length;
+      $("countTotal").textContent = state.filtered.length || state.rows.length || "–";
+      $("countGood").textContent = good;
+      $("countBad").textContent = bad;
+      $("countTodo").textContent = Math.max(0, state.rows.length - values.filter((x) => x.label).length);
+    }
+
+    function applyFilters(keepCurrent = true) {
+      const query = $("search").value.trim().toLowerCase();
+      const domain = $("domainFilter").value;
+      const review = $("reviewFilter").value;
+      state.filtered = state.rows.filter((row) => {
+        const label = state.labels[row.task_id]?.label;
+        if (query && !row.task_id.toLowerCase().includes(query)) return false;
+        if (domain !== "all" && row.domain !== domain) return false;
+        if (review === "warning" && !hasAutomaticWarning(row)) return false;
+        if (review === "unreviewed" && label) return false;
+        if (["good", "bad", "uncertain"].includes(review) && label !== review) return false;
+        return true;
+      });
+      const sort = $("sort").value;
+      state.filtered.sort((a, b) => {
+        if (sort === "task") return a.task_id.localeCompare(b.task_id);
+        if (sort === "score") return (a.selected_provider_score ?? 2) - (b.selected_provider_score ?? 2);
+        if (sort === "area") return b.hybrid.fraction - a.hybrid.fraction;
+        return Number(!hasAutomaticWarning(a)) - Number(!hasAutomaticWarning(b)) || a.task_id.localeCompare(b.task_id);
+      });
+      if (!keepCurrent || !state.filtered.some((r) => r.task_id === state.currentId)) {
+        state.currentId = state.filtered[0]?.task_id || null;
+      }
+      renderList();
+      renderCurrent();
+      renderCounts();
+    }
+
+    function statusClass(row) {
+      const label = state.labels[row.task_id]?.label;
+      if (label === "bad") return "bad";
+      if (label === "uncertain") return "uncertain";
+      return hasAutomaticWarning(row) ? "warning" : "";
+    }
+
+    function hasAutomaticWarning(row) {
+      return !row.quality_gate.pass || Boolean(row.hybrid_guard?.guard_fallback);
+    }
+
+    function renderList() {
+      const list = $("taskList");
+      list.replaceChildren();
+      if (!state.filtered.length) {
+        list.innerHTML = '<div class="empty">没有符合筛选条件的图片</div>';
+        return;
+      }
+      const fragment = document.createDocumentFragment();
+      for (const row of state.filtered) {
+        const button = document.createElement("button");
+        button.className = "task" + (row.task_id === state.currentId ? " active" : "");
+        button.dataset.taskId = row.task_id;
+        button.innerHTML = `<i class="dot ${statusClass(row)}"></i><span class="task-id">${row.task_id}</span><span class="task-score">${fmt(row.selected_provider_score)}</span>`;
+        button.addEventListener("click", () => { state.currentId = row.task_id; renderList(); renderCurrent(); });
+        fragment.appendChild(button);
+      }
+      list.appendChild(fragment);
+      requestAnimationFrame(() => list.querySelector(".task.active")?.scrollIntoView({block: "nearest"}));
+    }
+
+    function setImage(id, path, linkId = null) {
+      const url = repoUrl(path);
+      $(id).src = url;
+      if (linkId) $(linkId).href = url;
+      return url;
+    }
+
+    function renderBadges(row) {
+      const label = state.labels[row.task_id]?.label;
+      const gate = row.quality_gate.pass
+        ? '<span class="badge good">自动检查通过</span>'
+        : `<span class="badge warning">自动告警：${row.quality_gate.reasons.join(", ")}</span>`;
+      const guard = !row.hybrid_guard ? "" : row.hybrid_guard.guard_fallback
+        ? `<span class="badge warning">投影已安全回退：${row.hybrid_guard.guard_reasons.join(", ")}</span>`
+        : '<span class="badge good">投影支持通过约束</span>';
+      const manual = label ? `<span class="badge">人工：${{good:"通过", bad:"有问题", uncertain:"待定"}[label]}</span>` : '<span class="badge">人工：未审</span>';
+      $("badges").innerHTML = `${gate}${guard}${manual}<span class="badge">${row.domain}</span><span class="badge">${state.filtered.findIndex((r) => r.task_id === row.task_id) + 1} / ${state.filtered.length}</span>`;
+    }
+
+    function renderCurrent() {
+      const row = state.rows.find((x) => x.task_id === state.currentId);
+      if (!row) {
+        $("taskTitle").textContent = "没有可显示的结果";
+        $("badges").replaceChildren();
+        return;
+      }
+      state.assets = rowAssets(row);
+      $("taskTitle").textContent = row.task_id;
+      renderBadges(row);
+      setImage("t30Img", state.assets.t30, "t30Link"); $("t30Open").href = repoUrl(state.assets.t30);
+      setImage("t40Img", state.assets.t40, "t40Link"); $("t40Open").href = repoUrl(state.assets.t40);
+      setImage("sam3Img", state.assets.sam3, "sam3Link"); $("sam3Open").href = repoUrl(state.assets.sam3);
+      setImage("generatedImg", state.assets.generated); $("generatedOpen").href = repoUrl(state.assets.generated);
+      setImage("semanticImg", state.assets.semantic, "semanticLink"); $("semanticOpen").href = repoUrl(state.assets.semantic);
+      $("edgeCard").hidden = !state.assets.edge;
+      $("distanceCard").hidden = !state.assets.distance;
+      $("residualCard").hidden = row.hybrid_guard?.mode === "semantic_shadow";
+      if (state.assets.edge) { setImage("edgeImg", state.assets.edge, "edgeLink"); $("edgeOpen").href = repoUrl(state.assets.edge); }
+      if (state.assets.distance) { setImage("distanceImg", state.assets.distance, "distanceLink"); $("distanceOpen").href = repoUrl(state.assets.distance); }
+      setImage("residualImg", state.assets.residual, "residualLink"); $("residualOpen").href = repoUrl(state.assets.residual);
+      setImage("hybridImg", state.assets.hybrid, "hybridLink"); $("hybridOpen").href = repoUrl(state.assets.hybrid);
+      setImage("semanticCompositeImg", state.assets.semanticComposite, "semanticCompositeLink"); $("semanticCompositeOpen").href = repoUrl(state.assets.semanticComposite);
+      setImage("hybridCompositeImg", state.assets.hybridComposite, "hybridCompositeLink"); $("hybridCompositeOpen").href = repoUrl(state.assets.hybridComposite);
+      updateCompare();
+      renderEditBox(row);
+      renderMetadata(row);
+      renderReview(row);
+      $("prev").disabled = currentIndex() <= 0;
+      $("next").disabled = currentIndex() < 0 || currentIndex() >= state.filtered.length - 1;
+    }
+
+    function renderEditBox(row) {
+      const image = $("generatedImg");
+      const draw = () => {
+        const [x0, y0, x1, y1] = row.prompt_box_xyxy;
+        const scale = Math.min(image.clientWidth / image.naturalWidth, image.clientHeight / image.naturalHeight);
+        const drawnW = image.naturalWidth * scale;
+        const drawnH = image.naturalHeight * scale;
+        const ox = (image.clientWidth - drawnW) / 2;
+        const oy = (image.clientHeight - drawnH) / 2;
+        Object.assign($("editBox").style, {
+          left: `${ox + x0 * scale}px`, top: `${oy + y0 * scale}px`,
+          width: `${(x1 - x0) * scale}px`, height: `${(y1 - y0) * scale}px`
+        });
+      };
+      image.onload = draw;
+      if (image.complete && image.naturalWidth) draw();
+    }
+
+    function renderMetadata(row) {
+      const candidate = row.candidates.find((x) => x.index === row.selected_candidate_index) || row.candidates[0] || {};
+      const items = [
+        ["SAM3 provider score", fmt(row.selected_provider_score)],
+        ["semantic mask 占比", fmt(row.semantic.fraction * 100, 2) + "%"],
+        ["hybrid mask 占比", fmt(row.hybrid.fraction * 100, 2) + "%"],
+        ["hybrid 相对语义增长", fmt(row.hybrid.growth_over_semantic * 100, 2) + "%"],
+        ...(row.distance_support ? [
+          ["远距离投影占比", fmt(row.distance_support.fraction * 100, 2) + "%"],
+          ["投影安全回退", row.hybrid_guard?.guard_fallback ? "是" : "否"]
+        ] : []),
+        ["语义 mask 的差分支持率", fmt(candidate.residual_precision * 100, 2) + "%"],
+        ["与旧 t30 的 IoU", fmt(row.hybrid.reference_iou)],
+        ["上下文外完全不变", row.outside_context_identical_to_source ? "是" : "否"],
+        ["request id", row.request_id]
+      ];
+      $("metadata").innerHTML = items.map(([key, value]) => `<div class="metric"><span>${key}</span><strong title="${value}">${value}</strong></div>`).join("");
+    }
+
+    function compareOptions() {
+      return [
+        ["source", "原始图"], ["t30", "旧机械 t30"], ["t40", "旧机械 t40"], ["sam3", "SAM3 新结果"]
+      ];
+    }
+
+    function populateCompareSelectors() {
+      for (const id of ["compareA", "compareB"]) {
+        $(id).innerHTML = compareOptions().map(([value, label]) => `<option value="${value}">${label}</option>`).join("");
+      }
+      $("compareA").value = "source";
+      $("compareB").value = "sam3";
+    }
+
+    function updateCompare() {
+      if (!state.assets) return;
+      $("compareBase").src = repoUrl(state.assets[$("compareA").value]);
+      $("compareTop").src = repoUrl(state.assets[$("compareB").value]);
+    }
+
+    function currentIndex() { return state.filtered.findIndex((row) => row.task_id === state.currentId); }
+
+    function move(delta) {
+      const index = currentIndex();
+      const next = Math.max(0, Math.min(state.filtered.length - 1, index + delta));
+      if (state.filtered[next]) { state.currentId = state.filtered[next].task_id; renderList(); renderCurrent(); }
+    }
+
+    function renderReview(row) {
+      const review = state.labels[row.task_id] || {};
+      document.querySelectorAll("[data-label]").forEach((button) => button.classList.toggle("selected", button.dataset.label === review.label));
+      $("note").value = review.note || "";
+    }
+
+    function setReview(label) {
+      const row = state.rows.find((x) => x.task_id === state.currentId);
+      if (!row) return;
+      state.labels[row.task_id] = { label, note: $("note").value.trim(), updated_at: new Date().toISOString() };
+      persistLabels();
+      renderList();
+      renderBadges(row);
+    }
+
+    function saveNote() {
+      const row = state.rows.find((x) => x.task_id === state.currentId);
+      if (!row) return;
+      const existing = state.labels[row.task_id] || {};
+      const note = $("note").value.trim();
+      if (!existing.label && !note) return;
+      state.labels[row.task_id] = {...existing, note, updated_at: new Date().toISOString()};
+      persistLabels();
+    }
+
+    async function saveReviews() {
+      saveNote();
+      const payload = {
+        schema_version: "sam3_cat_full272_review_v2",
+        task: "sam3_cat_splice_review",
+        result_dir: CONFIG.resultDir,
+        updated_at: new Date().toISOString(),
+        counts: Object.fromEntries(["good", "bad", "uncertain"].map((label) => [label, Object.values(state.labels).filter((x) => x.label === label).length])),
+        reviews: state.rows.filter((row) => state.labels[row.task_id]).map((row) => ({task_id: row.task_id, domain: row.domain, automatic_quality_gate: row.quality_gate, ...state.labels[row.task_id]}))
+      };
+      $("saveStatus").textContent = "保存中…";
+      try {
+        const response = await fetch("/api/save-labels", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({path: CONFIG.savePath, payload})});
+        const result = await response.json();
+        if (!response.ok || !result.ok) throw new Error(result.error || response.statusText);
+        $("saveStatus").textContent = `已保存：${result.path}`;
+      } catch (error) {
+        $("saveStatus").textContent = `保存失败：${error.message}`;
+      }
+    }
+
+    function bindEvents() {
+      for (const id of ["search", "domainFilter", "reviewFilter", "sort"]) $(id).addEventListener(id === "search" ? "input" : "change", () => applyFilters(false));
+      $("resetFilters").addEventListener("click", () => { $("search").value = ""; $("domainFilter").value = "all"; $("reviewFilter").value = "all"; $("sort").value = "warning"; applyFilters(false); });
+      $("prev").addEventListener("click", () => move(-1));
+      $("next").addEventListener("click", () => move(1));
+      $("compareA").addEventListener("change", updateCompare);
+      $("compareB").addEventListener("change", updateCompare);
+      $("split").addEventListener("input", () => $("compareStage").style.setProperty("--split", $("split").value + "%"));
+      document.querySelectorAll("[data-pair]").forEach((button) => button.addEventListener("click", () => { const [a, b] = button.dataset.pair.split(","); $("compareA").value = a; $("compareB").value = b; updateCompare(); }));
+      document.querySelectorAll("[data-label]").forEach((button) => button.addEventListener("click", () => setReview(button.dataset.label)));
+      $("clearLabel").addEventListener("click", () => { delete state.labels[state.currentId]; $("note").value = ""; persistLabels(); renderList(); renderCurrent(); });
+      $("note").addEventListener("change", saveNote);
+      $("saveReviews").addEventListener("click", saveReviews);
+      window.addEventListener("resize", () => { const row = state.rows.find((x) => x.task_id === state.currentId); if (row) renderEditBox(row); });
+      window.addEventListener("keydown", (event) => {
+        if (["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement?.tagName)) return;
+        if (event.key === "ArrowLeft") move(-1);
+        else if (event.key === "ArrowRight") move(1);
+        else if (event.key.toLowerCase() === "g") setReview("good");
+        else if (event.key.toLowerCase() === "b") setReview("bad");
+        else if (event.key.toLowerCase() === "u") setReview("uncertain");
+      });
+    }
+
+    async function init() {
+      $("runSubtitle").textContent = `272 张 · ${runName}`;
+      populateCompareSelectors();
+      bindEvents();
+      try {
+        const [rows, manifest] = await Promise.all([
+          loadJsonl(`${CONFIG.resultDir}/splice_results.jsonl`),
+          loadJsonl(CONFIG.baseManifest)
+        ]);
+        state.rows = rows;
+        state.manifest = new Map(manifest.map((row) => [row.task_id, row]));
+        applyFilters(false);
+      } catch (error) {
+        $("taskList").innerHTML = `<div class="empty">加载失败：${error.message}<br>请通过本地 HTTP 服务打开此页面。</div>`;
+        $("taskTitle").textContent = "数据加载失败";
+      }
+    }
+
+    init();
+  </script>
+</body>
+</html>
