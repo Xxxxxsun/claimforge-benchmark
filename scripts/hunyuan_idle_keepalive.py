@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Keep HunyuanImage busy with one low-priority image request at a time.
+"""Keep HunyuanImage busy with a bounded wave of low-priority image requests.
 
-The worker submits a request only after the vLLM-Omni aggregate and per-stage
-running/waiting metrics have all stayed at zero for a short grace period.  It
-also yields while the repository's foreground batch client is running.
+The worker submits a small fixed wave only after the vLLM-Omni aggregate and
+per-stage running/waiting metrics have all stayed at zero for a short grace
+period. It drains that whole wave before considering another one and yields
+while the repository's foreground batch client is running.
 
 Only the most recent image is retained under ``tmp/hunyuan_idle_keepalive``.
 Runtime state lives under the same gitignored directory.
@@ -12,6 +13,7 @@ Runtime state lives under the same gitignored directory.
 from __future__ import annotations
 
 import argparse
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from contextlib import contextmanager
 import fcntl
 import json
@@ -287,11 +289,13 @@ def run_worker(args: argparse.Namespace) -> int:
         last_status_write = now
 
     logger.info(
-        "worker started pid=%s task=%s request_size=%sx%s steps=%s idle_grace=%.1fs",
+        "worker started pid=%s task=%s request_size=%sx%s steps=%s "
+        "concurrency=%s idle_grace=%.2fs",
         os.getpid(),
         input_meta["task_id"],
         *input_meta["request_size"],
         args.steps,
+        args.concurrency,
         args.idle_grace,
     )
 
@@ -372,7 +376,7 @@ def run_worker(args: argparse.Namespace) -> int:
             if idle_for < args.idle_grace:
                 state = "idle_grace"
                 if last_reported_state != state:
-                    logger.info("service idle; waiting %.1fs grace period", args.idle_grace)
+                    logger.info("service idle; waiting %.2fs grace period", args.idle_grace)
                     last_reported_state = state
                 publish_status(
                     "waiting",
@@ -384,96 +388,192 @@ def run_worker(args: argparse.Namespace) -> int:
                 interruptible_sleep(stop_requested, args.poll_interval)
                 continue
 
-            # Keep the admission lock for the whole image. A pause command takes
-            # the same lock before creating its marker, so when pause returns no
-            # keepalive image is in flight and none can slip through afterward.
+            # Keep the admission lock for the whole bounded wave. A pause/stop
+            # command takes the same lock, so it waits for every request in this
+            # wave to drain and no replacement request can slip through.
             generation_backoff: float | None = None
             with exclusive_file_lock(ADMISSION_LOCK_PATH):
                 # Recheck immediately before admission. Metrics still have a
                 # small unavoidable check-to-POST race with unrelated clients,
-                # but at most one keepalive image can run and none is pre-queued.
+                # but this worker never has more than ``concurrency`` requests
+                # in flight and never rolling-refills a partially completed wave.
                 clients = foreground_clients()
                 if clients or stop_requested[0] or PAUSE_PATH.exists():
                     idle_since = None
                     continue
 
-                iteration = successes + failures + 1
-                seed = random.SystemRandom().randint(1, 9_000_000)
+                wave_start = successes + failures + 1
+                wave = [
+                    (
+                        wave_start + offset,
+                        random.SystemRandom().randint(1, 9_000_000),
+                    )
+                    for offset in range(args.concurrency)
+                ]
+                wave_iterations = [iteration for iteration, _seed in wave]
+                wave_seeds = [seed for _iteration, seed in wave]
                 publish_status(
                     "generating",
                     force=True,
-                    iteration=iteration,
-                    seed=seed,
+                    iteration=wave_iterations[0],
+                    seed=wave_seeds[0],
+                    wave_iterations=wave_iterations,
+                    wave_seeds=wave_seeds,
+                    in_flight=len(wave),
                     successes=successes,
                     failures=failures,
                 )
-                logger.info("generation %s started seed=%s", iteration, seed)
-                started = time.monotonic()
-                try:
-                    output = call_edit_omni(
-                        EDIT_URL,
-                        MODEL_NAME,
-                        image,
-                        prompt,
-                        image.width,
-                        image.height,
-                        args.steps,
-                        seed,
-                        bot_task="think",
-                        sys_type="en_unified",
-                        timeout=args.request_timeout,
-                    )
-                    output.save(LATEST_PART_PATH, format="PNG")
-                    with Image.open(LATEST_PART_PATH) as check:
-                        check.verify()
-                    os.replace(LATEST_PART_PATH, LATEST_PATH)
+                logger.info(
+                    "generation wave started iterations=%s seeds=%s",
+                    wave_iterations,
+                    wave_seeds,
+                )
+
+                def generate_one(
+                    iteration: int,
+                    seed: int,
+                    request_image: Image.Image,
+                ):
+                    started = time.monotonic()
+                    try:
+                        output = call_edit_omni(
+                            EDIT_URL,
+                            MODEL_NAME,
+                            request_image,
+                            prompt,
+                            request_image.width,
+                            request_image.height,
+                            args.steps,
+                            seed,
+                            bot_task="think",
+                            sys_type="en_unified",
+                            timeout=args.request_timeout,
+                        )
+                    finally:
+                        request_image.close()
                     latency = time.monotonic() - started
-                    successes += 1
-                    backoff = args.error_backoff
-                    idle_since = None
-                    last_reported_state = "generated"
-                    latest_meta = {
-                        **input_meta,
-                        "iteration": iteration,
-                        "seed": seed,
-                        "steps": args.steps,
-                        "latency_s": round(latency, 3),
-                        "output": str(LATEST_PATH.relative_to(REPO)),
-                        "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+                    return iteration, seed, output, latency
+
+                completed = 0
+                wave_failed = False
+                last_error: str | None = None
+                last_success: dict[str, Any] | None = None
+                with ThreadPoolExecutor(max_workers=args.concurrency) as executor:
+                    futures = {
+                        executor.submit(
+                            generate_one,
+                            iteration,
+                            seed,
+                            image.copy(),
+                        ): (iteration, seed)
+                        for iteration, seed in wave
                     }
-                    atomic_json(LATEST_META_PATH, latest_meta)
+                    for future in as_completed(futures):
+                        iteration, seed = futures[future]
+                        completed += 1
+                        try:
+                            _iteration, _seed, output, latency = future.result()
+                            try:
+                                output.save(LATEST_PART_PATH, format="PNG")
+                                with Image.open(LATEST_PART_PATH) as check:
+                                    check.verify()
+                                os.replace(LATEST_PART_PATH, LATEST_PATH)
+                            finally:
+                                output.close()
+                            successes += 1
+                            last_success = {
+                                "iteration": _iteration,
+                                "seed": _seed,
+                                "latency_s": round(latency, 3),
+                            }
+                            latest_meta = {
+                                **input_meta,
+                                **last_success,
+                                "steps": args.steps,
+                                "wave_iterations": wave_iterations,
+                                "wave_size": len(wave),
+                                "output": str(LATEST_PATH.relative_to(REPO)),
+                                "generated_at": time.strftime(
+                                    "%Y-%m-%dT%H:%M:%SZ",
+                                    time.gmtime(),
+                                ),
+                            }
+                            atomic_json(LATEST_META_PATH, latest_meta)
+                            logger.info(
+                                "generation %s completed in %.2fs; latest=%s",
+                                _iteration,
+                                latency,
+                                LATEST_PATH,
+                            )
+                        except Exception as exc:
+                            LATEST_PART_PATH.unlink(missing_ok=True)
+                            failures += 1
+                            wave_failed = True
+                            last_error = repr(exc)
+                            logger.exception(
+                                "generation %s failed inside wave",
+                                iteration,
+                            )
+
+                        remaining = len(wave) - completed
+                        if remaining:
+                            publish_status(
+                                "generating",
+                                force=True,
+                                iteration=iteration,
+                                seed=seed,
+                                wave_iterations=wave_iterations,
+                                wave_seeds=wave_seeds,
+                                in_flight=remaining,
+                                successes=successes,
+                                failures=failures,
+                            )
+
+                idle_since = None
+                if wave_failed:
+                    publish_status(
+                        "backoff",
+                        force=True,
+                        reason="generation_wave_failed",
+                        error=last_error,
+                        retry_in_s=backoff,
+                        wave_iterations=wave_iterations,
+                        successes=successes,
+                        failures=failures,
+                    )
+                    logger.warning(
+                        "generation wave %s had a failure; retrying in %.1fs",
+                        wave_iterations,
+                        backoff,
+                    )
+                    generation_backoff = backoff
+                    backoff = min(
+                        args.max_backoff,
+                        max(args.error_backoff, backoff * 2),
+                    )
+                    last_reported_state = "backoff"
+                else:
+                    backoff = args.error_backoff
+                    last_reported_state = "generated"
+                    assert last_success is not None
                     publish_status(
                         "generated",
                         force=True,
-                        iteration=iteration,
-                        seed=seed,
-                        latency_s=round(latency, 3),
+                        **last_success,
+                        wave_iterations=wave_iterations,
+                        wave_seeds=wave_seeds,
+                        wave_size=len(wave),
                         latest=str(LATEST_PATH),
                         successes=successes,
                         failures=failures,
                     )
                     logger.info(
-                        "generation %s completed in %.2fs; latest=%s",
-                        iteration,
-                        latency,
-                        LATEST_PATH,
+                        "generation wave completed iterations=%s successes=%s "
+                        "failures=%s",
+                        wave_iterations,
+                        successes,
+                        failures,
                     )
-                except Exception as exc:
-                    LATEST_PART_PATH.unlink(missing_ok=True)
-                    failures += 1
-                    idle_since = None
-                    logger.exception("generation %s failed; retrying in %.1fs", iteration, backoff)
-                    publish_status(
-                        "backoff",
-                        force=True,
-                        reason="generation_failed",
-                        error=repr(exc),
-                        retry_in_s=backoff,
-                        successes=successes,
-                        failures=failures,
-                    )
-                    generation_backoff = backoff
-                    backoff = min(args.max_backoff, max(args.error_backoff, backoff * 2))
             if generation_backoff is not None:
                 interruptible_sleep(stop_requested, generation_backoff)
     finally:
@@ -711,8 +811,15 @@ def build_parser() -> argparse.ArgumentParser:
     run = subparsers.add_parser("run", help="run the foreground worker")
     run.add_argument("--task-index", type=int, default=0)
     run.add_argument("--steps", type=int, default=8)
-    run.add_argument("--idle-grace", type=float, default=2.0)
-    run.add_argument("--poll-interval", type=float, default=0.5)
+    run.add_argument(
+        "--concurrency",
+        type=int,
+        choices=[1, 2],
+        default=2,
+        help="fixed requests per wave; the wave fully drains before another starts",
+    )
+    run.add_argument("--idle-grace", type=float, default=0.25)
+    run.add_argument("--poll-interval", type=float, default=0.25)
     run.add_argument("--probe-timeout", type=float, default=5.0)
     run.add_argument("--request-timeout", type=float, default=900.0)
     run.add_argument("--error-backoff", type=float, default=5.0)
