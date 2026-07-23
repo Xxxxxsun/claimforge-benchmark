@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run a resumable fal SAM 3/3.1 pilot and materialize hybrid splice masks.
+"""Run resumable fal SAM 3/3.1 segmentation and materialize hybrid splice masks.
 
 The credential is read only from ``FAL_KEY``. It is never accepted as a CLI
 argument, written to disk, or included in diagnostic output. Queue request IDs
@@ -227,20 +227,43 @@ def current_threshold_mask(
 
 def domain_from_task_id(task_id: str) -> str:
     parts = task_id.split("_")
-    if len(parts) >= 2 and parts[0] == "cat":
-        return parts[1]
+    for domain in ("restaurant", "lodging"):
+        if domain in parts:
+            return domain
     return parts[0]
 
 
-def load_pilot_candidates(repo_root: Path, manifest_path: Path) -> list[PilotItem]:
+def load_pilot_candidates(
+    repo_root: Path,
+    manifest_path: Path,
+    candidate: str = "cat",
+    task_manifest_path: Path | None = None,
+) -> list[PilotItem]:
+    task_lookup: dict[str, dict[str, Any]] = {}
+    if task_manifest_path is not None:
+        for task in load_jsonl(task_manifest_path):
+            task_id = str(task.get("task_id", ""))
+            if not task_id:
+                raise ValueError(f"task without task_id in {task_manifest_path}")
+            if task_id in task_lookup:
+                raise ValueError(
+                    f"duplicate task_id {task_id!r} in {task_manifest_path}"
+                )
+            task_lookup[task_id] = task
+
     candidates: list[PilotItem] = []
     generation_manifest_cache: dict[Path, dict[str, dict[str, Any]]] = {}
     for row in load_jsonl(manifest_path):
-        if row.get("status") != "ok" or row.get("candidates") != "cat":
+        if row.get("status") != "ok":
             continue
         task_id = str(row["task_id"])
-        source_relative = str(row["source_image"])
-        generated_relative = str(row["generated_crop"])
+        merged = {**task_lookup.get(task_id, {}), **row}
+        if merged.get("candidates") != candidate:
+            continue
+        source_relative = str(merged["source_image"])
+        generated_relative = str(
+            merged.get("generated_crop") or merged["output_crop"]
+        )
         source_path = safe_repo_path(repo_root, source_relative)
         generated_path = safe_repo_path(repo_root, generated_relative)
         generation_manifest_path = generated_path.parent / "manifest.jsonl"
@@ -263,8 +286,12 @@ def load_pilot_candidates(repo_root: Path, manifest_path: Path) -> list[PilotIte
             if isinstance(reference_relative, str) and reference_relative
             else None
         )
-        context_box = tuple(int(value) for value in row["context_region_xyxy"])
-        edit_box = tuple(int(value) for value in row["edit_region_in_context_xyxy"])
+        context_box = tuple(
+            int(value) for value in merged["context_region_xyxy"]
+        )
+        edit_box = tuple(
+            int(value) for value in merged["edit_region_in_context_xyxy"]
+        )
         if len(context_box) != 4 or len(edit_box) != 4:
             raise ValueError(f"{task_id}: invalid box")
         cx1, cy1, cx2, cy2 = context_box
@@ -306,7 +333,7 @@ def load_pilot_candidates(repo_root: Path, manifest_path: Path) -> list[PilotIte
             )
         )
     if not candidates:
-        raise ValueError(f"no cat candidates found in {manifest_path}")
+        raise ValueError(f"no {candidate!r} candidates found in {manifest_path}")
     ids = [item.task_id for item in candidates]
     if len(ids) != len(set(ids)):
         raise ValueError("candidate manifest contains duplicate task IDs")
@@ -423,6 +450,7 @@ def selection_digest(items: Sequence[PilotItem]) -> str:
 def ensure_run_manifest(
     output_dir: Path,
     base_manifest: Path,
+    task_manifest: Path | None,
     items: Sequence[PilotItem],
     endpoint_tags: Sequence[str],
     prompt: str,
@@ -463,6 +491,9 @@ def ensure_run_manifest(
     if api_results_path is not None:
         expected["api_results_source"] = relative_to_repo(api_results_path)
         expected["api_results_source_sha256"] = sha256_file(api_results_path)
+    if task_manifest is not None:
+        expected["task_manifest"] = task_manifest.relative_to(REPO).as_posix()
+        expected["task_manifest_sha256"] = sha256_file(task_manifest)
     if path.exists():
         existing = json.loads(path.read_text(encoding="utf-8"))
         mismatches = {
@@ -2061,9 +2092,23 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--repo-root", type=Path, default=REPO)
     parser.add_argument("--base-manifest", type=Path, default=DEFAULT_BASE_MANIFEST)
+    parser.add_argument(
+        "--task-manifest",
+        type=Path,
+        default=None,
+        help=(
+            "optional task JSONL joined by task_id when the base manifest only "
+            "contains generation outputs"
+        ),
+    )
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
     parser.add_argument("--tasks", type=int, default=10)
     parser.add_argument("--endpoints", default="sam3,sam3_1")
+    parser.add_argument(
+        "--candidate",
+        default="cat",
+        help="exact candidates field to select from the base manifest",
+    )
     parser.add_argument("--prompt", default="cat")
     parser.add_argument(
         "--prompt-mode",
@@ -2178,6 +2223,15 @@ def main() -> None:
         if args.base_manifest.is_absolute()
         else repo_root / args.base_manifest
     ).resolve()
+    task_manifest = (
+        None
+        if args.task_manifest is None
+        else (
+            args.task_manifest
+            if args.task_manifest.is_absolute()
+            else repo_root / args.task_manifest
+        ).resolve()
+    )
     output_dir = (
         args.output_dir if args.output_dir.is_absolute() else repo_root / args.output_dir
     ).resolve()
@@ -2209,7 +2263,12 @@ def main() -> None:
         for value in args.text_only_shard_dirs.split(",")
         if value.strip()
     ]
-    candidates = load_pilot_candidates(repo_root, base_manifest)
+    candidates = load_pilot_candidates(
+        repo_root,
+        base_manifest,
+        args.candidate,
+        task_manifest,
+    )
     explicit_ids = [value.strip() for value in args.task_ids.split(",") if value.strip()]
     if explicit_ids:
         if len(explicit_ids) != len(set(explicit_ids)):
@@ -2250,6 +2309,12 @@ def main() -> None:
         "selected_tasks": len(items),
         "domains": dict(sorted(Counter(item.domain for item in items).items())),
         "endpoints": endpoint_tags,
+        "candidate": args.candidate,
+        "task_manifest": (
+            None
+            if task_manifest is None
+            else task_manifest.relative_to(repo_root).as_posix()
+        ),
         "prompt_mode": args.prompt_mode,
         "hybrid_mode": hybrid_config.mode,
         "api_results_source": (
@@ -2286,6 +2351,7 @@ def main() -> None:
     ensure_run_manifest(
         output_dir,
         base_manifest,
+        task_manifest,
         items,
         endpoint_tags,
         args.prompt,
@@ -2347,6 +2413,16 @@ def main() -> None:
                 and prior.get("queue_state") == "completed"
                 and isinstance(prior.get("request_id"), str)
                 and "provider_output" not in prior
+                and isinstance(prior.get("fetch_history"), list)
+                and prior["fetch_history"]
+                and all(
+                    (
+                        attempt.get("http_status") in RETRYABLE_HTTP
+                        if "http_status" in attempt
+                        else True
+                    )
+                    for attempt in prior["fetch_history"]
+                )
             )
             if prior and prior.get("status") == "ok":
                 continue
@@ -2449,7 +2525,12 @@ def main() -> None:
                 ),
                 flush=True,
             )
-            if terminal["status"] == "terminal_error":
+            expected_no_mask = any(
+                attempt.get("http_status") == 422
+                and "No masks generated" in str(attempt.get("error_message", ""))
+                for attempt in terminal.get("fetch_history", [])
+            )
+            if terminal["status"] == "terminal_error" and not expected_no_mask:
                 stop = True
                 break
         if stop:

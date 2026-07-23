@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>正在打开 Cat SAM3 Review</title>
+</head>
+<body>
+  <p>正在打开新版猫 SAM3 拼回结果标注页面……</p>
+  <script>
+    const target = new URL("./hunyuan-lodging-review.html", window.location.href);
+    target.searchParams.set(
+      "manifest",
+      "../results/segmentation/fal_sam3_cat_native_style_v2_full272_20260723/review_manifest.jsonl",
+    );
+    target.searchParams.set("manifestName", "cat_native_style_v2_sam3_272");
+    target.searchParams.set(
+      "storage",
+      "claimforge-cat-native-style-v2-sam3-review-v1",
+    );
+    target.searchParams.set(
+      "title",
+      "ClaimForge Cat Native Style v2 · SAM3 Review",
+    );
+    target.searchParams.set(
+      "subtitle",
+      "审核新版 272 张猫图的 SAM3 text-only hybrid 拼回结果；标签与其他拼回方法完全隔离。",
+    );
+    target.searchParams.set(
+      "task",
+      "claimforge_cat_native_style_v2_sam3_review",
+    );
+    target.searchParams.set(
+      "export",
+      "claimforge_cat_native_style_v2_sam3_review_labels.json",
+    );
+    target.searchParams.set(
+      "savePath",
+      "annotations/claimforge_cat_native_style_v2_sam3_review_labels.json",
+    );
+    window.location.replace(target);
+  </script>
+</body>
+</html>

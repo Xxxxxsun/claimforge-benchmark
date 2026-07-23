@@ -42,23 +42,67 @@ STAIN_PROMPT_TMPL = (
     "unchanged. Do not add text, extra objects, or unrelated marks."
 )
 CAT_PROMPT_TMPL = (
-    "Add a single small but clearly visible realistic cat entirely within the "
-    "{pos} of the image. Keep the whole cat in frame and confined to that local "
-    "area; it should occupy roughly one quarter of the image rather than dominate "
-    "the scene. Match plausible scale, contact shadows, lighting, camera "
-    "perspective, and JPEG-like realism. Keep everything else unchanged. Do not "
-    "add text, duplicate cats, or unrelated objects."
+    "Add a single small but clearly visible cat entirely within the {pos} of the "
+    "image. Make the cat look native to the source image: match the surrounding "
+    "visual style, resolution, level of detail, sharpness or blur, noise and "
+    "compression artifacts, color, lighting, perspective, and depth of field. "
+    "Do not make the cat cleaner, sharper, or more photorealistic than the rest "
+    "of the image. Show the cat {pose}, {orientation}. Keep its head and eyes "
+    "directed into the scene, never toward the viewer or camera. This must feel "
+    "like an unposed candid moment, not a front-facing pet portrait. Keep the "
+    "whole cat in frame and "
+    "confined to that local area; it should occupy roughly one quarter of the "
+    "image without dominating the scene. Keep everything else unchanged. Do not "
+    "add text, additional cats, or unrelated objects."
+)
+CAT_POSES = (
+    "walking naturally through the scene",
+    "standing casually while observing something nearby",
+    "sitting in a relaxed, unposed way",
+    "crouching as if inspecting or sniffing a nearby surface",
+    "resting comfortably",
+    "stretching or turning naturally",
+)
+CAT_ORIENTATIONS = (
+    "seen in side profile and facing toward the left side of the scene",
+    "seen in side profile and facing toward the right side of the scene",
+    "seen from a three-quarter angle and facing away from the viewer",
+    "with its back mostly toward the viewer and attention on the surrounding scene",
+)
+TRASH_CAN_PROMPT_TMPL = (
+    "Add one new freestanding trash can on the floor, entirely within the {pos} "
+    "of the image. It must be unmistakably present as a separate object, not part "
+    "of any existing cabinet or furniture, with a visible rim, opening, or lid "
+    "and a distinct body silhouette. Make it look native to the source image "
+    "rather than forcing "
+    "photorealism: match the surrounding visual style, resolution, level of "
+    "detail, sharpness or blur, noise and compression artifacts, color, lighting, "
+    "perspective, and depth of field. Do not make the trash can cleaner, sharper, "
+    "more detailed, or more photorealistic than the rest of the image. "
+    "If the source is soft, blurry, low-resolution, or compressed, give the bin "
+    "equally soft edges and limited detail; never introduce crisp high-frequency "
+    "detail that is absent from its surroundings. Choose an "
+    "ordinary trash-can design, material, size, and orientation appropriate to "
+    "this specific setting. Place it upright on a plausible floor or supporting "
+    "surface with correct scale, contact shadow, and occlusion. Keep the local "
+    "contrast natural, but do not conceal the bin in deep shadow or behind "
+    "furniture. Center it within that local area and keep its rim or lid, both "
+    "side edges, and base fully visible, with clear margin from every image edge; "
+    "no part may be cropped by the frame. Keep it confined to that local area "
+    "without dominating the scene. Keep everything "
+    "else unchanged. Do not add text, logos, additional trash cans, loose trash, "
+    "litter, or unrelated objects."
 )
 
 
-def position_phrase(box, size):
+def position_phrase(box, size, low=1 / 3, high=2 / 3):
     """Coarse 3x3-grid description of the orange box centre within the crop,
     used to tell a model that has no native region input where to place it."""
     w, h = size
     cx = (box[0] + box[2]) / 2 / w
     cy = (box[1] + box[3]) / 2 / h
-    col = "left" if cx < 1 / 3 else ("right" if cx > 2 / 3 else "center")
-    row = "top" if cy < 1 / 3 else ("bottom" if cy > 2 / 3 else "middle")
+    col = "left" if cx < low else ("right" if cx > high else "center")
+    row = "top" if cy < low else ("bottom" if cy > high else "middle")
     if row == "middle" and col == "center":
         return "center"
     return f"{row}-{col} area"
@@ -173,7 +217,14 @@ def call_edit(args, img, prompt, width, height, seed):
 
 def make_prompt(task, position, prompt_kind):
     if prompt_kind == "cat":
-        tmpl = CAT_PROMPT_TMPL
+        digest = hashlib.sha256(task["task_id"].encode("utf-8")).digest()
+        return CAT_PROMPT_TMPL.format(
+            pos=position,
+            pose=CAT_POSES[digest[8] % len(CAT_POSES)],
+            orientation=CAT_ORIENTATIONS[digest[9] % len(CAT_ORIENTATIONS)],
+        )
+    elif prompt_kind == "trash-can":
+        tmpl = TRASH_CAN_PROMPT_TMPL
     elif prompt_kind == "stain":
         tmpl = STAIN_PROMPT_TMPL
     else:
@@ -199,11 +250,19 @@ def run_task(task, args):
 
     up = crop.resize((tw, th), Image.LANCZOS)
     box = [int(v) for v in task["edit_region_in_context_xyxy"]]
-    pos = position_phrase(box, (W, H))
+    if args.prompt_kind == "trash-can":
+        # Trash-can boxes are often large and lie close to a 1/3 grid boundary.
+        # A narrower center band gives the edit model a less ambiguous floor area.
+        pos = position_phrase(box, (W, H), low=0.4, high=0.6)
+    else:
+        pos = position_phrase(box, (W, H))
     prompt = make_prompt(task, pos, args.prompt_kind)
     # Python's built-in hash is randomized for every process, which makes a
     # resumed batch produce different images. Derive a stable per-task seed.
-    digest = hashlib.sha256(task["task_id"].encode("utf-8")).digest()
+    seed_key = task["task_id"]
+    if args.seed_salt:
+        seed_key += f"\0{args.seed_salt}"
+    digest = hashlib.sha256(seed_key.encode("utf-8")).digest()
     seed = (int.from_bytes(digest[:8], "big") % 9_000_000) + 1
 
     edited_up = call_edit(args, up, prompt, tw, th, seed)
@@ -241,8 +300,17 @@ def main():
                     help="output dir name under generated_crops/")
     ap.add_argument("--tasks", default="annotations/generation_tasks.jsonl")
     ap.add_argument("--steps", type=int, default=8)
-    ap.add_argument("--prompt-kind", choices=["object", "stain", "cat"], default="object",
-                    help="prompt family to use; default preserves the original object workflow")
+    ap.add_argument(
+        "--seed-salt",
+        default="",
+        help="optional deterministic salt for retrying selected tasks with a new seed",
+    )
+    ap.add_argument(
+        "--prompt-kind",
+        choices=["object", "stain", "cat", "trash-can"],
+        default="object",
+        help="prompt family to use; default preserves the original object workflow",
+    )
     ap.add_argument("--feather", type=float, default=2.0)
     ap.add_argument("--paste-back", action="store_true",
                     help="revert pixels outside the orange region to source "
@@ -297,6 +365,7 @@ def main():
                 "model": args.model_name,
                 "prompt": prompt,
                 "seed": seed,
+                "seed_salt": args.seed_salt,
                 "size": [W, H],
                 "paste_back": args.paste_back,
                 "status": "ok",

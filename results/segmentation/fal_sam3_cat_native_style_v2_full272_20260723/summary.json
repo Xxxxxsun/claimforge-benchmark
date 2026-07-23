@@ -1,0 +1,37 @@
+{
+  "api_rows_latest": 272,
+  "api_status_counts": {
+    "ok": 272
+  },
+  "by_endpoint": {
+    "sam3": {
+      "completed": 272,
+      "endpoint": "fal-ai/sam-3/image-rle",
+      "mean_hybrid_area_fraction": 0.12700315113701516,
+      "mean_hybrid_growth": 0.1629270507663303,
+      "mean_hybrid_iou_with_current_t30": 0.7356113425738998,
+      "mean_provider_score": 0.9624649314757656,
+      "mean_semantic_area_fraction": 0.10985866473949189,
+      "outside_context_invariance_failures": 0,
+      "quality_gate_failure_ids": [
+        "cat_restaurant_128_slot_001__sam3",
+        "cat_restaurant_164_slot_001__sam3",
+        "cat_lodging_050_slot_001__sam3",
+        "cat_restaurant_090_slot_001__sam3"
+      ],
+      "quality_gate_failures": 4
+    }
+  },
+  "endpoint_pair_agreement": {
+    "mean_hybrid_iou": null,
+    "mean_semantic_iou": null,
+    "paired_tasks": 0
+  },
+  "estimated_cost_if_all_requested_usd": 1.36,
+  "expected_requests": 272,
+  "expected_tasks": 272,
+  "materialization_errors": [],
+  "materialized_results": 272,
+  "schema_version": "fal_sam3_splice_summary_v1",
+  "updated_at": "2026-07-23T06:56:03.662541+00:00"
+}

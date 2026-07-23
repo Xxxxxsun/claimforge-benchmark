@@ -9,6 +9,7 @@ from eval.segmentation.run_fal_sam3 import (
     PilotItem,
     _decode_coco_counts,
     decode_rle,
+    domain_from_task_id,
     hybrid_mask,
     inner_alpha_mask,
     mask_candidates,
@@ -262,6 +263,12 @@ class HybridMaskTest(unittest.TestCase):
 
 
 class PilotSelectionTest(unittest.TestCase):
+    def test_extracts_domain_from_multiword_candidate_task_id(self):
+        self.assertEqual(
+            domain_from_task_id("trash_can_restaurant_001_slot_001"),
+            "restaurant",
+        )
+
     def test_balances_domains_and_area_buckets(self):
         with tempfile.TemporaryDirectory() as temporary:
             base = Path(temporary)
