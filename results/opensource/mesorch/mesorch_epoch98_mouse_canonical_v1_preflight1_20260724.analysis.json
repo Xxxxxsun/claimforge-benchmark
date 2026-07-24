@@ -1,0 +1,641 @@
+{
+  "schema_version": "mesorch_posthoc_analysis_v1",
+  "run_id": "mesorch_epoch98_mouse_canonical_v1_preflight1_20260724",
+  "created_at": "2026-07-24T12:30:03.465921+00:00",
+  "task_scope": {
+    "primary_task": "T2_localization",
+    "valid_for_t1": false,
+    "valid_for_t2": true,
+    "primary_localization_space": "native",
+    "auxiliary_localization_space": "model_512",
+    "mask_threshold": 0.5,
+    "threshold_operator": ">",
+    "t1_policy": "unsupported_no_derived_image_score"
+  },
+  "sources": {
+    "results_path": "results/opensource/mesorch/mesorch_epoch98_mouse_canonical_v1_preflight1_20260724.jsonl",
+    "results_sha256": "f06a4978dce6aa8ba1966bb110827f116c7f0fd257256c120958f4d6fa366179",
+    "run_manifest_path": "results/opensource/mesorch/mesorch_epoch98_mouse_canonical_v1_preflight1_20260724.run_manifest.json",
+    "run_manifest_sha256": "160699922aa6060e92d6be150541927232d934c9bffdbc78faaf5c592e509456",
+    "summary_path": "results/opensource/mesorch/mesorch_epoch98_mouse_canonical_v1_preflight1_20260724.summary.json",
+    "summary_sha256": "5d99495e974e4f3271f144bb813042189b1bf33fd21672b49a588601b5fd1c53",
+    "inputs_path": "outputs/opensource/mouse_canonical_v1/inputs.jsonl",
+    "inputs_sha256": "e4cb3d6a78fa68f06341457e2234c630a455a9b6b9789e59abf45c15b292060a"
+  },
+  "bootstrap": {
+    "unit": "paired task (real and forged resampled together)",
+    "iterations": 1000,
+    "seed": 20260724,
+    "interval": "2.5th and 97.5th percentile",
+    "spaces": [
+      "native",
+      "model_512"
+    ],
+    "metrics_scope": "T2 localization only"
+  },
+  "overall": {
+    "native": {
+      "pairs": 1,
+      "images": 2,
+      "localization_space": "native",
+      "bootstrap_samples": 1000,
+      "seed": 20260724,
+      "mask_threshold": 0.5,
+      "threshold_operator": ">",
+      "pixel_ap_macro": {
+        "estimate": 0.009770278436460774,
+        "ci95_percentile": [
+          0.009770278436460774,
+          0.009770278436460774
+        ]
+      },
+      "pixel_f1_macro_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "pixel_iou_macro_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "pixel_f1_micro_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "pixel_iou_micro_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "real_false_positive_area_fraction_macro_at_0_5": {
+        "estimate": 0.0011604938271604938,
+        "ci95_percentile": [
+          0.0011604938271604938,
+          0.0011604938271604938
+        ]
+      },
+      "real_false_positive_area_fraction_micro_at_0_5": {
+        "estimate": 0.0011604938271604938,
+        "ci95_percentile": [
+          0.0011604938271604938,
+          0.0011604938271604938
+        ]
+      },
+      "forged_micro_at_threshold": {
+        "threshold": 0.5,
+        "threshold_operator": ">",
+        "tp": 0,
+        "fp": 1799,
+        "fn": 2697,
+        "tn": 2425504,
+        "pixels": 2430000,
+        "target_positive_pixels": 2697,
+        "predicted_positive_pixels": 1799,
+        "predicted_positive_fraction": 0.0007403292181069959,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "iou": 0.0,
+        "mcc": -0.0009073017358224257
+      },
+      "edit_fraction": {
+        "min": 0.0011098765432098765,
+        "median": 0.0011098765432098765,
+        "mean": 0.0011098765432098765,
+        "max": 0.0011098765432098765
+      },
+      "pixel_ap_median": 0.009770278436460774
+    },
+    "model_512": {
+      "pairs": 1,
+      "images": 2,
+      "localization_space": "model_512",
+      "bootstrap_samples": 1000,
+      "seed": 20260724,
+      "mask_threshold": 0.5,
+      "threshold_operator": ">",
+      "pixel_ap_macro": {
+        "estimate": 0.009956468102600983,
+        "ci95_percentile": [
+          0.009956468102600983,
+          0.009956468102600983
+        ]
+      },
+      "pixel_f1_macro_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "pixel_iou_macro_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "pixel_f1_micro_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "pixel_iou_micro_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "real_false_positive_area_fraction_macro_at_0_5": {
+        "estimate": 0.00116729736328125,
+        "ci95_percentile": [
+          0.00116729736328125,
+          0.00116729736328125
+        ]
+      },
+      "real_false_positive_area_fraction_micro_at_0_5": {
+        "estimate": 0.00116729736328125,
+        "ci95_percentile": [
+          0.00116729736328125,
+          0.00116729736328125
+        ]
+      },
+      "forged_micro_at_threshold": {
+        "threshold": 0.5,
+        "threshold_operator": ">",
+        "tp": 0,
+        "fp": 194,
+        "fn": 292,
+        "tn": 261658,
+        "pixels": 262144,
+        "target_positive_pixels": 292,
+        "predicted_positive_pixels": 194,
+        "predicted_positive_fraction": 0.00074005126953125,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "iou": 0.0,
+        "mcc": -0.000908772426904138
+      },
+      "edit_fraction": {
+        "min": 0.0011138916015625,
+        "median": 0.0011138916015625,
+        "mean": 0.0011138916015625,
+        "max": 0.0011138916015625
+      },
+      "pixel_ap_median": 0.009956468102600983
+    }
+  },
+  "by_domain": {
+    "lodging": {
+      "native": {
+        "pairs": 1,
+        "images": 2,
+        "localization_space": "native",
+        "bootstrap_samples": 1000,
+        "seed": 20260725,
+        "mask_threshold": 0.5,
+        "threshold_operator": ">",
+        "pixel_ap_macro": {
+          "estimate": 0.009770278436460774,
+          "ci95_percentile": [
+            0.009770278436460774,
+            0.009770278436460774
+          ]
+        },
+        "pixel_f1_macro_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "pixel_iou_macro_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "pixel_f1_micro_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "pixel_iou_micro_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "real_false_positive_area_fraction_macro_at_0_5": {
+          "estimate": 0.0011604938271604938,
+          "ci95_percentile": [
+            0.0011604938271604938,
+            0.0011604938271604938
+          ]
+        },
+        "real_false_positive_area_fraction_micro_at_0_5": {
+          "estimate": 0.0011604938271604938,
+          "ci95_percentile": [
+            0.0011604938271604938,
+            0.0011604938271604938
+          ]
+        },
+        "forged_micro_at_threshold": {
+          "threshold": 0.5,
+          "threshold_operator": ">",
+          "tp": 0,
+          "fp": 1799,
+          "fn": 2697,
+          "tn": 2425504,
+          "pixels": 2430000,
+          "target_positive_pixels": 2697,
+          "predicted_positive_pixels": 1799,
+          "predicted_positive_fraction": 0.0007403292181069959,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "iou": 0.0,
+          "mcc": -0.0009073017358224257
+        },
+        "edit_fraction": {
+          "min": 0.0011098765432098765,
+          "median": 0.0011098765432098765,
+          "mean": 0.0011098765432098765,
+          "max": 0.0011098765432098765
+        },
+        "pixel_ap_median": 0.009770278436460774
+      },
+      "model_512": {
+        "pairs": 1,
+        "images": 2,
+        "localization_space": "model_512",
+        "bootstrap_samples": 1000,
+        "seed": 20260725,
+        "mask_threshold": 0.5,
+        "threshold_operator": ">",
+        "pixel_ap_macro": {
+          "estimate": 0.009956468102600983,
+          "ci95_percentile": [
+            0.009956468102600983,
+            0.009956468102600983
+          ]
+        },
+        "pixel_f1_macro_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "pixel_iou_macro_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "pixel_f1_micro_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "pixel_iou_micro_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "real_false_positive_area_fraction_macro_at_0_5": {
+          "estimate": 0.00116729736328125,
+          "ci95_percentile": [
+            0.00116729736328125,
+            0.00116729736328125
+          ]
+        },
+        "real_false_positive_area_fraction_micro_at_0_5": {
+          "estimate": 0.00116729736328125,
+          "ci95_percentile": [
+            0.00116729736328125,
+            0.00116729736328125
+          ]
+        },
+        "forged_micro_at_threshold": {
+          "threshold": 0.5,
+          "threshold_operator": ">",
+          "tp": 0,
+          "fp": 194,
+          "fn": 292,
+          "tn": 261658,
+          "pixels": 262144,
+          "target_positive_pixels": 292,
+          "predicted_positive_pixels": 194,
+          "predicted_positive_fraction": 0.00074005126953125,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "iou": 0.0,
+          "mcc": -0.000908772426904138
+        },
+        "edit_fraction": {
+          "min": 0.0011138916015625,
+          "median": 0.0011138916015625,
+          "mean": 0.0011138916015625,
+          "max": 0.0011138916015625
+        },
+        "pixel_ap_median": 0.009956468102600983
+      }
+    }
+  },
+  "by_edit_fraction_quintile": {
+    "q1_smallestlargest": {
+      "native": {
+        "pairs": 1,
+        "images": 2,
+        "localization_space": "native",
+        "bootstrap_samples": 1000,
+        "seed": 20260825,
+        "mask_threshold": 0.5,
+        "threshold_operator": ">",
+        "pixel_ap_macro": {
+          "estimate": 0.009770278436460774,
+          "ci95_percentile": [
+            0.009770278436460774,
+            0.009770278436460774
+          ]
+        },
+        "pixel_f1_macro_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "pixel_iou_macro_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "pixel_f1_micro_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "pixel_iou_micro_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "real_false_positive_area_fraction_macro_at_0_5": {
+          "estimate": 0.0011604938271604938,
+          "ci95_percentile": [
+            0.0011604938271604938,
+            0.0011604938271604938
+          ]
+        },
+        "real_false_positive_area_fraction_micro_at_0_5": {
+          "estimate": 0.0011604938271604938,
+          "ci95_percentile": [
+            0.0011604938271604938,
+            0.0011604938271604938
+          ]
+        },
+        "forged_micro_at_threshold": {
+          "threshold": 0.5,
+          "threshold_operator": ">",
+          "tp": 0,
+          "fp": 1799,
+          "fn": 2697,
+          "tn": 2425504,
+          "pixels": 2430000,
+          "target_positive_pixels": 2697,
+          "predicted_positive_pixels": 1799,
+          "predicted_positive_fraction": 0.0007403292181069959,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "iou": 0.0,
+          "mcc": -0.0009073017358224257
+        },
+        "edit_fraction": {
+          "min": 0.0011098765432098765,
+          "median": 0.0011098765432098765,
+          "mean": 0.0011098765432098765,
+          "max": 0.0011098765432098765
+        },
+        "pixel_ap_median": 0.009770278436460774
+      },
+      "model_512": {
+        "pairs": 1,
+        "images": 2,
+        "localization_space": "model_512",
+        "bootstrap_samples": 1000,
+        "seed": 20260825,
+        "mask_threshold": 0.5,
+        "threshold_operator": ">",
+        "pixel_ap_macro": {
+          "estimate": 0.009956468102600983,
+          "ci95_percentile": [
+            0.009956468102600983,
+            0.009956468102600983
+          ]
+        },
+        "pixel_f1_macro_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "pixel_iou_macro_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "pixel_f1_micro_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "pixel_iou_micro_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "real_false_positive_area_fraction_macro_at_0_5": {
+          "estimate": 0.00116729736328125,
+          "ci95_percentile": [
+            0.00116729736328125,
+            0.00116729736328125
+          ]
+        },
+        "real_false_positive_area_fraction_micro_at_0_5": {
+          "estimate": 0.00116729736328125,
+          "ci95_percentile": [
+            0.00116729736328125,
+            0.00116729736328125
+          ]
+        },
+        "forged_micro_at_threshold": {
+          "threshold": 0.5,
+          "threshold_operator": ">",
+          "tp": 0,
+          "fp": 194,
+          "fn": 292,
+          "tn": 261658,
+          "pixels": 262144,
+          "target_positive_pixels": 292,
+          "predicted_positive_pixels": 194,
+          "predicted_positive_fraction": 0.00074005126953125,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "iou": 0.0,
+          "mcc": -0.000908772426904138
+        },
+        "edit_fraction": {
+          "min": 0.0011138916015625,
+          "median": 0.0011138916015625,
+          "mean": 0.0011138916015625,
+          "max": 0.0011138916015625
+        },
+        "pixel_ap_median": 0.009956468102600983
+      }
+    }
+  },
+  "provenance_integrity": {
+    "status": "ok",
+    "run_manifest_fingerprint": "b2fda8fd35475f2478d09f9c4e6fbc3d07d856ee34695ec1f27594f124505fcc",
+    "inputs_sha256": "e4cb3d6a78fa68f06341457e2234c630a455a9b6b9789e59abf45c15b292060a",
+    "checkpoint_sha256": "6d8fcd7ce7616d819bec6a9ed461b27187101e67247f8b2d2483fdc1f25f685a",
+    "checkpoint_bytes": 1023886070,
+    "physical_result_rows_validated": 2,
+    "latest_result_rows_validated": 2,
+    "expected_unique_result_ids": 2,
+    "full_mouse_unique_550": false,
+    "pinned_source_files_validated": 8,
+    "adapter_contract_files_validated": 3,
+    "checks": [
+      "immutable manifest fingerprint and canonical release hashes",
+      "official clean source commit and pinned source-file hashes",
+      "official checkpoint SHA-256, byte size, and strict-load schema",
+      "official preprocessing, output, native adapter, and T2-only contracts",
+      "every physical result row identity and provenance",
+      "latest-row coverage and every aggregate summary metric independently recomputed",
+      "adapter file hashes"
+    ]
+  },
+  "result_history": {
+    "physical_rows": 2,
+    "unique_ids": 2,
+    "duplicate_rows": 0,
+    "ids_with_multiple_rows": 0,
+    "recovered_error_to_ok": 0,
+    "recovered_ids": [],
+    "historical_status_counts": {
+      "ok": 2
+    },
+    "latest_status_counts": {
+      "ok": 2
+    },
+    "duplicate_histories": [],
+    "latest_policy": "last physical JSONL row for each sample id"
+  },
+  "prefix_reproducibility": null,
+  "artifact_integrity": {
+    "status": "ok",
+    "checked_files": 11,
+    "pairs": 1,
+    "result_images": 2,
+    "numeric_tolerances": {
+      "model_probability_absolute": 5e-07,
+      "native_restore_absolute": 3e-06,
+      "relative": 1e-07,
+      "reason": "bounded float32 CUDA-versus-independent-CPU interpolation rounding only"
+    },
+    "observed_maximum_absolute_error": {
+      "model_probability_replay": 8.940696716308594e-08,
+      "native_probability_replay": 1.043081283569336e-06,
+      "threshold_mask_disagreements": 0
+    },
+    "checks": [
+      "canonical images, GT masks, and all artifact hashes",
+      "independent RGB decode, stretch resize, normalization, and tensor hash",
+      "captured internal logits are finite float32 [128,128]",
+      "official model probability replays align_corners=True resize then sigmoid",
+      "native probability replays align_corners=False probability restore",
+      "native PNG bit-exactly equals strict probability > 0.5",
+      "model GT uses nearest resize and both spaces' metrics are recomputed"
+    ]
+  },
+  "localization_threshold_diagnostic": null,
+  "box_hit_at_native_mask_threshold_0_5": {
+    "task_scope": "T2_pixel_localization_only",
+    "mask_threshold": 0.5,
+    "threshold_operator": ">",
+    "box_definition": "canonical edit_region_xyxy half-open rectangle",
+    "any_overlap": {
+      "hits": 0,
+      "images": 1,
+      "rate": 0.0
+    },
+    "iou_greater_than_0_3": {
+      "hits": 0,
+      "images": 1,
+      "rate": 0.0
+    },
+    "box_iou": {
+      "count": 1,
+      "mean": 0.0,
+      "median": 0.0,
+      "min": 0.0,
+      "max": 0.0
+    },
+    "box_pixel_coverage": {
+      "count": 1,
+      "mean": 0.0,
+      "median": 0.0,
+      "min": 0.0,
+      "max": 0.0
+    },
+    "predicted_pixels_inside_box_fraction": {
+      "count": 1,
+      "mean": 0.0,
+      "median": 0.0,
+      "min": 0.0,
+      "max": 0.0
+    }
+  }
+}

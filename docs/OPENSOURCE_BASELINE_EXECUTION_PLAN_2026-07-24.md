@@ -48,7 +48,7 @@ license.
 
 ## 2. Track A — local manipulation detection/localization
 
-### Completed full runs (6)
+### Completed full runs (8)
 
 1. [x] OpenSDI / MaskCLIP
 2. [x] TruFor
@@ -58,19 +58,20 @@ license.
    synthetic-pretrained checkpoint)
 6. [x] [IML-ViT](IMLVIT_CAT_PROTOCOL_MOUSE_FULL_RESULTS_2026-07-24.md)
    (official CAT/TruFor-protocol checkpoint; native T2 only)
+7. [x] [HiFi-IFDL](HIFI_IFDL_GENERAL750001_MOUSE_FULL_RESULTS_2026-07-24.md)
+   (official general checkpoint `750001`; native T1 + T2)
+8. [x] [Mesorch](MESORCH_EPOCH98_MOUSE_FULL_RESULTS_2026-07-24.md)
+   (official unpruned checkpoint `mesorch-98.pth`; native T2 only)
 
-### Frozen main-table queue (5)
+### Frozen main-table queue (3)
 
-1. [ ] **HiFi-IFDL** — general-forgery checkpoint covering
-   GAN/diffusion content; native T1 + T2.
-2. [ ] **Mesorch** — pre-register `mesorch-98.pth`; native T2.
-3. [ ] **RelayFormer** — official paper image-only checkpoint; native T2.
-4. [ ] **DINOv3-IML** — CAT ViT-L LoRA-r32 checkpoint; native T2; label as a
+1. [ ] **RelayFormer** — official paper image-only checkpoint; native T2.
+2. [ ] **DINOv3-IML** — CAT ViT-L LoRA-r32 checkpoint; native T2; label as a
    non-peer-reviewed 2026 preprint.
-5. [ ] **NFA-ViT / BR-Gen** — official BR-Gen checkpoint; native T1 + T2;
+3. [ ] **NFA-ViT / BR-Gen** — official BR-Gen checkpoint; native T1 + T2;
    training manipulations closely match localized generative editing.
 
-After this queue, the local main table contains 11 methods: 6 completed and 5
+After this queue, the local main table contains 11 methods: 8 completed and 3
 new runs.
 
 ### Appendix-only candidates
@@ -127,8 +128,8 @@ Run one method at a time:
 
 1. PSCC-Net — completed 2026-07-24
 2. IML-ViT — completed 2026-07-24
-3. HiFi-IFDL
-4. Mesorch
+3. HiFi-IFDL — completed 2026-07-24
+4. Mesorch — completed 2026-07-24
 5. RelayFormer
 6. DINOv3-IML
 7. NFA-ViT / BR-Gen
@@ -143,6 +144,6 @@ Run one method at a time:
 16. LTD
 17. CNNDetection
 
-The immediate active item is **HiFi-IFDL**.  A method is complete only when its
+The immediate active item is **RelayFormer**.  A method is complete only when its
 runner, tests, source/checkpoint provenance, smoke output, 275-pair output,
 machine-readable summary, and audited result report are all present.

@@ -1,0 +1,1543 @@
+{
+  "schema_version": "mesorch_posthoc_analysis_v1",
+  "run_id": "mesorch_epoch98_mouse_canonical_v1_full275_20260724",
+  "created_at": "2026-07-24T12:58:21.055464+00:00",
+  "task_scope": {
+    "primary_task": "T2_localization",
+    "valid_for_t1": false,
+    "valid_for_t2": true,
+    "primary_localization_space": "native",
+    "auxiliary_localization_space": "model_512",
+    "mask_threshold": 0.5,
+    "threshold_operator": ">",
+    "t1_policy": "unsupported_no_derived_image_score"
+  },
+  "sources": {
+    "results_path": "results/opensource/mesorch/mesorch_epoch98_mouse_canonical_v1_full275_20260724.jsonl",
+    "results_sha256": "cfdd025541871116044f60f584ef7abe4c3b194128e1977af080b0531da47a91",
+    "run_manifest_path": "results/opensource/mesorch/mesorch_epoch98_mouse_canonical_v1_full275_20260724.run_manifest.json",
+    "run_manifest_sha256": "6d079302fac32ae3a159e2f1f7133d04f22e02816550f4e861b1a1f74e0e4d1f",
+    "summary_path": "results/opensource/mesorch/mesorch_epoch98_mouse_canonical_v1_full275_20260724.summary.json",
+    "summary_sha256": "5e467e1542faaeeb64ba21e860f2d123ee8e6ba4b7b6ef4028cfacbae337aec2",
+    "inputs_path": "outputs/opensource/mouse_canonical_v1/inputs.jsonl",
+    "inputs_sha256": "e4cb3d6a78fa68f06341457e2234c630a455a9b6b9789e59abf45c15b292060a"
+  },
+  "bootstrap": {
+    "unit": "paired task (real and forged resampled together)",
+    "iterations": 1000,
+    "seed": 20260724,
+    "interval": "2.5th and 97.5th percentile",
+    "spaces": [
+      "native",
+      "model_512"
+    ],
+    "metrics_scope": "T2 localization only"
+  },
+  "overall": {
+    "native": {
+      "pairs": 275,
+      "images": 550,
+      "localization_space": "native",
+      "bootstrap_samples": 1000,
+      "seed": 20260724,
+      "mask_threshold": 0.5,
+      "threshold_operator": ">",
+      "pixel_ap_macro": {
+        "estimate": 0.09220020992952213,
+        "ci95_percentile": [
+          0.06767416208984887,
+          0.12268442824604904
+        ]
+      },
+      "pixel_f1_macro_at_0_5": {
+        "estimate": 0.04536281459507668,
+        "ci95_percentile": [
+          0.02962492347295997,
+          0.06501840614943594
+        ]
+      },
+      "pixel_iou_macro_at_0_5": {
+        "estimate": 0.031370739236703464,
+        "ci95_percentile": [
+          0.019578106694196917,
+          0.04592341544522549
+        ]
+      },
+      "pixel_f1_micro_at_0_5": {
+        "estimate": 0.036127282366140226,
+        "ci95_percentile": [
+          0.017653041618075394,
+          0.06398930196424342
+        ]
+      },
+      "pixel_iou_micro_at_0_5": {
+        "estimate": 0.018395938821161282,
+        "ci95_percentile": [
+          0.008905122055194451,
+          0.03305214275374479
+        ]
+      },
+      "real_false_positive_area_fraction_macro_at_0_5": {
+        "estimate": 0.00357825251726417,
+        "ci95_percentile": [
+          0.0021876323209582974,
+          0.005544810084516123
+        ]
+      },
+      "real_false_positive_area_fraction_micro_at_0_5": {
+        "estimate": 0.0034709091540732644,
+        "ci95_percentile": [
+          0.002223516410329347,
+          0.0048513152082324835
+        ]
+      },
+      "forged_micro_at_threshold": {
+        "threshold": 0.5,
+        "threshold_operator": ">",
+        "tp": 36629,
+        "fp": 1395243,
+        "fn": 559274,
+        "tn": 440261858,
+        "pixels": 442253004,
+        "target_positive_pixels": 595903,
+        "predicted_positive_pixels": 1431872,
+        "predicted_positive_fraction": 0.003237676142500549,
+        "precision": 0.025581197201984533,
+        "recall": 0.061468057720803555,
+        "f1": 0.036127282366140226,
+        "iou": 0.018395938821161282,
+        "mcc": 0.03765150181432933
+      },
+      "edit_fraction": {
+        "min": 0.0002486111111111111,
+        "median": 0.0011263888888888888,
+        "mean": 0.0016845802356947838,
+        "max": 0.01292724609375
+      },
+      "pixel_ap_median": 0.004910182090000876
+    },
+    "model_512": {
+      "pairs": 275,
+      "images": 550,
+      "localization_space": "model_512",
+      "bootstrap_samples": 1000,
+      "seed": 20260724,
+      "mask_threshold": 0.5,
+      "threshold_operator": ">",
+      "pixel_ap_macro": {
+        "estimate": 0.09248826705393552,
+        "ci95_percentile": [
+          0.06821585317357638,
+          0.12301309444944278
+        ]
+      },
+      "pixel_f1_macro_at_0_5": {
+        "estimate": 0.04570326266494995,
+        "ci95_percentile": [
+          0.029853773188414676,
+          0.06552118613123349
+        ]
+      },
+      "pixel_iou_macro_at_0_5": {
+        "estimate": 0.03163169879397002,
+        "ci95_percentile": [
+          0.01983235980949451,
+          0.04631796772692407
+        ]
+      },
+      "pixel_f1_micro_at_0_5": {
+        "estimate": 0.07105322381005964,
+        "ci95_percentile": [
+          0.039084699899450494,
+          0.11434973295444127
+        ]
+      },
+      "pixel_iou_micro_at_0_5": {
+        "estimate": 0.03683524329810909,
+        "ci95_percentile": [
+          0.01993186597032295,
+          0.06064206918457258
+        ]
+      },
+      "real_false_positive_area_fraction_macro_at_0_5": {
+        "estimate": 0.0035865090110085225,
+        "ci95_percentile": [
+          0.0021947763616388494,
+          0.00555462681163441
+        ]
+      },
+      "real_false_positive_area_fraction_micro_at_0_5": {
+        "estimate": 0.0035865090110085225,
+        "ci95_percentile": [
+          0.0021947763616388494,
+          0.00555462681163441
+        ]
+      },
+      "forged_micro_at_threshold": {
+        "threshold": 0.5,
+        "threshold_operator": ">",
+        "tp": 12629,
+        "fp": 221553,
+        "fn": 108669,
+        "tn": 71746749,
+        "pixels": 72089600,
+        "target_positive_pixels": 121298,
+        "predicted_positive_pixels": 234182,
+        "predicted_positive_fraction": 0.0032484852183948866,
+        "precision": 0.053928141360138696,
+        "recall": 0.10411548417945886,
+        "f1": 0.07105322381005964,
+        "iou": 0.03683524329810909,
+        "mcc": 0.07277318656176023
+      },
+      "edit_fraction": {
+        "min": 0.00025177001953125,
+        "median": 0.00112152099609375,
+        "mean": 0.0016826005415482954,
+        "max": 0.01294708251953125
+      },
+      "pixel_ap_median": 0.0049641577669903665
+    }
+  },
+  "by_domain": {
+    "lodging": {
+      "native": {
+        "pairs": 147,
+        "images": 294,
+        "localization_space": "native",
+        "bootstrap_samples": 1000,
+        "seed": 20260725,
+        "mask_threshold": 0.5,
+        "threshold_operator": ">",
+        "pixel_ap_macro": {
+          "estimate": 0.13641446803143326,
+          "ci95_percentile": [
+            0.09687147152359035,
+            0.17926927299158976
+          ]
+        },
+        "pixel_f1_macro_at_0_5": {
+          "estimate": 0.0669912229154906,
+          "ci95_percentile": [
+            0.039560662055720654,
+            0.09586892247828263
+          ]
+        },
+        "pixel_iou_macro_at_0_5": {
+          "estimate": 0.045320825476173304,
+          "ci95_percentile": [
+            0.025629287582315773,
+            0.06565394213922726
+          ]
+        },
+        "pixel_f1_micro_at_0_5": {
+          "estimate": 0.037989654346869,
+          "ci95_percentile": [
+            0.01657899715515477,
+            0.07120002041062526
+          ]
+        },
+        "pixel_iou_micro_at_0_5": {
+          "estimate": 0.01936261673188205,
+          "ci95_percentile": [
+            0.008358789196484785,
+            0.0369141544928467
+          ]
+        },
+        "real_false_positive_area_fraction_macro_at_0_5": {
+          "estimate": 0.0034757640390224538,
+          "ci95_percentile": [
+            0.0020154224581313144,
+            0.005159218848195074
+          ]
+        },
+        "real_false_positive_area_fraction_micro_at_0_5": {
+          "estimate": 0.003978754634324267,
+          "ci95_percentile": [
+            0.0021223171532159593,
+            0.006128371007323629
+          ]
+        },
+        "forged_micro_at_threshold": {
+          "threshold": 0.5,
+          "threshold_operator": ">",
+          "tp": 21184,
+          "fp": 796476,
+          "fn": 276407,
+          "tn": 222101903,
+          "pixels": 223195970,
+          "target_positive_pixels": 297591,
+          "predicted_positive_pixels": 817660,
+          "predicted_positive_fraction": 0.0036634173995166667,
+          "precision": 0.025908079152704058,
+          "recall": 0.07118494846954376,
+          "f1": 0.037989654346869,
+          "iou": 0.01936261673188205,
+          "mcc": 0.040836873291853315
+        },
+        "edit_fraction": {
+          "min": 0.00025673050235914516,
+          "median": 0.0011379310344827587,
+          "mean": 0.0017604505022597971,
+          "max": 0.01292724609375
+        },
+        "pixel_ap_median": 0.010016039384387084
+      },
+      "model_512": {
+        "pairs": 147,
+        "images": 294,
+        "localization_space": "model_512",
+        "bootstrap_samples": 1000,
+        "seed": 20260725,
+        "mask_threshold": 0.5,
+        "threshold_operator": ">",
+        "pixel_ap_macro": {
+          "estimate": 0.1369511783779443,
+          "ci95_percentile": [
+            0.09736643734469069,
+            0.18004585423588684
+          ]
+        },
+        "pixel_f1_macro_at_0_5": {
+          "estimate": 0.06760641011834205,
+          "ci95_percentile": [
+            0.03987661278955389,
+            0.09655844491746879
+          ]
+        },
+        "pixel_iou_macro_at_0_5": {
+          "estimate": 0.045802884533385484,
+          "ci95_percentile": [
+            0.026030272937580565,
+            0.06629118161671536
+          ]
+        },
+        "pixel_f1_micro_at_0_5": {
+          "estimate": 0.08306461244476293,
+          "ci95_percentile": [
+            0.04109387372503235,
+            0.13767046500621763
+          ]
+        },
+        "pixel_iou_micro_at_0_5": {
+          "estimate": 0.04333198342730756,
+          "ci95_percentile": [
+            0.020977969933028917,
+            0.07392379414687275
+          ]
+        },
+        "real_false_positive_area_fraction_macro_at_0_5": {
+          "estimate": 0.0034842458712000426,
+          "ci95_percentile": [
+            0.0020209098348812184,
+            0.005166543584291626
+          ]
+        },
+        "real_false_positive_area_fraction_micro_at_0_5": {
+          "estimate": 0.0034842458712000426,
+          "ci95_percentile": [
+            0.0020209098348812184,
+            0.005166543584291626
+          ]
+        },
+        "forged_micro_at_threshold": {
+          "threshold": 0.5,
+          "threshold_operator": ">",
+          "tp": 8346,
+          "fp": 124860,
+          "fn": 59400,
+          "tn": 38342562,
+          "pixels": 38535168,
+          "target_positive_pixels": 67746,
+          "predicted_positive_pixels": 133206,
+          "predicted_positive_fraction": 0.0034567385303730866,
+          "precision": 0.06265483536777623,
+          "recall": 0.12319546541493225,
+          "f1": 0.08306461244476293,
+          "iou": 0.04333198342730756,
+          "mcc": 0.08561474756933327
+        },
+        "edit_fraction": {
+          "min": 0.00025177001953125,
+          "median": 0.0011444091796875,
+          "mean": 0.0017580304827008928,
+          "max": 0.01294708251953125
+        },
+        "pixel_ap_median": 0.010072652087892995
+      }
+    },
+    "restaurant": {
+      "native": {
+        "pairs": 128,
+        "images": 256,
+        "localization_space": "native",
+        "bootstrap_samples": 1000,
+        "seed": 20260726,
+        "mask_threshold": 0.5,
+        "threshold_operator": ">",
+        "pixel_ap_macro": {
+          "estimate": 0.04142289789060857,
+          "ci95_percentile": [
+            0.017932422887752923,
+            0.07118120254011649
+          ]
+        },
+        "pixel_f1_macro_at_0_5": {
+          "estimate": 0.020523939414601303,
+          "ci95_percentile": [
+            0.004516627340563081,
+            0.04317123436227016
+          ]
+        },
+        "pixel_iou_macro_at_0_5": {
+          "estimate": 0.01534993707106231,
+          "ci95_percentile": [
+            0.002594572529378796,
+            0.033227822555568914
+          ]
+        },
+        "pixel_f1_micro_at_0_5": {
+          "estimate": 0.033851164462523724,
+          "ci95_percentile": [
+            0.0036280905218481793,
+            0.08527788270026115
+          ]
+        },
+        "pixel_iou_micro_at_0_5": {
+          "estimate": 0.017216989808032514,
+          "ci95_percentile": [
+            0.0018173447152976402,
+            0.04453799469470328
+          ]
+        },
+        "real_false_positive_area_fraction_macro_at_0_5": {
+          "estimate": 0.0036959541289948907,
+          "ci95_percentile": [
+            0.0013559613812533892,
+            0.006808474440078802
+          ]
+        },
+        "real_false_positive_area_fraction_micro_at_0_5": {
+          "estimate": 0.0029534682734725605,
+          "ci95_percentile": [
+            0.001374436133526936,
+            0.004768006146672929
+          ]
+        },
+        "forged_micro_at_threshold": {
+          "threshold": 0.5,
+          "threshold_operator": ">",
+          "tp": 15445,
+          "fp": 598767,
+          "fn": 282867,
+          "tn": 218159955,
+          "pixels": 219057034,
+          "target_positive_pixels": 298312,
+          "predicted_positive_pixels": 614212,
+          "predicted_positive_fraction": 0.002803890789464446,
+          "precision": 0.02514604078070764,
+          "recall": 0.051774652042157206,
+          "f1": 0.033851164462523724,
+          "iou": 0.017216989808032514,
+          "mcc": 0.03419941628987466
+        },
+        "edit_fraction": {
+          "min": 0.0002486111111111111,
+          "median": 0.0010983539094650205,
+          "mean": 0.001597447976436526,
+          "max": 0.01141357421875
+        },
+        "pixel_ap_median": 0.0030423937700369726
+      },
+      "model_512": {
+        "pairs": 128,
+        "images": 256,
+        "localization_space": "model_512",
+        "bootstrap_samples": 1000,
+        "seed": 20260726,
+        "mask_threshold": 0.5,
+        "threshold_operator": ">",
+        "pixel_ap_macro": {
+          "estimate": 0.04142539233026919,
+          "ci95_percentile": [
+            0.018024689926048575,
+            0.07099459233630702
+          ]
+        },
+        "pixel_f1_macro_at_0_5": {
+          "estimate": 0.020548866761444955,
+          "ci95_percentile": [
+            0.004572250242309483,
+            0.04319076175834632
+          ]
+        },
+        "pixel_iou_macro_at_0_5": {
+          "estimate": 0.01535697767136008,
+          "ci95_percentile": [
+            0.0026256383442655644,
+            0.033201956420269754
+          ]
+        },
+        "pixel_f1_micro_at_0_5": {
+          "estimate": 0.055433319527852555,
+          "ci95_percentile": [
+            0.009104534927295871,
+            0.12415662899240112
+          ]
+        },
+        "pixel_iou_micro_at_0_5": {
+          "estimate": 0.028506772271955805,
+          "ci95_percentile": [
+            0.004573085390287715,
+            0.06618710092249683
+          ]
+        },
+        "real_false_positive_area_fraction_macro_at_0_5": {
+          "estimate": 0.0037039518356323242,
+          "ci95_percentile": [
+            0.0013614289462566375,
+            0.006820035725831984
+          ]
+        },
+        "real_false_positive_area_fraction_micro_at_0_5": {
+          "estimate": 0.0037039518356323242,
+          "ci95_percentile": [
+            0.0013614289462566375,
+            0.006820035725831984
+          ]
+        },
+        "forged_micro_at_threshold": {
+          "threshold": 0.5,
+          "threshold_operator": ">",
+          "tp": 4283,
+          "fp": 96693,
+          "fn": 49269,
+          "tn": 33404187,
+          "pixels": 33554432,
+          "target_positive_pixels": 53552,
+          "predicted_positive_pixels": 100976,
+          "predicted_positive_fraction": 0.003009319305419922,
+          "precision": 0.042416019648233244,
+          "recall": 0.0799783388108754,
+          "f1": 0.055433319527852555,
+          "iou": 0.028506772271955805,
+          "mcc": 0.05618184653186503
+        },
+        "edit_fraction": {
+          "min": 0.000255584716796875,
+          "median": 0.001094818115234375,
+          "mean": 0.0015959739685058594,
+          "max": 0.01143646240234375
+        },
+        "pixel_ap_median": 0.003100552417250176
+      }
+    }
+  },
+  "by_edit_fraction_quintile": {
+    "q1_smallest": {
+      "native": {
+        "pairs": 55,
+        "images": 110,
+        "localization_space": "native",
+        "bootstrap_samples": 1000,
+        "seed": 20260825,
+        "mask_threshold": 0.5,
+        "threshold_operator": ">",
+        "pixel_ap_macro": {
+          "estimate": 0.01010352152061271,
+          "ci95_percentile": [
+            0.002711390489982872,
+            0.023438654714651695
+          ]
+        },
+        "pixel_f1_macro_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "pixel_iou_macro_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "pixel_f1_micro_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "pixel_iou_micro_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "real_false_positive_area_fraction_macro_at_0_5": {
+          "estimate": 0.00472880105530226,
+          "ci95_percentile": [
+            0.0017985446174068277,
+            0.00830854884522739
+          ]
+        },
+        "real_false_positive_area_fraction_micro_at_0_5": {
+          "estimate": 0.00486263268211928,
+          "ci95_percentile": [
+            0.0017447127424635867,
+            0.008739700946041061
+          ]
+        },
+        "forged_micro_at_threshold": {
+          "threshold": 0.5,
+          "threshold_operator": ">",
+          "tp": 0,
+          "fp": 550254,
+          "fn": 58325,
+          "tn": 114211527,
+          "pixels": 114820106,
+          "target_positive_pixels": 58325,
+          "predicted_positive_pixels": 550254,
+          "predicted_positive_fraction": 0.004792313987238437,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "iou": 0.0,
+          "mcc": -0.0015643881071596398
+        },
+        "edit_fraction": {
+          "min": 0.0002486111111111111,
+          "median": 0.0005347222222222222,
+          "mean": 0.0005073585542357395,
+          "max": 0.0006723958333333333
+        },
+        "pixel_ap_median": 0.001563505223692316
+      },
+      "model_512": {
+        "pairs": 55,
+        "images": 110,
+        "localization_space": "model_512",
+        "bootstrap_samples": 1000,
+        "seed": 20260825,
+        "mask_threshold": 0.5,
+        "threshold_operator": ">",
+        "pixel_ap_macro": {
+          "estimate": 0.010527864915244134,
+          "ci95_percentile": [
+            0.0028865496539420173,
+            0.02435190109493086
+          ]
+        },
+        "pixel_f1_macro_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "pixel_iou_macro_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "pixel_f1_micro_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "pixel_iou_micro_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "real_false_positive_area_fraction_macro_at_0_5": {
+          "estimate": 0.004736536199396307,
+          "ci95_percentile": [
+            0.0018048234419389205,
+            0.008320163380015977
+          ]
+        },
+        "real_false_positive_area_fraction_micro_at_0_5": {
+          "estimate": 0.004736536199396307,
+          "ci95_percentile": [
+            0.0018048234419389205,
+            0.008320163380015977
+          ]
+        },
+        "forged_micro_at_threshold": {
+          "threshold": 0.5,
+          "threshold_operator": ">",
+          "tp": 0,
+          "fp": 67191,
+          "fn": 7294,
+          "tn": 14343435,
+          "pixels": 14417920,
+          "target_positive_pixels": 7294,
+          "predicted_positive_pixels": 67191,
+          "predicted_positive_fraction": 0.004660242254083807,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "iou": 0.0,
+          "mcc": -0.0015394302869983154
+        },
+        "edit_fraction": {
+          "min": 0.00025177001953125,
+          "median": 0.00052642822265625,
+          "mean": 0.0005058982155539773,
+          "max": 0.000667572021484375
+        },
+        "pixel_ap_median": 0.0015306445760862567
+      }
+    },
+    "q2": {
+      "native": {
+        "pairs": 55,
+        "images": 110,
+        "localization_space": "native",
+        "bootstrap_samples": 1000,
+        "seed": 20260826,
+        "mask_threshold": 0.5,
+        "threshold_operator": ">",
+        "pixel_ap_macro": {
+          "estimate": 0.01896779573677734,
+          "ci95_percentile": [
+            0.0058218265530927205,
+            0.035615411804121616
+          ]
+        },
+        "pixel_f1_macro_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "pixel_iou_macro_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "pixel_f1_micro_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "pixel_iou_micro_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "real_false_positive_area_fraction_macro_at_0_5": {
+          "estimate": 0.0014805078089358329,
+          "ci95_percentile": [
+            0.0005696247800751091,
+            0.002622500184915386
+          ]
+        },
+        "real_false_positive_area_fraction_micro_at_0_5": {
+          "estimate": 0.0014664227732812572,
+          "ci95_percentile": [
+            0.0005483310531758998,
+            0.002670261878530203
+          ]
+        },
+        "forged_micro_at_threshold": {
+          "threshold": 0.5,
+          "threshold_operator": ">",
+          "tp": 0,
+          "fp": 139526,
+          "fn": 79188,
+          "tn": 98982555,
+          "pixels": 99201269,
+          "target_positive_pixels": 79188,
+          "predicted_positive_pixels": 139526,
+          "predicted_positive_fraction": 0.0014064941044252166,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "iou": 0.0,
+          "mcc": -0.0010607647294410064
+        },
+        "edit_fraction": {
+          "min": 0.0006726582845052084,
+          "median": 0.0007779947916666666,
+          "mean": 0.000794618878789085,
+          "max": 0.0009384259259259259
+        },
+        "pixel_ap_median": 0.0032005228152984207
+      },
+      "model_512": {
+        "pairs": 55,
+        "images": 110,
+        "localization_space": "model_512",
+        "bootstrap_samples": 1000,
+        "seed": 20260826,
+        "mask_threshold": 0.5,
+        "threshold_operator": ">",
+        "pixel_ap_macro": {
+          "estimate": 0.019512245541251538,
+          "ci95_percentile": [
+            0.005936498901792109,
+            0.03662413950049309
+          ]
+        },
+        "pixel_f1_macro_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "pixel_iou_macro_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "pixel_f1_micro_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "pixel_iou_micro_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "real_false_positive_area_fraction_macro_at_0_5": {
+          "estimate": 0.0014860673384232955,
+          "ci95_percentile": [
+            0.0005719236894087358,
+            0.002630351673473011
+          ]
+        },
+        "real_false_positive_area_fraction_micro_at_0_5": {
+          "estimate": 0.0014860673384232955,
+          "ci95_percentile": [
+            0.0005719236894087358,
+            0.002630351673473011
+          ]
+        },
+        "forged_micro_at_threshold": {
+          "threshold": 0.5,
+          "threshold_operator": ">",
+          "tp": 0,
+          "fp": 20797,
+          "fn": 11458,
+          "tn": 14385665,
+          "pixels": 14417920,
+          "target_positive_pixels": 11458,
+          "predicted_positive_pixels": 20797,
+          "predicted_positive_fraction": 0.001442441073330966,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "iou": 0.0,
+          "mcc": -0.0010718604053956457
+        },
+        "edit_fraction": {
+          "min": 0.000667572021484375,
+          "median": 0.0007781982421875,
+          "mean": 0.0007947054776278409,
+          "max": 0.000946044921875
+        },
+        "pixel_ap_median": 0.0033484962916914517
+      }
+    },
+    "q3": {
+      "native": {
+        "pairs": 55,
+        "images": 110,
+        "localization_space": "native",
+        "bootstrap_samples": 1000,
+        "seed": 20260827,
+        "mask_threshold": 0.5,
+        "threshold_operator": ">",
+        "pixel_ap_macro": {
+          "estimate": 0.035715920464150376,
+          "ci95_percentile": [
+            0.007441116740380373,
+            0.08138297275846519
+          ]
+        },
+        "pixel_f1_macro_at_0_5": {
+          "estimate": 0.014971142727802408,
+          "ci95_percentile": [
+            0.0,
+            0.03806562130641529
+          ]
+        },
+        "pixel_iou_macro_at_0_5": {
+          "estimate": 0.009333673266596572,
+          "ci95_percentile": [
+            0.0,
+            0.02393726472153688
+          ]
+        },
+        "pixel_f1_micro_at_0_5": {
+          "estimate": 0.009717534600312591,
+          "ci95_percentile": [
+            0.0,
+            0.026347608625269123
+          ]
+        },
+        "pixel_iou_micro_at_0_5": {
+          "estimate": 0.0048824901838047,
+          "ci95_percentile": [
+            0.0,
+            0.013349670286242963
+          ]
+        },
+        "real_false_positive_area_fraction_macro_at_0_5": {
+          "estimate": 0.0026683405197208496,
+          "ci95_percentile": [
+            0.0009585934372168772,
+            0.004783707291401166
+          ]
+        },
+        "real_false_positive_area_fraction_micro_at_0_5": {
+          "estimate": 0.003023660293978727,
+          "ci95_percentile": [
+            0.0010172932768486712,
+            0.005517697553378829
+          ]
+        },
+        "forged_micro_at_threshold": {
+          "threshold": 0.5,
+          "threshold_operator": ">",
+          "tp": 1716,
+          "fp": 250112,
+          "fn": 99632,
+          "tn": 90824457,
+          "pixels": 91175917,
+          "target_positive_pixels": 101348,
+          "predicted_positive_pixels": 251828,
+          "predicted_positive_fraction": 0.0027620012859316785,
+          "precision": 0.006814174754197309,
+          "recall": 0.01693175987685993,
+          "f1": 0.009717534600312591,
+          "iou": 0.0048824901838047,
+          "mcc": 0.00900658460186521
+        },
+        "edit_fraction": {
+          "min": 0.0009533355301698887,
+          "median": 0.0011263888888888888,
+          "mean": 0.0011215761459197108,
+          "max": 0.0012953016493055555
+        },
+        "pixel_ap_median": 0.003813251846052145
+      },
+      "model_512": {
+        "pairs": 55,
+        "images": 110,
+        "localization_space": "model_512",
+        "bootstrap_samples": 1000,
+        "seed": 20260827,
+        "mask_threshold": 0.5,
+        "threshold_operator": ">",
+        "pixel_ap_macro": {
+          "estimate": 0.036272190887668525,
+          "ci95_percentile": [
+            0.007700954804551651,
+            0.08232100232770517
+          ]
+        },
+        "pixel_f1_macro_at_0_5": {
+          "estimate": 0.015622490252299727,
+          "ci95_percentile": [
+            0.0,
+            0.04017632386840737
+          ]
+        },
+        "pixel_iou_macro_at_0_5": {
+          "estimate": 0.009864191641248023,
+          "ci95_percentile": [
+            0.0,
+            0.025824218550957394
+          ]
+        },
+        "pixel_f1_micro_at_0_5": {
+          "estimate": 0.009297982843470987,
+          "ci95_percentile": [
+            0.0,
+            0.021143227917431742
+          ]
+        },
+        "pixel_iou_micro_at_0_5": {
+          "estimate": 0.004670705491498926,
+          "ci95_percentile": [
+            0.0,
+            0.010684567078046877
+          ]
+        },
+        "real_false_positive_area_fraction_macro_at_0_5": {
+          "estimate": 0.0026780561967329544,
+          "ci95_percentile": [
+            0.0009665402499112216,
+            0.004795424721457741
+          ]
+        },
+        "real_false_positive_area_fraction_micro_at_0_5": {
+          "estimate": 0.0026780561967329544,
+          "ci95_percentile": [
+            0.0009665402499112216,
+            0.004795424721457741
+          ]
+        },
+        "forged_micro_at_threshold": {
+          "threshold": 0.5,
+          "threshold_operator": ">",
+          "tp": 239,
+          "fp": 35025,
+          "fn": 15906,
+          "tn": 14366750,
+          "pixels": 14417920,
+          "target_positive_pixels": 16145,
+          "predicted_positive_pixels": 35264,
+          "predicted_positive_fraction": 0.0024458451704545453,
+          "precision": 0.0067774500907441014,
+          "recall": 0.01480334468875813,
+          "f1": 0.009297982843470987,
+          "iou": 0.004670705491498926,
+          "mcc": 0.008376428667802483
+        },
+        "edit_fraction": {
+          "min": 0.000926971435546875,
+          "median": 0.00112152099609375,
+          "mean": 0.0011197870427911932,
+          "max": 0.001331329345703125
+        },
+        "pixel_ap_median": 0.003772634045345131
+      }
+    },
+    "q4": {
+      "native": {
+        "pairs": 55,
+        "images": 110,
+        "localization_space": "native",
+        "bootstrap_samples": 1000,
+        "seed": 20260828,
+        "mask_threshold": 0.5,
+        "threshold_operator": ">",
+        "pixel_ap_macro": {
+          "estimate": 0.08497606829500513,
+          "ci95_percentile": [
+            0.04583593113277407,
+            0.13478392801747785
+          ]
+        },
+        "pixel_f1_macro_at_0_5": {
+          "estimate": 0.03840416693732511,
+          "ci95_percentile": [
+            0.014591264831795304,
+            0.07336615523956114
+          ]
+        },
+        "pixel_iou_macro_at_0_5": {
+          "estimate": 0.0235455440351365,
+          "ci95_percentile": [
+            0.007986787543529396,
+            0.04713800592377345
+          ]
+        },
+        "pixel_f1_micro_at_0_5": {
+          "estimate": 0.020245398773006136,
+          "ci95_percentile": [
+            0.004423768900972712,
+            0.06530946547585159
+          ]
+        },
+        "pixel_iou_micro_at_0_5": {
+          "estimate": 0.010226216299969011,
+          "ci95_percentile": [
+            0.0022167877533890187,
+            0.033757069430151186
+          ]
+        },
+        "real_false_positive_area_fraction_macro_at_0_5": {
+          "estimate": 0.0021219315665632,
+          "ci95_percentile": [
+            0.0004864308867858812,
+            0.004883622947153267
+          ]
+        },
+        "real_false_positive_area_fraction_micro_at_0_5": {
+          "estimate": 0.002873451564901806,
+          "ci95_percentile": [
+            0.0005029305318375186,
+            0.006762378801636013
+          ]
+        },
+        "forged_micro_at_threshold": {
+          "threshold": 0.5,
+          "threshold_operator": ">",
+          "tp": 3729,
+          "fp": 230308,
+          "fn": 130614,
+          "tn": 80756605,
+          "pixels": 81121256,
+          "target_positive_pixels": 134343,
+          "predicted_positive_pixels": 234037,
+          "predicted_positive_fraction": 0.0028850268294662498,
+          "precision": 0.015933378055606594,
+          "recall": 0.027757307786784573,
+          "f1": 0.020245398773006136,
+          "iou": 0.010226216299969011,
+          "mcc": 0.018887225535432643
+        },
+        "edit_fraction": {
+          "min": 0.0013095238095238095,
+          "median": 0.0016293333333333333,
+          "mean": 0.0016492318466411284,
+          "max": 0.0021784107946026987
+        },
+        "pixel_ap_median": 0.008634841199715193
+      },
+      "model_512": {
+        "pairs": 55,
+        "images": 110,
+        "localization_space": "model_512",
+        "bootstrap_samples": 1000,
+        "seed": 20260828,
+        "mask_threshold": 0.5,
+        "threshold_operator": ">",
+        "pixel_ap_macro": {
+          "estimate": 0.08537512982124629,
+          "ci95_percentile": [
+            0.04603489120022691,
+            0.13531809003548476
+          ]
+        },
+        "pixel_f1_macro_at_0_5": {
+          "estimate": 0.03894352777832486,
+          "ci95_percentile": [
+            0.014971794144541828,
+            0.07435876303113816
+          ]
+        },
+        "pixel_iou_macro_at_0_5": {
+          "estimate": 0.023895213296218954,
+          "ci95_percentile": [
+            0.008355850366256192,
+            0.047267512818931275
+          ]
+        },
+        "pixel_f1_micro_at_0_5": {
+          "estimate": 0.02741970723181123,
+          "ci95_percentile": [
+            0.008260404394039224,
+            0.07138151896950715
+          ]
+        },
+        "pixel_iou_micro_at_0_5": {
+          "estimate": 0.013900426427424268,
+          "ci95_percentile": [
+            0.00414733153088558,
+            0.03701173912373825
+          ]
+        },
+        "real_false_positive_area_fraction_macro_at_0_5": {
+          "estimate": 0.002125271883877841,
+          "ci95_percentile": [
+            0.0004901452498002486,
+            0.004887166456742719
+          ]
+        },
+        "real_false_positive_area_fraction_micro_at_0_5": {
+          "estimate": 0.002125271883877841,
+          "ci95_percentile": [
+            0.0004901452498002486,
+            0.004887166456742719
+          ]
+        },
+        "forged_micro_at_threshold": {
+          "threshold": 0.5,
+          "threshold_operator": ">",
+          "tp": 753,
+          "fp": 30422,
+          "fn": 22996,
+          "tn": 14363749,
+          "pixels": 14417920,
+          "target_positive_pixels": 23749,
+          "predicted_positive_pixels": 31175,
+          "predicted_positive_fraction": 0.0021622397682883525,
+          "precision": 0.024153969526864473,
+          "recall": 0.03170659817255463,
+          "f1": 0.02741970723181123,
+          "iou": 0.013900426427424268,
+          "mcc": 0.02583580544209157
+        },
+        "edit_fraction": {
+          "min": 0.001308441162109375,
+          "median": 0.001617431640625,
+          "mean": 0.001647186279296875,
+          "max": 0.002193450927734375
+        },
+        "pixel_ap_median": 0.008680742926947763
+      }
+    },
+    "q5_largest": {
+      "native": {
+        "pairs": 55,
+        "images": 110,
+        "localization_space": "native",
+        "bootstrap_samples": 1000,
+        "seed": 20260829,
+        "mask_threshold": 0.5,
+        "threshold_operator": ">",
+        "pixel_ap_macro": {
+          "estimate": 0.31123774363106516,
+          "ci95_percentile": [
+            0.22131639201930578,
+            0.40496340729459196
+          ]
+        },
+        "pixel_f1_macro_at_0_5": {
+          "estimate": 0.1734387633102559,
+          "ci95_percentile": [
+            0.10884428312884446,
+            0.24704691268405615
+          ]
+        },
+        "pixel_iou_macro_at_0_5": {
+          "estimate": 0.12397447888178424,
+          "ci95_percentile": [
+            0.07472367688017767,
+            0.178848703097678
+          ]
+        },
+        "pixel_f1_micro_at_0_5": {
+          "estimate": 0.13022471112447434,
+          "ci95_percentile": [
+            0.05957418733897382,
+            0.23616205191634404
+          ]
+        },
+        "pixel_iou_micro_at_0_5": {
+          "estimate": 0.06964725221221149,
+          "ci95_percentile": [
+            0.030701608761372838,
+            0.13389106892717376
+          ]
+        },
+        "real_false_positive_area_fraction_macro_at_0_5": {
+          "estimate": 0.006891681635798705,
+          "ci95_percentile": [
+            0.0020223458396143763,
+            0.014171424333536038
+          ]
+        },
+        "real_false_positive_area_fraction_micro_at_0_5": {
+          "estimate": 0.005764568444180453,
+          "ci95_percentile": [
+            0.0023173498163093693,
+            0.009587758197151708
+          ]
+        },
+        "forged_micro_at_threshold": {
+          "threshold": 0.5,
+          "threshold_operator": ">",
+          "tp": 31184,
+          "fp": 225043,
+          "fn": 191515,
+          "tn": 55486714,
+          "pixels": 55934456,
+          "target_positive_pixels": 222699,
+          "predicted_positive_pixels": 256227,
+          "predicted_positive_fraction": 0.004580843693196909,
+          "precision": 0.12170458226494475,
+          "recall": 0.1400275708467483,
+          "f1": 0.13022471112447434,
+          "iou": 0.06964725221221149,
+          "mcc": 0.12681729563764868
+        },
+        "edit_fraction": {
+          "min": 0.0021961805555555554,
+          "median": 0.0037441383352872218,
+          "mean": 0.004350115752888254,
+          "max": 0.01292724609375
+        },
+        "pixel_ap_median": 0.06659947866678488
+      },
+      "model_512": {
+        "pairs": 55,
+        "images": 110,
+        "localization_space": "model_512",
+        "bootstrap_samples": 1000,
+        "seed": 20260829,
+        "mask_threshold": 0.5,
+        "threshold_operator": ">",
+        "pixel_ap_macro": {
+          "estimate": 0.31075390410426706,
+          "ci95_percentile": [
+            0.22088825698510597,
+            0.40447924442362637
+          ]
+        },
+        "pixel_f1_macro_at_0_5": {
+          "estimate": 0.17395029529412515,
+          "ci95_percentile": [
+            0.10937122156555332,
+            0.24729549546978982
+          ]
+        },
+        "pixel_iou_macro_at_0_5": {
+          "estimate": 0.12439908903238313,
+          "ci95_percentile": [
+            0.07498132164028867,
+            0.17947115552949458
+          ]
+        },
+        "pixel_f1_micro_at_0_5": {
+          "estimate": 0.16343297731150858,
+          "ci95_percentile": [
+            0.08736086382553016,
+            0.28652594065889886
+          ]
+        },
+        "pixel_iou_micro_at_0_5": {
+          "estimate": 0.08898830006882312,
+          "ci95_percentile": [
+            0.045675560640373265,
+            0.16721931061516934
+          ]
+        },
+        "real_false_positive_area_fraction_macro_at_0_5": {
+          "estimate": 0.006906613436612216,
+          "ci95_percentile": [
+            0.002032756805419922,
+            0.014196354259144174
+          ]
+        },
+        "real_false_positive_area_fraction_micro_at_0_5": {
+          "estimate": 0.006906613436612216,
+          "ci95_percentile": [
+            0.002032756805419922,
+            0.014196354259144174
+          ]
+        },
+        "forged_micro_at_threshold": {
+          "threshold": 0.5,
+          "threshold_operator": ">",
+          "tp": 11637,
+          "fp": 68118,
+          "fn": 51015,
+          "tn": 14287150,
+          "pixels": 14417920,
+          "target_positive_pixels": 62652,
+          "predicted_positive_pixels": 79755,
+          "predicted_positive_fraction": 0.005531657825816761,
+          "precision": 0.14590934737634004,
+          "recall": 0.1857402796399157,
+          "f1": 0.16343297731150858,
+          "iou": 0.08898830006882312,
+          "mcc": 0.1605144915345908
+        },
+        "edit_fraction": {
+          "min": 0.002170562744140625,
+          "median": 0.003742218017578125,
+          "mean": 0.004345425692471591,
+          "max": 0.01294708251953125
+        },
+        "pixel_ap_median": 0.06887315186532082
+      }
+    }
+  },
+  "provenance_integrity": {
+    "status": "ok",
+    "run_manifest_fingerprint": "4968016ed0a1267fa89313477be69d7a9e1b9fabf60770c418d74e5715252e1c",
+    "inputs_sha256": "e4cb3d6a78fa68f06341457e2234c630a455a9b6b9789e59abf45c15b292060a",
+    "checkpoint_sha256": "6d8fcd7ce7616d819bec6a9ed461b27187101e67247f8b2d2483fdc1f25f685a",
+    "checkpoint_bytes": 1023886070,
+    "physical_result_rows_validated": 550,
+    "latest_result_rows_validated": 550,
+    "expected_unique_result_ids": 550,
+    "full_mouse_unique_550": true,
+    "pinned_source_files_validated": 8,
+    "adapter_contract_files_validated": 3,
+    "checks": [
+      "immutable manifest fingerprint and canonical release hashes",
+      "official clean source commit and pinned source-file hashes",
+      "official checkpoint SHA-256, byte size, and strict-load schema",
+      "official preprocessing, output, native adapter, and T2-only contracts",
+      "every physical result row identity and provenance",
+      "latest-row coverage and every aggregate summary metric independently recomputed",
+      "adapter file hashes"
+    ]
+  },
+  "result_history": {
+    "physical_rows": 550,
+    "unique_ids": 550,
+    "duplicate_rows": 0,
+    "ids_with_multiple_rows": 0,
+    "recovered_error_to_ok": 0,
+    "recovered_ids": [],
+    "historical_status_counts": {
+      "ok": 550
+    },
+    "latest_status_counts": {
+      "ok": 550
+    },
+    "duplicate_histories": [],
+    "latest_policy": "last physical JSONL row for each sample id"
+  },
+  "prefix_reproducibility": {
+    "status": "ok",
+    "policy": "latest physical row per sample id",
+    "prefix_images": 10,
+    "prefix_pairs": 5,
+    "full_images": 550,
+    "fields_compared": [
+      "raw_logits_model_sha256",
+      "raw_logits_model_shape",
+      "raw_logits_model_dtype",
+      "raw_logits_capture",
+      "score_map_model_sha256",
+      "score_map_model_shape",
+      "score_map_model_dtype",
+      "score_map_model_semantics",
+      "score_map_sha256",
+      "score_map_shape",
+      "score_map_dtype",
+      "score_map_semantics",
+      "score_map_native_restore",
+      "mask_sha256",
+      "mask_shape",
+      "mask_dtype",
+      "mask_threshold",
+      "mask_threshold_operator",
+      "localization",
+      "preprocess"
+    ],
+    "checks": [
+      "reference ordered selection is an exact prefix",
+      "model, inference, metric, and artifact contracts agree",
+      "latest successful artifact hashes, preprocessing, and metrics agree"
+    ],
+    "prefix_run_id": "mesorch_epoch98_mouse_canonical_v1_smoke5_20260724",
+    "prefix_results_path": "results/opensource/mesorch/mesorch_epoch98_mouse_canonical_v1_smoke5_20260724.jsonl",
+    "prefix_results_sha256": "18ba4517e50b5c8368a9af5b0bb38a8296da11ab9adc805d80fb15c872076ad6",
+    "prefix_manifest_path": "results/opensource/mesorch/mesorch_epoch98_mouse_canonical_v1_smoke5_20260724.run_manifest.json",
+    "prefix_manifest_sha256": "8f0ca0743d9eb3416246b76bd73240deacce944772067a8ce13c9250e312cdfe"
+  },
+  "artifact_integrity": {
+    "status": "ok",
+    "checked_files": 3025,
+    "pairs": 275,
+    "result_images": 550,
+    "numeric_tolerances": {
+      "model_probability_absolute": 5e-07,
+      "native_restore_absolute": 3e-06,
+      "relative": 1e-07,
+      "reason": "bounded float32 sigmoid/runtime differences after explicit independent replay of PyTorch CUDA FMA order"
+    },
+    "observed_maximum_absolute_error": {
+      "model_probability_replay": 1.1920928955078125e-07,
+      "native_probability_replay": 0.0,
+      "threshold_mask_disagreements": 0
+    },
+    "checks": [
+      "canonical images, GT masks, and all artifact hashes",
+      "independent RGB decode, stretch resize, normalization, and tensor hash",
+      "captured internal logits are finite float32 [128,128]",
+      "official model probability replays CUDA float32-FMA align_corners=True resize then independent sigmoid",
+      "native probability replays CUDA float32-FMA align_corners=False probability restore",
+      "native PNG bit-exactly equals strict probability > 0.5",
+      "model GT uses nearest resize and both spaces' metrics are recomputed"
+    ]
+  },
+  "localization_threshold_diagnostic": {
+    "status": "posthoc_descriptive_oracle_only",
+    "eligible_for_primary_metrics": false,
+    "uses_test_set_labels": true,
+    "fixed_primary_threshold_unchanged": 0.5,
+    "fixed_primary_threshold_operator": ">",
+    "approximation": "native float32 probabilities quantized into 65536 uniform bins over [0,1], with strict greater-than candidates",
+    "per_image_oracle": {
+      "images": 275,
+      "f1": {
+        "count": 275,
+        "mean": 0.10888664145021365,
+        "median": 0.013238571849110559,
+        "min": 0.000883964501006826,
+        "max": 0.9444321940463065
+      },
+      "iou": {
+        "count": 275,
+        "mean": 0.07690324190342701,
+        "median": 0.006663392826904189,
+        "min": 0.00044217768519183646,
+        "max": 0.8947148527261333
+      }
+    },
+    "single_global_test_set_oracle": {
+      "histogram_bins": 65536,
+      "threshold": 0.781902800030518,
+      "comparison": ">",
+      "micro_f1": 0.036781855817040916,
+      "micro_iou": 0.01873549097232319,
+      "tp": 19200,
+      "fp": 428890,
+      "fn": 576703
+    }
+  },
+  "box_hit_at_native_mask_threshold_0_5": {
+    "task_scope": "T2_pixel_localization_only",
+    "mask_threshold": 0.5,
+    "threshold_operator": ">",
+    "box_definition": "canonical edit_region_xyxy half-open rectangle",
+    "any_overlap": {
+      "hits": 34,
+      "images": 275,
+      "rate": 0.12363636363636364
+    },
+    "iou_greater_than_0_3": {
+      "hits": 10,
+      "images": 275,
+      "rate": 0.03636363636363636
+    },
+    "box_iou": {
+      "count": 275,
+      "mean": 0.02460419993156089,
+      "median": 0.0,
+      "min": 0.0,
+      "max": 0.7461406518010292
+    },
+    "box_pixel_coverage": {
+      "count": 275,
+      "mean": 0.03345441889386193,
+      "median": 0.0,
+      "min": 0.0,
+      "max": 0.7986536107711139
+    },
+    "predicted_pixels_inside_box_fraction": {
+      "count": 275,
+      "mean": 0.0663949649811697,
+      "median": 0.0,
+      "min": 0.0,
+      "max": 1.0
+    }
+  }
+}

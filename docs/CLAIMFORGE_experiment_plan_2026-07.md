@@ -80,9 +80,10 @@ AISI 评审按六项打分（问题重要性 / 跨学科文献 / 对 AI 社区�
 原则：每个范式 ≥3 个有代表性、**权重已验证可下载**的方法；总数 ~20 行主表。全部零样本（off-the-shelf 权重）。
 
 ### 家族 A/C：局部取证检测与定位（T1+T2，核心竞争者）— 11 个
-已完成全量：**CAT-Net v2、MVSS-Net、TruFor、MaskCLIP、PSCC-Net、IML-ViT**。
-冻结待跑：**HiFi-IFDL、Mesorch、RelayFormer、DINOv3-IML、
-NFA-ViT/BR-Gen**。其中只有作者原生提供独立 image score/head 的方法进入
+已完成全量：**CAT-Net v2、MVSS-Net、TruFor、MaskCLIP、PSCC-Net、IML-ViT、
+HiFi-IFDL、Mesorch**。
+冻结待跑：**RelayFormer、DINOv3-IML、NFA-ViT/BR-Gen**。其中只有作者原生
+提供独立 image score/head 的方法进入
 原生 T1；map-only 方法的 T1 记 N/A，不把 map mean/max 冒充分类头。
 
 ### 家族 B：整图 AIGC 检测（仅 T1，预期接近随机——本身就是结果）— 10 个
