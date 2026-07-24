@@ -43,6 +43,12 @@ It retains all 112 task IDs in the original task order and selects only repairs
 that are clearly better under the complete-and-natural criteria. Raw initial and
 repair outputs remain available for provenance.
 
+The earlier generic 260-image
+`hunyuan_image3_distil_trash_can_260_native_style_v1_20260722` generation was
+superseded by this audited workflow and removed from the current `main` tree on
+2026-07-24. Its shared source context crops are retained because this workflow
+still depends on them.
+
 ## Final usability
 
 - **85/112 usable**
