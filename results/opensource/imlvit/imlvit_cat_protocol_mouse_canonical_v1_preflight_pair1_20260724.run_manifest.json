@@ -1,0 +1,266 @@
+{
+  "schema_version": "opensource_run_manifest_v1",
+  "run_id": "imlvit_cat_protocol_mouse_canonical_v1_preflight_pair1_20260724",
+  "condition": "mouse_canonical_v1",
+  "input": {
+    "dataset_id": "claimforge-mouse-good275-canonical-jpeg-q95-v1",
+    "dataset_manifest": "outputs/opensource/mouse_canonical_v1/manifest.json",
+    "dataset_manifest_sha256": "beb3c30e436db682bbadef794404838f33a4812f18f22819dd6ab1ef3de6f0b1",
+    "dataset_contract_sha256": "c419e24d6f9d69822ca575e00e30f2c769ba7a28a2fcea1f6634466caf540757",
+    "inputs_manifest": "outputs/opensource/mouse_canonical_v1/inputs.jsonl",
+    "inputs_sha256": "e4cb3d6a78fa68f06341457e2234c630a455a9b6b9789e59abf45c15b292060a",
+    "selection_sha256": "ead3232984eab7c99f3792e980e57a262b376890fdbaf798cdd6879549f21b21",
+    "encoding": {
+      "quality": 95,
+      "subsampling": 0,
+      "optimize": false,
+      "metadata": "stripped",
+      "encoder": {
+        "pillow": "11.1.0",
+        "libjpeg": "6.2"
+      }
+    }
+  },
+  "ordered_inputs": [
+    {
+      "rank": 0,
+      "pair_rank": 0,
+      "sample_id": "0cca3f606edf434904f7bea5",
+      "task_id": "lodging_088_slot_001",
+      "kind": "real",
+      "label": 0,
+      "canonical_path": "outputs/opensource/mouse_canonical_v1/images/0cca3f606edf434904f7bea5.jpg",
+      "canonical_sha256": "cdb08c8fe5b488b2f1cd5a5defba65e9cb1e7a4be965c9609e42210faa752d96",
+      "gt_mask_sha256": null
+    },
+    {
+      "rank": 1,
+      "pair_rank": 0,
+      "sample_id": "ae5f5c15ded9fb7d08809d31",
+      "task_id": "lodging_088_slot_001",
+      "kind": "forged",
+      "label": 1,
+      "canonical_path": "outputs/opensource/mouse_canonical_v1/images/ae5f5c15ded9fb7d08809d31.jpg",
+      "canonical_sha256": "f90c849192fd53e2e9560192d91b5b37a6162f80c14c862e24d37482784b8078",
+      "gt_mask_sha256": "178782445ab34cded97e1bce55e87533e019706638e5849c54066afff8e1a577"
+    }
+  ],
+  "model": {
+    "name": "IML-ViT",
+    "model_slug": "imlvit_cat_protocol_2023_official",
+    "repo_url": "https://github.com/SunnyHaze/IML-ViT",
+    "source_commit": "07dd2be0f4ea27a5c97c9fa5ffbe236733833eac",
+    "source_tracked_clean": true,
+    "variant": "official_CAT_TruFor_protocol_checkpoint_20231104",
+    "checkpoint_filename_note": "the official release filename says trufor; README describes this weight as the CAT-Net protocol checkpoint and notes that TruFor follows that protocol",
+    "source_files": [
+      {
+        "path": "README.md",
+        "sha256": "a5356aa04266719cb248723e07aca6db6fcc9d122ab2a08c20ce012d53793764"
+      },
+      {
+        "path": "Demo.ipynb",
+        "sha256": "98eff570ed0b98ac6f4db99d01ae2b07fb55684efce030f7df334f80cfbac4ba"
+      },
+      {
+        "path": "iml_vit_model.py",
+        "sha256": "6d3b4ba1749bbf6b188e68f9657fff961f8a42bce818042fc1ba064fd64b7048"
+      },
+      {
+        "path": "modules/decoderhead.py",
+        "sha256": "a3a1ac5c16a16a17ae65567e6670eb97b92f7cb6c56ef665f8ed80316fa3bd69"
+      },
+      {
+        "path": "modules/window_attention_ViT.py",
+        "sha256": "382eabf15045420c827c5ad4bd1e44fa32b254b3c1139d6040f32df6a6bcdbde"
+      },
+      {
+        "path": "utils/iml_transforms.py",
+        "sha256": "3abfda4ed3777f93db55dc05922c7f745a3fcb72d952409a195f43e1b33b36f2"
+      },
+      {
+        "path": "utils/evaluation.py",
+        "sha256": "ac8ada749ffc4acfaf47d67550be642c96291640a5b130971f25a6857a3962aa"
+      },
+      {
+        "path": "LICENSE",
+        "sha256": "7bce5d24d372c0abbf618951988ee2dc072e60027c55615f0229bdab0dad73c3"
+      }
+    ],
+    "license": {
+      "path": "LICENSE",
+      "sha256": "7bce5d24d372c0abbf618951988ee2dc072e60027c55615f0229bdab0dad73c3",
+      "spdx": "MIT",
+      "scope": "project_repository_code_only",
+      "checkpoint_license": "not_separately_stated_by_release"
+    },
+    "checkpoint": {
+      "provider": "official_author_google_drive",
+      "announcement_commit": "5ad22146b1223eac841fa3e0e28c1c4e8948cc95",
+      "release_folder_id": "1Ztyiy2cKJVmyusYMUlwuyPecBefTJCPT",
+      "file_id": "1jlXw97GkyBbY4u5-e_liuhahKSQWCAFu",
+      "original_filename": "iml-vit_checkpoint_trufor_20231104.pth",
+      "release_file_mtime_utc": "2024-03-24T06:52:08+00:00",
+      "bytes": 367195954,
+      "sha256": "9fa9ae88cafeb6eab28c2afd5bef74679416cf0a790b2370fa6a6fb4c122c58c",
+      "container": "collections.OrderedDict_raw_state_dict",
+      "state_keys": 212,
+      "tensor_values": 212,
+      "state_elements": 91778242,
+      "tensor_bytes": 367112972,
+      "state_dtypes": {
+        "torch.float32": 211,
+        "torch.int64": 1
+      },
+      "parameters": 91777729,
+      "buffers": 513,
+      "path": "/root/.cache/claimforge/checkpoints/imlvit-official/iml-vit_checkpoint_trufor_20231104.pth",
+      "strict_load": true,
+      "safe_weights_only_load": true,
+      "schema_fallbacks": false,
+      "prefix_rewrites": false,
+      "mae_initialization_reloaded": false
+    },
+    "parameter_count": 91777729,
+    "buffer_elements": 513,
+    "supports_image_level_t1": false,
+    "image_score_source": null,
+    "supports_pixel_level_t2": true,
+    "primary_localization_output": "sigmoid_of_bilinearly_upsampled_predict_head_logits"
+  },
+  "inference": {
+    "precision": "float32",
+    "batch_size": 1,
+    "seed": 42,
+    "deterministic": true,
+    "input_source": "canonical_jpeg_original_bytes",
+    "decoder": "Pillow.Image.open.convert_RGB",
+    "channel_order": "RGB",
+    "input_geometry": {
+      "protocol_reference": {
+        "paper": "https://arxiv.org/abs/2307.14863",
+        "version": "v4",
+        "section": "4.1"
+      },
+      "paper_protocol": "if max(H,W)>1024, resize longer side to 1024 while preserving aspect ratio; otherwise keep native size; top-left place and raw-zero pad right/bottom to 1024",
+      "large_image_resize": "albumentations.LongestMaxSize_max_size_1024_cv2_INTER_LINEAR_downscale_only_py3round",
+      "small_image_resize": "none",
+      "canvas": [
+        1024,
+        1024
+      ],
+      "placement": "top_left",
+      "padding_value_before_normalization": 0,
+      "crop": null,
+      "reason": "paper section 4.1; uses the intended conditional LongestMaxSize semantics without copying the hosted Colab PIL width-height bug, and avoids the README demo's destructive top-left crop for large images"
+    },
+    "input_reencode": false,
+    "normalization": {
+      "scale": "uint8_divide_255",
+      "mean": [
+        0.485,
+        0.456,
+        0.406
+      ],
+      "std": [
+        0.229,
+        0.224,
+        0.225
+      ]
+    },
+    "raw_head_output": "one_channel_logits_at_256x256",
+    "model_logit_restore": "bilinear_to_1024x1024_align_corners_false",
+    "model_probability": "single_sigmoid_after_logit_restore",
+    "native_restore": "crop_right_bottom_padding_then_bilinear_probability_to_native_align_corners_false",
+    "mask_threshold": 0.5,
+    "mask_threshold_comparison": "strict_greater_than",
+    "test_time_augmentation": false,
+    "ensemble": false
+  },
+  "metrics": {
+    "task": "T2_pixel_localization_only",
+    "positive_class": "manipulated_pixel",
+    "t1_policy": "unsupported_no_derived_image_score",
+    "mask_threshold": 0.5,
+    "threshold_comparison": "strict_greater_than",
+    "prediction_inversion": false,
+    "localization_spaces": [
+      "model_1024",
+      "native"
+    ],
+    "model_space_policy": "metrics use only the valid resized-content rectangle; right/bottom padding is excluded",
+    "model_space_gt_resize": "cv2_INTER_NEAREST",
+    "forged_pixel_ap_only": true,
+    "bootstrap_samples": 100,
+    "bootstrap_unit": "task_id_pair"
+  },
+  "artifacts": {
+    "raw_logits_model_1024": {
+      "format": "npy",
+      "dtype": "float32",
+      "shape": [
+        1024,
+        1024
+      ]
+    },
+    "score_maps_model_1024": {
+      "format": "npy",
+      "dtype": "float32",
+      "shape": [
+        1024,
+        1024
+      ]
+    },
+    "score_maps_native": {
+      "format": "npy",
+      "dtype": "float32",
+      "shape": "native_HxW"
+    },
+    "masks_native": {
+      "format": "lossless_png",
+      "dtype": "uint8",
+      "values": [
+        0,
+        255
+      ],
+      "relation": "score_map_native > 0.5"
+    }
+  },
+  "expected_pairs": 1,
+  "expected_images": 2,
+  "artifact_dir": "outputs/opensource/imlvit/imlvit_cat_protocol_mouse_canonical_v1_preflight_pair1_20260724",
+  "adapter_contract": [
+    {
+      "path": "eval/opensource/run_imlvit.py",
+      "sha256": "98d0fdcabf63b29111fb778fdffc8734563e258ca62efef81eb982a3208be60b"
+    },
+    {
+      "path": "eval/opensource/imlvit_metrics.py",
+      "sha256": "7c37d4afc721028a7ca2eac75ab68eddcc39a45afc4398ea09dcbd2b517141f5"
+    },
+    {
+      "path": "eval/opensource/common.py",
+      "sha256": "66ee7134e8398bb8121034fb7f9aef007137a09e03426af24e0faae886188c9f"
+    }
+  ],
+  "fingerprint": "0f0be76bf564f05310f3d72bceda962edfc0ff844ff60b19dc8d650b8f362725",
+  "created_at": "2026-07-24T09:58:29.624050+00:00",
+  "adapter": {
+    "path": "eval/opensource/run_imlvit.py",
+    "sha256": "98d0fdcabf63b29111fb778fdffc8734563e258ca62efef81eb982a3208be60b",
+    "repo_commit": "7d1dc86bc20827828ca42c3532de24f3b6f34c33"
+  },
+  "environment": {
+    "python": "3.12.3",
+    "torch": "2.8.0.dev20250627+cu128",
+    "torchvision": "0.23.0.dev20250627+cu128",
+    "timm": "1.0.15",
+    "numpy": "1.26.4",
+    "pillow": "11.1.0",
+    "albumentations": "1.3.0",
+    "opencv": "4.10.0.84",
+    "device": "cuda:0",
+    "cuda": "12.8",
+    "gpu": "NVIDIA L20Z"
+  }
+}

@@ -1,0 +1,275 @@
+{
+  "schema_version": "opensource_summary_v1",
+  "task_scope": {
+    "primary_task": "T1_detection_and_T2_localization",
+    "primary_detection_score": "score",
+    "primary_detection_semantics": "psccnet_image_level_manipulation_probability",
+    "primary_localization_space": "native",
+    "primary_localization_semantics": "psccnet_native_manipulation_probability",
+    "classification_threshold": 0.5,
+    "mask_threshold": 0.5,
+    "threshold_operator": ">"
+  },
+  "coverage": {
+    "expected_images": 2,
+    "result_images": 2,
+    "valid_images": 2,
+    "error_images": 0,
+    "missing_images": 0
+  },
+  "score_by_kind": {
+    "forged": {
+      "count": 1,
+      "min": 0.040197208523750305,
+      "mean": 0.040197208523750305,
+      "median": 0.040197208523750305,
+      "p05": 0.040197208523750305,
+      "p95": 0.040197208523750305,
+      "max": 0.040197208523750305
+    },
+    "real": {
+      "count": 1,
+      "min": 0.038063473999500275,
+      "mean": 0.038063473999500275,
+      "median": 0.038063473999500275,
+      "p05": 0.038063473999500275,
+      "p95": 0.038063473999500275,
+      "max": 0.038063473999500275
+    }
+  },
+  "paired_score_delta": {
+    "count": 1,
+    "min": 0.0021337345242500305,
+    "mean": 0.0021337345242500305,
+    "median": 0.0021337345242500305,
+    "p05": 0.0021337345242500305,
+    "p95": 0.0021337345242500305,
+    "max": 0.0021337345242500305
+  },
+  "paired_ranking_accuracy": 1.0,
+  "detection": {
+    "valid_images": 2,
+    "threshold": 0.5,
+    "threshold_operator": ">",
+    "tp": 0,
+    "fp": 0,
+    "fn": 1,
+    "tn": 1,
+    "accuracy": 0.5,
+    "balanced_accuracy": 0.5,
+    "f1": 0.0,
+    "sensitivity": 0.0,
+    "specificity": 1.0,
+    "auroc": 1.0,
+    "average_precision": 1.0,
+    "tpr_at_fpr_5_percent": 1.0,
+    "tpr_at_fpr_5_percent_threshold": 0.040197208523750305,
+    "score_key": "score"
+  },
+  "localization_forged": {
+    "native": {
+      "images": 1,
+      "pixel_ap": {
+        "count": 1,
+        "min": 0.001191157204622603,
+        "mean": 0.001191157204622603,
+        "median": 0.001191157204622603,
+        "p05": 0.001191157204622603,
+        "p95": 0.001191157204622603,
+        "max": 0.001191157204622603
+      },
+      "precision": {
+        "count": 0
+      },
+      "recall": {
+        "count": 1,
+        "min": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "p05": 0.0,
+        "p95": 0.0,
+        "max": 0.0
+      },
+      "f1": {
+        "count": 1,
+        "min": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "p05": 0.0,
+        "p95": 0.0,
+        "max": 0.0
+      },
+      "iou": {
+        "count": 1,
+        "min": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "p05": 0.0,
+        "p95": 0.0,
+        "max": 0.0
+      },
+      "mcc": {
+        "count": 0
+      },
+      "predicted_positive_fraction": {
+        "count": 1,
+        "min": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "p05": 0.0,
+        "p95": 0.0,
+        "max": 0.0
+      },
+      "score_mean": {
+        "count": 1,
+        "min": 0.0014037250207196213,
+        "mean": 0.0014037250207196213,
+        "median": 0.0014037250207196213,
+        "p05": 0.0014037250207196213,
+        "p95": 0.0014037250207196213,
+        "max": 0.0014037250207196213
+      },
+      "score_max": {
+        "count": 1,
+        "min": 0.0666036531329155,
+        "mean": 0.0666036531329155,
+        "median": 0.0666036531329155,
+        "p05": 0.0666036531329155,
+        "p95": 0.0666036531329155,
+        "max": 0.0666036531329155
+      },
+      "macro_at_threshold": {
+        "threshold": 0.5,
+        "threshold_operator": ">",
+        "precision": null,
+        "recall": 0.0,
+        "f1": 0.0,
+        "iou": 0.0,
+        "mcc": null,
+        "false_positive_area_fraction": 0.0
+      },
+      "micro_at_threshold": {
+        "threshold": 0.5,
+        "threshold_operator": ">",
+        "tp": 0,
+        "fp": 0,
+        "fn": 2697,
+        "tn": 2427303,
+        "pixels": 2430000,
+        "target_positive_pixels": 2697,
+        "predicted_positive_pixels": 0,
+        "predicted_positive_fraction": 0.0,
+        "false_positive_area_fraction": 0.0,
+        "precision": null,
+        "recall": 0.0,
+        "f1": 0.0,
+        "iou": 0.0,
+        "mcc": null
+      }
+    }
+  },
+  "localization_real": {
+    "native": {
+      "images": 1,
+      "pixel_ap": {
+        "count": 0
+      },
+      "precision": {
+        "count": 0
+      },
+      "recall": {
+        "count": 0
+      },
+      "f1": {
+        "count": 0
+      },
+      "iou": {
+        "count": 0
+      },
+      "mcc": {
+        "count": 0
+      },
+      "predicted_positive_fraction": {
+        "count": 1,
+        "min": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "p05": 0.0,
+        "p95": 0.0,
+        "max": 0.0
+      },
+      "score_mean": {
+        "count": 1,
+        "min": 0.023560807904912832,
+        "mean": 0.023560807904912832,
+        "median": 0.023560807904912832,
+        "p05": 0.023560807904912832,
+        "p95": 0.023560807904912832,
+        "max": 0.023560807904912832
+      },
+      "score_max": {
+        "count": 1,
+        "min": 0.245348259806633,
+        "mean": 0.245348259806633,
+        "median": 0.245348259806633,
+        "p05": 0.245348259806633,
+        "p95": 0.245348259806633,
+        "max": 0.245348259806633
+      },
+      "macro_at_threshold": {
+        "threshold": 0.5,
+        "threshold_operator": ">",
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "iou": null,
+        "mcc": null,
+        "false_positive_area_fraction": 0.0
+      },
+      "micro_at_threshold": {
+        "threshold": 0.5,
+        "threshold_operator": ">",
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 2430000,
+        "pixels": 2430000,
+        "target_positive_pixels": 0,
+        "predicted_positive_pixels": 0,
+        "predicted_positive_fraction": 0.0,
+        "false_positive_area_fraction": 0.0,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "iou": null,
+        "mcc": null
+      }
+    }
+  },
+  "latency_ms": {
+    "count": 2,
+    "min": 208.408,
+    "mean": 406.92,
+    "median": 406.92,
+    "p05": 228.2592,
+    "p95": 585.5808,
+    "max": 605.432
+  },
+  "peak_cuda_memory_bytes": {
+    "count": 2,
+    "min": 8135119872.0,
+    "mean": 8151510016.0,
+    "median": 8151510016.0,
+    "p05": 8136758886.4,
+    "p95": 8166261145.6,
+    "max": 8167900160.0
+  },
+  "run_id": "psccnet_official_mouse_canonical_v1_preflight1_20260724",
+  "condition": "mouse_canonical_v1",
+  "model": "PSCC-Net",
+  "model_slug": "psccnet_tcsvt2022_official",
+  "checkpoint_sha256": "893626e154e5a3c16322e845a0e8c775029f88a5742de6875818c69f66459560",
+  "input_manifest_sha256": "e4cb3d6a78fa68f06341457e2234c630a455a9b6b9789e59abf45c15b292060a",
+  "run_manifest_fingerprint": "bdfd4f50cd7037831feb6e490f0b20b2a2ad61a0a4c9c51d98383ce3d103d4e7",
+  "completed_at": "2026-07-24T08:25:45.737518+00:00"
+}

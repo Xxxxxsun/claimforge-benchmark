@@ -1,0 +1,337 @@
+{
+  "schema_version": "opensource_run_manifest_v1",
+  "run_id": "psccnet_official_mouse_canonical_v1_smoke5_20260724",
+  "condition": "mouse_canonical_v1",
+  "input": {
+    "dataset_id": "claimforge-mouse-good275-canonical-jpeg-q95-v1",
+    "dataset_manifest": "outputs/opensource/mouse_canonical_v1/manifest.json",
+    "dataset_manifest_sha256": "beb3c30e436db682bbadef794404838f33a4812f18f22819dd6ab1ef3de6f0b1",
+    "dataset_contract_sha256": "c419e24d6f9d69822ca575e00e30f2c769ba7a28a2fcea1f6634466caf540757",
+    "inputs_manifest": "outputs/opensource/mouse_canonical_v1/inputs.jsonl",
+    "inputs_sha256": "e4cb3d6a78fa68f06341457e2234c630a455a9b6b9789e59abf45c15b292060a",
+    "selection_sha256": "987a3e044d7bfab8b34019834b3abd8bc7f6fe37b85e53c94e664491c916d9b9",
+    "encoding": {
+      "quality": 95,
+      "subsampling": 0,
+      "optimize": false,
+      "metadata": "stripped",
+      "encoder": {
+        "pillow": "11.1.0",
+        "libjpeg": "6.2"
+      }
+    }
+  },
+  "ordered_inputs": [
+    {
+      "rank": 0,
+      "pair_rank": 0,
+      "sample_id": "0cca3f606edf434904f7bea5",
+      "task_id": "lodging_088_slot_001",
+      "kind": "real",
+      "label": 0,
+      "canonical_path": "outputs/opensource/mouse_canonical_v1/images/0cca3f606edf434904f7bea5.jpg",
+      "canonical_sha256": "cdb08c8fe5b488b2f1cd5a5defba65e9cb1e7a4be965c9609e42210faa752d96",
+      "gt_mask_sha256": null
+    },
+    {
+      "rank": 1,
+      "pair_rank": 0,
+      "sample_id": "ae5f5c15ded9fb7d08809d31",
+      "task_id": "lodging_088_slot_001",
+      "kind": "forged",
+      "label": 1,
+      "canonical_path": "outputs/opensource/mouse_canonical_v1/images/ae5f5c15ded9fb7d08809d31.jpg",
+      "canonical_sha256": "f90c849192fd53e2e9560192d91b5b37a6162f80c14c862e24d37482784b8078",
+      "gt_mask_sha256": "178782445ab34cded97e1bce55e87533e019706638e5849c54066afff8e1a577"
+    },
+    {
+      "rank": 2,
+      "pair_rank": 1,
+      "sample_id": "0757160e6912ebe6d3bdaeb8",
+      "task_id": "restaurant_089_slot_001",
+      "kind": "real",
+      "label": 0,
+      "canonical_path": "outputs/opensource/mouse_canonical_v1/images/0757160e6912ebe6d3bdaeb8.jpg",
+      "canonical_sha256": "d946ada86878738b62106eecae721c31644f68580f8d7be77d1a6620bc1f710a",
+      "gt_mask_sha256": null
+    },
+    {
+      "rank": 3,
+      "pair_rank": 1,
+      "sample_id": "90d6a8fe135d78909c688dae",
+      "task_id": "restaurant_089_slot_001",
+      "kind": "forged",
+      "label": 1,
+      "canonical_path": "outputs/opensource/mouse_canonical_v1/images/90d6a8fe135d78909c688dae.jpg",
+      "canonical_sha256": "e8ad38f6e44b21a5d3cb7e2a290110e9e5995eaa770d5328723b3b717c168e50",
+      "gt_mask_sha256": "4948f57ebb6fb37c2fd565b107079593bec9c07b8f6035c94168eaa72f33e56b"
+    },
+    {
+      "rank": 4,
+      "pair_rank": 2,
+      "sample_id": "b260b4ea209c39e746e1e718",
+      "task_id": "lodging_202_slot_001",
+      "kind": "real",
+      "label": 0,
+      "canonical_path": "outputs/opensource/mouse_canonical_v1/images/b260b4ea209c39e746e1e718.jpg",
+      "canonical_sha256": "5b15a89457ac08687850a9cf7b1904bb5cf3112534a73d71621747a8f308f277",
+      "gt_mask_sha256": null
+    },
+    {
+      "rank": 5,
+      "pair_rank": 2,
+      "sample_id": "dea8400c9a29eb08e3e59ecd",
+      "task_id": "lodging_202_slot_001",
+      "kind": "forged",
+      "label": 1,
+      "canonical_path": "outputs/opensource/mouse_canonical_v1/images/dea8400c9a29eb08e3e59ecd.jpg",
+      "canonical_sha256": "03796733939afbb76a3b4025fc9308d5391d3e65b202372dcdb11205b24a6b37",
+      "gt_mask_sha256": "b5e8d440be3b72edd12907d016e249ecc7f1ae7c8566904b4ae5b0823edca0b0"
+    },
+    {
+      "rank": 6,
+      "pair_rank": 3,
+      "sample_id": "1ee60135d95ae17050977cf7",
+      "task_id": "lodging_071_slot_001",
+      "kind": "real",
+      "label": 0,
+      "canonical_path": "outputs/opensource/mouse_canonical_v1/images/1ee60135d95ae17050977cf7.jpg",
+      "canonical_sha256": "c9bbbb2a38513e3a570a886b436eaf40b819936f4377fe0815997d9a9dd976f5",
+      "gt_mask_sha256": null
+    },
+    {
+      "rank": 7,
+      "pair_rank": 3,
+      "sample_id": "50df11321257619a3a37605f",
+      "task_id": "lodging_071_slot_001",
+      "kind": "forged",
+      "label": 1,
+      "canonical_path": "outputs/opensource/mouse_canonical_v1/images/50df11321257619a3a37605f.jpg",
+      "canonical_sha256": "a8072f1da2e7b2b6fc35710815a24dec6d9cb3f2060f4e2b1ce29105d56b3e36",
+      "gt_mask_sha256": "d46b79a0f70122fd56751245fa8ba04dcb82809c4528b55b0eb3e6e46207fe07"
+    },
+    {
+      "rank": 8,
+      "pair_rank": 4,
+      "sample_id": "ff437e8bbe6e8f4f22031d3a",
+      "task_id": "restaurant_196_slot_001",
+      "kind": "real",
+      "label": 0,
+      "canonical_path": "outputs/opensource/mouse_canonical_v1/images/ff437e8bbe6e8f4f22031d3a.jpg",
+      "canonical_sha256": "63d67e5320382ad580a2fcc935ab0e1a5db58224f365ccb6605b45162e0125c7",
+      "gt_mask_sha256": null
+    },
+    {
+      "rank": 9,
+      "pair_rank": 4,
+      "sample_id": "a79b23d1e93d7055241331ea",
+      "task_id": "restaurant_196_slot_001",
+      "kind": "forged",
+      "label": 1,
+      "canonical_path": "outputs/opensource/mouse_canonical_v1/images/a79b23d1e93d7055241331ea.jpg",
+      "canonical_sha256": "6aac64751ec1d771ecec2c8045bc371137ec7dc72aaa7a8fa29c7fce3798d365",
+      "gt_mask_sha256": "63e89c4c817cc4a7e28b5ac875486a1f88546bc9b09a423b048469301e5cc456"
+    }
+  ],
+  "model": {
+    "name": "PSCC-Net",
+    "model_slug": "psccnet_tcsvt2022_official",
+    "repo_url": "https://github.com/proteus1991/PSCC-Net",
+    "source_commit": "53e5ff77d8dc5feddda060cd085f9b765761f816",
+    "source_tracked_clean": true,
+    "variant": "official_committed_pretrained_checkpoint",
+    "training_manipulations": [
+      "authentic",
+      "splicing",
+      "copy_move",
+      "RFR_Net_object_removal_inpainting"
+    ],
+    "source_files": [
+      {
+        "path": "test.py",
+        "sha256": "07d9911da874fb8dfe86658b0fb22f8736f23ae60997532c05b3415a3ab07458"
+      },
+      {
+        "path": "models/NLCDetection.py",
+        "sha256": "325d4a9402e4fe640ecfb0abd24a9bc4b490bc567fc80d3e93ad64936b9757a6"
+      },
+      {
+        "path": "models/detection_head.py",
+        "sha256": "f42116d0dc055f7e7333f57a5e2abee6d3091307fbfc16904a0152d826a07368"
+      },
+      {
+        "path": "models/seg_hrnet.py",
+        "sha256": "ccb71be379e591eb84329c34500ecc015a157c92ee73327e392b6187672d78e9"
+      },
+      {
+        "path": "models/seg_hrnet_config.py",
+        "sha256": "a933009348e8394a96c0c89d930d18ffb0ec10f693e58f4787a2ed3cb939a7d5"
+      },
+      {
+        "path": "utils/load_vdata.py",
+        "sha256": "eecc6bec8920e30367ddcf63f72e396c492750fd65ce6ccd833ada301af893d7"
+      },
+      {
+        "path": "utils/config.py",
+        "sha256": "24a52c41f3f227256be74fd6dec17bec6907fb4007321dbeae0ed926ee1423ed"
+      },
+      {
+        "path": "LICENSE",
+        "sha256": "6644ee3539b171a7ebd39193786e0654456c57df6ba0b6f389fdb9a7b09685c9"
+      }
+    ],
+    "license": {
+      "path": "LICENSE",
+      "sha256": "6644ee3539b171a7ebd39193786e0654456c57df6ba0b6f389fdb9a7b09685c9",
+      "spdx": "MIT",
+      "scope": "project_repository"
+    },
+    "initialization_weight": {
+      "path": "models/hrnet_w18_small_v2.pth",
+      "bytes": 16012341,
+      "sha256": "06924c741ea8c076a569d5e164aa628910a72020800e4a4945e8b40b241ce5cb"
+    },
+    "checkpoint": {
+      "provider": "official_author_git_repository",
+      "source_commit": "53e5ff77d8dc5feddda060cd085f9b765761f816",
+      "bundle_sha256": "893626e154e5a3c16322e845a0e8c775029f88a5742de6875818c69f66459560",
+      "components": [
+        {
+          "role": "feature_extractor",
+          "path": "checkpoint/HRNet_checkpoint/HRNet.pth",
+          "bytes": 8305545,
+          "sha256": "d3b21edc4930187a6801cc818bd7b999fb5d8078d8f2e2193572e91ea5160096",
+          "state_keys": 444,
+          "state_elements": 2037538,
+          "parameters": 2028572,
+          "buffers": 8966
+        },
+        {
+          "role": "localization_head",
+          "path": "checkpoint/NLCDetection_checkpoint/NLCDetection.pth",
+          "bytes": 2900709,
+          "sha256": "11ea3461253cf059b299ad4b6b89008485f94a2d2b2da83ec28c2282a095b00b",
+          "state_keys": 64,
+          "state_elements": 719824,
+          "parameters": 719824,
+          "buffers": 0
+        },
+        {
+          "role": "classification_head",
+          "path": "checkpoint/DetectionHead_checkpoint/DetectionHead.pth",
+          "bytes": 3739969,
+          "sha256": "a17581e8a3489a360257a266ca9b2db1b7c9b43337fbcc4aeb8d751f593f66f5",
+          "state_keys": 128,
+          "state_elements": 924070,
+          "parameters": 919546,
+          "buffers": 4524
+        }
+      ],
+      "strict_load": true,
+      "safe_weights_only_load": true
+    },
+    "parameter_count": 3667942,
+    "buffer_elements": 13490,
+    "class_names": [
+      "authentic",
+      "forged"
+    ],
+    "positive_class_index": 1,
+    "supports_image_level_t1": true,
+    "image_score_source": "native_independent_classification_head",
+    "supports_pixel_level_t2": true,
+    "primary_localization_output": "progressive_mask1"
+  },
+  "inference": {
+    "precision": "float32",
+    "batch_size": 1,
+    "seed": 42,
+    "deterministic": true,
+    "compatibility_shim": "numpy.int=builtin_int_for_hrnet_constructor",
+    "input_source": "canonical_jpeg_original_bytes",
+    "decoder": "imageio.v2.imread",
+    "channel_order": "RGB",
+    "input_resize": "none",
+    "input_crop": null,
+    "input_reencode": false,
+    "normalization": "uint8_rgb_divide_255",
+    "feature_extractor": "HRNet-W18-small-v2",
+    "internal_crop_size": [
+      256,
+      256
+    ],
+    "progressive_output_shapes": [
+      [
+        256,
+        256
+      ],
+      [
+        128,
+        128
+      ],
+      [
+        64,
+        64
+      ],
+      [
+        32,
+        32
+      ]
+    ],
+    "primary_map": "progressive_mask1_sigmoid_probability",
+    "primary_map_selection": "fixed_by_official_test_py_index_0",
+    "native_restore": "bilinear_probability_align_corners_true_to_input_size",
+    "classification_output": "softmax_two_class_logits_positive_index_1",
+    "classification_threshold": 0.5,
+    "classification_threshold_comparison": "strict_greater_than",
+    "mask_threshold": 0.5,
+    "mask_threshold_comparison": "strict_greater_than",
+    "test_time_augmentation": false,
+    "ensemble": false
+  },
+  "metrics": {
+    "task": "T1_image_detection_and_T2_pixel_localization",
+    "positive_class": "forged_or_manipulated",
+    "classification_threshold": 0.5,
+    "mask_threshold": 0.5,
+    "threshold_comparison": "strict_greater_than",
+    "prediction_inversion": false,
+    "model_space_gt_resize": "nearest_neighbor_to_256x256"
+  },
+  "expected_pairs": 5,
+  "expected_images": 10,
+  "artifact_dir": "outputs/opensource/psccnet/psccnet_official_mouse_canonical_v1_smoke5_20260724",
+  "adapter_contract": [
+    {
+      "path": "eval/opensource/run_psccnet.py",
+      "sha256": "cc3660f972cebd426111efe5c7d32beed8739c50994accafb4657e78ebeb5bff"
+    },
+    {
+      "path": "eval/opensource/psccnet_metrics.py",
+      "sha256": "ccd7925c0254d9944116e6cfe9b30b012909d1df8ab81711adc5357040004f5a"
+    },
+    {
+      "path": "eval/opensource/common.py",
+      "sha256": "66ee7134e8398bb8121034fb7f9aef007137a09e03426af24e0faae886188c9f"
+    }
+  ],
+  "fingerprint": "21f4ed8d82d45ccd9fd50846067d0412d7a8235e577e8d47119b15eba24bad44",
+  "created_at": "2026-07-24T08:26:02.846132+00:00",
+  "adapter": {
+    "path": "eval/opensource/run_psccnet.py",
+    "sha256": "cc3660f972cebd426111efe5c7d32beed8739c50994accafb4657e78ebeb5bff",
+    "repo_commit": "7d1dc86bc20827828ca42c3532de24f3b6f34c33"
+  },
+  "environment": {
+    "python": "3.12.3",
+    "torch": "2.8.0.dev20250627+cu128",
+    "torchvision": "0.23.0.dev20250627+cu128",
+    "numpy": "2.2.6",
+    "pillow": "11.1.0",
+    "imageio": "2.37.0",
+    "yacs": "0.1.8",
+    "device": "cuda:0",
+    "cuda": "12.8",
+    "gpu": "NVIDIA L20Z"
+  }
+}
