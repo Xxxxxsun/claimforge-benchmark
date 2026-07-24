@@ -142,15 +142,18 @@ regions where a complete freestanding bin cannot also look natural. See
 IDs.
 
 The reviewed 2026-07-23 deliverable is
-`generated_crops/hunyuan_image3_distil_trash_can_112_complete_natural_reviewed_20260723/`.
-It selects 12 successful targeted repairs over the initial batch and retains all
-112 task IDs in task order. Strict visual QA marks 85/112 usable (restaurant
-29/41, lodging 56/71); the remaining 27 are explicitly excluded rather than
-silently treated as valid. Per-task status and reasons are in
+`generated_crops/hunyuan_image3_distil_trash_can_complete_natural_usable85_20260723/`.
+It contains only the 85 outputs that passed strict visual QA (restaurant 29,
+lodging 56), in their original task order, including 12 successful targeted
+repairs. The 27 rejected outputs are not part of the deliverable; their tasks
+are ready for regeneration in
+`annotations/trash_can_generation_tasks_regenerate_27_20260724.jsonl`.
+Per-task status and reasons are in
 `annotations/trash_can_complete_natural_review_20260723.jsonl`, and the generation
 and QA summary is in
-`docs/TRASH_CAN_COMPLETE_NATURAL_QA_2026-07-23.md`. The initial and both raw
-repair directories are retained for provenance.
+`docs/TRASH_CAN_COMPLETE_NATURAL_QA_2026-07-23.md`. The initial and raw repair
+directories were removed after consolidation; selected revision metadata remains
+in the final manifest and review record.
 
 The generation client posts multipart requests to `/v1/images/edits`, keeps
 the input and output dimensions equal, disables environment proxy discovery,

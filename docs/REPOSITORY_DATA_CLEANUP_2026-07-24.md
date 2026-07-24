@@ -15,6 +15,25 @@ the current cat and trash-can workflows.
 Total removed from the current checkout is approximately 602 MB across 545
 tracked files.
 
+## Final dataset consolidation
+
+The same cleanup pass also:
+
+- removed the isolated 10-image stain pilot bundle (generated outputs, dedicated
+  context crops, and task manifest), which had no external consumer;
+- consolidated the trash-can generation into
+  `generated_crops/hunyuan_image3_distil_trash_can_complete_natural_usable85_20260723/`,
+  containing only 85 usable PNGs and one 85-row manifest;
+- removed the raw 112-image initial trash-can directory, both repair
+  directories, and the 27 rejected images after preserving review provenance;
+- created
+  `annotations/trash_can_generation_tasks_regenerate_27_20260724.jsonl` so the
+  rejected tasks can be regenerated directly.
+
+This consolidation removes 206 obsolete tracked files (approximately 43.3 MiB)
+from the current checkout, while the 85 retained images are moved without
+content changes.
+
 ## Intentionally retained
 
 - `generated_crops/hunyuan_image3_distil_cat_272_native_style_v2_20260722/`
