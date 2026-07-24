@@ -113,6 +113,7 @@
       overflow: hidden;
       background: var(--panel);
     }
+    .section[hidden] { display: none; }
     .section-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 10px 12px; border-bottom: 1px solid var(--line); }
     .section-head h3 { margin: 0 auto 0 0; font-size: 14px; }
     .section-head select { padding: 6px 8px; }
@@ -135,6 +136,8 @@
     .full-grid { grid-template-columns: repeat(3, 1fr); }
     .diagnostic-grid { grid-template-columns: repeat(4, 1fr); }
     .image-card { min-width: 0; background: #0d1219; }
+    .image-card.final-used { box-shadow: inset 0 0 0 2px var(--accent); }
+    .image-card.final-used header span { color: var(--accent); font-weight: 700; }
     .image-card header { display: flex; justify-content: space-between; gap: 8px; padding: 8px 10px; color: #c7d3e2; font-size: 12px; }
     .image-card header a { color: var(--muted); text-decoration: none; }
     .image-card a.image-link { display: block; background: #090c11; }
@@ -239,6 +242,8 @@
           <button class="quick" data-pair="source,sam3">原图 / SAM3</button>
           <button class="quick" data-pair="t30,sam3">旧 t30 / SAM3</button>
           <button class="quick" data-pair="t40,sam3">旧 t40 / SAM3</button>
+          <button id="hysteresisQuick" class="quick" data-pair="hysteresis,sam3" hidden>Hysteresis-SAM3 v2 / Semantic-Shadow</button>
+          <button id="hysteresisBaselineQuick" class="quick" data-pair="hysteresisBaseline,hysteresis" hidden>Hysteresis-SAM3 v1 / v2</button>
         </div>
         <div id="compareStage" class="compare-stage">
           <img id="compareBase" alt="底图">
@@ -256,6 +261,21 @@
         </div>
       </section>
 
+      <section id="hysteresisSection" class="section" hidden>
+        <div class="section-head">
+          <h3>Hysteresis-SAM3 v2 诊断</h3>
+          <span class="subtitle">语义主体 + 可连通残差支持；v2 触边扩张后排除任一 RGB 通道高于原图的主体外像素。</span>
+        </div>
+        <div class="diagnostic-grid">
+          <article class="image-card"><header><span>v2 二值范围 mask</span><a id="hysteresisMaskOpen" target="_blank">打开</a></header><a id="hysteresisMaskLink" class="image-link" target="_blank"><img id="hysteresisMaskImg" alt="Hysteresis-SAM3 v2 二值范围 mask"></a><div class="legend">诊断范围：SAM3 语义主体与通过约束的残差支持并集；它不是直接用于混合的灰度 alpha。</div></article>
+          <article class="image-card"><header><span>v2 残差支持</span><a id="hysteresisSupportOpen" target="_blank">打开</a></header><a id="hysteresisSupportLink" class="image-link" target="_blank"><img id="hysteresisSupportImg" alt="Hysteresis-SAM3 v2 残差支持"></a><div class="legend">从语义主体向外生长；连通与形态学处理后，删除生成图任一 RGB 通道高于原图的残差像素。</div></article>
+          <article class="image-card final-used"><header><span>v2 最终使用 alpha</span><a id="hysteresisAlphaOpen" target="_blank">打开</a></header><a id="hysteresisAlphaLink" class="image-link" target="_blank"><img id="hysteresisAlphaImg" alt="Hysteresis-SAM3 v2 最终使用 alpha"></a><div class="legend">这张灰度 alpha 才真正传给 Image.composite；主体羽化 0.5 px，残差羽化 1 px。绿色边框表示最终使用。</div></article>
+          <article class="image-card"><header><span>v2 拼接成品</span><a id="hysteresisSplicedOpen" target="_blank">打开</a></header><a id="hysteresisSplicedLink" class="image-link" target="_blank"><img id="hysteresisSplicedImg" alt="Hysteresis-SAM3 v2 拼接成品"></a><div class="legend">由左侧 v2 最终使用 alpha 生成，可在上方与 semantic-shadow 或 v1 拖动比较。</div></article>
+          <article id="hysteresisBaselineMaskCard" class="image-card" hidden><header><span>Hysteresis-SAM3 v1 mask</span><a id="hysteresisBaselineMaskOpen" target="_blank">打开</a></header><a id="hysteresisBaselineMaskLink" class="image-link" target="_blank"><img id="hysteresisBaselineMaskImg" alt="Hysteresis-SAM3 v1 mask"></a><div class="legend">改进前的固定 reach 版本，用于直接比较阴影截断差异。</div></article>
+          <article id="hysteresisBaselineSplicedCard" class="image-card" hidden><header><span>Hysteresis-SAM3 v1 成品</span><a id="hysteresisBaselineSplicedOpen" target="_blank">打开</a></header><a id="hysteresisBaselineSplicedLink" class="image-link" target="_blank"><img id="hysteresisBaselineSplicedImg" alt="Hysteresis-SAM3 v1 成品"></a><div class="legend">可使用上方“Hysteresis v1 / v2”按钮拖动检查实际变化。</div></article>
+        </div>
+      </section>
+
       <section class="section">
         <div class="section-head"><h3>局部诊断</h3></div>
         <div class="diagnostic-grid">
@@ -266,9 +286,10 @@
           </article>
           <article class="image-card"><header><span>SAM3 语义 mask</span><a id="semanticOpen" target="_blank">打开</a></header><a id="semanticLink" class="image-link" target="_blank"><img id="semanticImg" alt="SAM3 mask"></a><div class="legend">仅表示 SAM3 判断属于猫的像素。</div></article>
           <article id="edgeCard" class="image-card"><header><span>内部连通桥（不贴回）</span><a id="edgeOpen" target="_blank">打开</a></header><a id="edgeLink" class="image-link" target="_blank"><img id="edgeImg" alt="内部连通桥"></a><div class="legend">这圈差分仅帮助搜索投影，最终 alpha 明确排除它，不会贴回背景。</div></article>
-          <article id="distanceCard" class="image-card"><header><span>远距离投影支持</span><a id="distanceOpen" target="_blank">打开</a></header><a id="distanceLink" class="image-link" target="_blank"><img id="distanceImg" alt="远距离投影支持"></a><div class="legend">只保留从猫下半部连出的变暗区域；安全回退时为空。</div></article>
+          <article id="distanceCard" class="image-card"><header><span>远距离投影支持</span><a id="distanceOpen" target="_blank">打开</a></header><a id="distanceLink" class="image-link" target="_blank"><img id="distanceImg" alt="远距离投影支持"></a><div class="legend">从猫下半部连出的候选变暗区域；启发式可能误收重绘背景，需要人工核对。安全回退时为空。</div></article>
           <article id="residualCard" class="image-card"><header><span>全部差分支持</span><a id="residualOpen" target="_blank">打开</a></header><a id="residualLink" class="image-link" target="_blank"><img id="residualImg" alt="全部差分支持"></a><div class="legend">近缘与远距离支持的并集，便于诊断。</div></article>
-          <article class="image-card"><header><span>最终 hybrid mask</span><a id="hybridOpen" target="_blank">打开</a></header><a id="hybridLink" class="image-link" target="_blank"><img id="hybridImg" alt="最终 mask"></a><div class="legend">SAM3 语义 mask ∪ 邻近差分，最终用于回贴。</div></article>
+          <article class="image-card"><header><span>最终 hybrid mask</span><a id="hybridOpen" target="_blank">打开</a></header><a id="hybridLink" class="image-link" target="_blank"><img id="hybridImg" alt="最终 mask"></a><div class="legend">SAM3 语义 mask ∪ 接受的投影支持，最终用于回贴。</div></article>
+          <article id="alphaCard" class="image-card"><header><span>最终 hybrid alpha</span><a id="alphaOpen" target="_blank">打开</a></header><a id="alphaLink" class="image-link" target="_blank"><img id="alphaImg" alt="最终 hybrid alpha"></a><div class="legend">实际用于拼接的透明度；灰色边缘表示羽化区，可直接检查光晕来源。</div></article>
           <article class="image-card"><header><span>仅 SAM3 回贴局部</span><a id="semanticCompositeOpen" target="_blank">打开</a></header><a id="semanticCompositeLink" class="image-link" target="_blank"><img id="semanticCompositeImg" alt="仅 SAM3 回贴"></a></article>
           <article class="image-card"><header><span>Hybrid 回贴局部</span><a id="hybridCompositeOpen" target="_blank">打开</a></header><a id="hybridCompositeLink" class="image-link" target="_blank"><img id="hybridCompositeImg" alt="Hybrid 回贴"></a></article>
         </div>
@@ -285,11 +306,16 @@
     "use strict";
 
     const query = new URLSearchParams(window.location.search);
-    const resultDir = query.get("resultDir") || "results/segmentation/fal_sam3_cat_textonly_full272_20260721_v1";
+    const resultDir = query.get("resultDir") || "results/segmentation/fal_sam3_cat_native_style_v2_semantic_shadow_balanced48_20260724";
     const runName = resultDir.split("/").filter(Boolean).at(-1) || "sam3-cat";
+    const initialTask = query.get("task");
     const CONFIG = {
       resultDir,
-      baseManifest: "spliced_full/hunyuan_image3_distil_cat_272_fullblue_t30/manifest.jsonl",
+      hysteresisDir: query.get("hysteresisDir"),
+      hysteresisBaselineDir: query.get("hysteresisBaselineDir"),
+      compareA: query.get("compareA"),
+      compareB: query.get("compareB"),
+      baseManifest: query.get("baseManifest") || "spliced_full/hunyuan_image3_distil_cat_272_native_style_v2_20260722_hysteresis_distance/manifest.jsonl",
       storageKey: `claimforge-sam3-cat-review:${resultDir}`,
       savePath: `annotations/${runName}-review.json`
     };
@@ -297,6 +323,8 @@
     const state = {
       rows: [],
       manifest: new Map(),
+      hysteresis: new Map(),
+      hysteresisBaseline: new Map(),
       filtered: [],
       currentId: null,
       labels: loadLabels(),
@@ -327,6 +355,8 @@
     function rowAssets(row) {
       const base = state.manifest.get(row.task_id);
       if (!base) throw new Error(`manifest missing ${row.task_id}`);
+      const hysteresis = state.hysteresis.get(row.task_id);
+      const hysteresisBaseline = state.hysteresisBaseline.get(row.task_id);
       return {
         source: base.source_image,
         t30: base.spliced_full,
@@ -338,8 +368,15 @@
         edge: row.edge_support?.path || null,
         distance: row.distance_support?.path || null,
         hybrid: row.hybrid.path,
+        alpha: row.hybrid.alpha_path || null,
         semanticComposite: row.semantic_context_composite,
-        hybridComposite: row.hybrid_context_composite
+        hybridComposite: row.hybrid_context_composite,
+        hysteresis: hysteresis?.spliced_full || null,
+        hysteresisMask: hysteresis?.mask || null,
+        hysteresisSupport: hysteresis?.residual_support_mask || null,
+        hysteresisAlpha: hysteresis?.alpha_mask || null,
+        hysteresisBaseline: hysteresisBaseline?.spliced_full || null,
+        hysteresisBaselineMask: hysteresisBaseline?.mask || null
       };
     }
 
@@ -453,8 +490,29 @@
       if (state.assets.distance) { setImage("distanceImg", state.assets.distance, "distanceLink"); $("distanceOpen").href = repoUrl(state.assets.distance); }
       setImage("residualImg", state.assets.residual, "residualLink"); $("residualOpen").href = repoUrl(state.assets.residual);
       setImage("hybridImg", state.assets.hybrid, "hybridLink"); $("hybridOpen").href = repoUrl(state.assets.hybrid);
+      $("alphaCard").hidden = !state.assets.alpha;
+      if (state.assets.alpha) { setImage("alphaImg", state.assets.alpha, "alphaLink"); $("alphaOpen").href = repoUrl(state.assets.alpha); }
       setImage("semanticCompositeImg", state.assets.semanticComposite, "semanticCompositeLink"); $("semanticCompositeOpen").href = repoUrl(state.assets.semanticComposite);
       setImage("hybridCompositeImg", state.assets.hybridComposite, "hybridCompositeLink"); $("hybridCompositeOpen").href = repoUrl(state.assets.hybridComposite);
+      const hasHysteresis = Boolean(state.assets.hysteresis);
+      const hasHysteresisBaseline = Boolean(state.assets.hysteresisBaseline);
+      $("hysteresisSection").hidden = !hasHysteresis;
+      $("hysteresisQuick").hidden = !hasHysteresis;
+      $("hysteresisBaselineQuick").hidden = !(
+        hasHysteresis && hasHysteresisBaseline
+      );
+      if (hasHysteresis) {
+        setImage("hysteresisMaskImg", state.assets.hysteresisMask, "hysteresisMaskLink"); $("hysteresisMaskOpen").href = repoUrl(state.assets.hysteresisMask);
+        setImage("hysteresisSupportImg", state.assets.hysteresisSupport, "hysteresisSupportLink"); $("hysteresisSupportOpen").href = repoUrl(state.assets.hysteresisSupport);
+        setImage("hysteresisAlphaImg", state.assets.hysteresisAlpha, "hysteresisAlphaLink"); $("hysteresisAlphaOpen").href = repoUrl(state.assets.hysteresisAlpha);
+        setImage("hysteresisSplicedImg", state.assets.hysteresis, "hysteresisSplicedLink"); $("hysteresisSplicedOpen").href = repoUrl(state.assets.hysteresis);
+      }
+      $("hysteresisBaselineMaskCard").hidden = !hasHysteresisBaseline;
+      $("hysteresisBaselineSplicedCard").hidden = !hasHysteresisBaseline;
+      if (hasHysteresisBaseline) {
+        setImage("hysteresisBaselineMaskImg", state.assets.hysteresisBaselineMask, "hysteresisBaselineMaskLink"); $("hysteresisBaselineMaskOpen").href = repoUrl(state.assets.hysteresisBaselineMask);
+        setImage("hysteresisBaselineSplicedImg", state.assets.hysteresisBaseline, "hysteresisBaselineSplicedLink"); $("hysteresisBaselineSplicedOpen").href = repoUrl(state.assets.hysteresisBaseline);
+      }
       updateCompare();
       renderEditBox(row);
       renderMetadata(row);
@@ -483,6 +541,7 @@
 
     function renderMetadata(row) {
       const candidate = row.candidates.find((x) => x.index === row.selected_candidate_index) || row.candidates[0] || {};
+      const hysteresis = state.hysteresis.get(row.task_id);
       const items = [
         ["SAM3 provider score", fmt(row.selected_provider_score)],
         ["semantic mask 占比", fmt(row.semantic.fraction * 100, 2) + "%"],
@@ -495,23 +554,39 @@
         ["语义 mask 的差分支持率", fmt(candidate.residual_precision * 100, 2) + "%"],
         ["与旧 t30 的 IoU", fmt(row.hybrid.reference_iou)],
         ["上下文外完全不变", row.outside_context_identical_to_source ? "是" : "否"],
-        ["request id", row.request_id]
+        ["request id", row.request_id],
+        ...(hysteresis ? [
+          ["Hysteresis mask 像素", hysteresis.stats?.combined_pixels ?? "–"],
+          ["Hysteresis 残差像素", hysteresis.stats?.residual_support_pixels ?? "–"],
+          ["Hysteresis 相对语义增长", fmt((hysteresis.stats?.growth_over_semantic ?? 0) * 100, 2) + "%"],
+          ["Hysteresis reach", `${hysteresis.stats?.initial_reach_pixels ?? hysteresis.stats?.reach_pixels ?? "–"} → ${hysteresis.stats?.reach_pixels ?? "–"} px`],
+          ["Hysteresis 自动扩张", hysteresis.stats?.auto_expand_applied ? "已采用" : hysteresis.stats?.auto_expand_attempted ? "已拒绝" : "未触发"],
+          ["Hysteresis 排除亮残差", hysteresis.stats?.postconnect_bright_pixels_removed ?? "–"],
+          ["Hysteresis 最远扩张", fmt(hysteresis.stats?.max_added_distance, 1) + " px"],
+          ["Hysteresis 仍触 reach 边界", hysteresis.stats?.touches_reach_boundary ? "是" : "否"]
+        ] : [])
       ];
       $("metadata").innerHTML = items.map(([key, value]) => `<div class="metric"><span>${key}</span><strong title="${value}">${value}</strong></div>`).join("");
     }
 
     function compareOptions() {
-      return [
+      const options = [
         ["source", "原始图"], ["t30", "旧机械 t30"], ["t40", "旧机械 t40"], ["sam3", "SAM3 新结果"]
       ];
+      if (CONFIG.hysteresisDir) options.push(["hysteresis", "Hysteresis-SAM3 v2"]);
+      if (CONFIG.hysteresisBaselineDir) {
+        options.push(["hysteresisBaseline", "Hysteresis-SAM3 v1"]);
+      }
+      return options;
     }
 
     function populateCompareSelectors() {
       for (const id of ["compareA", "compareB"]) {
         $(id).innerHTML = compareOptions().map(([value, label]) => `<option value="${value}">${label}</option>`).join("");
       }
-      $("compareA").value = "source";
-      $("compareB").value = "sam3";
+      const optionValues = new Set(compareOptions().map(([value]) => value));
+      $("compareA").value = optionValues.has(CONFIG.compareA) ? CONFIG.compareA : "source";
+      $("compareB").value = optionValues.has(CONFIG.compareB) ? CONFIG.compareB : "sam3";
     }
 
     function updateCompare() {
@@ -599,17 +674,37 @@
     }
 
     async function init() {
-      $("runSubtitle").textContent = `272 张 · ${runName}`;
       populateCompareSelectors();
       bindEvents();
       try {
-        const [rows, manifest] = await Promise.all([
+        const [
+          rows,
+          manifest,
+          hysteresisRows,
+          hysteresisBaselineRows
+        ] = await Promise.all([
           loadJsonl(`${CONFIG.resultDir}/splice_results.jsonl`),
-          loadJsonl(CONFIG.baseManifest)
+          loadJsonl(CONFIG.baseManifest),
+          CONFIG.hysteresisDir
+            ? loadJsonl(`${CONFIG.hysteresisDir}/results.jsonl`)
+            : Promise.resolve([]),
+          CONFIG.hysteresisBaselineDir
+            ? loadJsonl(`${CONFIG.hysteresisBaselineDir}/results.jsonl`)
+            : Promise.resolve([])
         ]);
         state.rows = rows;
         state.manifest = new Map(manifest.map((row) => [row.task_id, row]));
+        state.hysteresis = new Map(hysteresisRows.map((row) => [row.task_id, row]));
+        state.hysteresisBaseline = new Map(
+          hysteresisBaselineRows.map((row) => [row.task_id, row])
+        );
+        $("runSubtitle").textContent = `${rows.length} 张 · ${runName}${CONFIG.hysteresisDir ? " · + Hysteresis-SAM3 v2" : ""}`;
         applyFilters(false);
+        if (initialTask && state.rows.some((row) => row.task_id === initialTask)) {
+          state.currentId = initialTask;
+          renderList();
+          renderCurrent();
+        }
       } catch (error) {
         $("taskList").innerHTML = `<div class="empty">加载失败：${error.message}<br>请通过本地 HTTP 服务打开此页面。</div>`;
         $("taskTitle").textContent = "数据加载失败";

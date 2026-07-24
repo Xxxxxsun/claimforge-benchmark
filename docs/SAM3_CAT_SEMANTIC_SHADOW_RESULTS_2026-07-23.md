@@ -1,5 +1,10 @@
 # SAM 3 semantic-core plus shadow candidate (2026-07-23)
 
+> Follow-up: the newer Hysteresis-SAM3 v2 candidate uses unrestricted
+> directional growth, adaptive reach expansion, and a post-connect RGB
+> non-brightening hard constraint. See
+> [`HYSTERESIS_SAM3_V2_METHOD_2026-07-24.md`](HYSTERESIS_SAM3_V2_METHOD_2026-07-24.md).
+
 ## Status
 
 **Rejected for automatic production use; not promoted into `spliced_full/`.**

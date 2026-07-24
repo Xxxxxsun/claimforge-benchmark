@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hysteresis-SAM3 Cat Review</title>
+  <style>
+    html, body, iframe {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      border: 0;
+      background: #0c1016;
+    }
+    iframe { display: block; }
+  </style>
+</head>
+<body>
+  <iframe id="viewer" title="Hysteresis-SAM3 Cat Review"></iframe>
+  <script>
+    "use strict";
+
+    const incoming = new URLSearchParams(window.location.search);
+    const target = new URL("./sam3-cat-review.html", window.location.href);
+    target.searchParams.set(
+      "resultDir",
+      "results/segmentation/fal_sam3_cat_native_style_v2_semantic_shadow_balanced48_20260724",
+    );
+    target.searchParams.set(
+      "hysteresisDir",
+      "results/segmentation/hysteresis_sam3_v2_cat_native_style_v2_full272_20260724",
+    );
+    target.searchParams.set(
+      "hysteresisBaselineDir",
+      "results/segmentation/hysteresis_sam3_cat_native_style_v2_full272_20260723",
+    );
+    target.searchParams.set("compareA", "hysteresisBaseline");
+    target.searchParams.set("compareB", "hysteresis");
+    for (const [key, value] of incoming) target.searchParams.set(key, value);
+    document.getElementById("viewer").src = target.href;
+  </script>
+</body>
+</html>
