@@ -74,8 +74,6 @@ uses that checkpoint-compatible mode by default.
   `annotations/trash_can_generation_tasks_260_reviewed_mixed_context_20260724.jsonl`
 - complete 260 QA:
   `annotations/trash_can_full_260_review_20260724.jsonl`
-- deterministic delivery builder:
-  `scripts/build_trash_can_full_delivery.py`
 
 The mixed-context manifests are required because successful repair candidates
 may use an expanded context crop. Their context and edit coordinates match the
@@ -92,5 +90,7 @@ Independent validation confirmed:
 - all 148 and all 260 PNGs decode as RGB and match their selected task
   dimensions;
 - all 148 hashes are unique and all 260 hashes are unique;
-- every copied file hash matches its selected source candidate;
+- every copied file hash matched its selected source candidate at assembly
+  time; the selected revision and original path remain recorded even when a
+  superseded raw directory has since been consolidated;
 - no task has an `exclude` status in either new delivery.
