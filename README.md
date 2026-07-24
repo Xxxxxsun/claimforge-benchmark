@@ -178,6 +178,5 @@ python -m eval.segmentation.run_fal_sam3 \
 unset FAL_KEY
 ```
 
-The 2026-07-21 pilot, prompt/endpoint comparison, quality gate, and saved
-artifacts are documented in
-`docs/SAM3_CAT_SPLICE_PILOT_RESULTS_2026-07-21.md`.
+The current native-style cat mask workflow and review findings are documented in
+`docs/SAM3_CAT_SEMANTIC_SHADOW_RESULTS_2026-07-23.md`.

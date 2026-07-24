@@ -34,16 +34,27 @@ This consolidation removes 206 obsolete tracked files (approximately 43.3 MiB)
 from the current checkout, while the 85 retained images are moved without
 content changes.
 
+## Retired generic cat lineage
+
+The generic cat pilot and first 272-image generation are superseded by the
+native-style v2 generation. The current tree therefore removes:
+
+- `generated_crops/hunyuan_image3_cat/`;
+- `generated_crops/hunyuan_image3_distil_cat_272/`;
+- the three corresponding `spliced_full` directories (plain, threshold-30, and
+  Hysteresis-Distance);
+- the 2026-07-21 SAM3 pilot, fallback, and remaining-task result directories;
+- the pilot-specific result document.
+
+The SAM3 runner and Hysteresis-Distance tutorial now default to the retained
+native-style v2 lineage.
+
 ## Intentionally retained
 
 - `generated_crops/hunyuan_image3_distil_cat_272_native_style_v2_20260722/`
   remains the direct generated-crop input for Hysteresis-SAM3 v2.
 - `crops/context_trash_can/` remains shared input for the complete-natural
   trash-can generation and its 85 usable outputs.
-- `spliced_full/hunyuan_image3_distil_cat_272_fullblue_t30/` remains referenced
-  by the SAM3 runner default and historical run manifests.
-- `spliced_full/hunyuan_image3_distil_cat_272_hysteresis_distance/` remains
-  documented as a reproducible baseline in `CAT_SPLICE_BACK_TUTORIAL.md`.
 - `spliced_full/hunyuan_image3_distil_cat_272_native_style_v2_20260722_hysteresis_distance/`
   remains the current native-style v2 cat baseline.
 - `spliced_full/hunyuan_image3/` remains the mouse benchmark image set.

@@ -40,10 +40,12 @@ ENDPOINTS = {
 }
 ENDPOINT_COST_USD = {"sam3": 0.005, "sam3_1": 0.01}
 DEFAULT_BASE_MANIFEST = Path(
-    "spliced_full/hunyuan_image3_distil_cat_272_fullblue_t30/manifest.jsonl"
+    "spliced_full/"
+    "hunyuan_image3_distil_cat_272_native_style_v2_20260722_hysteresis_distance/"
+    "manifest.jsonl"
 )
 DEFAULT_OUTPUT_DIR = Path(
-    "results/segmentation/fal_sam3_cat_pilot10_20260721"
+    "results/segmentation/fal_sam3_cat_native_style_v2_pilot10"
 )
 RETRYABLE_HTTP = {408, 409, 425, 429, 500, 502, 503, 504}
 

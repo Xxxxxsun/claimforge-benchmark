@@ -10,7 +10,9 @@ SAM 3 can be used through production-style hosted APIs without deploying the mod
 - Output: one or more RLE masks, per-mask scores, and boxes.
 - Estimated cost: USD 0.05 for 10 images, USD 1.36 for the current 272-image cat set, or USD 2.97 for 594 images.
 
-The 10-image A/B pilot found no practical gain from SAM 3.1: after quality-gated fallback, SAM 3 versus SAM 3.1 mean IoU was 0.985 for semantic masks and 0.991 for hybrid masks. A complete SAM 3 text-only run passed 10/10 local quality gates. See `docs/SAM3_CAT_SPLICE_PILOT_RESULTS_2026-07-21.md` for results and artifacts.
+The current native-style cat pipeline uses the cheaper SAM 3 RLE endpoint as
+its semantic-mask source. Current mask post-processing and review findings are
+documented in `docs/SAM3_CAT_SEMANTIC_SHADOW_RESULTS_2026-07-23.md`.
 
 Meta itself publishes the SAM 3/3.1 code, gated checkpoints, notebooks, and an interactive Playground. The official release surfaces do not currently advertise a server-to-server hosted inference API, so a batch pipeline needs either a third-party provider or self-hosting.
 

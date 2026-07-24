@@ -90,7 +90,7 @@ candidates
 当前 272 张猫 crop 来自：
 
 ```text
-generated_crops/hunyuan_image3_distil_cat_272/manifest.jsonl
+generated_crops/hunyuan_image3_distil_cat_272_native_style_v2_20260722/manifest.jsonl
 ```
 
 关键字段：
@@ -497,9 +497,9 @@ spliced.paste(crop_to_paste, (context_x1, context_y1))
 ```bash
 python compose_spliced_full.py \
   --tasks annotations/cat_generation_tasks.jsonl \
-  --model-name hunyuan_image3_distil_cat_272 \
-  --generated-manifest generated_crops/hunyuan_image3_distil_cat_272/manifest.jsonl \
-  --out-dir spliced_full/hunyuan_image3_distil_cat_272_hysteresis_distance_trial \
+  --model-name hunyuan_image3_distil_cat_272_native_style_v2_20260722 \
+  --generated-manifest generated_crops/hunyuan_image3_distil_cat_272_native_style_v2_20260722/manifest.jsonl \
+  --out-dir spliced_full/hunyuan_image3_distil_cat_272_native_style_v2_20260722_hysteresis_distance_trial \
   --blend hysteresis-distance \
   --hysteresis-low 20 \
   --hysteresis-high 40 \
@@ -520,8 +520,8 @@ python compose_spliced_full.py \
 ```bash
 python compose_spliced_full.py \
   --tasks annotations/cat_generation_tasks.jsonl \
-  --model-name hunyuan_image3_distil_cat_272 \
-  --generated-manifest generated_crops/hunyuan_image3_distil_cat_272/manifest.jsonl \
+  --model-name hunyuan_image3_distil_cat_272_native_style_v2_20260722 \
+  --generated-manifest generated_crops/hunyuan_image3_distil_cat_272_native_style_v2_20260722/manifest.jsonl \
   --out-dir spliced_full/cat_hysteresis_debug \
   --blend hysteresis-distance \
   --only cat_restaurant_166_slot_001,cat_lodging_151_slot_001
@@ -536,9 +536,9 @@ python compose_spliced_full.py \
 ```bash
 python compose_spliced_full.py \
   --tasks annotations/cat_generation_tasks.jsonl \
-  --model-name hunyuan_image3_distil_cat_272 \
-  --generated-manifest generated_crops/hunyuan_image3_distil_cat_272/manifest.jsonl \
-  --out-dir spliced_full/hunyuan_image3_distil_cat_272_hysteresis_distance \
+  --model-name hunyuan_image3_distil_cat_272_native_style_v2_20260722 \
+  --generated-manifest generated_crops/hunyuan_image3_distil_cat_272_native_style_v2_20260722/manifest.jsonl \
+  --out-dir spliced_full/hunyuan_image3_distil_cat_272_native_style_v2_20260722_hysteresis_distance \
   --blend hysteresis-distance \
   --only cat_restaurant_166_slot_001 \
   --update-existing-manifest
@@ -608,7 +608,8 @@ from pathlib import Path
 
 path = Path(
     "spliced_full/"
-    "hunyuan_image3_distil_cat_272_hysteresis_distance/manifest.jsonl"
+    "hunyuan_image3_distil_cat_272_native_style_v2_20260722_hysteresis_distance/"
+    "manifest.jsonl"
 )
 
 for line in path.read_text().splitlines():
@@ -641,7 +642,8 @@ from compose_spliced_full import hysteresis_object_mask
 task_id = "cat_restaurant_166_slot_001"
 tasks_path = Path("annotations/cat_generation_tasks.jsonl")
 generated_path = Path(
-    "generated_crops/hunyuan_image3_distil_cat_272/manifest.jsonl"
+    "generated_crops/"
+    "hunyuan_image3_distil_cat_272_native_style_v2_20260722/manifest.jsonl"
 )
 
 tasks = {
@@ -704,7 +706,8 @@ from PIL import Image
 
 manifest = Path(
     "spliced_full/"
-    "hunyuan_image3_distil_cat_272_hysteresis_distance/manifest.jsonl"
+    "hunyuan_image3_distil_cat_272_native_style_v2_20260722_hysteresis_distance/"
+    "manifest.jsonl"
 )
 
 for line in manifest.read_text().splitlines():
@@ -724,23 +727,19 @@ PY
 
 ## 13. 当前 272 张结果的版本状态
 
-现有目录：
+当前保留的 native-style v2 基线目录是：
 
 ```text
-spliced_full/hunyuan_image3_distil_cat_272_hysteresis_distance/
+spliced_full/hunyuan_image3_distil_cat_272_native_style_v2_20260722_hysteresis_distance/
 ```
 
-不是一次性用当前最新代码和完全相同参数重跑得到的统一快照，而是：
+它与当前
+`generated_crops/hunyuan_image3_distil_cat_272_native_style_v2_20260722/`
+生成集配套。旧的通用 `hunyuan_image3_distil_cat_272` lineage 及其拼接、
+SAM3 结果已从当前仓库版本移除。
 
-- 270 行：`low=20, high=40, close=3, grow=2, reach=0.5, far=40, power=1`，记录来自自动扩张字段加入之前；
-- `cat_restaurant_166_slot_001`：按最新自动扩张逻辑单独重拼，最终采用 `effective_reach_ratio=0.75`；
-- `cat_lodging_151_slot_001`：按 `close=1, far=70` 单独重拼，且记录了 `touches_context_edge=true`、`needs_regeneration=true`。
-
-因此：
-
-1. 当前代码默认会为所有新重拼行写入完整的 auto-expand 诊断字段；
-2. 旧行缺少字段不等于字段值为 `false`，只表示当时还没有记录；
-3. 如果需要严格同参数的研究对照，应使用新 `out-dir` 对全部 272 张统一重拼，而不是直接把现有目录当作同构实验组。
+分析现有结果时仍应逐行读取 manifest 参数。如果需要严格同参数的研究
+对照，应使用新的 `out-dir` 对全部 272 张统一重拼，避免覆盖已审核基线。
 
 ## 14. 当前方法的能力边界
 
