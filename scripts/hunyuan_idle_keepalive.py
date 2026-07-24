@@ -417,6 +417,8 @@ def run_worker(args: argparse.Namespace) -> int:
                     force=True,
                     iteration=wave_iterations[0],
                     seed=wave_seeds[0],
+                    steps=args.steps,
+                    concurrency=args.concurrency,
                     wave_iterations=wave_iterations,
                     wave_seeds=wave_seeds,
                     in_flight=len(wave),
@@ -522,6 +524,8 @@ def run_worker(args: argparse.Namespace) -> int:
                                 force=True,
                                 iteration=iteration,
                                 seed=seed,
+                                steps=args.steps,
+                                concurrency=args.concurrency,
                                 wave_iterations=wave_iterations,
                                 wave_seeds=wave_seeds,
                                 in_flight=remaining,
@@ -560,6 +564,8 @@ def run_worker(args: argparse.Namespace) -> int:
                         "generated",
                         force=True,
                         **last_success,
+                        steps=args.steps,
+                        concurrency=args.concurrency,
                         wave_iterations=wave_iterations,
                         wave_seeds=wave_seeds,
                         wave_size=len(wave),
@@ -810,13 +816,24 @@ def build_parser() -> argparse.ArgumentParser:
 
     run = subparsers.add_parser("run", help="run the foreground worker")
     run.add_argument("--task-index", type=int, default=0)
-    run.add_argument("--steps", type=int, default=8)
+    run.add_argument(
+        "--steps",
+        type=int,
+        default=24,
+        help=(
+            "DiT denoising steps per keepalive image; 24 approximately "
+            "balances the measured AR and DiT stage times"
+        ),
+    )
     run.add_argument(
         "--concurrency",
         type=int,
-        choices=[1, 2],
-        default=2,
-        help="fixed requests per wave; the wave fully drains before another starts",
+        choices=[1, 2, 3, 4],
+        default=4,
+        help=(
+            "fixed requests per wave; four keeps two server-side sequences "
+            "queued across both pipeline stages while remaining bounded"
+        ),
     )
     run.add_argument("--idle-grace", type=float, default=0.25)
     run.add_argument("--poll-interval", type=float, default=0.25)
