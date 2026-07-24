@@ -316,8 +316,9 @@
       compareA: query.get("compareA"),
       compareB: query.get("compareB"),
       baseManifest: query.get("baseManifest") || "spliced_full/hunyuan_image3_distil_cat_272_native_style_v2_20260722_hysteresis_distance/manifest.jsonl",
-      storageKey: `claimforge-sam3-cat-review:${resultDir}`,
-      savePath: `annotations/${runName}-review.json`
+      reviewResultDir: query.get("reviewResultDir") || resultDir,
+      storageKey: query.get("storageKey") || `claimforge-sam3-cat-review:${resultDir}`,
+      savePath: query.get("savePath") || `annotations/${runName}-review.json`
     };
 
     const state = {
@@ -633,7 +634,7 @@
       const payload = {
         schema_version: "sam3_cat_full272_review_v2",
         task: "sam3_cat_splice_review",
-        result_dir: CONFIG.resultDir,
+        result_dir: CONFIG.reviewResultDir,
         updated_at: new Date().toISOString(),
         counts: Object.fromEntries(["good", "bad", "uncertain"].map((label) => [label, Object.values(state.labels).filter((x) => x.label === label).length])),
         reviews: state.rows.filter((row) => state.labels[row.task_id]).map((row) => ({task_id: row.task_id, domain: row.domain, automatic_quality_gate: row.quality_gate, ...state.labels[row.task_id]}))

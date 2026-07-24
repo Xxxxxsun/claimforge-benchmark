@@ -1,0 +1,851 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cat Splice Method Selector</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0b0f14;
+      --sidebar: #10161e;
+      --panel: #151c25;
+      --panel-2: #1b2531;
+      --line: #2b3745;
+      --line-strong: #526478;
+      --text: #edf2f7;
+      --muted: #96a5b6;
+      --old: #e6ae4f;
+      --v2: #55c6a2;
+      --reject: #ef7180;
+      --focus: #73a8ef;
+    }
+
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    html, body { min-height: 100%; margin: 0; background: var(--bg); color: var(--text); }
+    body { font: 14px/1.45 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    button, input, select, textarea { font: inherit; }
+    button, input, select, textarea {
+      color: var(--text);
+      background: #101720;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+    }
+    button { min-height: 38px; padding: 8px 12px; cursor: pointer; }
+    button:hover { border-color: var(--line-strong); background: var(--panel-2); }
+    button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+    button:disabled { cursor: default; opacity: .45; }
+    a { color: inherit; }
+
+    .app {
+      display: grid;
+      grid-template-columns: 300px minmax(0, 1fr);
+      min-height: 100vh;
+    }
+    .sidebar {
+      position: sticky;
+      top: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      border-right: 1px solid var(--line);
+      background: var(--sidebar);
+    }
+    .sidebar-head { padding: 17px; border-bottom: 1px solid var(--line); }
+    h1 { margin: 0; font-size: 18px; }
+    .subtitle { margin-top: 4px; color: var(--muted); font-size: 12px; }
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-top: 13px;
+    }
+    .summary div { min-width: 0; padding: 7px 3px; text-align: center; background: var(--panel); border-radius: 5px; }
+    .summary strong { display: block; font-size: 16px; font-variant-numeric: tabular-nums; }
+    .summary span { display: block; overflow: hidden; color: var(--muted); font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+    .summary .old strong { color: var(--old); }
+    .summary .v2 strong { color: var(--v2); }
+    .summary .reject strong { color: var(--reject); }
+
+    .filters {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+      padding: 11px;
+      border-bottom: 1px solid var(--line);
+    }
+    .filters input { grid-column: 1 / -1; width: 100%; padding: 9px 10px; }
+    .filters select { min-width: 0; width: 100%; padding: 8px; }
+    .task-list { flex: 1; overflow: auto; padding: 7px; }
+    .task {
+      display: grid;
+      grid-template-columns: 8px minmax(0, 1fr) auto;
+      gap: 9px;
+      align-items: center;
+      width: 100%;
+      min-height: 38px;
+      margin-bottom: 3px;
+      padding: 7px 8px;
+      border-color: transparent;
+      text-align: left;
+      background: transparent;
+    }
+    .task:hover { background: var(--panel); }
+    .task.active { border-color: var(--focus); background: #192536; }
+    .task-id { overflow: hidden; font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+    .task-domain { color: var(--muted); font-size: 10px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: #465466; }
+    .dot.sam3_local_diff { background: var(--old); }
+    .dot.hysteresis_sam3_v2 { background: var(--v2); }
+    .dot.reject_both { background: var(--reject); }
+    .sidebar-foot { padding: 10px 11px; border-top: 1px solid var(--line); }
+    .sidebar-actions { display: grid; grid-template-columns: 1fr auto; gap: 7px; }
+    .sidebar-actions button:first-child { font-weight: 700; }
+    #saveStatus { min-height: 17px; margin-top: 6px; color: var(--muted); font-size: 10px; word-break: break-word; }
+
+    main { min-width: 0; padding: 16px 18px 28px; }
+    .topbar {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 11px;
+    }
+    .identity { min-width: 0; flex: 1; }
+    .identity h2 { margin: 0 0 6px; font-size: 18px; word-break: break-all; }
+    .badges { display: flex; flex-wrap: wrap; gap: 5px; }
+    .badge { padding: 3px 7px; border: 1px solid var(--line); border-radius: 999px; color: #c8d3df; font-size: 10px; }
+    .badge.old { color: var(--old); border-color: #755c2f; }
+    .badge.v2 { color: var(--v2); border-color: #2b6a58; }
+    .badge.reject { color: var(--reject); border-color: #743944; }
+    .nav { display: flex; gap: 6px; }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 11px;
+      padding: 9px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 7px;
+    }
+    .segmented { display: inline-grid; grid-auto-flow: column; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+    .segmented button { min-height: 34px; border: 0; border-right: 1px solid var(--line); border-radius: 0; }
+    .segmented button:last-child { border-right: 0; }
+    .segmented button.selected { background: #29405a; color: white; }
+    .toolbar-spacer { flex: 1; }
+    .reject-button.selected { color: white; border-color: var(--reject); background: #5a2730; }
+    .clear-button { color: var(--muted); }
+
+    .comparison {
+      display: grid;
+      grid-template-columns: minmax(0, .74fr) repeat(2, minmax(0, 1fr));
+      gap: 9px;
+      align-items: stretch;
+    }
+    .candidate {
+      min-width: 0;
+      overflow: hidden;
+      border: 2px solid var(--line);
+      border-radius: 7px;
+      background: var(--panel);
+    }
+    .candidate.reference { border-width: 1px; }
+    .candidate.selected.old { border-color: var(--old); box-shadow: inset 0 0 0 1px var(--old); }
+    .candidate.selected.v2 { border-color: var(--v2); box-shadow: inset 0 0 0 1px var(--v2); }
+    .candidate-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 48px;
+      padding: 7px 9px;
+      border-bottom: 1px solid var(--line);
+    }
+    .candidate-title { min-width: 0; flex: 1; }
+    .candidate-title strong { display: block; font-size: 13px; }
+    .candidate-title span { display: block; color: var(--muted); font-size: 10px; }
+    .open-link { color: var(--muted); font-size: 11px; text-decoration: none; white-space: nowrap; }
+    .select-button { min-width: 94px; min-height: 34px; padding: 6px 9px; font-weight: 700; }
+    .select-button.old { color: var(--old); }
+    .select-button.old.selected { color: #17120a; border-color: var(--old); background: var(--old); }
+    .select-button.v2 { color: var(--v2); }
+    .select-button.v2.selected { color: #071711; border-color: var(--v2); background: var(--v2); }
+    .image-stage {
+      display: grid;
+      place-items: center;
+      height: clamp(400px, 68vh, 760px);
+      overflow: hidden;
+      background: #070a0e;
+    }
+    .image-stage img, .image-stage canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .image-stage canvas { image-rendering: auto; }
+    .comparison.full-view .image-stage {
+      display: block;
+      height: auto;
+      min-height: 0;
+      overflow: visible;
+    }
+    .comparison.full-view .image-stage img {
+      width: 100%;
+      height: auto;
+      object-fit: initial;
+    }
+    .loading { color: var(--muted); font-size: 12px; }
+
+    .note-row {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 9px;
+      align-items: start;
+      margin-top: 10px;
+    }
+    .note-row label { padding: 9px 0; color: var(--muted); font-size: 11px; }
+    .note-row textarea { width: 100%; min-height: 40px; max-height: 110px; padding: 9px 10px; resize: vertical; }
+    .empty { padding: 24px 12px; color: var(--muted); text-align: center; }
+
+    @media (max-width: 1160px) {
+      .app { grid-template-columns: 270px minmax(0, 1fr); }
+    }
+    @media (max-width: 760px) {
+      .app { display: block; }
+      .sidebar { position: static; height: auto; border-right: 0; }
+      .task-list { max-height: 210px; }
+      main { padding: 12px; }
+      .topbar { align-items: center; }
+      .comparison { grid-template-columns: 1fr; }
+      .candidate.reference { grid-column: auto; }
+      .image-stage, .candidate.reference .image-stage { height: min(68vh, 540px); }
+      .candidate-head { flex-wrap: wrap; }
+      .select-button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="sidebar-head">
+        <h1 id="pageTitle">Cat 拼接方法选择</h1>
+        <div id="subtitle" class="subtitle">正在加载 272 张结果</div>
+        <div class="summary">
+          <div><strong id="countTodo">–</strong><span>未标</span></div>
+          <div class="old"><strong id="countOld">0</strong><span id="countOldLabel">旧版</span></div>
+          <div class="v2"><strong id="countV2">0</strong><span id="countV2Label">v2</span></div>
+          <div class="reject"><strong id="countReject">0</strong><span id="countRejectLabel">都不用</span></div>
+        </div>
+      </div>
+
+      <div class="filters">
+        <input id="search" type="search" placeholder="搜索 task id">
+        <select id="domainFilter" aria-label="场景筛选">
+          <option value="all">全部场景</option>
+          <option value="restaurant">餐厅</option>
+          <option value="lodging">住宿</option>
+        </select>
+        <select id="statusFilter" aria-label="选择状态筛选">
+          <option value="all">全部状态</option>
+          <option value="unreviewed">只看未标</option>
+          <option id="statusOldOption" value="sam3_local_diff">旧版</option>
+          <option id="statusV2Option" value="hysteresis_sam3_v2">v2</option>
+          <option id="statusRejectOption" value="reject_both">都不用</option>
+        </select>
+      </div>
+
+      <div id="taskList" class="task-list"><div class="empty">加载中</div></div>
+
+      <div class="sidebar-foot">
+        <div class="sidebar-actions">
+          <button id="saveNow">保存到仓库</button>
+          <button id="jumpTodo" title="跳到下一张未标图片">未标</button>
+        </div>
+        <div id="saveStatus">标注会自动保存在浏览器和仓库。</div>
+      </div>
+    </aside>
+
+    <main>
+      <div class="topbar">
+        <div class="identity">
+          <h2 id="taskTitle">加载中</h2>
+          <div id="badges" class="badges"></div>
+        </div>
+        <div class="nav">
+          <button id="prev" title="上一张" aria-label="上一张">←</button>
+          <button id="next" title="下一张" aria-label="下一张">→</button>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <div class="segmented" aria-label="图片视图">
+          <button data-view="full" class="selected">全图</button>
+          <button data-view="context">局部</button>
+        </div>
+        <div class="toolbar-spacer"></div>
+        <button id="rejectBoth" class="reject-button">两个都不用</button>
+        <button id="clearSelection" class="clear-button">清除选择</button>
+      </div>
+
+      <div id="comparison" class="comparison">
+        <section class="candidate reference">
+          <div class="candidate-head">
+            <div class="candidate-title">
+              <strong id="referenceTitle">生成 crop</strong>
+              <span>参考</span>
+            </div>
+            <a id="sourceOpen" class="open-link" target="_blank">打开原图</a>
+          </div>
+          <div class="image-stage">
+            <img id="referenceImage" alt="参考图">
+            <canvas id="referenceCanvas" hidden></canvas>
+          </div>
+        </section>
+
+        <section id="oldCandidate" class="candidate old">
+          <div class="candidate-head">
+            <div class="candidate-title">
+              <strong id="oldTitle">SAM3 + local diff</strong>
+              <span id="oldSubtitle">旧基线</span>
+            </div>
+            <a id="oldOpen" class="open-link" target="_blank">打开</a>
+            <button id="chooseOld" class="select-button old">使用旧版</button>
+          </div>
+          <div class="image-stage">
+            <img id="oldFull" alt="SAM3 + local diff 全图" hidden>
+            <canvas id="oldContext" aria-label="SAM3 + local diff 局部"></canvas>
+          </div>
+        </section>
+
+        <section id="v2Candidate" class="candidate v2">
+          <div class="candidate-head">
+            <div class="candidate-title">
+              <strong id="v2Title">Hysteresis-SAM3 v2</strong>
+              <span id="v2Subtitle">新方法</span>
+            </div>
+            <a id="v2Open" class="open-link" target="_blank">打开</a>
+            <button id="chooseV2" class="select-button v2">使用 v2</button>
+          </div>
+          <div class="image-stage">
+            <img id="v2Full" alt="Hysteresis-SAM3 v2 全图" hidden>
+            <canvas id="v2Context" aria-label="Hysteresis-SAM3 v2 局部"></canvas>
+          </div>
+        </section>
+      </div>
+
+      <div class="note-row">
+        <label for="note">备注</label>
+        <textarea id="note" placeholder="可选"></textarea>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    "use strict";
+
+    const PARAMS = new URLSearchParams(window.location.search);
+    const CONFIG = {
+      oldResult: PARAMS.get("leftResult")
+        || "results/segmentation/fal_sam3_cat_native_style_v2_full272_20260723/splice_results.jsonl",
+      v2Result: PARAMS.get("rightResult")
+        || "results/segmentation/hysteresis_sam3_v2_cat_native_style_v2_full272_20260724/results.jsonl",
+      oldPathField: PARAMS.get("leftPathField") || "hybrid_spliced_full",
+      v2PathField: PARAMS.get("rightPathField") || "spliced_full",
+      savePath: PARAMS.get("savePath")
+        || "annotations/claimforge_cat_native_style_v2_splice_method_selections.json",
+      storageKey: PARAMS.get("storageKey")
+        || "claimforge-cat-native-style-v2-splice-method-selections-v1",
+      task: PARAMS.get("task") || "claimforge_cat_splice_method_selection",
+      pageTitle: PARAMS.get("title") || "Cat 拼接方法选择",
+      leftSelection: PARAMS.get("leftSelection") || "sam3_local_diff",
+      rightSelection: PARAMS.get("rightSelection") || "hysteresis_sam3_v2",
+      rejectSelection: PARAMS.get("rejectSelection") || "reject_both",
+      leftLabel: PARAMS.get("leftLabel") || "旧版",
+      rightLabel: PARAMS.get("rightLabel") || "Hysteresis-SAM3 v2",
+      rejectLabel: PARAMS.get("rejectLabel") || "两个都不用",
+      leftTitle: PARAMS.get("leftTitle") || "SAM3 + local diff",
+      rightTitle: PARAMS.get("rightTitle") || "Hysteresis-SAM3 v2",
+      leftSubtitle: PARAMS.get("leftSubtitle") || "旧基线",
+      rightSubtitle: PARAMS.get("rightSubtitle") || "新方法",
+      leftButton: PARAMS.get("leftButton") || "使用旧版",
+      rightButton: PARAMS.get("rightButton") || "使用 v2"
+    };
+    const METHOD_LABELS = {
+      [CONFIG.leftSelection]: CONFIG.leftLabel,
+      [CONFIG.rightSelection]: CONFIG.rightLabel,
+      [CONFIG.rejectSelection]: CONFIG.rejectLabel
+    };
+    const $ = (id) => document.getElementById(id);
+
+    document.title = CONFIG.pageTitle;
+    $("pageTitle").textContent = CONFIG.pageTitle;
+    $("countOldLabel").textContent = CONFIG.leftLabel;
+    $("countV2Label").textContent = CONFIG.rightLabel;
+    $("countRejectLabel").textContent = CONFIG.rejectLabel;
+    $("statusOldOption").value = CONFIG.leftSelection;
+    $("statusOldOption").textContent = CONFIG.leftLabel;
+    $("statusV2Option").value = CONFIG.rightSelection;
+    $("statusV2Option").textContent = CONFIG.rightLabel;
+    $("statusRejectOption").value = CONFIG.rejectSelection;
+    $("statusRejectOption").textContent = CONFIG.rejectLabel;
+    $("oldTitle").textContent = CONFIG.leftTitle;
+    $("oldSubtitle").textContent = CONFIG.leftSubtitle;
+    $("v2Title").textContent = CONFIG.rightTitle;
+    $("v2Subtitle").textContent = CONFIG.rightSubtitle;
+    $("chooseOld").textContent = CONFIG.leftButton;
+    $("chooseV2").textContent = CONFIG.rightButton;
+    $("rejectBoth").textContent = CONFIG.rejectLabel;
+
+    const state = {
+      rows: [],
+      filtered: [],
+      currentId: null,
+      selections: loadLocalSelections(),
+      view: "full",
+      renderToken: 0,
+      saving: false,
+      saveQueued: false
+    };
+
+    const repoUrl = (path) => new URL("../" + String(path).replace(/^\/+/, ""), window.location.href).href;
+
+    function loadLocalSelections() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(CONFIG.storageKey) || "{}");
+        return parsed && typeof parsed === "object" ? parsed : {};
+      } catch (_) {
+        return {};
+      }
+    }
+
+    function mergeSelections(repoSelections) {
+      for (const item of repoSelections) {
+        if (!item?.task_id) continue;
+        const local = state.selections[item.task_id];
+        const localTime = Date.parse(local?.updated_at || 0);
+        const repoTime = Date.parse(item.updated_at || 0);
+        if (!local || repoTime > localTime) {
+          state.selections[item.task_id] = {
+            selection: item.selection,
+            note: item.note || "",
+            updated_at: item.updated_at
+          };
+        }
+      }
+      persistLocal();
+    }
+
+    function persistLocal() {
+      localStorage.setItem(CONFIG.storageKey, JSON.stringify(state.selections));
+      renderCounts();
+    }
+
+    async function loadJsonl(path) {
+      const response = await fetch(repoUrl(path));
+      if (!response.ok) throw new Error(`${response.status} ${response.statusText}: ${path}`);
+      return (await response.text()).split(/\r?\n/).filter(Boolean).map((line) => JSON.parse(line));
+    }
+
+    async function loadRepoSelections() {
+      const response = await fetch(`${repoUrl(CONFIG.savePath)}?t=${Date.now()}`, {cache: "no-store"});
+      if (response.status === 404) return [];
+      if (!response.ok) throw new Error(`${response.status} ${response.statusText}: ${CONFIG.savePath}`);
+      const payload = await response.json();
+      return Array.isArray(payload.selections) ? payload.selections : [];
+    }
+
+    function counts() {
+      const values = state.rows.map((row) => state.selections[row.task_id]?.selection);
+      const count = (selection) => values.filter((value) => value === selection).length;
+      const labeled = values.filter(Boolean).length;
+      return {
+        total: state.rows.length,
+        labeled,
+        unreviewed: state.rows.length - labeled,
+        [CONFIG.leftSelection]: count(CONFIG.leftSelection),
+        [CONFIG.rightSelection]: count(CONFIG.rightSelection),
+        [CONFIG.rejectSelection]: count(CONFIG.rejectSelection)
+      };
+    }
+
+    function renderCounts() {
+      const current = counts();
+      $("countTodo").textContent = current.unreviewed;
+      $("countOld").textContent = current[CONFIG.leftSelection];
+      $("countV2").textContent = current[CONFIG.rightSelection];
+      $("countReject").textContent = current[CONFIG.rejectSelection];
+      $("subtitle").textContent = `${current.labeled} / ${current.total} 已标`;
+    }
+
+    function applyFilters(keepCurrent = true) {
+      const search = $("search").value.trim().toLowerCase();
+      const domain = $("domainFilter").value;
+      const status = $("statusFilter").value;
+      state.filtered = state.rows.filter((row) => {
+        const selection = state.selections[row.task_id]?.selection;
+        if (search && !row.task_id.toLowerCase().includes(search)) return false;
+        if (domain !== "all" && row.domain !== domain) return false;
+        if (status === "unreviewed" && selection) return false;
+        if (!["all", "unreviewed"].includes(status) && selection !== status) return false;
+        return true;
+      });
+      if (!keepCurrent || !state.filtered.some((row) => row.task_id === state.currentId)) {
+        state.currentId = state.filtered[0]?.task_id || null;
+      }
+      renderList();
+      renderCurrent();
+      renderCounts();
+    }
+
+    function renderList() {
+      const list = $("taskList");
+      list.replaceChildren();
+      if (!state.filtered.length) {
+        list.innerHTML = '<div class="empty">没有符合条件的图片</div>';
+        return;
+      }
+      const fragment = document.createDocumentFragment();
+      for (const row of state.filtered) {
+        const selection = state.selections[row.task_id]?.selection || "";
+        const button = document.createElement("button");
+        button.className = `task${row.task_id === state.currentId ? " active" : ""}`;
+        const dot = document.createElement("i");
+        const selectionClass = selection === CONFIG.leftSelection
+          ? "sam3_local_diff"
+          : selection === CONFIG.rightSelection
+            ? "hysteresis_sam3_v2"
+            : selection === CONFIG.rejectSelection
+              ? "reject_both"
+              : "";
+        dot.className = `dot ${selectionClass}`;
+        const id = document.createElement("span");
+        id.className = "task-id";
+        id.textContent = row.task_id;
+        const domain = document.createElement("span");
+        domain.className = "task-domain";
+        domain.textContent = row.domain === "restaurant" ? "餐厅" : "住宿";
+        button.append(dot, id, domain);
+        button.addEventListener("click", () => {
+          saveCurrentNote(false);
+          state.currentId = row.task_id;
+          renderList();
+          renderCurrent();
+        });
+        fragment.appendChild(button);
+      }
+      list.appendChild(fragment);
+      requestAnimationFrame(() => list.querySelector(".task.active")?.scrollIntoView({block: "nearest"}));
+    }
+
+    function currentRow() {
+      return state.rows.find((row) => row.task_id === state.currentId) || null;
+    }
+
+    function setImage(id, path) {
+      const element = $(id);
+      element.src = repoUrl(path);
+      return element.src;
+    }
+
+    function paintCrop(canvas, imagePath, box, token) {
+      const image = new Image();
+      image.onload = () => {
+        if (token !== state.renderToken) return;
+        const [x0, y0, x1, y1] = box.map((value) => Math.round(value));
+        const width = Math.max(1, Math.min(image.naturalWidth, x1) - Math.max(0, x0));
+        const height = Math.max(1, Math.min(image.naturalHeight, y1) - Math.max(0, y0));
+        canvas.width = width;
+        canvas.height = height;
+        const context = canvas.getContext("2d");
+        context.clearRect(0, 0, width, height);
+        context.drawImage(image, Math.max(0, x0), Math.max(0, y0), width, height, 0, 0, width, height);
+      };
+      image.src = repoUrl(imagePath);
+    }
+
+    function renderView(row) {
+      const token = ++state.renderToken;
+      const contextView = state.view === "context";
+      $("comparison").classList.toggle("full-view", !contextView);
+      document.querySelectorAll("[data-view]").forEach((button) => {
+        const selected = button.dataset.view === state.view;
+        button.classList.toggle("selected", selected);
+        button.setAttribute("aria-pressed", String(selected));
+      });
+
+      $("referenceTitle").textContent = contextView ? "生成 crop" : "原始图";
+      $("referenceImage").hidden = false;
+      $("referenceCanvas").hidden = true;
+      setImage("referenceImage", contextView ? row.generated_crop : row.source_image);
+
+      $("oldFull").hidden = contextView;
+      $("oldContext").hidden = !contextView;
+      $("v2Full").hidden = contextView;
+      $("v2Context").hidden = !contextView;
+      if (contextView) {
+        paintCrop($("oldContext"), row.old_spliced_full, row.context_region_xyxy, token);
+        paintCrop($("v2Context"), row.v2_spliced_full, row.context_region_xyxy, token);
+      } else {
+        setImage("oldFull", row.old_spliced_full);
+        setImage("v2Full", row.v2_spliced_full);
+      }
+    }
+
+    function renderCurrent() {
+      const row = currentRow();
+      if (!row) {
+        $("taskTitle").textContent = state.rows.length ? "没有符合条件的图片" : "加载中";
+        $("badges").replaceChildren();
+        return;
+      }
+      const currentIndex = state.filtered.findIndex((item) => item.task_id === row.task_id);
+      const selection = state.selections[row.task_id] || {};
+      $("taskTitle").textContent = row.task_id;
+      const decisionClass = selection.selection === CONFIG.leftSelection
+        ? "old"
+        : selection.selection === CONFIG.rightSelection
+          ? "v2"
+          : selection.selection === CONFIG.rejectSelection
+            ? "reject"
+            : "";
+      const decisionText = selection.selection ? METHOD_LABELS[selection.selection] : "未标";
+      $("badges").innerHTML = [
+        `<span class="badge">${row.domain === "restaurant" ? "餐厅" : "住宿"}</span>`,
+        `<span class="badge">${currentIndex + 1} / ${state.filtered.length}</span>`,
+        `<span class="badge ${decisionClass}">${decisionText}</span>`,
+        row.v2_status === "no_mask"
+          ? '<span class="badge reject">SAM3 未检出</span>'
+          : ""
+      ].join("");
+
+      $("sourceOpen").href = repoUrl(row.source_image);
+      $("oldOpen").href = repoUrl(row.old_spliced_full);
+      $("v2Open").href = repoUrl(row.v2_spliced_full);
+      $("note").value = selection.note || "";
+      const oldSelected = selection.selection === CONFIG.leftSelection;
+      const v2Selected = selection.selection === CONFIG.rightSelection;
+      const rejected = selection.selection === CONFIG.rejectSelection;
+      $("oldCandidate").classList.toggle("selected", oldSelected);
+      $("v2Candidate").classList.toggle("selected", v2Selected);
+      $("chooseOld").classList.toggle("selected", oldSelected);
+      $("chooseV2").classList.toggle("selected", v2Selected);
+      $("rejectBoth").classList.toggle("selected", rejected);
+      $("chooseOld").setAttribute("aria-pressed", String(oldSelected));
+      $("chooseV2").setAttribute("aria-pressed", String(v2Selected));
+      $("rejectBoth").setAttribute("aria-pressed", String(rejected));
+      renderView(row);
+      $("prev").disabled = currentIndex <= 0;
+      $("next").disabled = currentIndex < 0 || currentIndex >= state.filtered.length - 1;
+    }
+
+    function move(delta) {
+      saveCurrentNote(false);
+      const index = state.filtered.findIndex((row) => row.task_id === state.currentId);
+      const next = Math.max(0, Math.min(state.filtered.length - 1, index + delta));
+      if (!state.filtered[next]) return;
+      state.currentId = state.filtered[next].task_id;
+      renderList();
+      renderCurrent();
+    }
+
+    function nextUnreviewed(afterCurrent = true) {
+      if (!state.rows.length) return;
+      const current = state.rows.findIndex((row) => row.task_id === state.currentId);
+      const start = afterCurrent && current >= 0 ? current + 1 : 0;
+      const ordered = [...state.rows.slice(start), ...state.rows.slice(0, start)];
+      const next = ordered.find((row) => !state.selections[row.task_id]?.selection);
+      if (!next) return;
+      state.currentId = next.task_id;
+      if (!$("search").value && $("domainFilter").value === "all" && $("statusFilter").value !== "all") {
+        $("statusFilter").value = "all";
+      }
+      applyFilters(true);
+    }
+
+    function choose(selection) {
+      const row = currentRow();
+      if (!row) return;
+      state.selections[row.task_id] = {
+        selection,
+        note: $("note").value.trim(),
+        updated_at: new Date().toISOString()
+      };
+      persistLocal();
+      queueRepoSave();
+      renderList();
+      nextUnreviewed(true);
+      if (state.currentId === row.task_id) renderCurrent();
+    }
+
+    function clearSelection() {
+      const row = currentRow();
+      if (!row) return;
+      delete state.selections[row.task_id];
+      $("note").value = "";
+      persistLocal();
+      queueRepoSave();
+      renderList();
+      renderCurrent();
+    }
+
+    function saveCurrentNote(queueSave = true) {
+      const row = currentRow();
+      if (!row) return;
+      const note = $("note").value.trim();
+      const existing = state.selections[row.task_id];
+      if (!existing && !note) return;
+      if ((existing?.note || "") === note) return;
+      state.selections[row.task_id] = {
+        selection: existing?.selection || null,
+        note,
+        updated_at: new Date().toISOString()
+      };
+      persistLocal();
+      if (queueSave) queueRepoSave();
+    }
+
+    function buildPayload() {
+      const currentCounts = counts();
+      return {
+        schema_version: "claimforge_splice_method_selection_v1",
+        task: CONFIG.task,
+        candidate_runs: {
+          [CONFIG.leftSelection]: CONFIG.oldResult.replace(/\/(?:splice_results|results|review_manifest|manifest)\.jsonl$/, ""),
+          [CONFIG.rightSelection]: CONFIG.v2Result.replace(/\/(?:splice_results|results|review_manifest|manifest)\.jsonl$/, "")
+        },
+        updated_at: new Date().toISOString(),
+        counts: currentCounts,
+        selections: state.rows
+          .filter((row) => state.selections[row.task_id])
+          .map((row) => {
+            const label = state.selections[row.task_id];
+            const selectedPath = label.selection === CONFIG.leftSelection
+              ? row.old_spliced_full
+              : label.selection === CONFIG.rightSelection
+                ? row.v2_spliced_full
+                : null;
+            return {
+              task_id: row.task_id,
+              domain: row.domain,
+              selection: label.selection,
+              selected_spliced_full: selectedPath,
+              candidates: {
+                [CONFIG.leftSelection]: row.old_spliced_full,
+                [CONFIG.rightSelection]: row.v2_spliced_full
+              },
+              note: label.note || "",
+              updated_at: label.updated_at
+            };
+          })
+      };
+    }
+
+    function queueRepoSave() {
+      state.saveQueued = true;
+      if (!state.saving) void flushRepoSaves();
+    }
+
+    async function flushRepoSaves() {
+      state.saving = true;
+      while (state.saveQueued) {
+        state.saveQueued = false;
+        $("saveStatus").textContent = "正在保存";
+        try {
+          const response = await fetch("/api/save-labels", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({path: CONFIG.savePath, payload: buildPayload()})
+          });
+          const result = await response.json();
+          if (!response.ok || !result.ok) throw new Error(result.error || response.statusText);
+          $("saveStatus").textContent = `已保存 · ${counts().labeled} / ${counts().total}`;
+        } catch (error) {
+          $("saveStatus").textContent = `仓库保存失败，本地已保留：${error.message}`;
+        }
+      }
+      state.saving = false;
+    }
+
+    function bindEvents() {
+      $("search").addEventListener("input", () => applyFilters(false));
+      $("domainFilter").addEventListener("change", () => applyFilters(false));
+      $("statusFilter").addEventListener("change", () => applyFilters(false));
+      $("prev").addEventListener("click", () => move(-1));
+      $("next").addEventListener("click", () => move(1));
+      $("chooseOld").addEventListener("click", () => choose(CONFIG.leftSelection));
+      $("chooseV2").addEventListener("click", () => choose(CONFIG.rightSelection));
+      $("rejectBoth").addEventListener("click", () => choose(CONFIG.rejectSelection));
+      $("clearSelection").addEventListener("click", clearSelection);
+      $("jumpTodo").addEventListener("click", () => nextUnreviewed(false));
+      $("saveNow").addEventListener("click", () => {
+        saveCurrentNote(false);
+        queueRepoSave();
+      });
+      $("note").addEventListener("change", () => saveCurrentNote(true));
+      document.querySelectorAll("[data-view]").forEach((button) => {
+        button.addEventListener("click", () => {
+          state.view = button.dataset.view;
+          const row = currentRow();
+          if (row) renderView(row);
+        });
+      });
+      window.addEventListener("keydown", (event) => {
+        if (["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement?.tagName)) return;
+        if (event.key === "ArrowLeft") move(-1);
+        else if (event.key === "ArrowRight") move(1);
+        else if (event.key === "1") choose(CONFIG.leftSelection);
+        else if (event.key === "2") choose(CONFIG.rightSelection);
+        else if (event.key === "0") choose(CONFIG.rejectSelection);
+      });
+      window.addEventListener("beforeunload", () => saveCurrentNote(false));
+    }
+
+    async function init() {
+      bindEvents();
+      try {
+        const [oldRows, v2Rows, repoSelections] = await Promise.all([
+          loadJsonl(CONFIG.oldResult),
+          loadJsonl(CONFIG.v2Result),
+          loadRepoSelections().catch(() => [])
+        ]);
+        const oldById = new Map(oldRows.map((row) => [row.task_id, row]));
+        state.rows = v2Rows
+          .filter((row) => oldById.has(row.task_id))
+          .map((v2) => {
+            const old = oldById.get(v2.task_id);
+            return {
+              task_id: v2.task_id,
+              domain: old.domain || (v2.task_id.includes("_restaurant_") ? "restaurant" : "lodging"),
+              source_image: old.source_image || v2.source_image,
+              generated_crop: old.generated_crop || v2.generated_crop,
+              context_region_xyxy: old.context_region_xyxy || v2.context_region_xyxy,
+              old_spliced_full: old[CONFIG.oldPathField],
+              v2_spliced_full: v2[CONFIG.v2PathField],
+              v2_status: v2.segmentation_status || null
+            };
+          })
+          .filter((row) => row.source_image && row.generated_crop && row.context_region_xyxy
+            && row.old_spliced_full && row.v2_spliced_full)
+          .sort((a, b) => a.task_id.localeCompare(b.task_id));
+        mergeSelections(repoSelections);
+        state.currentId = state.rows.find((row) => !state.selections[row.task_id]?.selection)?.task_id
+          || state.rows[0]?.task_id
+          || null;
+        applyFilters(true);
+      } catch (error) {
+        $("taskList").innerHTML = `<div class="empty">加载失败：${error.message}</div>`;
+        $("taskTitle").textContent = "数据加载失败";
+        $("saveStatus").textContent = "请确认本地服务正在运行";
+      }
+    }
+
+    init();
+  </script>
+</body>
+</html>

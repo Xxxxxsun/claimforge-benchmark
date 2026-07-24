@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>正在打开垃圾桶 Reject-Both 重标页面</title>
+</head>
+<body>
+  <p>正在打开 61 张垃圾桶原图重标页面……</p>
+  <script>
+    "use strict";
+
+    const target = new URL("./claimforge-labeler.html", window.location.href);
+    const params = {
+      manifest: "../source_pool/relabel_reject_both_trash_can_61/manifest.json",
+      candidates: "trash can",
+      storageKey: "claimforge-trash-can-reject-both-61-relabel-v1",
+      legacyStorageKeys: "",
+      task: "claimforge_trash_can_reject_both_relabel_slots",
+      download: "claimforge-trash-can-reject-both-61-relabel-slots.json",
+      remoteSave: "1",
+      savePath: "annotations/claimforge_trash_can_reject_both_61_relabel_slots.json",
+    };
+    for (const [key, value] of Object.entries(params)) {
+      target.searchParams.set(key, value);
+    }
+    window.location.replace(target);
+  </script>
+</body>
+</html>

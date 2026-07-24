@@ -103,13 +103,21 @@ python run_hunyuan_generation.py \
   --steps 8 --timeout 1800 --resume
 python compose_spliced_full.py \
   --tasks annotations/cat_generation_tasks.jsonl \
-  --model-name hunyuan_image3_distil_cat_272_native_style_v2_20260722
+  --model-name hunyuan_image3_distil_cat_272_native_style_v2_20260722 \
+  --blend object \
+  --object-search padded \
+  --object-pad 20 \
+  --object-thr 30 \
+  --feather 2
 ```
 
 The cat prompt matches the source crop's style and image quality, including
 blur and compression artifacts, and deterministically varies natural poses and
 off-camera orientations by task ID. The versioned output directory preserves
-the earlier cat run and its downstream review artifacts.
+the earlier cat run and its downstream review artifacts. The production
+composite uses the simple single-threshold object mask with a fixed 20-pixel
+search padding; the distance-growing and SAM3 variants remain comparison
+artifacts.
 
 Export and run all completed trash-can slots, then compose them back into the
 full source images:

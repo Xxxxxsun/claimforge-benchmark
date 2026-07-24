@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>正在打开 Cat Reject-Both 重标页面</title>
+</head>
+<body>
+  <p>正在打开 40 张猫原图重标页面……</p>
+  <script>
+    "use strict";
+
+    const target = new URL("./claimforge-labeler.html", window.location.href);
+    const params = {
+      manifest: "../source_pool/relabel_reject_both_cat_40/manifest.json",
+      candidates: "cat",
+      storageKey: "claimforge-cat-reject-both-40-relabel-v1",
+      legacyStorageKeys: "",
+      task: "claimforge_cat_reject_both_relabel_slots",
+      download: "claimforge-cat-reject-both-40-relabel-slots.json",
+      remoteSave: "1",
+      savePath: "annotations/claimforge_cat_reject_both_40_relabel_slots.json",
+    };
+    for (const [key, value] of Object.entries(params)) {
+      target.searchParams.set(key, value);
+    }
+    window.location.replace(target);
+  </script>
+</body>
+</html>

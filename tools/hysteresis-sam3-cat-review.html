@@ -24,17 +24,25 @@
     const target = new URL("./sam3-cat-review.html", window.location.href);
     target.searchParams.set(
       "resultDir",
-      "results/segmentation/fal_sam3_cat_native_style_v2_semantic_shadow_balanced48_20260724",
+      "results/segmentation/fal_sam3_cat_native_style_v2_full272_20260723",
     );
     target.searchParams.set(
       "hysteresisDir",
       "results/segmentation/hysteresis_sam3_v2_cat_native_style_v2_full272_20260724",
     );
     target.searchParams.set(
-      "hysteresisBaselineDir",
-      "results/segmentation/hysteresis_sam3_cat_native_style_v2_full272_20260723",
+      "reviewResultDir",
+      "results/segmentation/hysteresis_sam3_v2_cat_native_style_v2_full272_20260724",
     );
-    target.searchParams.set("compareA", "hysteresisBaseline");
+    target.searchParams.set(
+      "storageKey",
+      "claimforge-cat-native-style-v2-hysteresis-sam3-v2-review-v1",
+    );
+    target.searchParams.set(
+      "savePath",
+      "annotations/claimforge_cat_native_style_v2_hysteresis_sam3_v2_review_labels.json",
+    );
+    target.searchParams.set("compareA", "sam3");
     target.searchParams.set("compareB", "hysteresis");
     for (const [key, value] of incoming) target.searchParams.set(key, value);
     document.getElementById("viewer").src = target.href;

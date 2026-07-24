@@ -371,6 +371,7 @@
           <div>
             <span id="task-id" class="task-id">-</span>
             <span id="status-pill" class="status-pill">未标</span>
+            <span id="upstream-status-pill" class="status-pill" hidden></span>
           </div>
           <div id="position-text">0 / 0</div>
         </div>
@@ -395,11 +396,11 @@
         </div>
 
         <div class="status-card">
-          <strong>生成 crop</strong>
+          <strong id="reference-title">生成 crop</strong>
           <img id="crop-image" class="thumb" alt="generated crop">
         </div>
 
-        <div class="status-card">
+        <div id="spliced-crop-card" class="status-card">
           <strong>拼回 crop（蓝框区域）</strong>
           <canvas id="spliced-crop" class="thumb"></canvas>
           <p class="small">这里是当前拼回大图里按 context_region 裁出的区域。</p>
@@ -444,6 +445,11 @@
       || "claimforge_generation_review_labels.json";
     const REVIEW_TASK = REVIEW_PARAMS.get("task") || "claimforge_generation_review";
     const SAVE_PATH = REVIEW_PARAMS.get("savePath");
+    const REVIEW_MODE = REVIEW_PARAMS.get("mode") || "spliced";
+    const MAIN_IMAGE_FIELD = REVIEW_PARAMS.get("imageField") || "spliced_full";
+    const REFERENCE_IMAGE_FIELD = REVIEW_PARAMS.get("referenceField") || "generated_crop";
+    const REFERENCE_TITLE = REVIEW_PARAMS.get("referenceTitle") || "生成 crop";
+    const SORT_MODE = REVIEW_PARAMS.get("sort") || "task";
     let repoSaveTimer = null;
     document.title = PAGE_TITLE;
     document.getElementById("page-title").textContent = PAGE_TITLE;
@@ -478,6 +484,7 @@
       splicedCrop: document.getElementById("spliced-crop"),
       taskId: document.getElementById("task-id"),
       status: document.getElementById("status-pill"),
+      upstreamStatus: document.getElementById("upstream-status-pill"),
       pos: document.getElementById("position-text"),
       total: document.getElementById("total-count"),
       restaurantCount: document.getElementById("restaurant-count"),
@@ -487,6 +494,8 @@
       sourceCount: document.getElementById("source-count"),
       unlabeledCount: document.getElementById("unlabeled-count"),
       note: document.getElementById("note-input"),
+      referenceTitle: document.getElementById("reference-title"),
+      splicedCropCard: document.getElementById("spliced-crop-card"),
     };
 
     function parseJsonl(text) {
@@ -509,6 +518,31 @@
       } catch {
         state.labels = {};
       }
+    }
+
+    async function loadRepoLabels() {
+      if (!SAVE_PATH) return;
+      const response = await fetch(`${repoPath(SAVE_PATH)}?t=${Date.now()}`, {cache: "no-store"});
+      if (response.status === 404) return;
+      if (!response.ok) throw new Error(`读取已有标注失败 (${response.status})`);
+      const payload = await response.json();
+      if (!Array.isArray(payload.records)) return;
+      for (const record of payload.records) {
+        if (!record?.task_id) continue;
+        const hasContent = record.status && record.status !== "unlabeled" || record.note;
+        if (!hasContent) continue;
+        const local = state.labels[record.task_id];
+        const localTime = Date.parse(local?.updated_at || 0);
+        const repoTime = Date.parse(record.updated_at || 0);
+        if (!local || repoTime > localTime) {
+          state.labels[record.task_id] = {
+            status: record.status === "unlabeled" ? undefined : record.status,
+            note: record.note || "",
+            updated_at: record.updated_at || null,
+          };
+        }
+      }
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state.labels));
     }
 
     function saveLabels() {
@@ -674,7 +708,7 @@
 
     function renderMarker() {
       const task = currentTask();
-      if (!task || !state.currentImageRect) {
+      if (!task || !state.currentImageRect || REVIEW_MODE === "crop" || !Array.isArray(task.context_region_xyxy)) {
         hideMarker();
         return;
       }
@@ -729,7 +763,7 @@
 
     function renderSplicedCrop() {
       const task = currentTask();
-      if (!task || !els.image.complete || !els.image.naturalWidth) {
+      if (!task || REVIEW_MODE === "crop" || !Array.isArray(task.context_region_xyxy) || !els.image.complete || !els.image.naturalWidth) {
         clearSplicedCrop();
         return;
       }
@@ -773,13 +807,17 @@
       els.note.value = record.note || "";
       els.status.textContent = statusText(status);
       els.status.className = `status-pill ${status}`;
+      const upstreamStatus = task.review_status || "";
+      els.upstreamStatus.hidden = !upstreamStatus;
+      els.upstreamStatus.textContent = upstreamStatus ? `上游 QA：${upstreamStatus}` : "";
+      els.upstreamStatus.className = `status-pill ${upstreamStatus === "usable" ? "good" : "source_bad"}`;
       setActiveButtons(status);
 
       state.currentImageRect = null;
       hideMarker();
       clearSplicedCrop();
-      els.image.src = repoPath(task.spliced_full);
-      els.crop.src = repoPath(task.generated_crop);
+      els.image.src = repoPath(task[MAIN_IMAGE_FIELD]);
+      els.crop.src = repoPath(task[REFERENCE_IMAGE_FIELD]);
     }
 
     function go(delta) {
@@ -805,8 +843,10 @@
         status: getRecord(task.task_id).status || "unlabeled",
         note: getRecord(task.task_id).note || "",
         updated_at: getRecord(task.task_id).updated_at || null,
-        spliced_image: task.spliced_full,
-        generated_crop: task.generated_crop,
+        review_image: task[MAIN_IMAGE_FIELD],
+        reference_image: task[REFERENCE_IMAGE_FIELD],
+        spliced_image: task.spliced_full || null,
+        generated_crop: task.generated_crop || task.output_crop || null,
         source_image: task.source_image,
         image_size: task.image_size,
         edit_region_xyxy: task.edit_region_xyxy,
@@ -866,6 +906,9 @@
 
     async function init() {
       loadLabels();
+      await loadRepoLabels();
+      els.referenceTitle.textContent = REFERENCE_TITLE;
+      els.splicedCropCard.hidden = REVIEW_MODE === "crop";
       const manifestRows = await Promise.all(MANIFESTS.map(async (manifest) => {
         const response = await fetch(manifest.url);
         if (!response.ok) throw new Error(`failed to load ${manifest.url}`);
@@ -877,7 +920,14 @@
       const rows = manifestRows.flat();
       state.tasks = rows
         .filter((task) => ["restaurant", "lodging"].includes(taskDomain(task)) && task.status === "ok")
-        .sort((a, b) => domainOrder(a) - domainOrder(b) || taskNumber(a) - taskNumber(b) || a.task_id.localeCompare(b.task_id));
+        .sort((a, b) => {
+          if (SORT_MODE === "upstream_qa") {
+            const qaOrder = {needs_review: 0, usable: 1};
+            const qa = (qaOrder[a.review_status] ?? 2) - (qaOrder[b.review_status] ?? 2);
+            if (qa) return qa;
+          }
+          return domainOrder(a) - domainOrder(b) || taskNumber(a) - taskNumber(b) || a.task_id.localeCompare(b.task_id);
+        });
       applyFilter(false);
       render();
       if (SAVE_PATH) {

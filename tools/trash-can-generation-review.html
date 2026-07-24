@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ClaimForge 垃圾桶 Review</title>
+</head>
+<body>
+  <script>
+    "use strict";
+
+    const target = new URL("hunyuan-lodging-review.html", window.location.href);
+    target.searchParams.append(
+      "manifest",
+      "../generated_crops/hunyuan_image3_distil_trash_can_260_complete_reviewed_20260724/manifest.jsonl",
+    );
+    target.searchParams.append("manifestName", "trash_can_full_260");
+    target.searchParams.set("title", "ClaimForge 垃圾桶 Review");
+    target.searchParams.set(
+      "subtitle",
+      "逐张比较最终垃圾桶 crop 与原始 context；上游 QA 仅供参考。",
+    );
+    target.searchParams.set("storage", "claimforge-trash-can-full-260-human-review-v1");
+    target.searchParams.set("task", "claimforge_trash_can_full_260_human_review");
+    target.searchParams.set("export", "claimforge-trash-can-full-260-human-review-labels.json");
+    target.searchParams.set(
+      "savePath",
+      "annotations/claimforge_trash_can_full_260_human_review_labels.json",
+    );
+    target.searchParams.set("mode", "crop");
+    target.searchParams.set("imageField", "output_crop");
+    target.searchParams.set("referenceField", "input_context_crop");
+    target.searchParams.set("referenceTitle", "原始 context");
+    target.searchParams.set("sort", "upstream_qa");
+    window.location.replace(target.href);
+  </script>
+</body>
+</html>

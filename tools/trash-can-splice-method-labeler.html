@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>正在打开垃圾桶拼回方法选择</title>
+</head>
+<body>
+  <p>正在打开垃圾桶双版本对比页面……</p>
+  <script>
+    "use strict";
+
+    const target = new URL("./cat-splice-method-labeler.html", window.location.href);
+    const params = {
+      leftResult: "spliced_full/hunyuan_image3_distil_trash_can_260_hysteresis_distance_20260724/manifest.jsonl",
+      rightResult: "results/segmentation/mlx_sam3_trash_can_full260_20260724/review_manifest.jsonl",
+      leftPathField: "spliced_full",
+      rightPathField: "hybrid_spliced_full",
+      savePath: "annotations/claimforge_trash_can_splice_method_selections.json",
+      storageKey: "claimforge-trash-can-splice-method-selections-v1",
+      task: "claimforge_trash_can_splice_method_selection",
+      title: "垃圾桶拼回方法选择",
+      leftSelection: "hysteresis_distance",
+      rightSelection: "sam3_semantic_hysteresis",
+      rejectSelection: "reject_both",
+      leftLabel: "当前版",
+      rightLabel: "SAM3",
+      rejectLabel: "两版都不用",
+      leftTitle: "Hysteresis-distance",
+      rightTitle: "SAM3 + semantic hysteresis",
+      leftSubtitle: "当前纯差分拼回",
+      rightSubtitle: "SAM3 语义 mask + 差分补边",
+      leftButton: "使用当前版",
+      rightButton: "使用 SAM3",
+    };
+    for (const [key, value] of Object.entries(params)) {
+      target.searchParams.set(key, value);
+    }
+    window.location.replace(target);
+  </script>
+</body>
+</html>

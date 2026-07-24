@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>正在打开垃圾桶拼回 Review</title>
+</head>
+<body>
+  <p>正在打开垃圾桶完整拼回结果标注页面……</p>
+  <script>
+    "use strict";
+
+    const target = new URL("./hunyuan-lodging-review.html", window.location.href);
+    target.searchParams.set(
+      "manifest",
+      "../spliced_full/hunyuan_image3_distil_trash_can_260_hysteresis_distance_20260724/manifest.jsonl",
+    );
+    target.searchParams.set(
+      "manifestName",
+      "trash_can_full_260_hysteresis_distance",
+    );
+    target.searchParams.set(
+      "storage",
+      "claimforge-trash-can-full-260-hysteresis-spliced-review-v1",
+    );
+    target.searchParams.set(
+      "title",
+      "ClaimForge 垃圾桶拼回 Review",
+    );
+    target.searchParams.set(
+      "subtitle",
+      "逐张审核 260 张完整拼回图；右侧同时显示生成 crop 与最终拼回后的 context crop。",
+    );
+    target.searchParams.set(
+      "task",
+      "claimforge_trash_can_full_260_hysteresis_spliced_review",
+    );
+    target.searchParams.set(
+      "export",
+      "claimforge-trash-can-full-260-hysteresis-spliced-review-labels.json",
+    );
+    target.searchParams.set(
+      "savePath",
+      "annotations/claimforge_trash_can_full_260_hysteresis_spliced_review_labels.json",
+    );
+    window.location.replace(target);
+  </script>
+</body>
+</html>

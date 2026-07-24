@@ -1,6 +1,6 @@
 # ClaimForge 猫图拼回逻辑教程
 
-更新时间：2026-07-22
+更新时间：2026-07-24
 
 对应实现：[`compose_spliced_full.py`](../compose_spliced_full.py)
 
@@ -9,19 +9,19 @@
 当前推荐的猫图拼回模式是：
 
 ```text
---blend hysteresis-distance
+--blend object --object-search padded --object-pad 20 --object-thr 30
 ```
 
-它不是把橙框中的矩形区域直接贴回原图，也不是只在橙框内部检测猫。它的核心思路是：
+这是 2026-07-24 回退后的简单 baseline。它的核心思路是：
 
-1. 对比“送进生成模型的原始 context crop”和“模型生成的 crop”；
-2. 在橙框内部寻找高置信变化像素，作为猫的种子；
-3. 在橙框周围的可达区域内，沿着较低阈值的变化像素向外生长；
-4. 离橙框越远，判定为有效变化所需的阈值越高，避免把整张 crop 的重建噪声粘进 mask；
-5. 对生长结果做填洞、轻微膨胀和羽化；
-6. 只把 mask 内的生成像素混回原始 context，再把这个 context 放回整张源图。
+1. 对比原始 context crop 和模型生成的 crop；
+2. 只在橙框向外固定扩展 20 像素的区域内保留差分大于 30 的像素；
+3. 保留与橙框相交的最大连通域；
+4. 轻微膨胀并羽化边界；
+5. 只把 mask 内的生成像素混回原始 context，再放回整张源图。
 
-因此，橙框的角色是**种子锚点**，不是最终裁剪边界。真正限制生长范围的是 `reach` 区域；当前代码还会在 mask 碰到人工 `reach` 边界时自动扩大一次搜索范围。
+固定 20 像素的是差分搜索范围。`feather=2` 会让最终 alpha 在边界外再产生少量平滑过渡，但不会引入新的远距离连通区域。此前的
+`hysteresis-distance` 和 SAM3 方案保留用于对照，不再作为当前默认方案。
 
 ## 2. 三个坐标空间
 
@@ -87,7 +87,7 @@ candidates
 
 ### 3.2 生成 manifest
 
-当前 272 张猫 crop 来自：
+当前 272 张 native-style v2 猫 crop 来自：
 
 ```text
 generated_crops/hunyuan_image3_distil_cat_272_native_style_v2_20260722/manifest.jsonl
@@ -119,13 +119,14 @@ status
 | 模式 | mask 逻辑 | 适用场景 |
 |---|---|---|
 | `box` | 直接使用羽化后的橙框矩形 | 最简单 baseline；容易产生矩形色差 |
-| `object` | 单阈值差分 + opening + 最大锚定连通域 | 旧 baseline；容易截断低对比毛发或分离的腿、尾巴 |
-| `hysteresis` | 高阈值种子 + 固定低阈值 support 区域生长 | 比单阈值完整，但远处背景噪声可能形成桥接 |
-| `hysteresis-distance` | hysteresis + 随距离升高的 support 阈值 + 自动扩大 reach | 当前推荐模式 |
+| `object` | 单阈值差分 + 固定像素 padding + 最大锚定连通域 | **当前 baseline** |
+| `hysteresis` | 高阈值种子 + 固定低阈值 support 区域生长 | 历史实验；背景噪声可能形成桥接 |
+| `hysteresis-distance` | hysteresis + 距离阈值 + 自动扩大 reach | 历史实验；审核后回退 |
 
-旧 `object` 实现在 [`object_mask()`](../compose_spliced_full.py#L63)，当前主逻辑实现在 [`hysteresis_object_mask()`](../compose_spliced_full.py#L126)。
+当前 `object` baseline 实现在 [`object_mask()`](../compose_spliced_full.py#L63)。后续章节保留
+`hysteresis_object_mask()` 的实现说明，便于复现实验结果。
 
-## 5. `hysteresis-distance` 的完整算法
+## 5. 历史 `hysteresis-distance` 算法
 
 下面按代码执行顺序拆解。
 
@@ -490,7 +491,7 @@ spliced.paste(crop_to_paste, (context_x1, context_y1))
 
 ## 9. 推荐运行命令
 
-### 9.1 先输出到新目录
+### 9.1 先输出 Hysteresis trial 到新目录
 
 不要一开始覆盖已有审核结果。先运行到新目录：
 
@@ -513,7 +514,24 @@ python compose_spliced_full.py \
   --feather 2
 ```
 
-### 9.2 只测试少量任务
+### 9.2 固定 20 像素 object baseline
+
+以下命令复现 272 张 native-style v2 猫图的固定 padding baseline：
+
+```bash
+python compose_spliced_full.py \
+  --tasks annotations/cat_generation_tasks.jsonl \
+  --model-name hunyuan_image3_distil_cat_272_native_style_v2_20260722 \
+  --generated-manifest generated_crops/hunyuan_image3_distil_cat_272_native_style_v2_20260722/manifest.jsonl \
+  --out-dir spliced_full/hunyuan_image3_distil_cat_272_native_style_v2_20260722 \
+  --blend object \
+  --object-search padded \
+  --object-pad 20 \
+  --object-thr 30 \
+  --feather 2
+```
+
+### 9.3 只测试历史 hysteresis 方法
 
 `--only` 接受逗号分隔的 `task_id` 或生成 manifest 中的零基索引：
 
@@ -529,7 +547,7 @@ python compose_spliced_full.py \
 
 不加 `--update-existing-manifest` 时，输出 manifest 只包含本次选中的任务。
 
-### 9.3 覆盖已有结果中的单张图
+### 9.4 覆盖历史 hysteresis 结果中的单张图
 
 确认参数后，才对已有目录使用：
 

@@ -236,6 +236,20 @@ results/segmentation/hysteresis_sam3_v2_cat_native_style_v2_full272_20260724/
 - 最终清除主体外羽化亮像素：542 像素；
 - residual 与主体外最终 alpha 的亮化违规均为 0。
 
+### 本机复现记录
+
+本机没有文档原命令中的 `conda utils` 环境，因此使用 Python 3.9.2、
+NumPy 1.19.5、SciPy 1.6.2 和 Pillow 8.2.0 重新 materialize。272 张均成功，
+核心不变量与上表一致：
+
+- context 外像素变化：0；
+- residual 中任一通道亮化违规：0；
+- SAM3 主体外最终 alpha 亮化违规：0。
+
+形态学和羽化实现的版本差异使部分计数略有漂移：自动扩张尝试/采用为
+194/178，平均和中位 residual/SAM3 面积比分别为 0.3081 和 0.2839。
+分析本机生成目录时应以该目录中的 `summary.json` 和 `results.jsonl` 为准。
+
 ## 10. 复现
 
 无需再次调用 SAM3 API。使用已经保存的 SAM3 结果离线生成：
@@ -262,7 +276,13 @@ PYTHONPATH=. conda run -n utils python -m unittest \
 http://localhost:8000/tools/hysteresis-sam3-cat-review.html
 ```
 
-页面默认以全图拖动方式比较 Hysteresis-SAM3 v1 与 v2。
+当前仓库未提交文档最初使用的 v1/balanced48 中间结果。默认入口使用仓库内
+完整的 272 张 SAM3 结果与本地 materialize 的 v2 成品进行全图拖动比较，并
+将 v2 标签保存到独立路径：
+
+```text
+annotations/claimforge_cat_native_style_v2_hysteresis_sam3_v2_review_labels.json
+```
 
 ## 11. 局限与审核重点
 
