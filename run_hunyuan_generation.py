@@ -81,6 +81,51 @@ TRASH_CAN_PROMPT_TMPL = (
     "cleaner, sharper, or more realistic than the source. Keep everything else "
     "unchanged. No furniture-top placement, extra bins, text, logos, crop, or zoom."
 )
+TRASH_CAN_FLEXIBLE_PROMPT_TMPL = (
+    "Add exactly one NEW small, ordinary trash can. Treat the requested location "
+    "only as a loose guide: place it {pos}. If that location is blocked, occupied, "
+    "unsupported, or too close to an image edge, ignore it and choose the nearest "
+    "physically sensible, unobtrusive spot anywhere inside the crop. Prefer open "
+    "floor or ground. In a bathroom, use dry tiled floor beside a toilet or vanity. "
+    "If no floor or ground is visible anywhere, use a compact tabletop wastebasket "
+    "resting fully on a clearly horizontal hard counter, table, or shelf. Never put "
+    "it on a bed, pillow, sofa, chair, toilet, toilet tank, bathtub, shower area, "
+    "wall, or vertical cabinet face, and never leave it floating. Show the entire "
+    "bin unobstructed: full rim or lid, both side contours, complete base, visible "
+    "support directly below the base, and a clear gap around its whole silhouette. "
+    "Keep ample margin from every image edge; the base must not touch the bottom "
+    "frame. Do not overlap, erase, move, or deform any existing person, furniture, "
+    "container, or other object. Use a modest scene-appropriate scale, perspective, "
+    "and subtle contact shadow. Match the source visual style, lighting, color, "
+    "depth of field, resolution, detail, sharpness or blur, noise, and compression; "
+    "never make the bin cleaner, sharper, or more realistic than the source. Keep "
+    "the framing and everything else unchanged. No crop, zoom, text, logos, loose "
+    "trash, additional new bins, or unrelated objects."
+)
+TRASH_CAN_GLOBAL_PROMPT_TMPL = (
+    "Add exactly one clearly visible NEW small, ordinary trash can at the most "
+    "physically sensible and unobtrusive location anywhere in this image. The new "
+    "bin is the required edit: do not omit it, duplicate it, or turn it into a cup, "
+    "pot, bucket, or existing piece of furniture. Prefer open floor or ground near "
+    "a wall, cabinet, desk, or nightstand while keeping doors, walkways, seating, "
+    "people, dining places, food displays, and work areas clear. In a bathroom, use "
+    "dry tiled floor beside a toilet or vanity, never the toilet, tank, bathtub, "
+    "shower, or door track. In a bedroom, use visible floor beside furniture, never "
+    "a bed, pillow, sofa, or chair. Only if the entire image has no visible floor or "
+    "ground, use a compact tabletop wastebasket fully resting on an empty, clearly "
+    "horizontal hard shelf, counter, or desk that is not being used for dining or "
+    "food preparation. Show the whole bin in front of surrounding objects: full rim "
+    "or lid, both side contours, complete body and base, visible support immediately "
+    "below the base, and a clear background gap around the entire silhouette. Keep "
+    "it well inside the frame with generous margin on every side; its base must not "
+    "touch the bottom edge. Do not hide it behind furniture or people. Use modest "
+    "scene-appropriate scale and perspective with a subtle contact shadow. Match the "
+    "source visual style, lighting, color, depth of field, resolution, detail, "
+    "sharpness or blur, noise, and compression; never make the bin or background "
+    "cleaner, sharper, or more realistic than the source. Preserve every existing "
+    "person, object, surface, and the original framing. No crop, zoom, text, logos, "
+    "loose trash, additional new bins, or unrelated changes."
+)
 
 
 def position_phrase(box, size, low=1 / 3, high=2 / 3):
@@ -224,6 +269,8 @@ def call_edit(args, img, prompt, width, height, seed):
 
 
 def make_prompt(task, position, prompt_kind):
+    if task.get("prompt_override"):
+        return str(task["prompt_override"])
     if prompt_kind == "cat":
         digest = hashlib.sha256(task["task_id"].encode("utf-8")).digest()
         return CAT_PROMPT_TMPL.format(
@@ -231,6 +278,10 @@ def make_prompt(task, position, prompt_kind):
             pose=CAT_POSES[digest[8] % len(CAT_POSES)],
             orientation=CAT_ORIENTATIONS[digest[9] % len(CAT_ORIENTATIONS)],
         )
+    elif prompt_kind == "trash-can-flexible":
+        tmpl = TRASH_CAN_FLEXIBLE_PROMPT_TMPL
+    elif prompt_kind == "trash-can-global":
+        tmpl = TRASH_CAN_GLOBAL_PROMPT_TMPL
     elif prompt_kind == "trash-can":
         tmpl = TRASH_CAN_PROMPT_TMPL
     elif prompt_kind == "stain":
@@ -258,7 +309,11 @@ def run_task(task, args):
 
     up = crop.resize((tw, th), Image.LANCZOS)
     box = [int(v) for v in task["edit_region_in_context_xyxy"]]
-    if args.prompt_kind == "trash-can":
+    if args.prompt_kind in {
+        "trash-can",
+        "trash-can-flexible",
+        "trash-can-global",
+    }:
         pos = trash_can_position_phrase(box, (W, H))
     else:
         pos = position_phrase(box, (W, H))
@@ -294,9 +349,12 @@ def main():
     ap.add_argument("--model", default="vllm_hunyuan_image3")
     ap.add_argument("--api-style", choices=["omni", "legacy"], default="omni",
                     help="vLLM-Omni image edit API or the older custom chat API")
-    ap.add_argument("--bot-task", default="think",
+    ap.add_argument("--bot-task", default="think_recaption",
                     choices=["think", "recaption", "think_recaption", "vanilla"],
-                    help="Hunyuan Instruct prompt mode used by vLLM-Omni")
+                    help=(
+                        "Hunyuan Instruct prompt mode used by vLLM-Omni; "
+                        "default matches the checkpoint generation config"
+                    ))
     ap.add_argument("--sys-type", default="en_unified",
                     help="Hunyuan system prompt type; pass an empty string to omit")
     ap.add_argument("--guidance-scale", type=float, default=None,
@@ -313,9 +371,19 @@ def main():
     )
     ap.add_argument(
         "--prompt-kind",
-        choices=["object", "stain", "cat", "trash-can"],
+        choices=[
+            "object",
+            "stain",
+            "cat",
+            "trash-can",
+            "trash-can-flexible",
+            "trash-can-global",
+        ],
         default="object",
-        help="prompt family to use; default preserves the original object workflow",
+        help=(
+            "prompt family to use; trash-can-flexible may move away from an "
+            "unsupported requested location while preserving the complete bin"
+        ),
     )
     ap.add_argument("--feather", type=float, default=2.0)
     ap.add_argument("--paste-back", action="store_true",
@@ -369,6 +437,13 @@ def main():
                 "input_context_crop": task["context_crop"],
                 "output_crop": str(out_path.relative_to(REPO)),
                 "model": args.model_name,
+                "service_model": args.model,
+                "api_style": args.api_style,
+                "bot_task": args.bot_task,
+                "sys_type": args.sys_type,
+                "prompt_kind": args.prompt_kind,
+                "steps": args.steps,
+                "guidance_scale": args.guidance_scale,
                 "prompt": prompt,
                 "seed": seed,
                 "seed_salt": args.seed_salt,
@@ -385,6 +460,13 @@ def main():
                 "task_id": tid,
                 "input_context_crop": task["context_crop"],
                 "model": args.model_name,
+                "service_model": args.model,
+                "api_style": args.api_style,
+                "bot_task": args.bot_task,
+                "sys_type": args.sys_type,
+                "prompt_kind": args.prompt_kind,
+                "steps": args.steps,
+                "guidance_scale": args.guidance_scale,
                 "status": "failed",
                 "error": repr(e),
             }) + "\n")

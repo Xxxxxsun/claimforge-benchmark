@@ -152,6 +152,24 @@ and QA summary is in
 `docs/TRASH_CAN_COMPLETE_NATURAL_QA_2026-07-23.md`. The initial and both raw
 repair directories are retained for provenance.
 
+The 148 slots omitted by that source-suitability pass were subsequently
+generated instead of discarded. The lossless 2026-07-24 deliverables are:
+
+- remaining 148:
+  `generated_crops/hunyuan_image3_distil_trash_can_remaining_148_reviewed_20260724/`
+- complete 260:
+  `generated_crops/hunyuan_image3_distil_trash_can_260_complete_reviewed_20260724/`
+
+Both directories contain one PNG and one manifest row for every task in their
+scope. QA is metadata only: `usable` marks a strict visual pass and
+`needs_review` keeps a generated candidate that did not pass the strict
+complete-and-natural threshold. No task is removed. The mixed-context task
+manifest for the complete delivery is
+`annotations/trash_can_generation_tasks_260_reviewed_mixed_context_20260724.jsonl`;
+the corresponding per-task review is
+`annotations/trash_can_full_260_review_20260724.jsonl`. See
+`docs/TRASH_CAN_FULL_260_GENERATION_2026-07-24.md` for counts and validation.
+
 The generation client posts multipart requests to `/v1/images/edits`, keeps
 the input and output dimensions equal, disables environment proxy discovery,
 and decodes the returned `b64_json` image. Use `--api-style legacy` only for
