@@ -29,7 +29,7 @@ high-risk targets, and 10 borderline targets.
 
 All requests completed successfully:
 
-| Round | Directory | Requests | Selected |
+| Round | Historical output directory | Requests | Selected into the 112-image review set |
 |---|---|---:|---:|
 | Initial | `hunyuan_image3_distil_trash_can_112_complete_natural_v2_20260723` | 112/112 | 100 |
 | Repair 1 | `hunyuan_image3_distil_trash_can_repair1_complete_natural_v3_20260723` | 32/32 | 11 |
@@ -37,11 +37,22 @@ All requests completed successfully:
 
 The final reviewed directory is:
 
-`generated_crops/hunyuan_image3_distil_trash_can_112_complete_natural_reviewed_20260723/`
+`generated_crops/hunyuan_image3_distil_trash_can_complete_natural_usable85_20260723/`
 
-It retains all 112 task IDs in the original task order and selects only repairs
-that are clearly better under the complete-and-natural criteria. Raw initial and
-repair outputs remain available for provenance.
+It contains only the 85 task IDs that passed strict visual QA, in their original
+relative task order, and selects only repairs that are clearly better under the
+complete-and-natural criteria. Its `manifest.jsonl` is the single output
+manifest for this deliverable.
+
+The raw initial and repair directories were removed after consolidation.
+Selected revision, prompt, seed, and review provenance remain recorded in the
+final manifest and per-task review file.
+
+The earlier generic 260-image
+`hunyuan_image3_distil_trash_can_260_native_style_v1_20260722` generation was
+superseded by this audited workflow and removed from the current `main` tree on
+2026-07-24. Its shared source context crops are retained because this workflow
+still depends on them.
 
 ## Final usability
 
@@ -76,10 +87,16 @@ in:
 
 `annotations/trash_can_complete_natural_review_20260723.jsonl`
 
+The 27 rejected tasks, with the original generation inputs, are stored directly
+for the next generation round in:
+
+`annotations/trash_can_generation_tasks_regenerate_27_20260724.jsonl`
+
 ## Exclusions
 
-The 27 rejected tasks are deliberately retained in the generated artifact but
-marked `exclude`; they must not be treated as usable examples.
+The 27 rejected images are not retained in the final generated artifact. Their
+review rows are marked `exclude`, have `selected_output: null`, and set
+`needs_regeneration: true`.
 
 No recognizable complete bin, or the only bin remains cropped/occluded:
 
@@ -128,13 +145,14 @@ trash_can_lodging_233_slot_001
 Independent visual reviewers compared source, initial, and repair variants.
 Automated final validation completed with zero errors and zero warnings:
 
-- tasks, review, manifest, and PNG sets all contain 112 unique IDs in identical
-  order;
-- review contains exactly 85 `usable` and 27 `exclude` rows, matching each final
-  manifest `review_status`;
-- all 112 outputs are decodable RGB PNGs with the expected dimensions;
-- all 112 output hashes are unique;
-- selected provenance is 100 initial, 11 repair 1, and 1 repair 2;
-- every final image hash matches the recorded selected source revision;
-- every prompt, seed, seed salt, size, and status matches the selected source
-  manifest, and all deterministic seeds recompute correctly.
+- the source task manifest and review contain 112 unique IDs in identical order;
+- the final manifest and PNG set contain exactly the same 85 usable IDs, in
+  their original relative task order;
+- the review contains exactly 85 `usable` and 27 `exclude` rows, and the
+  regeneration task manifest contains exactly those same 27 excluded IDs;
+- every final manifest path resolves to one decodable RGB PNG with the expected
+  dimensions, and there are no extra PNGs in the final directory;
+- all 85 final output hashes are unique;
+- usable provenance is 73 initial, 11 repair 1, and 1 repair 2;
+- every final prompt, seed, seed salt, size, selected revision, and status was
+  preserved from the previously validated 112-image review set.

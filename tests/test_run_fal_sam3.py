@@ -19,6 +19,10 @@ from eval.segmentation.run_fal_sam3 import (
     semantic_quality,
     select_pilot_items,
 )
+from eval.segmentation.materialize_hysteresis_sam3 import (
+    HysteresisSam3Config,
+    hysteresis_sam3_mask,
+)
 
 
 def encode_compressed_coco_counts(counts):
@@ -260,6 +264,195 @@ class HybridMaskTest(unittest.TestCase):
         self.assertTrue(combined[31, 12])
         self.assertTrue(distance[31, 12])
         self.assertTrue(np.all(combined[semantic]))
+
+
+class HysteresisSam3MaskTest(unittest.TestCase):
+    def setUp(self):
+        self.config = HysteresisSam3Config(
+            low_threshold=10,
+            high_threshold=30,
+            far_threshold=25,
+            distance_power=1,
+            reach_scale=0.5,
+            min_reach_pixels=4,
+            max_reach_pixels=8,
+            close_iterations=0,
+            grow_iterations=0,
+            min_component_pixels=1,
+            semantic_feather=0,
+            residual_feather=0,
+            core_erosion=0,
+            unbounded_growth=False,
+            component_size_cap=True,
+        )
+
+    def test_keeps_sam_subject_and_grows_attached_weak_residual(self):
+        semantic = np.zeros((20, 20), dtype=bool)
+        semantic[8:12, 8:12] = True
+        difference = np.zeros((20, 20), dtype=np.float32)
+        difference[9:11, 12:16] = 25
+
+        combined, support, alpha, stats = hysteresis_sam3_mask(
+            semantic,
+            difference,
+            self.config,
+        )
+
+        self.assertTrue(np.all(combined[semantic]))
+        self.assertTrue(support[9, 14])
+        self.assertEqual(alpha[9, 14], 255)
+        self.assertGreater(stats["growth_over_semantic"], 0)
+
+    def test_rejects_distant_residual_outside_adaptive_reach(self):
+        semantic = np.zeros((24, 24), dtype=bool)
+        semantic[10:14, 10:14] = True
+        difference = np.zeros((24, 24), dtype=np.float32)
+        difference[0:2, 0:2] = 255
+
+        combined, support, _, stats = hysteresis_sam3_mask(
+            semantic,
+            difference,
+            self.config,
+        )
+
+        self.assertFalse(support[0, 0])
+        self.assertFalse(combined[0, 0])
+        self.assertEqual(stats["residual_support_pixels"], 0)
+
+    def test_distance_ramp_rejects_weak_far_pixel_but_keeps_near_pixel(self):
+        semantic = np.zeros((20, 20), dtype=bool)
+        semantic[8:12, 8:12] = True
+        difference = np.zeros((20, 20), dtype=np.float32)
+        difference[9, 12] = 15
+        difference[9, 16] = 15
+
+        combined, support, _, _ = hysteresis_sam3_mask(
+            semantic,
+            difference,
+            self.config,
+        )
+
+        self.assertTrue(support[9, 12])
+        self.assertFalse(support[9, 16])
+        self.assertTrue(combined[9, 12])
+
+    def test_unbounded_mode_keeps_connected_residual_beyond_reach(self):
+        semantic = np.zeros((20, 30), dtype=bool)
+        semantic[8:12, 8:12] = True
+        difference = np.zeros((20, 30), dtype=np.float32)
+        difference[9:11, 12:27] = 50
+        open_config = HysteresisSam3Config(
+            **{
+                **self.config.__dict__,
+                "unbounded_growth": True,
+                "component_size_cap": False,
+            }
+        )
+
+        combined, support, _, stats = hysteresis_sam3_mask(
+            semantic,
+            difference,
+            open_config,
+        )
+
+        self.assertTrue(support[9, 25])
+        self.assertTrue(combined[9, 25])
+        self.assertTrue(stats["unbounded_growth"])
+        self.assertIsNone(stats["component_size_cap_pixels"])
+
+    def test_auto_expands_connected_dark_shadow_that_touches_reach(self):
+        semantic = np.zeros((24, 32), dtype=bool)
+        semantic[8:12, 8:12] = True
+        difference = np.zeros((24, 32), dtype=np.float32)
+        difference[10:12, 12:21] = 35
+        darkening = np.zeros_like(difference)
+        darkening[10:12, 12:21] = 20
+        config = HysteresisSam3Config(
+            **{
+                **self.config.__dict__,
+                "reach_scale": 0.5,
+                "min_reach_pixels": 4,
+                "max_reach_pixels": 4,
+                "auto_expand_scale": 2.0,
+                "auto_expand_max_reach_pixels": 10,
+                "auto_expand_max_growth_over_semantic": 2.0,
+                "far_direction_start_ratio": 0.25,
+                "far_shadow_channel_min": 3,
+            }
+        )
+
+        combined, support, _, stats = hysteresis_sam3_mask(
+            semantic,
+            difference,
+            config,
+            shadow_channel_darkening=darkening,
+        )
+
+        self.assertTrue(support[10, 19])
+        self.assertTrue(combined[10, 19])
+        self.assertTrue(stats["auto_expand_attempted"])
+        self.assertTrue(stats["auto_expand_applied"])
+        self.assertEqual(stats["initial_reach_pixels"], 4)
+        self.assertEqual(stats["expanded_reach_pixels"], 8)
+
+    def test_far_direction_filter_rejects_bright_background_bridge(self):
+        semantic = np.zeros((24, 32), dtype=bool)
+        semantic[8:12, 8:12] = True
+        difference = np.zeros((24, 32), dtype=np.float32)
+        difference[10:12, 12:21] = 35
+        brightening = np.zeros_like(difference)
+        brightening[10:12, 12:21] = -20
+        config = HysteresisSam3Config(
+            **{
+                **self.config.__dict__,
+                "reach_scale": 2.0,
+                "min_reach_pixels": 8,
+                "max_reach_pixels": 8,
+                "auto_expand_scale": 0,
+                "far_direction_start_ratio": 0.25,
+                "far_shadow_channel_min": 3,
+            }
+        )
+
+        _, support, _, stats = hysteresis_sam3_mask(
+            semantic,
+            difference,
+            config,
+            shadow_channel_darkening=brightening,
+        )
+
+        self.assertFalse(support[10, 18])
+        self.assertTrue(stats["shadow_direction_filter_applied"])
+
+    def test_postconnect_filter_removes_near_brightening_and_feather(self):
+        semantic = np.zeros((20, 20), dtype=bool)
+        semantic[8:12, 8:12] = True
+        difference = np.zeros((20, 20), dtype=np.float32)
+        difference[9:11, 12:16] = 35
+        darkening = np.zeros_like(difference)
+        darkening[9, 13] = -1
+        config = HysteresisSam3Config(
+            **{
+                **self.config.__dict__,
+                "semantic_feather": 1,
+                "residual_feather": 1,
+                "far_direction_start_ratio": 1,
+            }
+        )
+
+        _, support, alpha, stats = hysteresis_sam3_mask(
+            semantic,
+            difference,
+            config,
+            shadow_channel_darkening=darkening,
+        )
+
+        self.assertFalse(support[9, 13])
+        self.assertEqual(alpha[9, 13], 0)
+        self.assertTrue(stats["postconnect_nonbright_filter_applied"])
+        self.assertEqual(stats["postconnect_bright_pixels_removed"], 1)
+        self.assertGreater(stats["residual_alpha_bright_pixels_zeroed"], 0)
+        self.assertGreater(stats["final_alpha_bright_pixels_zeroed"], 0)
 
 
 class PilotSelectionTest(unittest.TestCase):
