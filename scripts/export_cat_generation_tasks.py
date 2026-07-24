@@ -71,6 +71,8 @@ def export(args: argparse.Namespace) -> dict:
     seen_task_ids: set[str] = set()
     crops_to_write: list[tuple[Path, Image.Image]] = []
     empty_images: list[str] = []
+    incomplete_slots: list[str] = []
+    skip_incomplete = bool(getattr(args, "skip_incomplete", False))
 
     for item in images:
         slots = item.get("slots") or []
@@ -97,6 +99,10 @@ def export(args: argparse.Namespace) -> dict:
             insert_box = slot.get("insert_box")
             crop_box = slot.get("crop_box")
             if not insert_box or not crop_box:
+                incomplete_id = f"{item['id']}:{slot.get('id') or 'slot_unknown'}"
+                if skip_incomplete:
+                    incomplete_slots.append(incomplete_id)
+                    continue
                 raise ValueError(f"{item['id']} {slot.get('id')}: incomplete slot")
 
             insert_xyxy = rect_xyxy(insert_box)
@@ -160,6 +166,8 @@ def export(args: argparse.Namespace) -> dict:
         "annotation_images": len(images),
         "empty_images": len(empty_images),
         "empty_image_ids": empty_images,
+        "incomplete_slots": len(incomplete_slots),
+        "incomplete_slot_ids": incomplete_slots,
         "generation_tasks": len(tasks),
         "unique_task_ids": len(seen_task_ids),
         "task_prefix": task_prefix,
@@ -177,6 +185,11 @@ def main() -> None:
     parser.add_argument("--crop-dir", type=Path, default=DEFAULT_CROPS)
     parser.add_argument("--task-prefix", default="cat")
     parser.add_argument("--default-candidate", default="cat")
+    parser.add_argument(
+        "--skip-incomplete",
+        action="store_true",
+        help="skip partially drawn slots instead of rejecting the whole export",
+    )
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
     print(json.dumps(export(args), ensure_ascii=False, indent=2))

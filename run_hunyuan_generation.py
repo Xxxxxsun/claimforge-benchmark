@@ -126,6 +126,27 @@ TRASH_CAN_GLOBAL_PROMPT_TMPL = (
     "person, object, surface, and the original framing. No crop, zoom, text, logos, "
     "loose trash, additional new bins, or unrelated changes."
 )
+TRASH_CAN_MARKED_SURFACE_PROMPT_TMPL = (
+    "Add exactly one clearly visible NEW small, ordinary trash can at the "
+    "user-marked location, {pos}. The marked location and the surface beneath "
+    "it are intentional: do not relocate the bin to a different part of the "
+    "scene or automatically move it to the floor. Read the local support surface "
+    "from the image. If the marked location is on a bed or bedding, place the bin "
+    "resting naturally and stably on that bed; if it is on a table, desk, counter, "
+    "cabinet top, or shelf, place its complete base on that horizontal surface; "
+    "if it is on the floor or ground, rest it on that floor or ground. Otherwise, "
+    "anchor it naturally to the visible surface directly beneath the marked "
+    "location. Show the entire bin unobstructed: full rim or lid, both side "
+    "contours, complete body and base, and a clear gap around its silhouette. "
+    "Keep it fully inside the image and away from every crop edge. Use a modest "
+    "scale that fits the marked region, correct perspective, and a subtle contact "
+    "shadow or surface indentation appropriate to the support. Match the source "
+    "visual style, lighting, color, depth of field, resolution, detail, sharpness "
+    "or blur, noise, and compression; never make the bin cleaner, sharper, or "
+    "more realistic than the source. Preserve every existing person, object, "
+    "surface, and the original framing. No crop, zoom, text, logos, loose trash, "
+    "additional bins, floating object, or unrelated changes."
+)
 
 
 def position_phrase(box, size, low=1 / 3, high=2 / 3):
@@ -158,6 +179,22 @@ def trash_can_position_phrase(box, size):
         f"{round(center_y * 100)}% from the top). Use the nearest physically "
         "sensible spot and keep it below about 15% of the crop width and 25% of "
         "its height"
+    )
+
+
+def marked_surface_position_phrase(box, size):
+    """Describe the relabeled box without overriding its chosen support surface."""
+    w, h = size
+    x1, y1, x2, y2 = box
+    center_x = (x1 + x2) / 2 / w
+    center_y = (y1 + y2) / 2 / h
+    box_w = max(1, x2 - x1) / w
+    box_h = max(1, y2 - y1) / h
+    return (
+        f"centered about {round(center_x * 100)}% from the left and "
+        f"{round(center_y * 100)}% from the top, within the local area spanning "
+        f"about {round(box_w * 100)}% of the image width and "
+        f"{round(box_h * 100)}% of its height"
     )
 
 
@@ -268,11 +305,14 @@ def call_edit(args, img, prompt, width, height, seed):
     )
 
 
-def make_prompt(task, position, prompt_kind):
+def make_prompt(task, position, prompt_kind, variation_key=""):
     if task.get("prompt_override"):
         return str(task["prompt_override"])
     if prompt_kind == "cat":
-        digest = hashlib.sha256(task["task_id"].encode("utf-8")).digest()
+        pose_key = task["task_id"]
+        if variation_key:
+            pose_key += f"\0{variation_key}"
+        digest = hashlib.sha256(pose_key.encode("utf-8")).digest()
         return CAT_PROMPT_TMPL.format(
             pos=position,
             pose=CAT_POSES[digest[8] % len(CAT_POSES)],
@@ -282,6 +322,8 @@ def make_prompt(task, position, prompt_kind):
         tmpl = TRASH_CAN_FLEXIBLE_PROMPT_TMPL
     elif prompt_kind == "trash-can-global":
         tmpl = TRASH_CAN_GLOBAL_PROMPT_TMPL
+    elif prompt_kind == "trash-can-marked":
+        tmpl = TRASH_CAN_MARKED_SURFACE_PROMPT_TMPL
     elif prompt_kind == "trash-can":
         tmpl = TRASH_CAN_PROMPT_TMPL
     elif prompt_kind == "stain":
@@ -315,9 +357,11 @@ def run_task(task, args):
         "trash-can-global",
     }:
         pos = trash_can_position_phrase(box, (W, H))
+    elif args.prompt_kind == "trash-can-marked":
+        pos = marked_surface_position_phrase(box, (W, H))
     else:
         pos = position_phrase(box, (W, H))
-    prompt = make_prompt(task, pos, args.prompt_kind)
+    prompt = make_prompt(task, pos, args.prompt_kind, args.seed_salt)
     # Python's built-in hash is randomized for every process, which makes a
     # resumed batch produce different images. Derive a stable per-task seed.
     seed_key = task["task_id"]
@@ -378,6 +422,7 @@ def main():
             "trash-can",
             "trash-can-flexible",
             "trash-can-global",
+            "trash-can-marked",
         ],
         default="object",
         help=(

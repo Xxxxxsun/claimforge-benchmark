@@ -13,7 +13,9 @@ REPO = Path(__file__).resolve().parents[1]
 PROMPT_TEMPLATE = (
     "Add exactly one clearly visible small ordinary trash can centered near "
     "{center_x_pct}% from the left and {center_y_pct}% from the top. Place it "
-    "{placement}. This exact placement is required. Keep the bin modest "
+    "{placement}. The named support surface and this exact placement are "
+    "authoritative: keep the complete base visibly touching that surface and do "
+    "not relocate the bin away from it. Keep the bin modest "
     "in scale and well inside the image. Show its complete rim or lid, both side "
     "contours, entire body, and full base in front of every surrounding object, "
     "with a clear background gap around the whole silhouette and at least 8% "
