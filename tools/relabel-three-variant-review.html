@@ -1,0 +1,1051 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ClaimForge 三版本 Review</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0b0e12;
+      --sidebar: #11161c;
+      --panel: #171d24;
+      --panel-strong: #1d2630;
+      --line: #303a46;
+      --line-strong: #657487;
+      --text: #eef2f6;
+      --muted: #9ba8b6;
+      --v1: #e7b356;
+      --v2: #58c69d;
+      --v3: #6aa7e8;
+      --reject: #ed7381;
+      --source: #c28ce6;
+      --focus: #f2f5f8;
+    }
+
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    html, body { min-height: 100%; margin: 0; background: var(--bg); color: var(--text); }
+    body { font: 14px/1.45 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    button, input, select, textarea { font: inherit; }
+    button, input, select, textarea {
+      color: var(--text);
+      background: #10151b;
+      border: 1px solid var(--line);
+      border-radius: 5px;
+    }
+    button { min-height: 36px; padding: 7px 11px; cursor: pointer; }
+    button:hover, select:hover { border-color: var(--line-strong); background: var(--panel-strong); }
+    button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, a:focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+    button:disabled { cursor: default; opacity: .4; }
+    a { color: inherit; }
+
+    .app {
+      display: grid;
+      grid-template-columns: 294px minmax(0, 1fr);
+      min-height: 100vh;
+    }
+    .sidebar {
+      position: sticky;
+      top: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      border-right: 1px solid var(--line);
+      background: var(--sidebar);
+    }
+    .sidebar-head { padding: 15px; border-bottom: 1px solid var(--line); }
+    h1 { margin: 0; font-size: 17px; }
+    .subtitle { margin-top: 4px; color: var(--muted); font-size: 11px; }
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 5px;
+      margin-top: 12px;
+    }
+    .summary div {
+      min-width: 0;
+      padding: 6px 2px;
+      text-align: center;
+      background: var(--panel);
+      border-radius: 4px;
+    }
+    .summary strong { display: block; font-size: 15px; font-variant-numeric: tabular-nums; }
+    .summary span {
+      display: block;
+      overflow: hidden;
+      color: var(--muted);
+      font-size: 9px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .summary .v1 strong { color: var(--v1); }
+    .summary .v2 strong { color: var(--v2); }
+    .summary .v3 strong { color: var(--v3); }
+    .summary .reject strong { color: var(--reject); }
+
+    .filters {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+      padding: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+    .filters input { grid-column: 1 / -1; width: 100%; padding: 8px 9px; }
+    .filters select { min-width: 0; width: 100%; padding: 8px; }
+    .task-list { flex: 1; overflow: auto; padding: 6px; }
+    .task {
+      display: grid;
+      grid-template-columns: 8px minmax(0, 1fr) auto;
+      gap: 8px;
+      align-items: center;
+      width: 100%;
+      min-height: 37px;
+      margin-bottom: 2px;
+      padding: 6px 8px;
+      border-color: transparent;
+      text-align: left;
+      background: transparent;
+    }
+    .task:hover { background: var(--panel); }
+    .task.active { border-color: var(--line-strong); background: #202a35; }
+    .task-id { overflow: hidden; font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+    .task-domain { color: var(--muted); font-size: 9px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: #46515e; }
+    .dot.variant_1 { background: var(--v1); }
+    .dot.variant_2 { background: var(--v2); }
+    .dot.variant_3 { background: var(--v3); }
+    .dot.reject_all { background: var(--reject); }
+    .dot.source_invalid { background: var(--source); }
+    .sidebar-foot { padding: 9px 10px; border-top: 1px solid var(--line); }
+    .sidebar-actions { display: grid; grid-template-columns: 1fr auto auto; gap: 6px; }
+    #saveStatus { min-height: 16px; margin-top: 5px; color: var(--muted); font-size: 10px; word-break: break-word; }
+
+    main { min-width: 0; padding: 14px 16px 24px; }
+    .topbar {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      margin-bottom: 10px;
+    }
+    .identity { min-width: 0; flex: 1; }
+    .identity h2 { margin: 0 0 5px; font-size: 17px; word-break: break-all; }
+    .badges { display: flex; flex-wrap: wrap; gap: 5px; }
+    .badge {
+      padding: 2px 6px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: #c7d0da;
+      font-size: 10px;
+    }
+    .badge.v1 { color: var(--v1); border-color: #755b2f; }
+    .badge.v2 { color: var(--v2); border-color: #2d6b58; }
+    .badge.v3 { color: var(--v3); border-color: #365d87; }
+    .badge.reject { color: var(--reject); border-color: #743a44; }
+    .badge.source { color: var(--source); border-color: #694b7c; }
+    .nav { display: flex; gap: 6px; }
+    .nav a, .nav button {
+      display: inline-grid;
+      min-width: 38px;
+      min-height: 36px;
+      place-items: center;
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      background: #10151b;
+      text-decoration: none;
+    }
+
+    .decision-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 10px;
+      padding: 8px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 6px;
+    }
+    .decision-bar button { min-width: 86px; }
+    .decision-bar .reject { margin-left: auto; color: var(--reject); }
+    .decision-bar .source { color: var(--source); }
+    .decision-bar .selected.variant_1 { color: #171108; border-color: var(--v1); background: var(--v1); }
+    .decision-bar .selected.variant_2 { color: #061610; border-color: var(--v2); background: var(--v2); }
+    .decision-bar .selected.variant_3 { color: #07111b; border-color: var(--v3); background: var(--v3); }
+    .decision-bar .selected.reject_all { color: white; border-color: var(--reject); background: #642b35; }
+    .decision-bar .selected.source_invalid { color: white; border-color: var(--source); background: #553565; }
+    .clear-button { min-width: 38px !important; color: var(--muted); }
+
+    .view-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 9px;
+    }
+    .view-bar > span { color: var(--muted); font-size: 11px; }
+    .view-modes {
+      display: inline-flex;
+      padding: 2px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #10151b;
+    }
+    .view-modes button {
+      min-height: 30px;
+      padding: 4px 10px;
+      border: 0;
+      background: transparent;
+    }
+    .view-modes button.active { background: var(--panel-strong); }
+
+    .reference-grid {
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+      gap: 8px;
+      margin-bottom: 9px;
+    }
+    .reference {
+      min-width: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #07090c;
+      border-radius: 6px;
+    }
+    .panel-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 38px;
+      padding: 6px 8px;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel);
+    }
+    .panel-head strong { min-width: 0; flex: 1; font-size: 12px; }
+    .panel-head span { color: var(--muted); font-size: 9px; }
+    .open-link { color: var(--muted); font-size: 10px; text-decoration: none; white-space: nowrap; }
+    .reference-stage {
+      display: grid;
+      height: 210px;
+      place-items: center;
+      overflow: hidden;
+    }
+    .reference-stage img {
+      display: block;
+      min-width: 0;
+      min-height: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .candidate-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      align-items: stretch;
+    }
+    .candidate {
+      min-width: 0;
+      overflow: hidden;
+      border: 2px solid var(--line);
+      background: #090c10;
+      border-radius: 6px;
+    }
+    .candidate.selected.variant_1 { border-color: var(--v1); }
+    .candidate.selected.variant_2 { border-color: var(--v2); }
+    .candidate.selected.variant_3 { border-color: var(--v3); }
+    .candidate.no-mask { border-color: #753844; }
+    .candidate .panel-head { min-height: 44px; }
+    .candidate-title { min-width: 0; flex: 1; }
+    .candidate-title strong { display: block; }
+    .candidate-title span {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .choose-button { min-width: 68px; min-height: 32px; padding: 5px 8px; font-weight: 700; }
+    .choose-button.variant_1 { color: var(--v1); }
+    .choose-button.variant_2 { color: var(--v2); }
+    .choose-button.variant_3 { color: var(--v3); }
+    .choose-button.selected.variant_1 { color: #171108; border-color: var(--v1); background: var(--v1); }
+    .choose-button.selected.variant_2 { color: #061610; border-color: var(--v2); background: var(--v2); }
+    .choose-button.selected.variant_3 { color: #07111b; border-color: var(--v3); background: var(--v3); }
+    .candidate-title .seg-status {
+      display: inline-block;
+      margin-left: 5px;
+      padding: 1px 5px;
+      border: 1px solid #315d4d;
+      border-radius: 999px;
+      color: var(--v2);
+      font-size: 9px;
+      font-weight: 500;
+    }
+    .candidate-title .seg-status.no-mask {
+      border-color: #743a44;
+      color: var(--reject);
+    }
+    .candidate-stage {
+      display: grid;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      place-items: center;
+      overflow: hidden;
+      background: #06080a;
+    }
+    .candidate-stage img {
+      display: block;
+      min-width: 0;
+      min-height: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .note-row {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 9px;
+      align-items: start;
+      margin-top: 9px;
+    }
+    .note-row label { padding: 8px 0; color: var(--muted); font-size: 11px; }
+    .note-row textarea { width: 100%; min-height: 38px; max-height: 110px; padding: 8px 9px; resize: vertical; }
+    .empty { padding: 20px 10px; color: var(--muted); text-align: center; }
+
+    @media (max-width: 1120px) {
+      .app { grid-template-columns: 260px minmax(0, 1fr); }
+      .candidate-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 720px) {
+      .app { display: block; }
+      .sidebar { position: static; height: auto; border-right: 0; }
+      .task-list { max-height: 190px; }
+      main { padding: 11px; }
+      .reference-grid { grid-template-columns: 1fr; }
+      .reference-stage { height: 250px; }
+      .decision-bar .reject { margin-left: 0; }
+      .decision-bar button { flex: 1 1 30%; }
+      .topbar { align-items: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="sidebar-head">
+        <h1 id="pageTitle">三版本 Review</h1>
+        <div id="subtitle" class="subtitle">正在加载</div>
+        <div class="summary">
+          <div><strong id="countTodo">-</strong><span>未标</span></div>
+          <div class="v1"><strong id="countV1">0</strong><span>版本 1</span></div>
+          <div class="v2"><strong id="countV2">0</strong><span>版本 2</span></div>
+          <div class="v3"><strong id="countV3">0</strong><span>版本 3</span></div>
+          <div class="reject"><strong id="countReject">0</strong><span>不用</span></div>
+        </div>
+      </div>
+
+      <div class="filters">
+        <input id="search" type="search" placeholder="搜索 task id">
+        <select id="domainFilter" aria-label="场景筛选">
+          <option value="all">全部场景</option>
+          <option value="restaurant">餐厅</option>
+          <option value="lodging">住宿</option>
+        </select>
+        <select id="statusFilter" aria-label="状态筛选">
+          <option value="all">全部状态</option>
+          <option value="unreviewed">只看未标</option>
+          <option value="segmentation_failed">含 SAM3 警告</option>
+          <option value="variant_1">版本 1</option>
+          <option value="variant_2">版本 2</option>
+          <option value="variant_3">版本 3</option>
+          <option value="reject_all">三个都不好</option>
+          <option value="source_invalid">源图不适合</option>
+        </select>
+      </div>
+
+      <div id="taskList" class="task-list"></div>
+
+      <div class="sidebar-foot">
+        <div class="sidebar-actions">
+          <button id="jumpTodo">下一张未标</button>
+          <button id="saveNow" title="立即保存">保存</button>
+          <button id="download" title="下载 JSON">&darr;</button>
+        </div>
+        <div id="saveStatus">本地自动保存已启用</div>
+      </div>
+    </aside>
+
+    <main>
+      <div class="topbar">
+        <div class="identity">
+          <h2 id="taskTitle">加载中</h2>
+          <div id="badges" class="badges"></div>
+        </div>
+        <div class="nav">
+          <a id="switchBatch" href="#" hidden></a>
+          <button id="prev" title="上一张" aria-label="上一张">&larr;</button>
+          <button id="next" title="下一张" aria-label="下一张">&rarr;</button>
+        </div>
+      </div>
+
+      <div class="decision-bar">
+        <button class="variant_1" data-selection="variant_1">选版本 1</button>
+        <button class="variant_2" data-selection="variant_2">选版本 2</button>
+        <button class="variant_3" data-selection="variant_3">选版本 3</button>
+        <button class="reject" data-selection="reject_all">三个都不好</button>
+        <button class="source" data-selection="source_invalid">源图不适合</button>
+        <button id="clearSelection" class="clear-button" title="清除选择" aria-label="清除选择">&times;</button>
+      </div>
+
+      <div class="view-bar">
+        <span>候选视图</span>
+        <div class="view-modes" role="group" aria-label="候选视图">
+          <button data-view-mode="full" class="active">完整拼回</button>
+          <button data-view-mode="context">拼回 context</button>
+          <button data-view-mode="generated">生成 crop</button>
+        </div>
+      </div>
+
+      <div class="reference-grid">
+        <section class="reference">
+          <div class="panel-head">
+            <strong>原始整图</strong>
+            <a id="sourceOpen" class="open-link" target="_blank" rel="noopener">打开</a>
+          </div>
+          <div class="reference-stage">
+            <img id="sourceImage" alt="原始整图">
+          </div>
+        </section>
+        <section class="reference">
+          <div class="panel-head">
+            <strong>原始 context</strong>
+            <a id="contextOpen" class="open-link" target="_blank" rel="noopener">打开</a>
+          </div>
+          <div class="reference-stage">
+            <img id="contextImage" alt="原始 context">
+          </div>
+        </section>
+      </div>
+
+      <div class="candidate-grid">
+        <section id="candidate1" class="candidate variant_1">
+          <div class="panel-head">
+            <div class="candidate-title">
+              <strong>版本 1 <span id="status1" class="seg-status"></span></strong>
+              <span id="meta1"></span>
+            </div>
+            <a id="open1" class="open-link" target="_blank" rel="noopener">打开</a>
+            <button class="choose-button variant_1" data-selection="variant_1">选择</button>
+          </div>
+          <div class="candidate-stage"><img id="image1" alt="生成版本 1"></div>
+        </section>
+        <section id="candidate2" class="candidate variant_2">
+          <div class="panel-head">
+            <div class="candidate-title">
+              <strong>版本 2 <span id="status2" class="seg-status"></span></strong>
+              <span id="meta2"></span>
+            </div>
+            <a id="open2" class="open-link" target="_blank" rel="noopener">打开</a>
+            <button class="choose-button variant_2" data-selection="variant_2">选择</button>
+          </div>
+          <div class="candidate-stage"><img id="image2" alt="生成版本 2"></div>
+        </section>
+        <section id="candidate3" class="candidate variant_3">
+          <div class="panel-head">
+            <div class="candidate-title">
+              <strong>版本 3 <span id="status3" class="seg-status"></span></strong>
+              <span id="meta3"></span>
+            </div>
+            <a id="open3" class="open-link" target="_blank" rel="noopener">打开</a>
+            <button class="choose-button variant_3" data-selection="variant_3">选择</button>
+          </div>
+          <div class="candidate-stage"><img id="image3" alt="生成版本 3"></div>
+        </section>
+      </div>
+
+      <div class="note-row">
+        <label for="note">备注</label>
+        <textarea id="note"></textarea>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    "use strict";
+
+    const PARAMS = new URLSearchParams(window.location.search);
+    const CONFIG = {
+      taskManifest: PARAMS.get("tasks")
+        || "annotations/cat_generation_tasks_relabel_reject_both_partial28_20260724.jsonl",
+      variants: [
+        PARAMS.get("variant1")
+          || "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant1_20260724/manifest.jsonl",
+        PARAMS.get("variant2")
+          || "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724/manifest.jsonl",
+        PARAMS.get("variant3")
+          || "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant3_20260724/manifest.jsonl"
+      ],
+      reviews: [
+        PARAMS.get("review1")
+          || "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant1_20260724/review_manifest.jsonl",
+        PARAMS.get("review2")
+          || "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724/review_manifest.jsonl",
+        PARAMS.get("review3")
+          || "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant3_20260724/review_manifest.jsonl"
+      ],
+      savePath: PARAMS.get("savePath")
+        || "annotations/claimforge_cat_relabel_partial28_variant_selections.json",
+      storageKey: PARAMS.get("storage")
+        || "claimforge-cat-relabel-partial28-three-variant-review-v1",
+      task: PARAMS.get("task") || "claimforge_cat_relabel_partial28_variant_review",
+      pageTitle: PARAMS.get("title") || "猫三版本 Review",
+      switchHref: PARAMS.get("switchHref") || "trash-can-relabel-three-variant-review.html",
+      switchLabel: PARAMS.get("switchLabel") || "垃圾桶",
+      exportName: PARAMS.get("export") || "claimforge-cat-relabel-partial28-variant-selections.json"
+    };
+    const SELECTION_LABELS = {
+      variant_1: "版本 1",
+      variant_2: "版本 2",
+      variant_3: "版本 3",
+      reject_all: "三个都不好",
+      source_invalid: "源图不适合"
+    };
+    const $ = (id) => document.getElementById(id);
+    const repoUrl = (path) => new URL("../" + String(path).replace(/^\/+/, ""), window.location.href).href;
+
+    const state = {
+      rows: [],
+      filtered: [],
+      currentId: null,
+      selections: loadLocalSelections(),
+      viewMode: "full",
+      saving: false,
+      saveQueued: false
+    };
+
+    document.title = CONFIG.pageTitle;
+    $("pageTitle").textContent = CONFIG.pageTitle;
+    if (CONFIG.switchHref) {
+      $("switchBatch").hidden = false;
+      $("switchBatch").href = CONFIG.switchHref;
+      $("switchBatch").textContent = CONFIG.switchLabel;
+      $("switchBatch").title = `打开${CONFIG.switchLabel} review`;
+    }
+
+    function loadLocalSelections() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(CONFIG.storageKey) || "{}");
+        return parsed && typeof parsed === "object" ? parsed : {};
+      } catch (_) {
+        return {};
+      }
+    }
+
+    function mergeSelections(repoSelections) {
+      for (const item of repoSelections) {
+        if (!item?.task_id) continue;
+        const local = state.selections[item.task_id];
+        const localTime = Date.parse(local?.updated_at || 0);
+        const repoTime = Date.parse(item.updated_at || 0);
+        if (!local || repoTime > localTime) {
+          state.selections[item.task_id] = {
+            selection: item.selection,
+            note: item.note || "",
+            updated_at: item.updated_at
+          };
+        }
+      }
+      persistLocal();
+    }
+
+    function persistLocal() {
+      localStorage.setItem(CONFIG.storageKey, JSON.stringify(state.selections));
+      renderCounts();
+    }
+
+    async function loadJsonl(path) {
+      const response = await fetch(repoUrl(path));
+      if (!response.ok) throw new Error(`${response.status} ${response.statusText}: ${path}`);
+      return (await response.text())
+        .split(/\r?\n/)
+        .filter(Boolean)
+        .map((line) => JSON.parse(line));
+    }
+
+    async function loadRepoSelections() {
+      const response = await fetch(`${repoUrl(CONFIG.savePath)}?t=${Date.now()}`, {cache: "no-store"});
+      if (response.status === 404) return [];
+      if (!response.ok) throw new Error(`${response.status} ${response.statusText}: ${CONFIG.savePath}`);
+      const payload = await response.json();
+      return Array.isArray(payload.selections) ? payload.selections : [];
+    }
+
+    function currentCounts() {
+      const values = state.rows.map((row) => state.selections[row.task_id]?.selection);
+      const count = (selection) => values.filter((value) => value === selection).length;
+      const labeled = values.filter(Boolean).length;
+      return {
+        total: state.rows.length,
+        labeled,
+        unreviewed: state.rows.length - labeled,
+        variant_1: count("variant_1"),
+        variant_2: count("variant_2"),
+        variant_3: count("variant_3"),
+        reject_all: count("reject_all"),
+        source_invalid: count("source_invalid")
+      };
+    }
+
+    function renderCounts() {
+      const counts = currentCounts();
+      $("countTodo").textContent = counts.unreviewed;
+      $("countV1").textContent = counts.variant_1;
+      $("countV2").textContent = counts.variant_2;
+      $("countV3").textContent = counts.variant_3;
+      $("countReject").textContent = counts.reject_all + counts.source_invalid;
+      $("countReject").title = `都不好 ${counts.reject_all} · 源图不适合 ${counts.source_invalid}`;
+      $("subtitle").textContent = `${counts.labeled} / ${counts.total} 已标`;
+    }
+
+    function applyFilters(keepCurrent = true) {
+      const search = $("search").value.trim().toLowerCase();
+      const domain = $("domainFilter").value;
+      const status = $("statusFilter").value;
+      state.filtered = state.rows.filter((row) => {
+        const selection = state.selections[row.task_id]?.selection;
+        if (search && !row.task_id.toLowerCase().includes(search)) return false;
+        if (domain !== "all" && row.domain !== domain) return false;
+        if (status === "unreviewed" && selection) return false;
+        if (status === "segmentation_failed"
+          && row.reviews.every(reviewClean)) return false;
+        if (!["all", "unreviewed", "segmentation_failed"].includes(status)
+          && selection !== status) return false;
+        return true;
+      });
+      if (!keepCurrent || !state.filtered.some((row) => row.task_id === state.currentId)) {
+        state.currentId = state.filtered[0]?.task_id || null;
+      }
+      renderList();
+      renderCurrent();
+      renderCounts();
+    }
+
+    function renderList() {
+      const list = $("taskList");
+      list.replaceChildren();
+      if (!state.filtered.length) {
+        list.innerHTML = '<div class="empty">没有符合条件的图片</div>';
+        return;
+      }
+      const fragment = document.createDocumentFragment();
+      for (const row of state.filtered) {
+        const selection = state.selections[row.task_id]?.selection || "";
+        const button = document.createElement("button");
+        button.className = `task${row.task_id === state.currentId ? " active" : ""}`;
+        const dot = document.createElement("i");
+        dot.className = `dot ${selection}`;
+        const id = document.createElement("span");
+        id.className = "task-id";
+        id.textContent = row.task_id;
+        const domain = document.createElement("span");
+        domain.className = "task-domain";
+        domain.textContent = row.domain === "restaurant" ? "餐厅" : "住宿";
+        button.append(dot, id, domain);
+        button.addEventListener("click", () => {
+          saveCurrentNote(false);
+          state.currentId = row.task_id;
+          renderList();
+          renderCurrent();
+        });
+        fragment.appendChild(button);
+      }
+      list.appendChild(fragment);
+      requestAnimationFrame(() => list.querySelector(".task.active")?.scrollIntoView({block: "nearest"}));
+    }
+
+    function currentRow() {
+      return state.rows.find((row) => row.task_id === state.currentId) || null;
+    }
+
+    function setImage(id, path) {
+      const element = $(id);
+      element.src = repoUrl(path);
+      return element.src;
+    }
+
+    function reviewHasMask(review) {
+      return review.segmentation_status === "ok";
+    }
+
+    function reviewClean(review) {
+      return review.segmentation_status === "ok" && review.quality_gate?.pass !== false;
+    }
+
+    function reviewOutcome(review) {
+      if (review.segmentation_status !== "ok") return "no_mask";
+      if (review.quality_gate?.pass === false) return "quality_gate_failed";
+      return "ok";
+    }
+
+    function candidatePath(row, number) {
+      const generation = row.variants[number - 1];
+      const review = row.reviews[number - 1];
+      if (state.viewMode === "generated") return generation.output_crop;
+      if (state.viewMode === "context") {
+        return review.segmentation_status === "ok"
+          ? review.hybrid_context_composite || generation.output_crop
+          : row.context_crop;
+      }
+      return review.hybrid_spliced_full || row.source_image;
+    }
+
+    function renderCurrent() {
+      const row = currentRow();
+      if (!row) {
+        $("taskTitle").textContent = state.rows.length ? "没有符合条件的图片" : "加载中";
+        $("badges").replaceChildren();
+        return;
+      }
+      const index = state.filtered.findIndex((item) => item.task_id === row.task_id);
+      const label = state.selections[row.task_id] || {};
+      const decision = label.selection || "";
+      const decisionClass = decision.startsWith("variant_")
+        ? `v${decision.slice(-1)}`
+        : decision === "source_invalid"
+          ? "source"
+          : decision
+            ? "reject"
+            : "";
+      $("taskTitle").textContent = row.task_id;
+      $("badges").innerHTML = [
+        `<span class="badge">${row.domain === "restaurant" ? "餐厅" : "住宿"}</span>`,
+        `<span class="badge">${index + 1} / ${state.filtered.length}</span>`,
+        `<span class="badge ${decisionClass}">${SELECTION_LABELS[decision] || "未标"}</span>`
+      ].join("");
+
+      setImage("sourceImage", row.source_image);
+      setImage("contextImage", row.context_crop);
+      $("sourceOpen").href = repoUrl(row.source_image);
+      $("contextOpen").href = repoUrl(row.context_crop);
+      $("note").value = label.note || "";
+
+      for (let number = 1; number <= 3; number += 1) {
+        const key = `variant_${number}`;
+        const candidate = row.variants[number - 1];
+        const review = row.reviews[number - 1];
+        const path = candidatePath(row, number);
+        const segmentationSelectable = reviewHasMask(review);
+        const segmentationClean = reviewClean(review);
+        const outcome = reviewOutcome(review);
+        setImage(`image${number}`, path);
+        $(`open${number}`).href = repoUrl(path);
+        $(`meta${number}`).textContent = [
+          `seed ${candidate.seed}`,
+          candidate.qc_retry ? "QC 修复" : ""
+        ].filter(Boolean).join(" · ");
+        const status = $(`status${number}`);
+        status.textContent = outcome === "ok"
+          ? "SAM3 + hysteresis"
+          : outcome === "quality_gate_failed"
+            ? "SAM3 质检失败"
+            : "SAM3 未检出";
+        status.classList.toggle("no-mask", !segmentationClean);
+        $(`candidate${number}`).classList.toggle("selected", decision === key);
+        $(`candidate${number}`).classList.toggle("no-mask", !segmentationClean);
+        document.querySelectorAll(`[data-selection="${key}"]`).forEach((button) => {
+          button.disabled = !segmentationSelectable;
+          button.title = outcome === "no_mask"
+            ? "SAM3 未检出该候选"
+            : outcome === "quality_gate_failed"
+              ? "SAM3 质检未通过，请人工确认"
+              : "";
+        });
+      }
+      document.querySelectorAll("[data-selection]").forEach((button) => {
+        const selected = button.dataset.selection === decision;
+        button.classList.toggle("selected", selected);
+        button.setAttribute("aria-pressed", String(selected));
+      });
+      $("prev").disabled = index <= 0;
+      $("next").disabled = index < 0 || index >= state.filtered.length - 1;
+    }
+
+    function move(delta) {
+      saveCurrentNote(false);
+      const index = state.filtered.findIndex((row) => row.task_id === state.currentId);
+      const nextIndex = Math.max(0, Math.min(state.filtered.length - 1, index + delta));
+      if (!state.filtered[nextIndex]) return;
+      state.currentId = state.filtered[nextIndex].task_id;
+      renderList();
+      renderCurrent();
+    }
+
+    function nextUnreviewed(afterCurrent = true) {
+      if (!state.rows.length) return;
+      const currentIndex = state.rows.findIndex((row) => row.task_id === state.currentId);
+      const start = afterCurrent && currentIndex >= 0 ? currentIndex + 1 : 0;
+      const ordered = [...state.rows.slice(start), ...state.rows.slice(0, start)];
+      const nextRow = ordered.find((row) => !state.selections[row.task_id]?.selection);
+      if (!nextRow) return;
+      state.currentId = nextRow.task_id;
+      if ($("statusFilter").value !== "all") $("statusFilter").value = "all";
+      applyFilters(true);
+    }
+
+    function choose(selection) {
+      const row = currentRow();
+      if (!row) return;
+      const variantIndex = ["variant_1", "variant_2", "variant_3"].indexOf(selection);
+      if (variantIndex >= 0 && !reviewHasMask(row.reviews[variantIndex])) {
+        $("saveStatus").textContent = `版本 ${variantIndex + 1} 的 SAM3 未检出，不能选择`;
+        return;
+      }
+      state.selections[row.task_id] = {
+        selection,
+        note: $("note").value.trim(),
+        updated_at: new Date().toISOString()
+      };
+      persistLocal();
+      queueRepoSave();
+      renderList();
+      nextUnreviewed(true);
+      if (state.currentId === row.task_id) renderCurrent();
+    }
+
+    function clearSelection() {
+      const row = currentRow();
+      if (!row) return;
+      delete state.selections[row.task_id];
+      $("note").value = "";
+      persistLocal();
+      queueRepoSave();
+      renderList();
+      renderCurrent();
+    }
+
+    function saveCurrentNote(queueSave = true) {
+      const row = currentRow();
+      if (!row) return;
+      const note = $("note").value.trim();
+      const existing = state.selections[row.task_id];
+      if (!existing && !note) return;
+      if ((existing?.note || "") === note) return;
+      state.selections[row.task_id] = {
+        selection: existing?.selection || null,
+        note,
+        updated_at: new Date().toISOString()
+      };
+      persistLocal();
+      if (queueSave) queueRepoSave();
+    }
+
+    function buildPayload() {
+      const counts = currentCounts();
+      return {
+        schema_version: "claimforge_spliced_variant_selection_v2",
+        task: CONFIG.task,
+        candidate_runs: {
+          variant_1: CONFIG.variants[0].replace(/\/manifest\.jsonl$/, ""),
+          variant_2: CONFIG.variants[1].replace(/\/manifest\.jsonl$/, ""),
+          variant_3: CONFIG.variants[2].replace(/\/manifest\.jsonl$/, "")
+        },
+        segmentation_runs: {
+          variant_1: CONFIG.reviews[0].replace(/\/review_manifest\.jsonl$/, ""),
+          variant_2: CONFIG.reviews[1].replace(/\/review_manifest\.jsonl$/, ""),
+          variant_3: CONFIG.reviews[2].replace(/\/review_manifest\.jsonl$/, "")
+        },
+        updated_at: new Date().toISOString(),
+        counts,
+        selections: state.rows
+          .filter((row) => state.selections[row.task_id])
+          .map((row) => {
+            const label = state.selections[row.task_id];
+            const variantIndex = ["variant_1", "variant_2", "variant_3"].indexOf(label.selection);
+            return {
+              task_id: row.task_id,
+              domain: row.domain,
+              selection: label.selection,
+              selected_generated_crop: variantIndex >= 0
+                ? row.variants[variantIndex].output_crop
+                : null,
+              selected_spliced_full: variantIndex >= 0
+                ? row.reviews[variantIndex].hybrid_spliced_full
+                : null,
+              selected_segmentation_status: variantIndex >= 0
+                ? reviewOutcome(row.reviews[variantIndex])
+                : null,
+              source_image: row.source_image,
+              input_context_crop: row.context_crop,
+              context_region_xyxy: row.context_region_xyxy,
+              edit_region_xyxy: row.edit_region_xyxy,
+              candidates: {
+                variant_1: {
+                  generated_crop: row.variants[0].output_crop,
+                  spliced_full: row.reviews[0].hybrid_spliced_full,
+                  segmentation_status: reviewOutcome(row.reviews[0]),
+                  raw_segmentation_status: row.reviews[0].segmentation_status,
+                  quality_gate_pass: row.reviews[0].quality_gate?.pass ?? null
+                },
+                variant_2: {
+                  generated_crop: row.variants[1].output_crop,
+                  spliced_full: row.reviews[1].hybrid_spliced_full,
+                  segmentation_status: reviewOutcome(row.reviews[1]),
+                  raw_segmentation_status: row.reviews[1].segmentation_status,
+                  quality_gate_pass: row.reviews[1].quality_gate?.pass ?? null
+                },
+                variant_3: {
+                  generated_crop: row.variants[2].output_crop,
+                  spliced_full: row.reviews[2].hybrid_spliced_full,
+                  segmentation_status: reviewOutcome(row.reviews[2]),
+                  raw_segmentation_status: row.reviews[2].segmentation_status,
+                  quality_gate_pass: row.reviews[2].quality_gate?.pass ?? null
+                }
+              },
+              note: label.note || "",
+              updated_at: label.updated_at
+            };
+          })
+      };
+    }
+
+    function queueRepoSave() {
+      state.saveQueued = true;
+      if (!state.saving) void flushRepoSaves();
+    }
+
+    async function flushRepoSaves() {
+      state.saving = true;
+      while (state.saveQueued) {
+        state.saveQueued = false;
+        $("saveStatus").textContent = "正在保存";
+        try {
+          const response = await fetch("/api/save-labels", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({path: CONFIG.savePath, payload: buildPayload()})
+          });
+          const result = await response.json();
+          if (!response.ok || !result.ok) throw new Error(result.error || response.statusText);
+          const counts = currentCounts();
+          $("saveStatus").textContent = `已保存 · ${counts.labeled} / ${counts.total}`;
+        } catch (error) {
+          $("saveStatus").textContent = `仓库保存失败，本地已保留：${error.message}`;
+        }
+      }
+      state.saving = false;
+    }
+
+    function downloadPayload() {
+      saveCurrentNote(false);
+      const blob = new Blob([JSON.stringify(buildPayload(), null, 2) + "\n"], {type: "application/json"});
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = CONFIG.exportName;
+      link.click();
+      URL.revokeObjectURL(link.href);
+    }
+
+    function bindEvents() {
+      $("search").addEventListener("input", () => applyFilters(false));
+      $("domainFilter").addEventListener("change", () => applyFilters(false));
+      $("statusFilter").addEventListener("change", () => applyFilters(false));
+      $("prev").addEventListener("click", () => move(-1));
+      $("next").addEventListener("click", () => move(1));
+      $("jumpTodo").addEventListener("click", () => nextUnreviewed(false));
+      $("clearSelection").addEventListener("click", clearSelection);
+      $("saveNow").addEventListener("click", () => {
+        saveCurrentNote(false);
+        queueRepoSave();
+      });
+      $("download").addEventListener("click", downloadPayload);
+      $("note").addEventListener("change", () => saveCurrentNote(true));
+      document.querySelectorAll("[data-view-mode]").forEach((button) => {
+        button.addEventListener("click", () => {
+          state.viewMode = button.dataset.viewMode;
+          document.querySelectorAll("[data-view-mode]").forEach((item) => {
+            item.classList.toggle("active", item.dataset.viewMode === state.viewMode);
+            item.setAttribute("aria-pressed", String(item.dataset.viewMode === state.viewMode));
+          });
+          renderCurrent();
+        });
+      });
+      document.querySelectorAll("[data-selection]").forEach((button) => {
+        button.addEventListener("click", () => choose(button.dataset.selection));
+      });
+      window.addEventListener("keydown", (event) => {
+        if (["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement?.tagName)) return;
+        if (event.key === "ArrowLeft") move(-1);
+        else if (event.key === "ArrowRight") move(1);
+        else if (["1", "2", "3"].includes(event.key)) choose(`variant_${event.key}`);
+        else if (event.key === "0") choose("reject_all");
+      });
+      window.addEventListener("beforeunload", () => saveCurrentNote(false));
+    }
+
+    async function init() {
+      bindEvents();
+      try {
+        const [
+          tasks,
+          variant1,
+          variant2,
+          variant3,
+          review1,
+          review2,
+          review3,
+          repoSelections
+        ] = await Promise.all([
+          loadJsonl(CONFIG.taskManifest),
+          loadJsonl(CONFIG.variants[0]),
+          loadJsonl(CONFIG.variants[1]),
+          loadJsonl(CONFIG.variants[2]),
+          loadJsonl(CONFIG.reviews[0]),
+          loadJsonl(CONFIG.reviews[1]),
+          loadJsonl(CONFIG.reviews[2]),
+          loadRepoSelections().catch(() => [])
+        ]);
+        const variantMaps = [variant1, variant2, variant3]
+          .map((rows) => new Map(rows.map((row) => [row.task_id, row])));
+        const reviewMaps = [review1, review2, review3]
+          .map((rows) => new Map(rows.map((row) => [row.task_id, row])));
+        state.rows = tasks.map((task) => {
+          const variants = variantMaps.map((map) => map.get(task.task_id));
+          const reviews = reviewMaps.map((map) => map.get(task.task_id));
+          if (variants.some((variant) => !variant?.output_crop)) {
+            throw new Error(`${task.task_id}: 缺少一个或多个生成版本`);
+          }
+          if (reviews.some((review) => !review?.hybrid_spliced_full)) {
+            throw new Error(`${task.task_id}: 缺少一个或多个 SAM3 拼回版本`);
+          }
+          return {
+            task_id: task.task_id,
+            domain: task.task_id.includes("_restaurant_") ? "restaurant" : "lodging",
+            source_image: task.source_image,
+            context_crop: task.context_crop,
+            context_region_xyxy: task.context_region_xyxy,
+            edit_region_xyxy: task.edit_region_xyxy,
+            variants,
+            reviews
+          };
+        }).sort((a, b) => a.task_id.localeCompare(b.task_id));
+        mergeSelections(repoSelections);
+        state.currentId = state.rows.find((row) => !state.selections[row.task_id]?.selection)?.task_id
+          || state.rows[0]?.task_id
+          || null;
+        applyFilters(true);
+      } catch (error) {
+        $("taskList").innerHTML = `<div class="empty">加载失败：${error.message}</div>`;
+        $("taskTitle").textContent = "数据加载失败";
+        $("saveStatus").textContent = "请确认本地服务和数据路径";
+      }
+    }
+
+    init();
+  </script>
+</body>
+</html>

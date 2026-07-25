@@ -1,0 +1,1343 @@
+{
+  "schema_version": "claimforge_spliced_variant_selection_v2",
+  "task": "claimforge_cat_relabel_partial28_variant_review",
+  "candidate_runs": {
+    "variant_1": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant1_20260724",
+    "variant_2": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724",
+    "variant_3": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant3_20260724"
+  },
+  "segmentation_runs": {
+    "variant_1": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant1_20260724",
+    "variant_2": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724",
+    "variant_3": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant3_20260724"
+  },
+  "updated_at": "2026-07-24T21:13:20.089Z",
+  "counts": {
+    "total": 28,
+    "labeled": 28,
+    "unreviewed": 0,
+    "variant_1": 6,
+    "variant_2": 8,
+    "variant_3": 5,
+    "reject_all": 8,
+    "source_invalid": 1
+  },
+  "selections": [
+    {
+      "task_id": "cat_lodging_013_slot_001",
+      "domain": "lodging",
+      "selection": "variant_2",
+      "selected_generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724/cat_lodging_013_slot_001.png",
+      "selected_spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724/spliced_hybrid/sam3/cat_lodging_013_slot_001.png",
+      "selected_segmentation_status": "ok",
+      "source_image": "images/lodging_013.jpg",
+      "input_context_crop": "crops/context_cat_relabel_reject_both_partial28_20260724/cat_lodging_013_slot_001_context.jpg",
+      "context_region_xyxy": [
+        1371,
+        610,
+        1750,
+        920
+      ],
+      "edit_region_xyxy": [
+        1448,
+        696,
+        1670,
+        818
+      ],
+      "candidates": {
+        "variant_1": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant1_20260724/cat_lodging_013_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant1_20260724/spliced_hybrid/sam3/cat_lodging_013_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_2": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724/cat_lodging_013_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724/spliced_hybrid/sam3/cat_lodging_013_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_3": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant3_20260724/cat_lodging_013_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant3_20260724/spliced_hybrid/sam3/cat_lodging_013_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        }
+      },
+      "note": "",
+      "updated_at": "2026-07-24T20:11:07.921Z"
+    },
+    {
+      "task_id": "cat_lodging_028_slot_001",
+      "domain": "lodging",
+      "selection": "variant_2",
+      "selected_generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724/cat_lodging_028_slot_001.png",
+      "selected_spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724/spliced_hybrid/sam3/cat_lodging_028_slot_001.png",
+      "selected_segmentation_status": "ok",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_028.jpg",
+      "input_context_crop": "crops/context_cat_relabel_reject_both_partial28_20260724/cat_lodging_028_slot_001_context.jpg",
+      "context_region_xyxy": [
+        425,
+        684,
+        643,
+        835
+      ],
+      "edit_region_xyxy": [
+        448,
+        728,
+        562,
+        807
+      ],
+      "candidates": {
+        "variant_1": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant1_20260724/cat_lodging_028_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant1_20260724/spliced_hybrid/sam3/cat_lodging_028_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_2": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724/cat_lodging_028_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724/spliced_hybrid/sam3/cat_lodging_028_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_3": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant3_20260724/cat_lodging_028_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant3_20260724/spliced_hybrid/sam3/cat_lodging_028_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        }
+      },
+      "note": "",
+      "updated_at": "2026-07-24T21:05:25.918Z"
+    },
+    {
+      "task_id": "cat_lodging_070_slot_001",
+      "domain": "lodging",
+      "selection": "variant_2",
+      "selected_generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724/cat_lodging_070_slot_001.png",
+      "selected_spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724/spliced_hybrid/sam3/cat_lodging_070_slot_001.png",
+      "selected_segmentation_status": "ok",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_070.jpg",
+      "input_context_crop": "crops/context_cat_relabel_reject_both_partial28_20260724/cat_lodging_070_slot_001_context.jpg",
+      "context_region_xyxy": [
+        56,
+        765,
+        521,
+        1102
+      ],
+      "edit_region_xyxy": [
+        239,
+        927,
+        452,
+        1057
+      ],
+      "candidates": {
+        "variant_1": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant1_20260724/cat_lodging_070_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant1_20260724/spliced_hybrid/sam3/cat_lodging_070_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_2": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724/cat_lodging_070_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724/spliced_hybrid/sam3/cat_lodging_070_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_3": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant3_20260724/cat_lodging_070_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant3_20260724/spliced_hybrid/sam3/cat_lodging_070_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        }
+      },
+      "note": "",
+      "updated_at": "2026-07-24T21:05:36.909Z"
+    },
+    {
+      "task_id": "cat_lodging_074_slot_001",
+      "domain": "lodging",
+      "selection": "variant_1",
+      "selected_generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant1_20260724/cat_lodging_074_slot_001.png",
+      "selected_spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant1_20260724/spliced_hybrid/sam3/cat_lodging_074_slot_001.png",
+      "selected_segmentation_status": "ok",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_074.jpg",
+      "input_context_crop": "crops/context_cat_relabel_reject_both_partial28_20260724/cat_lodging_074_slot_001_context.jpg",
+      "context_region_xyxy": [
+        623,
+        788,
+        928,
+        996
+      ],
+      "edit_region_xyxy": [
+        708,
+        878,
+        842,
+        960
+      ],
+      "candidates": {
+        "variant_1": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant1_20260724/cat_lodging_074_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant1_20260724/spliced_hybrid/sam3/cat_lodging_074_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_2": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724/cat_lodging_074_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724/spliced_hybrid/sam3/cat_lodging_074_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_3": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant3_20260724/cat_lodging_074_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant3_20260724/spliced_hybrid/sam3/cat_lodging_074_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        }
+      },
+      "note": "",
+      "updated_at": "2026-07-24T21:05:46.912Z"
+    },
+    {
+      "task_id": "cat_lodging_088_slot_001",
+      "domain": "lodging",
+      "selection": "variant_3",
+      "selected_generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant3_20260724/cat_lodging_088_slot_001.png",
+      "selected_spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant3_20260724/spliced_hybrid/sam3/cat_lodging_088_slot_001.png",
+      "selected_segmentation_status": "ok",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_088.jpg",
+      "input_context_crop": "crops/context_cat_relabel_reject_both_partial28_20260724/cat_lodging_088_slot_001_context.jpg",
+      "context_region_xyxy": [
+        677,
+        618,
+        1015,
+        870
+      ],
+      "edit_region_xyxy": [
+        760,
+        702,
+        949,
+        797
+      ],
+      "candidates": {
+        "variant_1": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant1_20260724/cat_lodging_088_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant1_20260724/spliced_hybrid/sam3/cat_lodging_088_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_2": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724/cat_lodging_088_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724/spliced_hybrid/sam3/cat_lodging_088_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_3": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant3_20260724/cat_lodging_088_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant3_20260724/spliced_hybrid/sam3/cat_lodging_088_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        }
+      },
+      "note": "",
+      "updated_at": "2026-07-24T21:05:55.337Z"
+    },
+    {
+      "task_id": "cat_lodging_090_slot_001",
+      "domain": "lodging",
+      "selection": "reject_all",
+      "selected_generated_crop": null,
+      "selected_spliced_full": null,
+      "selected_segmentation_status": null,
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_090.jpg",
+      "input_context_crop": "crops/context_cat_relabel_reject_both_partial28_20260724/cat_lodging_090_slot_001_context.jpg",
+      "context_region_xyxy": [
+        265,
+        316,
+        669,
+        594
+      ],
+      "edit_region_xyxy": [
+        373,
+        418,
+        543,
+        530
+      ],
+      "candidates": {
+        "variant_1": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant1_20260724/cat_lodging_090_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant1_20260724/spliced_hybrid/sam3/cat_lodging_090_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_2": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724/cat_lodging_090_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724/spliced_hybrid/sam3/cat_lodging_090_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_3": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant3_20260724/cat_lodging_090_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant3_20260724/spliced_hybrid/sam3/cat_lodging_090_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        }
+      },
+      "note": "",
+      "updated_at": "2026-07-24T21:06:12.347Z"
+    },
+    {
+      "task_id": "cat_lodging_094_slot_001",
+      "domain": "lodging",
+      "selection": "variant_2",
+      "selected_generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724/cat_lodging_094_slot_001.png",
+      "selected_spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724/spliced_hybrid/sam3/cat_lodging_094_slot_001.png",
+      "selected_segmentation_status": "ok",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_094.jpg",
+      "input_context_crop": "crops/context_cat_relabel_reject_both_partial28_20260724/cat_lodging_094_slot_001_context.jpg",
+      "context_region_xyxy": [
+        61,
+        799,
+        379,
+        1045
+      ],
+      "edit_region_xyxy": [
+        133,
+        871,
+        278,
+        975
+      ],
+      "candidates": {
+        "variant_1": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant1_20260724/cat_lodging_094_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant1_20260724/spliced_hybrid/sam3/cat_lodging_094_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_2": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724/cat_lodging_094_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724/spliced_hybrid/sam3/cat_lodging_094_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_3": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant3_20260724/cat_lodging_094_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant3_20260724/spliced_hybrid/sam3/cat_lodging_094_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        }
+      },
+      "note": "",
+      "updated_at": "2026-07-24T21:06:19.108Z"
+    },
+    {
+      "task_id": "cat_lodging_096_slot_001",
+      "domain": "lodging",
+      "selection": "reject_all",
+      "selected_generated_crop": null,
+      "selected_spliced_full": null,
+      "selected_segmentation_status": null,
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_096.jpg",
+      "input_context_crop": "crops/context_cat_relabel_reject_both_partial28_20260724/cat_lodging_096_slot_001_context.jpg",
+      "context_region_xyxy": [
+        288,
+        282,
+        467,
+        403
+      ],
+      "edit_region_xyxy": [
+        339,
+        322,
+        431,
+        381
+      ],
+      "candidates": {
+        "variant_1": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant1_20260724/cat_lodging_096_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant1_20260724/spliced_hybrid/sam3/cat_lodging_096_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_2": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724/cat_lodging_096_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724/spliced_hybrid/sam3/cat_lodging_096_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_3": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant3_20260724/cat_lodging_096_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant3_20260724/spliced_hybrid/sam3/cat_lodging_096_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        }
+      },
+      "note": "",
+      "updated_at": "2026-07-24T21:06:26.956Z"
+    },
+    {
+      "task_id": "cat_lodging_097_slot_001",
+      "domain": "lodging",
+      "selection": "variant_1",
+      "selected_generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant1_20260724/cat_lodging_097_slot_001.png",
+      "selected_spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant1_20260724/spliced_hybrid/sam3/cat_lodging_097_slot_001.png",
+      "selected_segmentation_status": "ok",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_097.jpg",
+      "input_context_crop": "crops/context_cat_relabel_reject_both_partial28_20260724/cat_lodging_097_slot_001_context.jpg",
+      "context_region_xyxy": [
+        241,
+        525,
+        610,
+        804
+      ],
+      "edit_region_xyxy": [
+        341,
+        597,
+        510,
+        705
+      ],
+      "candidates": {
+        "variant_1": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant1_20260724/cat_lodging_097_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant1_20260724/spliced_hybrid/sam3/cat_lodging_097_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_2": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724/cat_lodging_097_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724/spliced_hybrid/sam3/cat_lodging_097_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_3": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant3_20260724/cat_lodging_097_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant3_20260724/spliced_hybrid/sam3/cat_lodging_097_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        }
+      },
+      "note": "",
+      "updated_at": "2026-07-24T21:06:34.957Z"
+    },
+    {
+      "task_id": "cat_lodging_120_slot_001",
+      "domain": "lodging",
+      "selection": "source_invalid",
+      "selected_generated_crop": null,
+      "selected_spliced_full": null,
+      "selected_segmentation_status": null,
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_120.jpg",
+      "input_context_crop": "crops/context_cat_relabel_reject_both_partial28_20260724/cat_lodging_120_slot_001_context.jpg",
+      "context_region_xyxy": [
+        714,
+        896,
+        1185,
+        1230
+      ],
+      "edit_region_xyxy": [
+        780,
+        1018,
+        1001,
+        1155
+      ],
+      "candidates": {
+        "variant_1": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant1_20260724/cat_lodging_120_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant1_20260724/spliced_hybrid/sam3/cat_lodging_120_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_2": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724/cat_lodging_120_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724/spliced_hybrid/sam3/cat_lodging_120_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_3": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant3_20260724/cat_lodging_120_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant3_20260724/spliced_hybrid/sam3/cat_lodging_120_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        }
+      },
+      "note": "",
+      "updated_at": "2026-07-24T21:06:44.661Z"
+    },
+    {
+      "task_id": "cat_lodging_122_slot_001",
+      "domain": "lodging",
+      "selection": "variant_1",
+      "selected_generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant1_20260724/cat_lodging_122_slot_001.png",
+      "selected_spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant1_20260724/spliced_hybrid/sam3/cat_lodging_122_slot_001.png",
+      "selected_segmentation_status": "ok",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_122.jpg",
+      "input_context_crop": "crops/context_cat_relabel_reject_both_partial28_20260724/cat_lodging_122_slot_001_context.jpg",
+      "context_region_xyxy": [
+        508,
+        467,
+        972,
+        837
+      ],
+      "edit_region_xyxy": [
+        614,
+        545,
+        868,
+        746
+      ],
+      "candidates": {
+        "variant_1": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant1_20260724/cat_lodging_122_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant1_20260724/spliced_hybrid/sam3/cat_lodging_122_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_2": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724/cat_lodging_122_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724/spliced_hybrid/sam3/cat_lodging_122_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_3": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant3_20260724/cat_lodging_122_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant3_20260724/spliced_hybrid/sam3/cat_lodging_122_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        }
+      },
+      "note": "",
+      "updated_at": "2026-07-24T21:10:45.093Z"
+    },
+    {
+      "task_id": "cat_lodging_135_slot_001",
+      "domain": "lodging",
+      "selection": "reject_all",
+      "selected_generated_crop": null,
+      "selected_spliced_full": null,
+      "selected_segmentation_status": null,
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_135.jpg",
+      "input_context_crop": "crops/context_cat_relabel_reject_both_partial28_20260724/cat_lodging_135_slot_001_context.jpg",
+      "context_region_xyxy": [
+        364,
+        1502,
+        749,
+        1800
+      ],
+      "edit_region_xyxy": [
+        479,
+        1616,
+        677,
+        1753
+      ],
+      "candidates": {
+        "variant_1": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant1_20260724/cat_lodging_135_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant1_20260724/spliced_hybrid/sam3/cat_lodging_135_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_2": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724/cat_lodging_135_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724/spliced_hybrid/sam3/cat_lodging_135_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_3": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant3_20260724/cat_lodging_135_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant3_20260724/spliced_hybrid/sam3/cat_lodging_135_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        }
+      },
+      "note": "",
+      "updated_at": "2026-07-24T21:10:57.010Z"
+    },
+    {
+      "task_id": "cat_lodging_151_slot_001",
+      "domain": "lodging",
+      "selection": "variant_3",
+      "selected_generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant3_20260724/cat_lodging_151_slot_001.png",
+      "selected_spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant3_20260724/spliced_hybrid/sam3/cat_lodging_151_slot_001.png",
+      "selected_segmentation_status": "ok",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_151.jpg",
+      "input_context_crop": "crops/context_cat_relabel_reject_both_partial28_20260724/cat_lodging_151_slot_001_context.jpg",
+      "context_region_xyxy": [
+        391,
+        749,
+        770,
+        1020
+      ],
+      "edit_region_xyxy": [
+        484,
+        863,
+        650,
+        971
+      ],
+      "candidates": {
+        "variant_1": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant1_20260724/cat_lodging_151_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant1_20260724/spliced_hybrid/sam3/cat_lodging_151_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_2": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724/cat_lodging_151_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724/spliced_hybrid/sam3/cat_lodging_151_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_3": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant3_20260724/cat_lodging_151_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant3_20260724/spliced_hybrid/sam3/cat_lodging_151_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        }
+      },
+      "note": "",
+      "updated_at": "2026-07-24T21:11:04.741Z"
+    },
+    {
+      "task_id": "cat_lodging_211_slot_001",
+      "domain": "lodging",
+      "selection": "variant_2",
+      "selected_generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724/cat_lodging_211_slot_001.png",
+      "selected_spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724/spliced_hybrid/sam3/cat_lodging_211_slot_001.png",
+      "selected_segmentation_status": "ok",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_211.jpg",
+      "input_context_crop": "crops/context_cat_relabel_reject_both_partial28_20260724/cat_lodging_211_slot_001_context.jpg",
+      "context_region_xyxy": [
+        1173,
+        690,
+        1560,
+        981
+      ],
+      "edit_region_xyxy": [
+        1288,
+        751,
+        1453,
+        893
+      ],
+      "candidates": {
+        "variant_1": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant1_20260724/cat_lodging_211_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant1_20260724/spliced_hybrid/sam3/cat_lodging_211_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_2": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724/cat_lodging_211_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724/spliced_hybrid/sam3/cat_lodging_211_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_3": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant3_20260724/cat_lodging_211_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant3_20260724/spliced_hybrid/sam3/cat_lodging_211_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        }
+      },
+      "note": "",
+      "updated_at": "2026-07-24T21:11:25.107Z"
+    },
+    {
+      "task_id": "cat_lodging_247_slot_001",
+      "domain": "lodging",
+      "selection": "reject_all",
+      "selected_generated_crop": null,
+      "selected_spliced_full": null,
+      "selected_segmentation_status": null,
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_247.jpg",
+      "input_context_crop": "crops/context_cat_relabel_reject_both_partial28_20260724/cat_lodging_247_slot_001_context.jpg",
+      "context_region_xyxy": [
+        408,
+        904,
+        799,
+        1211
+      ],
+      "edit_region_xyxy": [
+        509,
+        1040,
+        722,
+        1182
+      ],
+      "candidates": {
+        "variant_1": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant1_20260724/cat_lodging_247_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant1_20260724/spliced_hybrid/sam3/cat_lodging_247_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_2": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724/cat_lodging_247_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724/spliced_hybrid/sam3/cat_lodging_247_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_3": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant3_20260724/cat_lodging_247_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant3_20260724/spliced_hybrid/sam3/cat_lodging_247_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        }
+      },
+      "note": "",
+      "updated_at": "2026-07-24T21:11:30.901Z"
+    },
+    {
+      "task_id": "cat_lodging_265_slot_001",
+      "domain": "lodging",
+      "selection": "variant_2",
+      "selected_generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724/cat_lodging_265_slot_001.png",
+      "selected_spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724/spliced_hybrid/sam3/cat_lodging_265_slot_001.png",
+      "selected_segmentation_status": "ok",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_265.jpg",
+      "input_context_crop": "crops/context_cat_relabel_reject_both_partial28_20260724/cat_lodging_265_slot_001_context.jpg",
+      "context_region_xyxy": [
+        464,
+        685,
+        849,
+        988
+      ],
+      "edit_region_xyxy": [
+        545,
+        795,
+        728,
+        923
+      ],
+      "candidates": {
+        "variant_1": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant1_20260724/cat_lodging_265_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant1_20260724/spliced_hybrid/sam3/cat_lodging_265_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_2": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724/cat_lodging_265_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724/spliced_hybrid/sam3/cat_lodging_265_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_3": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant3_20260724/cat_lodging_265_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant3_20260724/spliced_hybrid/sam3/cat_lodging_265_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        }
+      },
+      "note": "",
+      "updated_at": "2026-07-24T21:11:38.193Z"
+    },
+    {
+      "task_id": "cat_lodging_274_slot_001",
+      "domain": "lodging",
+      "selection": "reject_all",
+      "selected_generated_crop": null,
+      "selected_spliced_full": null,
+      "selected_segmentation_status": null,
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_274.jpg",
+      "input_context_crop": "crops/context_cat_relabel_reject_both_partial28_20260724/cat_lodging_274_slot_001_context.jpg",
+      "context_region_xyxy": [
+        701,
+        129,
+        1124,
+        454
+      ],
+      "edit_region_xyxy": [
+        829,
+        250,
+        1047,
+        407
+      ],
+      "candidates": {
+        "variant_1": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant1_20260724/cat_lodging_274_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant1_20260724/spliced_hybrid/sam3/cat_lodging_274_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_2": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724/cat_lodging_274_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724/spliced_hybrid/sam3/cat_lodging_274_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_3": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant3_20260724/cat_lodging_274_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant3_20260724/spliced_hybrid/sam3/cat_lodging_274_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        }
+      },
+      "note": "",
+      "updated_at": "2026-07-24T21:11:46.737Z"
+    },
+    {
+      "task_id": "cat_lodging_294_slot_001",
+      "domain": "lodging",
+      "selection": "variant_2",
+      "selected_generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724/cat_lodging_294_slot_001.png",
+      "selected_spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724/spliced_hybrid/sam3/cat_lodging_294_slot_001.png",
+      "selected_segmentation_status": "ok",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_294.jpg",
+      "input_context_crop": "crops/context_cat_relabel_reject_both_partial28_20260724/cat_lodging_294_slot_001_context.jpg",
+      "context_region_xyxy": [
+        822,
+        558,
+        1320,
+        981
+      ],
+      "edit_region_xyxy": [
+        916,
+        739,
+        1148,
+        899
+      ],
+      "candidates": {
+        "variant_1": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant1_20260724/cat_lodging_294_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant1_20260724/spliced_hybrid/sam3/cat_lodging_294_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_2": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724/cat_lodging_294_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724/spliced_hybrid/sam3/cat_lodging_294_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_3": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant3_20260724/cat_lodging_294_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant3_20260724/spliced_hybrid/sam3/cat_lodging_294_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        }
+      },
+      "note": "",
+      "updated_at": "2026-07-24T21:11:55.111Z"
+    },
+    {
+      "task_id": "cat_restaurant_016_slot_001",
+      "domain": "restaurant",
+      "selection": "reject_all",
+      "selected_generated_crop": null,
+      "selected_spliced_full": null,
+      "selected_segmentation_status": null,
+      "source_image": "source_pool/openimages_v7_600/restaurant/restaurant_016.jpg",
+      "input_context_crop": "crops/context_cat_relabel_reject_both_partial28_20260724/cat_restaurant_016_slot_001_context.jpg",
+      "context_region_xyxy": [
+        1083,
+        830,
+        1480,
+        1124
+      ],
+      "edit_region_xyxy": [
+        1183,
+        926,
+        1384,
+        1056
+      ],
+      "candidates": {
+        "variant_1": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant1_20260724/cat_restaurant_016_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant1_20260724/spliced_hybrid/sam3/cat_restaurant_016_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_2": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724/cat_restaurant_016_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724/spliced_hybrid/sam3/cat_restaurant_016_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_3": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant3_20260724/cat_restaurant_016_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant3_20260724/spliced_hybrid/sam3/cat_restaurant_016_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        }
+      },
+      "note": "",
+      "updated_at": "2026-07-24T21:12:06.114Z"
+    },
+    {
+      "task_id": "cat_restaurant_033_slot_001",
+      "domain": "restaurant",
+      "selection": "variant_1",
+      "selected_generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant1_20260724/cat_restaurant_033_slot_001.png",
+      "selected_spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant1_20260724/spliced_hybrid/sam3/cat_restaurant_033_slot_001.png",
+      "selected_segmentation_status": "ok",
+      "source_image": "source_pool/openimages_v7_600/restaurant/restaurant_033.jpg",
+      "input_context_crop": "crops/context_cat_relabel_reject_both_partial28_20260724/cat_restaurant_033_slot_001_context.jpg",
+      "context_region_xyxy": [
+        205,
+        806,
+        694,
+        1160
+      ],
+      "edit_region_xyxy": [
+        353,
+        940,
+        552,
+        1123
+      ],
+      "candidates": {
+        "variant_1": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant1_20260724/cat_restaurant_033_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant1_20260724/spliced_hybrid/sam3/cat_restaurant_033_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_2": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724/cat_restaurant_033_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724/spliced_hybrid/sam3/cat_restaurant_033_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_3": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant3_20260724/cat_restaurant_033_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant3_20260724/spliced_hybrid/sam3/cat_restaurant_033_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        }
+      },
+      "note": "",
+      "updated_at": "2026-07-24T21:12:13.311Z"
+    },
+    {
+      "task_id": "cat_restaurant_064_slot_001",
+      "domain": "restaurant",
+      "selection": "variant_1",
+      "selected_generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant1_20260724/cat_restaurant_064_slot_001.png",
+      "selected_spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant1_20260724/spliced_hybrid/sam3/cat_restaurant_064_slot_001.png",
+      "selected_segmentation_status": "ok",
+      "source_image": "source_pool/openimages_v7_600/restaurant/restaurant_064.jpg",
+      "input_context_crop": "crops/context_cat_relabel_reject_both_partial28_20260724/cat_restaurant_064_slot_001_context.jpg",
+      "context_region_xyxy": [
+        1153,
+        557,
+        1606,
+        906
+      ],
+      "edit_region_xyxy": [
+        1264,
+        661,
+        1525,
+        815
+      ],
+      "candidates": {
+        "variant_1": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant1_20260724/cat_restaurant_064_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant1_20260724/spliced_hybrid/sam3/cat_restaurant_064_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_2": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724/cat_restaurant_064_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724/spliced_hybrid/sam3/cat_restaurant_064_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_3": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant3_20260724/cat_restaurant_064_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant3_20260724/spliced_hybrid/sam3/cat_restaurant_064_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        }
+      },
+      "note": "",
+      "updated_at": "2026-07-24T21:12:19.592Z"
+    },
+    {
+      "task_id": "cat_restaurant_115_slot_001",
+      "domain": "restaurant",
+      "selection": "reject_all",
+      "selected_generated_crop": null,
+      "selected_spliced_full": null,
+      "selected_segmentation_status": null,
+      "source_image": "source_pool/openimages_v7_600/restaurant/restaurant_115.jpg",
+      "input_context_crop": "crops/context_cat_relabel_reject_both_partial28_20260724/cat_restaurant_115_slot_001_context.jpg",
+      "context_region_xyxy": [
+        937,
+        507,
+        1203,
+        742
+      ],
+      "edit_region_xyxy": [
+        1038,
+        596,
+        1161,
+        675
+      ],
+      "candidates": {
+        "variant_1": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant1_20260724/cat_restaurant_115_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant1_20260724/spliced_hybrid/sam3/cat_restaurant_115_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_2": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724/cat_restaurant_115_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724/spliced_hybrid/sam3/cat_restaurant_115_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_3": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant3_20260724/cat_restaurant_115_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant3_20260724/spliced_hybrid/sam3/cat_restaurant_115_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        }
+      },
+      "note": "",
+      "updated_at": "2026-07-24T21:12:27.652Z"
+    },
+    {
+      "task_id": "cat_restaurant_137_slot_001",
+      "domain": "restaurant",
+      "selection": "reject_all",
+      "selected_generated_crop": null,
+      "selected_spliced_full": null,
+      "selected_segmentation_status": null,
+      "source_image": "source_pool/openimages_v7_600/restaurant/restaurant_137.jpg",
+      "input_context_crop": "crops/context_cat_relabel_reject_both_partial28_20260724/cat_restaurant_137_slot_001_context.jpg",
+      "context_region_xyxy": [
+        1479,
+        290,
+        1784,
+        558
+      ],
+      "edit_region_xyxy": [
+        1557,
+        400,
+        1715,
+        512
+      ],
+      "candidates": {
+        "variant_1": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant1_20260724/cat_restaurant_137_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant1_20260724/spliced_hybrid/sam3/cat_restaurant_137_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_2": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724/cat_restaurant_137_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724/spliced_hybrid/sam3/cat_restaurant_137_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_3": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant3_20260724/cat_restaurant_137_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant3_20260724/spliced_hybrid/sam3/cat_restaurant_137_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        }
+      },
+      "note": "",
+      "updated_at": "2026-07-24T21:12:35.139Z"
+    },
+    {
+      "task_id": "cat_restaurant_168_slot_001",
+      "domain": "restaurant",
+      "selection": "variant_3",
+      "selected_generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant3_20260724/cat_restaurant_168_slot_001.png",
+      "selected_spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant3_20260724/spliced_hybrid/sam3/cat_restaurant_168_slot_001.png",
+      "selected_segmentation_status": "ok",
+      "source_image": "source_pool/openimages_v7_600/restaurant/restaurant_168.jpg",
+      "input_context_crop": "crops/context_cat_relabel_reject_both_partial28_20260724/cat_restaurant_168_slot_001_context.jpg",
+      "context_region_xyxy": [
+        147,
+        270,
+        341,
+        406
+      ],
+      "edit_region_xyxy": [
+        203,
+        326,
+        284,
+        372
+      ],
+      "candidates": {
+        "variant_1": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant1_20260724/cat_restaurant_168_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant1_20260724/spliced_hybrid/sam3/cat_restaurant_168_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_2": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724/cat_restaurant_168_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724/spliced_hybrid/sam3/cat_restaurant_168_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_3": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant3_20260724/cat_restaurant_168_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant3_20260724/spliced_hybrid/sam3/cat_restaurant_168_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        }
+      },
+      "note": "",
+      "updated_at": "2026-07-24T21:12:44.352Z"
+    },
+    {
+      "task_id": "cat_restaurant_199_slot_001",
+      "domain": "restaurant",
+      "selection": "variant_3",
+      "selected_generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant3_20260724/cat_restaurant_199_slot_001.png",
+      "selected_spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant3_20260724/spliced_hybrid/sam3/cat_restaurant_199_slot_001.png",
+      "selected_segmentation_status": "ok",
+      "source_image": "source_pool/openimages_v7_600/restaurant/restaurant_199.jpg",
+      "input_context_crop": "crops/context_cat_relabel_reject_both_partial28_20260724/cat_restaurant_199_slot_001_context.jpg",
+      "context_region_xyxy": [
+        301,
+        783,
+        587,
+        1018
+      ],
+      "edit_region_xyxy": [
+        421,
+        895,
+        563,
+        978
+      ],
+      "candidates": {
+        "variant_1": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant1_20260724/cat_restaurant_199_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant1_20260724/spliced_hybrid/sam3/cat_restaurant_199_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_2": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724/cat_restaurant_199_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724/spliced_hybrid/sam3/cat_restaurant_199_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_3": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant3_20260724/cat_restaurant_199_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant3_20260724/spliced_hybrid/sam3/cat_restaurant_199_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        }
+      },
+      "note": "",
+      "updated_at": "2026-07-24T21:12:52.554Z"
+    },
+    {
+      "task_id": "cat_restaurant_201_slot_001",
+      "domain": "restaurant",
+      "selection": "variant_3",
+      "selected_generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant3_20260724/cat_restaurant_201_slot_001.png",
+      "selected_spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant3_20260724/spliced_hybrid/sam3/cat_restaurant_201_slot_001.png",
+      "selected_segmentation_status": "ok",
+      "source_image": "source_pool/openimages_v7_600/restaurant/restaurant_201.jpg",
+      "input_context_crop": "crops/context_cat_relabel_reject_both_partial28_20260724/cat_restaurant_201_slot_001_context.jpg",
+      "context_region_xyxy": [
+        1224,
+        737,
+        1610,
+        1058
+      ],
+      "edit_region_xyxy": [
+        1354,
+        941,
+        1549,
+        1035
+      ],
+      "candidates": {
+        "variant_1": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant1_20260724/cat_restaurant_201_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant1_20260724/spliced_hybrid/sam3/cat_restaurant_201_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_2": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724/cat_restaurant_201_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724/spliced_hybrid/sam3/cat_restaurant_201_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_3": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant3_20260724/cat_restaurant_201_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant3_20260724/spliced_hybrid/sam3/cat_restaurant_201_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        }
+      },
+      "note": "",
+      "updated_at": "2026-07-24T21:13:04.647Z"
+    },
+    {
+      "task_id": "cat_restaurant_262_slot_001",
+      "domain": "restaurant",
+      "selection": "variant_1",
+      "selected_generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant1_20260724/cat_restaurant_262_slot_001.png",
+      "selected_spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant1_20260724/spliced_hybrid/sam3/cat_restaurant_262_slot_001.png",
+      "selected_segmentation_status": "ok",
+      "source_image": "source_pool/openimages_v7_600/restaurant/restaurant_262.jpg",
+      "input_context_crop": "crops/context_cat_relabel_reject_both_partial28_20260724/cat_restaurant_262_slot_001_context.jpg",
+      "context_region_xyxy": [
+        599,
+        634,
+        836,
+        801
+      ],
+      "edit_region_xyxy": [
+        636,
+        682,
+        730,
+        764
+      ],
+      "candidates": {
+        "variant_1": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant1_20260724/cat_restaurant_262_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant1_20260724/spliced_hybrid/sam3/cat_restaurant_262_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_2": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724/cat_restaurant_262_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724/spliced_hybrid/sam3/cat_restaurant_262_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_3": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant3_20260724/cat_restaurant_262_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant3_20260724/spliced_hybrid/sam3/cat_restaurant_262_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        }
+      },
+      "note": "",
+      "updated_at": "2026-07-24T21:13:10.707Z"
+    },
+    {
+      "task_id": "cat_restaurant_283_slot_001",
+      "domain": "restaurant",
+      "selection": "variant_2",
+      "selected_generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724/cat_restaurant_283_slot_001.png",
+      "selected_spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724/spliced_hybrid/sam3/cat_restaurant_283_slot_001.png",
+      "selected_segmentation_status": "ok",
+      "source_image": "source_pool/openimages_v7_600/restaurant/restaurant_283.jpg",
+      "input_context_crop": "crops/context_cat_relabel_reject_both_partial28_20260724/cat_restaurant_283_slot_001_context.jpg",
+      "context_region_xyxy": [
+        1363,
+        517,
+        1787,
+        910
+      ],
+      "edit_region_xyxy": [
+        1500,
+        688,
+        1703,
+        840
+      ],
+      "candidates": {
+        "variant_1": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant1_20260724/cat_restaurant_283_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant1_20260724/spliced_hybrid/sam3/cat_restaurant_283_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_2": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724/cat_restaurant_283_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724/spliced_hybrid/sam3/cat_restaurant_283_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        },
+        "variant_3": {
+          "generated_crop": "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant3_20260724/cat_restaurant_283_slot_001.png",
+          "spliced_full": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant3_20260724/spliced_hybrid/sam3/cat_restaurant_283_slot_001.png",
+          "segmentation_status": "ok",
+          "raw_segmentation_status": "ok",
+          "quality_gate_pass": true
+        }
+      },
+      "note": "",
+      "updated_at": "2026-07-24T21:13:20.089Z"
+    }
+  ]
+}

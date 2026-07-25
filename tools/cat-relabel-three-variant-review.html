@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>正在打开猫三版本 Review</title>
+</head>
+<body>
+  <p>正在打开 28 个猫任务的三版本 review……</p>
+  <script>
+    "use strict";
+
+    const target = new URL("./relabel-three-variant-review.html", window.location.href);
+    const params = {
+      tasks: "annotations/cat_generation_tasks_relabel_reject_both_partial28_20260724.jsonl",
+      variant1: "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant1_20260724/manifest.jsonl",
+      variant2: "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant2_20260724/manifest.jsonl",
+      variant3: "generated_crops/hunyuan_image3_distil_cat_relabel_reject_both_partial28_variant3_20260724/manifest.jsonl",
+      review1: "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant1_20260724/review_manifest.jsonl",
+      review2: "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant2_20260724/review_manifest.jsonl",
+      review3: "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant3_20260724/review_manifest.jsonl",
+      savePath: "annotations/claimforge_cat_relabel_partial28_variant_selections.json",
+      storage: "claimforge-cat-relabel-partial28-three-variant-review-v1",
+      task: "claimforge_cat_relabel_partial28_variant_review",
+      title: "猫三版本 Review",
+      switchHref: "trash-can-relabel-three-variant-review.html",
+      switchLabel: "垃圾桶",
+      export: "claimforge-cat-relabel-partial28-variant-selections.json"
+    };
+    for (const [key, value] of Object.entries(params)) target.searchParams.set(key, value);
+    window.location.replace(target);
+  </script>
+</body>
+</html>
