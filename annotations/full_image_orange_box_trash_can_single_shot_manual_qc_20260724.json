@@ -1,0 +1,247 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-07-24",
+  "tasks": "annotations/full_image_orange_box_trash_can_latest260_20260724.jsonl",
+  "run": "generated_full_images/hunyuan_image3_distil_full_input_orange_box_trash_can_latest260_g5_v1_20260724",
+  "contact_sheets": "tmp/full_image_orange_box_qc/trash_can_latest260_g5_v1_20260724",
+  "selection_policy": "single-shot primary outputs only; no retry candidate replaces a primary result",
+  "pass_criteria": [
+    "exactly one recognizable trash can",
+    "complete rim or lid, both side contours, body, and base are visible",
+    "not cropped by the full-image boundary and not substantially occluded",
+    "located at or immediately adjacent to the cyan annotation on the same support surface",
+    "natural scale and stable placement for the scene"
+  ],
+  "summary": {
+    "total": 260,
+    "usable": 218,
+    "failed": 42,
+    "usable_fraction": 0.838462,
+    "orange_guide_residual_candidates": 0
+  },
+  "page_summary": [
+    {"page": 1, "total": 25, "usable": 23, "failed": 2},
+    {"page": 2, "total": 25, "usable": 19, "failed": 6},
+    {"page": 3, "total": 25, "usable": 24, "failed": 1},
+    {"page": 4, "total": 25, "usable": 21, "failed": 4},
+    {"page": 5, "total": 25, "usable": 17, "failed": 8},
+    {"page": 6, "total": 25, "usable": 20, "failed": 5},
+    {"page": 7, "total": 25, "usable": 23, "failed": 2},
+    {"page": 8, "total": 25, "usable": 22, "failed": 3},
+    {"page": 9, "total": 25, "usable": 20, "failed": 5},
+    {"page": 10, "total": 25, "usable": 22, "failed": 3},
+    {"page": 11, "total": 10, "usable": 7, "failed": 3}
+  ],
+  "failures": [
+    {
+      "task_id": "trash_can_restaurant_013_slot_001",
+      "categories": ["location", "scale"],
+      "reason": "The bin is far from the annotation and appears as an unnaturally large foreground object."
+    },
+    {
+      "task_id": "trash_can_restaurant_024_slot_001",
+      "categories": ["location", "cropped"],
+      "reason": "The bin is below the annotation and its base is cropped by the full-image bottom edge."
+    },
+    {
+      "task_id": "trash_can_restaurant_055_slot_001",
+      "categories": ["scale", "unnatural"],
+      "reason": "The bin is on the target counter but is implausibly large relative to plates and the conveyor."
+    },
+    {
+      "task_id": "trash_can_restaurant_057_slot_001",
+      "categories": ["location", "wrong_support"],
+      "reason": "The annotation is on the foreground table, but the bin was moved to the rear floor among chairs."
+    },
+    {
+      "task_id": "trash_can_restaurant_064_slot_001",
+      "categories": ["location", "wrong_support"],
+      "reason": "The annotation is on a table, but the bin was moved to the floor at the right."
+    },
+    {
+      "task_id": "trash_can_restaurant_072_slot_001",
+      "categories": ["occluded", "incomplete"],
+      "reason": "Most of the bin body and its base are hidden behind table decorations."
+    },
+    {
+      "task_id": "trash_can_restaurant_076_slot_001",
+      "categories": ["occluded", "cropped", "incomplete"],
+      "reason": "Only the upper bin is visible; a chair and the image edge hide the body and base."
+    },
+    {
+      "task_id": "trash_can_restaurant_101_slot_001",
+      "categories": ["location", "cropped"],
+      "reason": "The bin is far to the right and severely cropped by the full-image boundary."
+    },
+    {
+      "task_id": "trash_can_restaurant_135_slot_001",
+      "categories": ["omission"],
+      "reason": "No recognizable trash can was generated in the annotated table area."
+    },
+    {
+      "task_id": "trash_can_restaurant_171_slot_001",
+      "categories": ["omission", "occluded"],
+      "reason": "No clear complete bin is visible at the target; the possible object is obscured by tables and chairs."
+    },
+    {
+      "task_id": "trash_can_restaurant_183_slot_001",
+      "categories": ["unrecognizable", "occluded", "incomplete"],
+      "reason": "The target object resembles a black bag or container and its lower body and base are hidden."
+    },
+    {
+      "task_id": "trash_can_restaurant_223_slot_001",
+      "categories": ["occluded", "incomplete"],
+      "reason": "The dining table hides the lower half and base of the bin."
+    },
+    {
+      "task_id": "trash_can_restaurant_241_slot_001",
+      "categories": ["occluded", "incomplete"],
+      "reason": "The foreground bar hides the lower half and base of the bin."
+    },
+    {
+      "task_id": "trash_can_restaurant_243_slot_001",
+      "categories": ["wrong_object"],
+      "reason": "The target was rendered as a stove or heater with a flue rather than a trash can."
+    },
+    {
+      "task_id": "trash_can_restaurant_245_slot_001",
+      "categories": ["location", "omission"],
+      "reason": "The annotated area is empty and the bin was generated outside it."
+    },
+    {
+      "task_id": "trash_can_restaurant_250_slot_001",
+      "categories": ["occluded", "incomplete"],
+      "reason": "The table and foreground hide the bin base completely."
+    },
+    {
+      "task_id": "trash_can_restaurant_262_slot_001",
+      "categories": ["location", "omission"],
+      "reason": "The annotated area is empty and the bin appears at the far-right side of the image."
+    },
+    {
+      "task_id": "trash_can_restaurant_276_slot_001",
+      "categories": ["multiple"],
+      "reason": "Three trash cans were generated."
+    },
+    {
+      "task_id": "trash_can_restaurant_285_slot_001",
+      "categories": ["location"],
+      "reason": "The bin is far from the annotated area."
+    },
+    {
+      "task_id": "trash_can_restaurant_298_slot_001",
+      "categories": ["multiple", "cropped"],
+      "reason": "Multiple bins were generated and an additional bin is cropped at the upper edge."
+    },
+    {
+      "task_id": "trash_can_restaurant_299_slot_001",
+      "categories": ["location", "occluded", "incomplete"],
+      "reason": "The bin is displaced and its lower body and base are hidden by the image edge and a stool."
+    },
+    {
+      "task_id": "trash_can_lodging_028_slot_001",
+      "categories": ["location", "wrong_support"],
+      "reason": "The annotation is on the washbasin counter, but the bin was moved to the floor."
+    },
+    {
+      "task_id": "trash_can_lodging_030_slot_001",
+      "categories": ["location", "wrong_support"],
+      "reason": "The annotation is at the bed or bed-end bench, but the bin was moved to the left floor."
+    },
+    {
+      "task_id": "trash_can_lodging_031_slot_001",
+      "categories": ["multiple", "occluded", "incomplete"],
+      "reason": "Two bins were generated, and the second is partially hidden by the bathtub."
+    },
+    {
+      "task_id": "trash_can_lodging_043_slot_001",
+      "categories": ["location", "omission"],
+      "reason": "The annotated area is empty and the only bin appears far away under a desk."
+    },
+    {
+      "task_id": "trash_can_lodging_071_slot_001",
+      "categories": ["multiple", "occluded"],
+      "reason": "Two bins were generated and the target bin is partly hidden by a chair."
+    },
+    {
+      "task_id": "trash_can_lodging_088_slot_001",
+      "categories": ["location", "cropped"],
+      "reason": "The bin is at the far-right image edge, outside the target vicinity, with its right contour cropped."
+    },
+    {
+      "task_id": "trash_can_lodging_092_slot_001",
+      "categories": ["wrong_support", "multiple"],
+      "reason": "The target is under the table on the floor, but the main bin is on the tabletop and a second bin is present."
+    },
+    {
+      "task_id": "trash_can_lodging_144_slot_001",
+      "categories": ["wrong_object", "multiple"],
+      "reason": "The target became a wall-mounted trough, while another bin appears in the mirror."
+    },
+    {
+      "task_id": "trash_can_lodging_148_slot_001",
+      "categories": ["location", "wrong_support"],
+      "reason": "The annotation is on the rug or floor, but the bin was moved onto a sofa cushion."
+    },
+    {
+      "task_id": "trash_can_lodging_172_slot_001",
+      "categories": ["multiple"],
+      "reason": "Two trash cans were generated."
+    },
+    {
+      "task_id": "trash_can_lodging_179_slot_001",
+      "categories": ["omission"],
+      "reason": "No trash can was generated in the annotated area."
+    },
+    {
+      "task_id": "trash_can_lodging_183_slot_001",
+      "categories": ["wrong_support", "unnatural"],
+      "reason": "The bin is balanced on an extremely narrow bed-head rail and looks unstable and conspicuous."
+    },
+    {
+      "task_id": "trash_can_lodging_190_slot_001",
+      "categories": ["scale", "unnatural"],
+      "reason": "An oversized floor bin was placed on the washbasin and blocks the sink and faucet."
+    },
+    {
+      "task_id": "trash_can_lodging_199_slot_001",
+      "categories": ["location", "occluded", "incomplete"],
+      "reason": "The annotated island area is empty; the displaced rear bin has its base hidden by the island."
+    },
+    {
+      "task_id": "trash_can_lodging_221_slot_001",
+      "categories": ["multiple", "cropped"],
+      "reason": "Two bins appear in the stacked image and the lower one is cropped by the bottom edge."
+    },
+    {
+      "task_id": "trash_can_lodging_247_slot_001",
+      "categories": ["cropped", "incomplete"],
+      "reason": "The lower bin body extends beyond the full-image bottom edge and its base is not visible."
+    },
+    {
+      "task_id": "trash_can_lodging_266_slot_001",
+      "categories": ["occluded", "incomplete"],
+      "reason": "Bedding hides the lower half and base of the bin."
+    },
+    {
+      "task_id": "trash_can_lodging_270_slot_001",
+      "categories": ["location", "cropped", "incomplete"],
+      "reason": "The bin is below the annotation and is cropped at the bottom edge."
+    },
+    {
+      "task_id": "trash_can_lodging_281_slot_001",
+      "categories": ["occluded", "incomplete"],
+      "reason": "A foreground pillow hides the lower half and base of the bin in the bed area."
+    },
+    {
+      "task_id": "trash_can_lodging_285_slot_001",
+      "categories": ["location", "wrong_support", "cropped"],
+      "reason": "The target is on a foreground counter, but the bin was moved to the lower-right floor and cropped."
+    },
+    {
+      "task_id": "trash_can_lodging_286_slot_001",
+      "categories": ["location"],
+      "reason": "The target is at the island and stool area, but the bin was generated against the far-left wall."
+    }
+  ]
+}
