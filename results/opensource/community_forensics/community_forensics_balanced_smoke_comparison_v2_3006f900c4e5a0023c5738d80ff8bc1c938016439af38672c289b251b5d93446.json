@@ -1,0 +1,319 @@
+{
+  "schema_version": "community_forensics_balanced_smoke_comparison_v2",
+  "status": "deterministic_smoke_comparison_passed",
+  "compared_at": "2026-07-26T23:05:14.284611+00:00",
+  "analysis_runtime": {
+    "schema_version": "community_forensics_balanced_analysis_runtime_v1",
+    "inference_runtime": {
+      "device": "cpu",
+      "python": {
+        "implementation": "CPython",
+        "version": "3.12.3",
+        "executable": "/root/.cache/claimforge/venvs/community-forensics-balanced-nightly20250627/bin/python"
+      },
+      "venv": {
+        "prefix": "/root/.cache/claimforge/venvs/community-forensics-balanced-nightly20250627",
+        "base_prefix": "/usr",
+        "pyvenv_cfg_path": "/root/.cache/claimforge/venvs/community-forensics-balanced-nightly20250627/pyvenv.cfg",
+        "pyvenv_cfg_sha256": "7a40b0582b3525537e9e005348ceec3a23259899af45afc367014c7acbdf91f4",
+        "include_system_site_packages": true
+      },
+      "platform": "Linux-5.10.134-16.103.al8.x86_64-x86_64-with-glibc2.39",
+      "packages": {
+        "torch": {
+          "version": "2.8.0.dev20250627+cu128",
+          "distribution_version": "2.8.0.dev20250627+cu128",
+          "cuda_runtime": "12.8",
+          "cudnn_version": 91002
+        },
+        "torchvision": {
+          "version": "0.23.0.dev20250627+cu128",
+          "distribution_version": "0.23.0.dev20250627+cu128"
+        },
+        "timm": "1.0.15",
+        "safetensors": "0.5.2",
+        "numpy": "2.2.6",
+        "Pillow": "11.1.0",
+        "scikit-learn": "1.5.2",
+        "scipy": "1.16.0",
+        "joblib": "1.4.2",
+        "threadpoolctl": "3.5.0",
+        "setuptools": "79.0.1"
+      },
+      "seed": 100,
+      "preprocess_profile": "official_highres_resize440_centercrop384",
+      "inference_dtype": "float32",
+      "feature_dtype": "float32",
+      "batch_size": 1,
+      "autocast": false,
+      "grad_enabled": false,
+      "deterministic_algorithms_enabled": true,
+      "deterministic_algorithms_warn_only": false,
+      "cublas_workspace_config": ":4096:8",
+      "cudnn": {
+        "enabled": false,
+        "benchmark": false,
+        "deterministic": true,
+        "allow_tf32": false
+      },
+      "matmul_allow_tf32": false,
+      "float32_matmul_precision": "highest",
+      "minimum_cuda_free_bytes": 8589934592,
+      "bytecode_writes_disabled": true,
+      "process_environment": {
+        "PYTHONHASHSEED": "100",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONPYCACHEPREFIX": "/root/.cache/claimforge/pycache/community-forensics-balanced-nightly20250627-v2-empty",
+        "python_dont_write_bytecode": true,
+        "sys_pycache_prefix": "/root/.cache/claimforge/pycache/community-forensics-balanced-nightly20250627-v2-empty",
+        "pycache_prefix_initially_empty": true
+      }
+    },
+    "analysis_packages": {
+      "scipy": "1.16.0",
+      "scikit-learn": "1.5.2"
+    }
+  },
+  "reference": {
+    "run_id": "community_forensics_highres_vit_s16_384_balanced250_v1_smoke5x7_a_20260726",
+    "run_manifest_fingerprint": "aa6a720c226113cda8ec1eb56f7a3a9b339c873c0ff526a4ca8aefc5a40d84fe",
+    "manifest_sha256": "f6827963f7fd155c25bb5f5eaba671a2fc5f3f477a941789043741818637692d",
+    "results_sha256": "d3c25cd2c5eda7ac4c7c9ffc4d1d5ad480886994fe3525ec4c99316b2b478652",
+    "expected_inputs_sha256": "21e556dd791960afde6cc900d9aba79da61a1a935c6da7b0e0928d3f6b26afa0",
+    "summary_sha256": "80c163c093cc79a69d8a356b92f05e211f90f595dc1f05f8ff7ffb8962c3ff35",
+    "feature_inventory_sha256": "f2cd83bd1f8c00ed1e87db9471595fcdd480601c4d615b9bea735002d875f811"
+  },
+  "replay": {
+    "run_id": "community_forensics_highres_vit_s16_384_balanced250_v1_smoke5x7_b_20260726",
+    "run_manifest_fingerprint": "90e2e6ada2c9089a0073c14df0222ee0084b16d9236e8217487782e9f7a10302",
+    "manifest_sha256": "60726c3eb419714bd94a7891499c4155da6796cd78fd4ec201f06a54d12f5ba6",
+    "results_sha256": "5ad5475cb41404efe4d3bdaf19dac7365f8ac6ef4420834931e454c7b7fba6c9",
+    "expected_inputs_sha256": "21e556dd791960afde6cc900d9aba79da61a1a935c6da7b0e0928d3f6b26afa0",
+    "summary_sha256": "6deb223ad1b4ff65bb6c705f7c83b08f5d201507d6fbe60c4b9ca87c15b05992",
+    "feature_inventory_sha256": "1b7f4e6a8aba6c1798d67edb600cbf8aa15f3d935d23193917e2d1dc5ddacecb"
+  },
+  "selection": {
+    "spec": {
+      "capability": "whole_image_t1",
+      "conditions": null,
+      "per_condition_limit": 5,
+      "sample_id": null,
+      "pair_limit": null
+    },
+    "selected_images": 35,
+    "selected_ids_sha256": "b420bc581386a540b742d917d60d007f0e5522b6cca43fa217797944c40667e5",
+    "counts_by_condition": {
+      "real": 5,
+      "local_mouse": 5,
+      "local_cat": 5,
+      "local_trash_can": 5,
+      "fullframe_mouse": 5,
+      "fullframe_cat": 5,
+      "fullframe_trash_can": 5
+    }
+  },
+  "reference_independent_linear_head_replay": {
+    "status": "independent_classifier_head_replay_passed",
+    "features_replayed": 35,
+    "checkpoint_sha256": "b89f36275f3bf5e2b040eee36597a8f19db051bff9a473a9cf7b2466284fb387",
+    "checkpoint_schema_sha256": "e855838996a924c0c49bc95c60ad5365c7502a556eb228523699751ec865df60",
+    "weight_key": "vit.head.weight",
+    "bias_key": "vit.head.bias",
+    "device": "cuda:0",
+    "runtime": {
+      "device": "cuda:0",
+      "python": {
+        "implementation": "CPython",
+        "version": "3.12.3",
+        "executable": "/root/.cache/claimforge/venvs/community-forensics-balanced-nightly20250627/bin/python"
+      },
+      "venv": {
+        "prefix": "/root/.cache/claimforge/venvs/community-forensics-balanced-nightly20250627",
+        "base_prefix": "/usr",
+        "pyvenv_cfg_path": "/root/.cache/claimforge/venvs/community-forensics-balanced-nightly20250627/pyvenv.cfg",
+        "pyvenv_cfg_sha256": "7a40b0582b3525537e9e005348ceec3a23259899af45afc367014c7acbdf91f4",
+        "include_system_site_packages": true
+      },
+      "platform": "Linux-5.10.134-16.103.al8.x86_64-x86_64-with-glibc2.39",
+      "packages": {
+        "torch": {
+          "version": "2.8.0.dev20250627+cu128",
+          "distribution_version": "2.8.0.dev20250627+cu128",
+          "cuda_runtime": "12.8",
+          "cudnn_version": 91002
+        },
+        "torchvision": {
+          "version": "0.23.0.dev20250627+cu128",
+          "distribution_version": "0.23.0.dev20250627+cu128"
+        },
+        "timm": "1.0.15",
+        "safetensors": "0.5.2",
+        "numpy": "2.2.6",
+        "Pillow": "11.1.0",
+        "scikit-learn": "1.5.2",
+        "scipy": "1.16.0",
+        "joblib": "1.4.2",
+        "threadpoolctl": "3.5.0",
+        "setuptools": "79.0.1"
+      },
+      "seed": 100,
+      "preprocess_profile": "official_highres_resize440_centercrop384",
+      "inference_dtype": "float32",
+      "feature_dtype": "float32",
+      "batch_size": 1,
+      "autocast": false,
+      "grad_enabled": false,
+      "deterministic_algorithms_enabled": true,
+      "deterministic_algorithms_warn_only": false,
+      "cublas_workspace_config": ":4096:8",
+      "cudnn": {
+        "enabled": false,
+        "benchmark": false,
+        "deterministic": true,
+        "allow_tf32": false
+      },
+      "matmul_allow_tf32": false,
+      "float32_matmul_precision": "highest",
+      "minimum_cuda_free_bytes": 8589934592,
+      "bytecode_writes_disabled": true,
+      "process_environment": {
+        "PYTHONHASHSEED": "100",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONPYCACHEPREFIX": "/root/.cache/claimforge/pycache/community-forensics-balanced-nightly20250627-v2-empty",
+        "python_dont_write_bytecode": true,
+        "sys_pycache_prefix": "/root/.cache/claimforge/pycache/community-forensics-balanced-nightly20250627-v2-empty",
+        "pycache_prefix_initially_empty": true
+      },
+      "cuda": {
+        "runtime": "12.8",
+        "device_index": 0,
+        "device_name": "NVIDIA L20Z",
+        "total_memory_bytes": 85017624576,
+        "capability": [
+          9,
+          0
+        ]
+      }
+    },
+    "recorded_runtime_exact_match": true,
+    "raw_logit_abs_tolerance": 0.0,
+    "probability_abs_tolerance": 0.0,
+    "max_raw_logit_abs_difference": 0.0,
+    "max_probability_abs_difference": 0.0
+  },
+  "replay_independent_linear_head_replay": {
+    "status": "independent_classifier_head_replay_passed",
+    "features_replayed": 35,
+    "checkpoint_sha256": "b89f36275f3bf5e2b040eee36597a8f19db051bff9a473a9cf7b2466284fb387",
+    "checkpoint_schema_sha256": "e855838996a924c0c49bc95c60ad5365c7502a556eb228523699751ec865df60",
+    "weight_key": "vit.head.weight",
+    "bias_key": "vit.head.bias",
+    "device": "cuda:0",
+    "runtime": {
+      "device": "cuda:0",
+      "python": {
+        "implementation": "CPython",
+        "version": "3.12.3",
+        "executable": "/root/.cache/claimforge/venvs/community-forensics-balanced-nightly20250627/bin/python"
+      },
+      "venv": {
+        "prefix": "/root/.cache/claimforge/venvs/community-forensics-balanced-nightly20250627",
+        "base_prefix": "/usr",
+        "pyvenv_cfg_path": "/root/.cache/claimforge/venvs/community-forensics-balanced-nightly20250627/pyvenv.cfg",
+        "pyvenv_cfg_sha256": "7a40b0582b3525537e9e005348ceec3a23259899af45afc367014c7acbdf91f4",
+        "include_system_site_packages": true
+      },
+      "platform": "Linux-5.10.134-16.103.al8.x86_64-x86_64-with-glibc2.39",
+      "packages": {
+        "torch": {
+          "version": "2.8.0.dev20250627+cu128",
+          "distribution_version": "2.8.0.dev20250627+cu128",
+          "cuda_runtime": "12.8",
+          "cudnn_version": 91002
+        },
+        "torchvision": {
+          "version": "0.23.0.dev20250627+cu128",
+          "distribution_version": "0.23.0.dev20250627+cu128"
+        },
+        "timm": "1.0.15",
+        "safetensors": "0.5.2",
+        "numpy": "2.2.6",
+        "Pillow": "11.1.0",
+        "scikit-learn": "1.5.2",
+        "scipy": "1.16.0",
+        "joblib": "1.4.2",
+        "threadpoolctl": "3.5.0",
+        "setuptools": "79.0.1"
+      },
+      "seed": 100,
+      "preprocess_profile": "official_highres_resize440_centercrop384",
+      "inference_dtype": "float32",
+      "feature_dtype": "float32",
+      "batch_size": 1,
+      "autocast": false,
+      "grad_enabled": false,
+      "deterministic_algorithms_enabled": true,
+      "deterministic_algorithms_warn_only": false,
+      "cublas_workspace_config": ":4096:8",
+      "cudnn": {
+        "enabled": false,
+        "benchmark": false,
+        "deterministic": true,
+        "allow_tf32": false
+      },
+      "matmul_allow_tf32": false,
+      "float32_matmul_precision": "highest",
+      "minimum_cuda_free_bytes": 8589934592,
+      "bytecode_writes_disabled": true,
+      "process_environment": {
+        "PYTHONHASHSEED": "100",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONPYCACHEPREFIX": "/root/.cache/claimforge/pycache/community-forensics-balanced-nightly20250627-v2-empty",
+        "python_dont_write_bytecode": true,
+        "sys_pycache_prefix": "/root/.cache/claimforge/pycache/community-forensics-balanced-nightly20250627-v2-empty",
+        "pycache_prefix_initially_empty": true
+      },
+      "cuda": {
+        "runtime": "12.8",
+        "device_index": 0,
+        "device_name": "NVIDIA L20Z",
+        "total_memory_bytes": 85017624576,
+        "capability": [
+          9,
+          0
+        ]
+      }
+    },
+    "recorded_runtime_exact_match": true,
+    "raw_logit_abs_tolerance": 0.0,
+    "probability_abs_tolerance": 0.0,
+    "max_raw_logit_abs_difference": 0.0,
+    "max_probability_abs_difference": 0.0
+  },
+  "comparison": {
+    "images_compared": 35,
+    "ignored_row_fields": [
+      "completed_at",
+      "config_fingerprint",
+      "latency_ms",
+      "peak_cuda_memory_bytes",
+      "preprocess_latency_ms",
+      "run_id",
+      "run_manifest_fingerprint"
+    ],
+    "ignored_feature_metadata_fields": [
+      "array_sha256",
+      "relative_path",
+      "sha256"
+    ],
+    "exact_computational_projection": true,
+    "feature_file_bytes_exact": true,
+    "feature_array_exact": true,
+    "max_raw_logit_abs_difference": 0.0,
+    "max_probability_abs_difference": 0.0,
+    "max_ai_score_abs_difference": 0.0,
+    "max_feature_abs_difference": 0.0
+  },
+  "immutable_computational_runtime_config_exact": true,
+  "evidence_reverified_after_comparison": true
+}

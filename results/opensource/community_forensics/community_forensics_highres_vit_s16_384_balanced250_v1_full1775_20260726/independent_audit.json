@@ -1,0 +1,439 @@
+{
+  "schema_version": "community_forensics_balanced_replay_audit_v2",
+  "status": "replay_audit_passed",
+  "run_id": "community_forensics_highres_vit_s16_384_balanced250_v1_full1775_20260726",
+  "run_manifest_fingerprint": "85e6c75524334d68f4240df5605e7470f148e49e34d4971e3c2d7d6e901490de",
+  "audited_at": "2026-07-26T23:29:11.752171+00:00",
+  "formal_images": 1775,
+  "physical_result_rows": 1775,
+  "latest_result_rows": 1775,
+  "coverage": {
+    "expected_images": 1775,
+    "physical_attempts": 1775,
+    "result_images": 1775,
+    "valid_images": 1775,
+    "error_images": 0,
+    "missing_images": 0,
+    "superseded_attempts": 0,
+    "coverage_fraction": 1.0,
+    "success_fraction": 1.0,
+    "is_complete": true,
+    "counts_by_condition": {
+      "real": {
+        "expected_images": 275,
+        "result_images": 275,
+        "valid_images": 275,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "local_mouse": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "local_cat": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "local_trash_can": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "fullframe_mouse": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "fullframe_cat": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "fullframe_trash_can": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      }
+    }
+  },
+  "feature_files": 1775,
+  "metrics_schema_version": "balanced250_t1_summary_v1",
+  "metrics_bootstrap": {
+    "iterations": 1000,
+    "seed": 20260726,
+    "primary_unit": "shared_source_content_cluster_poisson_across_labels_and_conditions",
+    "secondary_unit": "shared_source_content_cluster_poisson_across_conditions",
+    "ci": "two_sided_95_percentile"
+  },
+  "analysis_runtime": {
+    "schema_version": "community_forensics_balanced_analysis_runtime_v1",
+    "inference_runtime": {
+      "device": "cpu",
+      "python": {
+        "implementation": "CPython",
+        "version": "3.12.3",
+        "executable": "/root/.cache/claimforge/venvs/community-forensics-balanced-nightly20250627/bin/python"
+      },
+      "venv": {
+        "prefix": "/root/.cache/claimforge/venvs/community-forensics-balanced-nightly20250627",
+        "base_prefix": "/usr",
+        "pyvenv_cfg_path": "/root/.cache/claimforge/venvs/community-forensics-balanced-nightly20250627/pyvenv.cfg",
+        "pyvenv_cfg_sha256": "7a40b0582b3525537e9e005348ceec3a23259899af45afc367014c7acbdf91f4",
+        "include_system_site_packages": true
+      },
+      "platform": "Linux-5.10.134-16.103.al8.x86_64-x86_64-with-glibc2.39",
+      "packages": {
+        "torch": {
+          "version": "2.8.0.dev20250627+cu128",
+          "distribution_version": "2.8.0.dev20250627+cu128",
+          "cuda_runtime": "12.8",
+          "cudnn_version": 91002
+        },
+        "torchvision": {
+          "version": "0.23.0.dev20250627+cu128",
+          "distribution_version": "0.23.0.dev20250627+cu128"
+        },
+        "timm": "1.0.15",
+        "safetensors": "0.5.2",
+        "numpy": "2.2.6",
+        "Pillow": "11.1.0",
+        "scikit-learn": "1.5.2",
+        "scipy": "1.16.0",
+        "joblib": "1.4.2",
+        "threadpoolctl": "3.5.0",
+        "setuptools": "79.0.1"
+      },
+      "seed": 100,
+      "preprocess_profile": "official_highres_resize440_centercrop384",
+      "inference_dtype": "float32",
+      "feature_dtype": "float32",
+      "batch_size": 1,
+      "autocast": false,
+      "grad_enabled": false,
+      "deterministic_algorithms_enabled": true,
+      "deterministic_algorithms_warn_only": false,
+      "cublas_workspace_config": ":4096:8",
+      "cudnn": {
+        "enabled": false,
+        "benchmark": false,
+        "deterministic": true,
+        "allow_tf32": false
+      },
+      "matmul_allow_tf32": false,
+      "float32_matmul_precision": "highest",
+      "minimum_cuda_free_bytes": 8589934592,
+      "bytecode_writes_disabled": true,
+      "process_environment": {
+        "PYTHONHASHSEED": "100",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONPYCACHEPREFIX": "/root/.cache/claimforge/pycache/community-forensics-balanced-nightly20250627-v2-empty",
+        "python_dont_write_bytecode": true,
+        "sys_pycache_prefix": "/root/.cache/claimforge/pycache/community-forensics-balanced-nightly20250627-v2-empty",
+        "pycache_prefix_initially_empty": true
+      }
+    },
+    "analysis_packages": {
+      "scipy": "1.16.0",
+      "scikit-learn": "1.5.2"
+    }
+  },
+  "independent_linear_head_replay": {
+    "status": "independent_classifier_head_replay_passed",
+    "features_replayed": 1775,
+    "checkpoint_sha256": "b89f36275f3bf5e2b040eee36597a8f19db051bff9a473a9cf7b2466284fb387",
+    "checkpoint_schema_sha256": "e855838996a924c0c49bc95c60ad5365c7502a556eb228523699751ec865df60",
+    "weight_key": "vit.head.weight",
+    "bias_key": "vit.head.bias",
+    "device": "cuda:0",
+    "runtime": {
+      "device": "cuda:0",
+      "python": {
+        "implementation": "CPython",
+        "version": "3.12.3",
+        "executable": "/root/.cache/claimforge/venvs/community-forensics-balanced-nightly20250627/bin/python"
+      },
+      "venv": {
+        "prefix": "/root/.cache/claimforge/venvs/community-forensics-balanced-nightly20250627",
+        "base_prefix": "/usr",
+        "pyvenv_cfg_path": "/root/.cache/claimforge/venvs/community-forensics-balanced-nightly20250627/pyvenv.cfg",
+        "pyvenv_cfg_sha256": "7a40b0582b3525537e9e005348ceec3a23259899af45afc367014c7acbdf91f4",
+        "include_system_site_packages": true
+      },
+      "platform": "Linux-5.10.134-16.103.al8.x86_64-x86_64-with-glibc2.39",
+      "packages": {
+        "torch": {
+          "version": "2.8.0.dev20250627+cu128",
+          "distribution_version": "2.8.0.dev20250627+cu128",
+          "cuda_runtime": "12.8",
+          "cudnn_version": 91002
+        },
+        "torchvision": {
+          "version": "0.23.0.dev20250627+cu128",
+          "distribution_version": "0.23.0.dev20250627+cu128"
+        },
+        "timm": "1.0.15",
+        "safetensors": "0.5.2",
+        "numpy": "2.2.6",
+        "Pillow": "11.1.0",
+        "scikit-learn": "1.5.2",
+        "scipy": "1.16.0",
+        "joblib": "1.4.2",
+        "threadpoolctl": "3.5.0",
+        "setuptools": "79.0.1"
+      },
+      "seed": 100,
+      "preprocess_profile": "official_highres_resize440_centercrop384",
+      "inference_dtype": "float32",
+      "feature_dtype": "float32",
+      "batch_size": 1,
+      "autocast": false,
+      "grad_enabled": false,
+      "deterministic_algorithms_enabled": true,
+      "deterministic_algorithms_warn_only": false,
+      "cublas_workspace_config": ":4096:8",
+      "cudnn": {
+        "enabled": false,
+        "benchmark": false,
+        "deterministic": true,
+        "allow_tf32": false
+      },
+      "matmul_allow_tf32": false,
+      "float32_matmul_precision": "highest",
+      "minimum_cuda_free_bytes": 8589934592,
+      "bytecode_writes_disabled": true,
+      "process_environment": {
+        "PYTHONHASHSEED": "100",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONPYCACHEPREFIX": "/root/.cache/claimforge/pycache/community-forensics-balanced-nightly20250627-v2-empty",
+        "python_dont_write_bytecode": true,
+        "sys_pycache_prefix": "/root/.cache/claimforge/pycache/community-forensics-balanced-nightly20250627-v2-empty",
+        "pycache_prefix_initially_empty": true
+      },
+      "cuda": {
+        "runtime": "12.8",
+        "device_index": 0,
+        "device_name": "NVIDIA L20Z",
+        "total_memory_bytes": 85017624576,
+        "capability": [
+          9,
+          0
+        ]
+      }
+    },
+    "recorded_runtime_exact_match": true,
+    "raw_logit_abs_tolerance": 0.0,
+    "probability_abs_tolerance": 0.0,
+    "max_raw_logit_abs_difference": 0.0,
+    "max_probability_abs_difference": 0.0
+  },
+  "fresh_model_replay": {
+    "status": "fresh_full_image_to_feature_replay_passed",
+    "images_replayed": 1775,
+    "full_image_forward_per_input": true,
+    "full_model_replay": true,
+    "classifier_head_only_replay": false,
+    "source_commit": "ee5b71d43db0f3779e1edd64ee927b13f2dd6ad4",
+    "asset_bundle_sha256": "810a7592a82f09cbf638985e9c59eed9ebd2c3ff28ebab97f348bfd3c69b7fb3",
+    "checkpoint_sha256": "b89f36275f3bf5e2b040eee36597a8f19db051bff9a473a9cf7b2466284fb387",
+    "checkpoint_schema_sha256": "e855838996a924c0c49bc95c60ad5365c7502a556eb228523699751ec865df60",
+    "preprocess_profile": "official_highres_resize440_centercrop384",
+    "runtime": {
+      "device": "cuda:0",
+      "python": {
+        "implementation": "CPython",
+        "version": "3.12.3",
+        "executable": "/root/.cache/claimforge/venvs/community-forensics-balanced-nightly20250627/bin/python"
+      },
+      "venv": {
+        "prefix": "/root/.cache/claimforge/venvs/community-forensics-balanced-nightly20250627",
+        "base_prefix": "/usr",
+        "pyvenv_cfg_path": "/root/.cache/claimforge/venvs/community-forensics-balanced-nightly20250627/pyvenv.cfg",
+        "pyvenv_cfg_sha256": "7a40b0582b3525537e9e005348ceec3a23259899af45afc367014c7acbdf91f4",
+        "include_system_site_packages": true
+      },
+      "platform": "Linux-5.10.134-16.103.al8.x86_64-x86_64-with-glibc2.39",
+      "packages": {
+        "torch": {
+          "version": "2.8.0.dev20250627+cu128",
+          "distribution_version": "2.8.0.dev20250627+cu128",
+          "cuda_runtime": "12.8",
+          "cudnn_version": 91002
+        },
+        "torchvision": {
+          "version": "0.23.0.dev20250627+cu128",
+          "distribution_version": "0.23.0.dev20250627+cu128"
+        },
+        "timm": "1.0.15",
+        "safetensors": "0.5.2",
+        "numpy": "2.2.6",
+        "Pillow": "11.1.0",
+        "scikit-learn": "1.5.2",
+        "scipy": "1.16.0",
+        "joblib": "1.4.2",
+        "threadpoolctl": "3.5.0",
+        "setuptools": "79.0.1"
+      },
+      "seed": 100,
+      "preprocess_profile": "official_highres_resize440_centercrop384",
+      "inference_dtype": "float32",
+      "feature_dtype": "float32",
+      "batch_size": 1,
+      "autocast": false,
+      "grad_enabled": false,
+      "deterministic_algorithms_enabled": true,
+      "deterministic_algorithms_warn_only": false,
+      "cublas_workspace_config": ":4096:8",
+      "cudnn": {
+        "enabled": false,
+        "benchmark": false,
+        "deterministic": true,
+        "allow_tf32": false
+      },
+      "matmul_allow_tf32": false,
+      "float32_matmul_precision": "highest",
+      "minimum_cuda_free_bytes": 8589934592,
+      "bytecode_writes_disabled": true,
+      "process_environment": {
+        "PYTHONHASHSEED": "100",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONPYCACHEPREFIX": "/root/.cache/claimforge/pycache/community-forensics-balanced-nightly20250627-v2-empty",
+        "python_dont_write_bytecode": true,
+        "sys_pycache_prefix": "/root/.cache/claimforge/pycache/community-forensics-balanced-nightly20250627-v2-empty",
+        "pycache_prefix_initially_empty": true
+      },
+      "cuda": {
+        "runtime": "12.8",
+        "device_index": 0,
+        "device_name": "NVIDIA L20Z",
+        "total_memory_bytes": 85017624576,
+        "capability": [
+          9,
+          0
+        ]
+      }
+    },
+    "independent_model_load": {
+      "construction": {
+        "framework": "timm",
+        "version": "1.0.15",
+        "architecture": "vit_small_patch16_384.augreg_in21k_ft_in1k",
+        "pretrained": false,
+        "wrapper_state_prefix": "vit.",
+        "classifier_replacement": "torch.nn.Linear(384,1,bias=True)",
+        "fused_attention": true,
+        "fused_attention_policy": "official_timm_1.0.15_default",
+        "attention_block_flags": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "load": {
+        "format": "safetensors",
+        "strict": true,
+        "missing_keys": [],
+        "unexpected_keys": [],
+        "full_state_coverage": true,
+        "loaded_tensor_count": 152,
+        "loaded_state_elements": 21811969,
+        "parameter_count": 21811969
+      },
+      "network": {
+        "allowed": false,
+        "offline_environment": {
+          "HF_HUB_OFFLINE": "1",
+          "TRANSFORMERS_OFFLINE": "1"
+        },
+        "attempts": {
+          "urllib_urlopen": 0,
+          "socket_create_connection": 0,
+          "socket_connect": 0
+        }
+      },
+      "model_mode": "eval",
+      "requires_grad": false,
+      "feature_dimension": 384
+    },
+    "raw_logit_abs_tolerance": 0.0,
+    "probability_abs_tolerance": 0.0,
+    "feature_comparison": "numpy.array_equal",
+    "max_raw_logit_abs_difference": 0.0,
+    "max_probability_abs_difference": 0.0,
+    "max_ai_score_abs_difference": 0.0,
+    "max_feature_abs_difference": 0.0
+  },
+  "method_boundary": {
+    "method": "Community Forensics released High-res ViT-S/16 384",
+    "architecture": "vit_small_patch16_384.augreg_in21k_ft_in1k",
+    "preprocess_profile": "official_highres_resize440_centercrop384",
+    "released_checkpoint_evaluated": true,
+    "paper_vs_executable_discrepancy": {
+      "paper_prose": "describes a contrastive-language-image pretraining family",
+      "released_executable": "vit_small_patch16_384.augreg_in21k_ft_in1k",
+      "operational_choice": "released_code_and_strict_full_checkpoint",
+      "pretraining_identity_claimed": false
+    },
+    "valid_for_t1": true,
+    "valid_for_t2": false,
+    "fullframe_t2": "not_applicable",
+    "license": {
+      "github_code": {
+        "spdx": "MIT",
+        "license_file_sha256": "7ca7b8f7aaf663c7941e3bb851a4c1bbfdef51d5503be93711614f528569a5c6"
+      },
+      "hf_model_card": {
+        "license": "mit"
+      },
+      "hf_processor_card": {
+        "license": "mit"
+      },
+      "overall_commercial_clearance": "MIT metadata present for code, selected model, and processor"
+    },
+    "commercial_clearance": "training_data_commercial_lineage_not_established"
+  },
+  "contract_checks": {
+    "exact_formal_whole_image_t1_selection_rebuilt": true,
+    "all_physical_attempts_validated": true,
+    "complete_latest_coverage_required": true,
+    "released_highres_profile_only": true,
+    "pair_rank_rejected": true,
+    "t2_joint_dense_claims_rejected": true,
+    "source_assets_runtime_adapter_hashes_validated": true,
+    "current_metrics_runtime_validated_before_recomputation": true,
+    "run_and_canonical_evidence_reverified_after_replay": true,
+    "feature_inventory_bytes_sha_array_shape_dtype_finite_validated": true,
+    "score_direction_threshold_sigmoid_and_classifier_replay_validated": true,
+    "shared_balanced250_metrics_only": true
+  },
+  "artifacts": {
+    "manifest_sha256": "797517bea69b95f0ef9ddb0491a1c2872f3a9b54264a27795ac606c4b6620a17",
+    "results_sha256": "93dafe47ec1b99047d187693ee211b49c31cd82e4a1f88bd06f79d91ebbc61da",
+    "expected_inputs_sha256": "6b5128909eeffdbd88e61af02ca1bd191cb5460f94a23b47c87ebd0172e6d12c",
+    "summary_sha256": "9c2a0cd8c110268c4e1c9708a2eca87a5a3aabe948dab560ffb1d8a1939e3954",
+    "feature_inventory_sha256": "be5eb8a2b6617d98d005eed4c74d92c4ea7dc293b0d90a3b12bd060c34e0a238",
+    "metrics_sha256": "8785d9dc6da8927635d48f9108d78203ff38ec11cfdc178a1bb1a2201d7300ba"
+  }
+}
