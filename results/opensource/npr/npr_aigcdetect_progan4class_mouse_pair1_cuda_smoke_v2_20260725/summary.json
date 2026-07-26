@@ -1,0 +1,800 @@
+{
+  "schema_version": "npr_detection_summary_v1",
+  "task_scope": {
+    "primary_task": "T1_whole_image_AIGC_detection",
+    "valid_for_t1": true,
+    "valid_for_t2": false,
+    "primary_score": "ai_score",
+    "score_direction": "higher_means_fake",
+    "score_range": "finite_probability_closed_interval_[0,1]",
+    "released_threshold": 0.5,
+    "released_threshold_operator": ">",
+    "fpr_target": 0.05,
+    "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+    "fpr_threshold_operator": ">",
+    "bootstrap_unit": "task_id_pair",
+    "precision_zero_division": 0
+  },
+  "coverage": {
+    "expected_images": 2,
+    "physical_result_rows": 2,
+    "result_images": 2,
+    "valid_images": 2,
+    "error_images": 0,
+    "missing_images": 0,
+    "coverage_fraction": 1.0,
+    "valid_fraction": 1.0,
+    "is_complete": true
+  },
+  "paired_coverage": {
+    "expected_tasks": 1,
+    "expected_complete_pairs": 1,
+    "expected_incomplete_tasks": 0,
+    "preflight_expected_incomplete_pairs": false,
+    "complete_valid_pairs": 1,
+    "paired_valid_images": 2,
+    "unpaired_valid_images": 0,
+    "valid_complete_task_fraction": 1.0
+  },
+  "score_by_kind": {
+    "forged": {
+      "count": 1,
+      "min": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "p05": 0.0,
+      "p95": 0.0,
+      "max": 0.0
+    },
+    "real": {
+      "count": 1,
+      "min": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "p05": 0.0,
+      "p95": 0.0,
+      "max": 0.0
+    }
+  },
+  "detection": {
+    "valid_images": 2,
+    "tp": 0,
+    "fp": 0,
+    "fn": 1,
+    "tn": 1,
+    "accuracy_at_0_5": 0.5,
+    "balanced_accuracy_at_0_5": 0.5,
+    "precision_at_0_5": 0.0,
+    "precision_zero_division": 0,
+    "recall_at_0_5": 0.0,
+    "f1_at_0_5": 0.0,
+    "specificity_at_0_5": 1.0,
+    "threshold": 0.5,
+    "threshold_operator": ">",
+    "score_direction": "higher_means_fake",
+    "score_range": "finite_probability_closed_interval_[0,1]",
+    "auroc": 0.5,
+    "average_precision": 0.5,
+    "tpr_at_fpr_5_percent": 0.0,
+    "tpr_at_fpr_5_percent_threshold": 0.0,
+    "tpr_at_fpr_5_percent_actual_fpr": 0.0,
+    "tpr_at_fpr_5_percent_threshold_source": "real_scores_quantile_0_95_method_higher",
+    "tpr_at_fpr_5_percent_threshold_operator": ">",
+    "score_key": "ai_score"
+  },
+  "paired_score_delta": {
+    "count": 1,
+    "min": 0.0,
+    "mean": 0.0,
+    "median": 0.0,
+    "p05": 0.0,
+    "p95": 0.0,
+    "max": 0.0
+  },
+  "paired_ranking_accuracy": 0.0,
+  "paired_ranking": {
+    "comparison": "forged_ai_score_strictly_greater_than_real",
+    "wins": 0,
+    "losses": 0,
+    "ties": 1,
+    "strict_accuracy": 0.0
+  },
+  "paired_sign_test": {
+    "wins": 0,
+    "losses": 0,
+    "ties": 1,
+    "non_ties": 0,
+    "alternative": "two-sided",
+    "null_win_probability": 0.5,
+    "two_sided_exact_p": 1.0
+  },
+  "pair_bootstrap": {
+    "pairs": 1,
+    "images": 2,
+    "bootstrap_unit": "task_id_pair",
+    "bootstrap_samples": 100,
+    "seed": 20260724,
+    "score_key": "ai_score",
+    "score_direction": "higher_means_fake",
+    "score_range": "finite_probability_closed_interval_[0,1]",
+    "fixed_threshold": 0.5,
+    "fixed_threshold_operator": ">",
+    "fpr_target": 0.05,
+    "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+    "fpr_threshold_operator": ">",
+    "auroc": {
+      "estimate": 0.5,
+      "ci95_percentile": [
+        0.5,
+        0.5
+      ]
+    },
+    "average_precision": {
+      "estimate": 0.5,
+      "ci95_percentile": [
+        0.5,
+        0.5
+      ]
+    },
+    "tpr_at_fpr_5_percent": {
+      "estimate": 0.0,
+      "ci95_percentile": [
+        0.0,
+        0.0
+      ]
+    },
+    "tpr_at_fpr_5_percent_threshold": {
+      "estimate": 0.0,
+      "ci95_percentile": [
+        0.0,
+        0.0
+      ]
+    },
+    "tpr_at_fpr_5_percent_actual_fpr": {
+      "estimate": 0.0,
+      "ci95_percentile": [
+        0.0,
+        0.0
+      ]
+    },
+    "accuracy_at_0_5": {
+      "estimate": 0.5,
+      "ci95_percentile": [
+        0.5,
+        0.5
+      ]
+    },
+    "balanced_accuracy_at_0_5": {
+      "estimate": 0.5,
+      "ci95_percentile": [
+        0.5,
+        0.5
+      ]
+    },
+    "precision_at_0_5": {
+      "estimate": 0.0,
+      "ci95_percentile": [
+        0.0,
+        0.0
+      ]
+    },
+    "recall_at_0_5": {
+      "estimate": 0.0,
+      "ci95_percentile": [
+        0.0,
+        0.0
+      ]
+    },
+    "f1_at_0_5": {
+      "estimate": 0.0,
+      "ci95_percentile": [
+        0.0,
+        0.0
+      ]
+    },
+    "specificity_at_0_5": {
+      "estimate": 1.0,
+      "ci95_percentile": [
+        1.0,
+        1.0
+      ]
+    },
+    "paired_ranking_accuracy": {
+      "estimate": 0.0,
+      "ci95_percentile": [
+        0.0,
+        0.0
+      ]
+    },
+    "paired_score_delta_mean": {
+      "estimate": 0.0,
+      "ci95_percentile": [
+        0.0,
+        0.0
+      ]
+    },
+    "image_confusion_at_0_5": {
+      "tp": 0,
+      "fp": 0,
+      "fn": 1,
+      "tn": 1
+    },
+    "paired_score_delta": {
+      "count": 1,
+      "min": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "p05": 0.0,
+      "p95": 0.0,
+      "max": 0.0
+    },
+    "paired_ranking": {
+      "comparison": "forged_ai_score_strictly_greater_than_real",
+      "wins": 0,
+      "losses": 0,
+      "ties": 1,
+      "strict_accuracy": 0.0
+    },
+    "paired_sign_test": {
+      "wins": 0,
+      "losses": 0,
+      "ties": 1,
+      "non_ties": 0,
+      "alternative": "two-sided",
+      "null_win_probability": 0.5,
+      "two_sided_exact_p": 1.0
+    },
+    "domains": [
+      "lodging"
+    ],
+    "edit_visibilities": [
+      "full"
+    ],
+    "edit_visible_gt_fraction": {
+      "count": 1,
+      "min": 1.0,
+      "mean": 1.0,
+      "median": 1.0,
+      "p05": 1.0,
+      "p95": 1.0,
+      "max": 1.0
+    }
+  },
+  "by_domain": {
+    "lodging": {
+      "pairs": 1,
+      "images": 2,
+      "bootstrap_unit": "task_id_pair",
+      "bootstrap_samples": 100,
+      "seed": 20261724,
+      "score_key": "ai_score",
+      "score_direction": "higher_means_fake",
+      "score_range": "finite_probability_closed_interval_[0,1]",
+      "fixed_threshold": 0.5,
+      "fixed_threshold_operator": ">",
+      "fpr_target": 0.05,
+      "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+      "fpr_threshold_operator": ">",
+      "auroc": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "average_precision": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "tpr_at_fpr_5_percent": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "tpr_at_fpr_5_percent_threshold": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "tpr_at_fpr_5_percent_actual_fpr": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "accuracy_at_0_5": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "balanced_accuracy_at_0_5": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "precision_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "recall_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "f1_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "specificity_at_0_5": {
+        "estimate": 1.0,
+        "ci95_percentile": [
+          1.0,
+          1.0
+        ]
+      },
+      "paired_ranking_accuracy": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "paired_score_delta_mean": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "image_confusion_at_0_5": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 1,
+        "tn": 1
+      },
+      "paired_score_delta": {
+        "count": 1,
+        "min": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "p05": 0.0,
+        "p95": 0.0,
+        "max": 0.0
+      },
+      "paired_ranking": {
+        "comparison": "forged_ai_score_strictly_greater_than_real",
+        "wins": 0,
+        "losses": 0,
+        "ties": 1,
+        "strict_accuracy": 0.0
+      },
+      "paired_sign_test": {
+        "wins": 0,
+        "losses": 0,
+        "ties": 1,
+        "non_ties": 0,
+        "alternative": "two-sided",
+        "null_win_probability": 0.5,
+        "two_sided_exact_p": 1.0
+      },
+      "domains": [
+        "lodging"
+      ],
+      "edit_visibilities": [
+        "full"
+      ],
+      "edit_visible_gt_fraction": {
+        "count": 1,
+        "min": 1.0,
+        "mean": 1.0,
+        "median": 1.0,
+        "p05": 1.0,
+        "p95": 1.0,
+        "max": 1.0
+      }
+    }
+  },
+  "by_edit_visibility": {
+    "full": {
+      "pairs": 1,
+      "images": 2,
+      "bootstrap_unit": "task_id_pair",
+      "bootstrap_samples": 100,
+      "seed": 20262724,
+      "score_key": "ai_score",
+      "score_direction": "higher_means_fake",
+      "score_range": "finite_probability_closed_interval_[0,1]",
+      "fixed_threshold": 0.5,
+      "fixed_threshold_operator": ">",
+      "fpr_target": 0.05,
+      "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+      "fpr_threshold_operator": ">",
+      "auroc": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "average_precision": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "tpr_at_fpr_5_percent": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "tpr_at_fpr_5_percent_threshold": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "tpr_at_fpr_5_percent_actual_fpr": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "accuracy_at_0_5": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "balanced_accuracy_at_0_5": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "precision_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "recall_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "f1_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "specificity_at_0_5": {
+        "estimate": 1.0,
+        "ci95_percentile": [
+          1.0,
+          1.0
+        ]
+      },
+      "paired_ranking_accuracy": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "paired_score_delta_mean": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "image_confusion_at_0_5": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 1,
+        "tn": 1
+      },
+      "paired_score_delta": {
+        "count": 1,
+        "min": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "p05": 0.0,
+        "p95": 0.0,
+        "max": 0.0
+      },
+      "paired_ranking": {
+        "comparison": "forged_ai_score_strictly_greater_than_real",
+        "wins": 0,
+        "losses": 0,
+        "ties": 1,
+        "strict_accuracy": 0.0
+      },
+      "paired_sign_test": {
+        "wins": 0,
+        "losses": 0,
+        "ties": 1,
+        "non_ties": 0,
+        "alternative": "two-sided",
+        "null_win_probability": 0.5,
+        "two_sided_exact_p": 1.0
+      },
+      "domains": [
+        "lodging"
+      ],
+      "edit_visibilities": [
+        "full"
+      ],
+      "edit_visible_gt_fraction": {
+        "count": 1,
+        "min": 1.0,
+        "mean": 1.0,
+        "median": 1.0,
+        "p05": 1.0,
+        "p95": 1.0,
+        "max": 1.0
+      }
+    }
+  },
+  "edit_visible_gt_fraction": {
+    "count": 1,
+    "min": 1.0,
+    "mean": 1.0,
+    "median": 1.0,
+    "p05": 1.0,
+    "p95": 1.0,
+    "max": 1.0
+  },
+  "latency_ms": {
+    "count": 2,
+    "min": 30.36935394629836,
+    "mean": 109.46218785829842,
+    "median": 109.46218785829842,
+    "p05": 38.27863733749837,
+    "p95": 180.64573837909847,
+    "max": 188.55502177029848
+  },
+  "peak_cuda_memory_bytes": {
+    "count": 2,
+    "min": 721088000.0,
+    "mean": 721088000.0,
+    "median": 721088000.0,
+    "p05": 721088000.0,
+    "p95": 721088000.0,
+    "max": 721088000.0,
+    "unmeasured_cpu_rows": 0
+  },
+  "raw_logit_numerical_diagnostic": {
+    "schema_version": "npr_raw_logit_numerical_diagnostic_v1",
+    "role": "always_reported_numerical_ranking_diagnostic_not_a_replacement_for_official_probability_metrics",
+    "motivation": "float32_sigmoid_can_saturate_at_exact_zero_or_one_and_destroy_otherwise_finite_raw_logit_order",
+    "score_key": "raw_logit",
+    "score_direction": "higher_means_fake",
+    "coverage": {
+      "expected_images": 2,
+      "result_images": 2,
+      "valid_images": 2,
+      "complete_valid_pairs": 1
+    },
+    "probability_saturation": {
+      "exact_zero_images": 2,
+      "exact_one_images": 0,
+      "non_saturated_images": 0,
+      "unique_probability_values": 1,
+      "paired_probability_ties_with_distinct_raw_logits": 1
+    },
+    "released_decision_equivalence": {
+      "probability_threshold": 0.5,
+      "raw_logit_threshold": 0.0,
+      "threshold_operator": ">",
+      "all_valid_images_equal": true
+    },
+    "raw_logit_by_kind": {
+      "forged": {
+        "count": 1,
+        "min": -169.8465576171875,
+        "mean": -169.8465576171875,
+        "median": -169.8465576171875,
+        "p05": -169.8465576171875,
+        "p95": -169.8465576171875,
+        "max": -169.8465576171875
+      },
+      "real": {
+        "count": 1,
+        "min": -169.82388305664062,
+        "mean": -169.82388305664062,
+        "median": -169.82388305664062,
+        "p05": -169.82388305664062,
+        "p95": -169.82388305664062,
+        "max": -169.82388305664062
+      }
+    },
+    "detection": {
+      "valid_images": 2,
+      "tp": 0,
+      "fp": 0,
+      "fn": 1,
+      "tn": 1,
+      "accuracy_at_logit_0": 0.5,
+      "balanced_accuracy_at_logit_0": 0.5,
+      "precision_at_logit_0": 0.0,
+      "precision_zero_division": 0,
+      "recall_at_logit_0": 0.0,
+      "f1_at_logit_0": 0.0,
+      "specificity_at_logit_0": 1.0,
+      "threshold": 0.0,
+      "threshold_operator": ">",
+      "score_key": "raw_logit",
+      "score_direction": "higher_means_fake",
+      "score_range": "finite_binary64",
+      "auroc": 0.0,
+      "average_precision": 0.5,
+      "tpr_at_fpr_5_percent": 0.0,
+      "tpr_at_fpr_5_percent_threshold": -169.82388305664062,
+      "tpr_at_fpr_5_percent_actual_fpr": 0.0,
+      "tpr_at_fpr_5_percent_threshold_source": "real_raw_logits_quantile_0_95_method_higher",
+      "tpr_at_fpr_5_percent_threshold_operator": ">"
+    },
+    "paired_score_delta": {
+      "count": 1,
+      "min": -0.022674560546875,
+      "mean": -0.022674560546875,
+      "median": -0.022674560546875,
+      "p05": -0.022674560546875,
+      "p95": -0.022674560546875,
+      "max": -0.022674560546875
+    },
+    "paired_ranking": {
+      "comparison": "forged_raw_logit_strictly_greater_than_real_raw_logit",
+      "wins": 0,
+      "losses": 1,
+      "ties": 0,
+      "strict_accuracy": 0.0
+    },
+    "paired_sign_test": {
+      "wins": 0,
+      "losses": 1,
+      "ties": 0,
+      "non_ties": 1,
+      "alternative": "two-sided",
+      "null_win_probability": 0.5,
+      "two_sided_exact_p": 1.0
+    },
+    "pair_bootstrap": {
+      "pairs": 1,
+      "bootstrap_unit": "task_id_pair",
+      "bootstrap_samples": 100,
+      "seed": 20260724,
+      "auroc": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "average_precision": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "tpr_at_fpr_5_percent": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "tpr_at_fpr_5_percent_threshold": {
+        "estimate": -169.82388305664062,
+        "ci95_percentile": [
+          -169.82388305664062,
+          -169.82388305664062
+        ]
+      },
+      "tpr_at_fpr_5_percent_actual_fpr": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "accuracy_at_logit_0": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "balanced_accuracy_at_logit_0": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "precision_at_logit_0": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "recall_at_logit_0": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "f1_at_logit_0": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "specificity_at_logit_0": {
+        "estimate": 1.0,
+        "ci95_percentile": [
+          1.0,
+          1.0
+        ]
+      },
+      "paired_ranking_accuracy": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "paired_score_delta_mean": {
+        "estimate": -0.022674560546875,
+        "ci95_percentile": [
+          -0.022674560546875,
+          -0.022674560546875
+        ]
+      }
+    }
+  },
+  "run_id": "npr_aigcdetect_progan4class_mouse_pair1_cuda_smoke_v2_20260725",
+  "model": "NPR",
+  "model_slug": "npr_aigcdetect_progan4class",
+  "checkpoint_id": "NPR-AIGC-ProGAN4class@68338a",
+  "preprocess_profile": "official_aigcdetect_native_even_trim",
+  "config_fingerprint": "3e96064a83b5af6371a02cb5a5adfadc0bae520f99be310d16912d416d00c16c",
+  "generated_at": "2026-07-25T13:50:36.852967+00:00"
+}

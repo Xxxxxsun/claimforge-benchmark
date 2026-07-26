@@ -1,0 +1,293 @@
+{
+  "schema_version": "npr_detection_run_manifest_v1",
+  "run_id": "npr_aigcdetect_progan4class_mouse_pair1_cuda_smoke_v2_20260725",
+  "status": "complete",
+  "started_at": "2026-07-25T13:50:34.599785+00:00",
+  "completed_at": "2026-07-25T13:50:36.854057+00:00",
+  "repo_root": "/root/claimforge-benchmark",
+  "config_fingerprint": "3e96064a83b5af6371a02cb5a5adfadc0bae520f99be310d16912d416d00c16c",
+  "config": {
+    "model": "NPR",
+    "model_slug": "npr_aigcdetect_progan4class",
+    "model_arch": "NPR truncated ResNet-50 (stem + layer1 + layer2)",
+    "adapter_contract": {
+      "eval/opensource/run_npr.py": {
+        "path": "/root/claimforge-benchmark/eval/opensource/run_npr.py",
+        "bytes": 50486,
+        "sha256": "8d5b6f4154aff2cc336d24f06e3b8756edb2d07c3f71fe4463f3f242abc0f07b"
+      },
+      "eval/opensource/npr_metrics.py": {
+        "path": "/root/claimforge-benchmark/eval/opensource/npr_metrics.py",
+        "bytes": 50433,
+        "sha256": "86f94a527eb511c0abfb8f5c811c2772377f6275b49320c5471b82e62e850fba"
+      },
+      "eval/opensource/common.py": {
+        "path": "/root/claimforge-benchmark/eval/opensource/common.py",
+        "bytes": 2800,
+        "sha256": "66ee7134e8398bb8121034fb7f9aef007137a09e03426af24e0faae886188c9f"
+      }
+    },
+    "source_commit": "781ced3f7ca2cdc69ec9dd4ef27e8d0b3c07752a",
+    "source_files": {
+      "README.md": "65d4d9806fea6ab49ecaa6d0bd20e32380348d4858c9a6305d09387b64644871",
+      "test.py": "fbe86617998638b325be8d12eac15e903817ebc2a54784e40266cf7e1f788e79",
+      "validate.py": "dca8aa2aed02d6630ba4d58feab69e2f80e4f76e803d5365bf35b2b9ca776be3",
+      "data/datasets.py": "6b82e0bfc5251ba12e94b10bd9a9b8bcb9405472dbd3b10773035dfd5907717f",
+      "options/base_options.py": "e967e19807ab44ecefaeddf7e75022dfe0f470a8bd3326fc806eca0099139e91",
+      "options/test_options.py": "d0a6e520c9d4a9b034ba237f97d594a0284872879042ba5a7325b601adced10e",
+      "networks/resnet.py": "c7663a02a322dc2a68625535b367e8800df42bacca3d0526cafef8c32168c67e"
+    },
+    "checkpoint_id": "NPR-AIGC-ProGAN4class@68338a",
+    "checkpoint_sha256": "b67a91555ce786a6d0463ff0cb2b0b874d1c3f971b0e3febd2ae5618a80f7e8a",
+    "checkpoint_schema_sha256": "e60d79370c937aede4ff54ff57663207b6282f566c28caf56f6afd924af530d6",
+    "preprocess_profile": "official_aigcdetect_native_even_trim",
+    "preprocess_contract": {
+      "decode": "Pillow_RGB_no_EXIF_transpose",
+      "resize": null,
+      "crop": null,
+      "batch_size": 1,
+      "odd_dimension_policy": "drop_last_bottom_row_and_or_right_column_before_NPR",
+      "normalization_mean": [
+        0.485,
+        0.456,
+        0.406
+      ],
+      "normalization_std": [
+        0.229,
+        0.224,
+        0.225
+      ]
+    },
+    "model_contract": {
+      "npr": "x - nearest_upsample_2x(nearest_downsample_0.5x(x))",
+      "npr_scale": 0.6666666666666666,
+      "feature_dimension": 512,
+      "output": "one_raw_logit",
+      "score": "torch_float32_sigmoid",
+      "threshold": 0.5,
+      "threshold_operator": ">",
+      "score_direction": "higher_means_fake",
+      "valid_for_t2": false
+    },
+    "runtime_contract": {
+      "device": "cuda:0",
+      "seed": 100,
+      "dtype": "float32",
+      "autocast": false,
+      "cudnn_enabled": false,
+      "cudnn_benchmark": false,
+      "cudnn_deterministic": true,
+      "tf32": false
+    },
+    "dataset": {
+      "schema_version": "claimforge_mouse_canonical_v1",
+      "dataset_id": "claimforge-mouse-good275-canonical-jpeg-q95-v1",
+      "inputs_sha256": "e4cb3d6a78fa68f06341457e2234c630a455a9b6b9789e59abf45c15b292060a",
+      "selected_ids": [
+        "0cca3f606edf434904f7bea5",
+        "ae5f5c15ded9fb7d08809d31"
+      ],
+      "selected_rows_sha256": "977ee052d9e7925de37af04d670b7fe7dfcaf11fdc1b003b671e06627cf1fd8b",
+      "pair_limit": 1,
+      "sample_id": null
+    },
+    "metrics": {
+      "bootstrap_samples": 100,
+      "bootstrap_seed": 20260724,
+      "fixed_threshold": 0.5,
+      "threshold_operator": ">",
+      "raw_logit_numerical_diagnostic": {
+        "preregistered_before_full_mouse_run": true,
+        "preregistered_at": "2026-07-25",
+        "trigger": "CUDA pair-1 smoke produced finite raw logits near -170 whose official float32 sigmoid saturated to exact zero",
+        "policy": "always report raw-logit AUROC/AP, real-only 5% FPR, paired ranking/delta and pair bootstrap beside the official probability metrics; never choose whichever looks better and never replace the released >0.5 rule"
+      }
+    },
+    "license": {
+      "github_code": {
+        "license": "not_stated",
+        "osi_open_source_license_established": false
+      },
+      "github_checkpoint": {
+        "license": "not_stated",
+        "commercial_clearance_established": false
+      },
+      "hf_space_metadata": {
+        "license": "Apache-2.0",
+        "scope": "space_repository_only_not_upstream_github_checkpoint"
+      },
+      "overall_commercial_clearance": "not_established"
+    },
+    "checkpoint_selection_frozen_before_scores": true,
+    "excluded_release_assets": {
+      "NPR.pth": {
+        "sha256": "3939297e9399e0b992f87211610769d87d899de50d56da0204d6cbda2d483a53",
+        "bytes": 17393733,
+        "reason": "paper-era training snapshot with nested model/optimizer/step payload and module-prefixed keys; incompatible with current test.py and not the AIGCDetectBenchmark/HF checkpoint"
+      },
+      "NPR_GenImage_sdv4.pth": {
+        "sha256": "9bc961e7d643581aa0ea879cbd322dcc2e543877568a43d2f6cdb92906379015",
+        "bytes": 5842385,
+        "reason": "separately trained SDv1.4/GenImage checkpoint"
+      }
+    }
+  },
+  "source": {
+    "repo_url": "https://github.com/chuangchuangtan/NPR-DeepfakeDetection",
+    "root": "/root/.cache/claimforge/third_party/NPR-DeepfakeDetection-781ced3f",
+    "commit": "781ced3f7ca2cdc69ec9dd4ef27e8d0b3c07752a",
+    "tracked_dirty": false,
+    "source_files": {
+      "README.md": {
+        "path": "/root/.cache/claimforge/third_party/NPR-DeepfakeDetection-781ced3f/README.md",
+        "sha256": "65d4d9806fea6ab49ecaa6d0bd20e32380348d4858c9a6305d09387b64644871"
+      },
+      "test.py": {
+        "path": "/root/.cache/claimforge/third_party/NPR-DeepfakeDetection-781ced3f/test.py",
+        "sha256": "fbe86617998638b325be8d12eac15e903817ebc2a54784e40266cf7e1f788e79"
+      },
+      "validate.py": {
+        "path": "/root/.cache/claimforge/third_party/NPR-DeepfakeDetection-781ced3f/validate.py",
+        "sha256": "dca8aa2aed02d6630ba4d58feab69e2f80e4f76e803d5365bf35b2b9ca776be3"
+      },
+      "data/datasets.py": {
+        "path": "/root/.cache/claimforge/third_party/NPR-DeepfakeDetection-781ced3f/data/datasets.py",
+        "sha256": "6b82e0bfc5251ba12e94b10bd9a9b8bcb9405472dbd3b10773035dfd5907717f"
+      },
+      "options/base_options.py": {
+        "path": "/root/.cache/claimforge/third_party/NPR-DeepfakeDetection-781ced3f/options/base_options.py",
+        "sha256": "e967e19807ab44ecefaeddf7e75022dfe0f470a8bd3326fc806eca0099139e91"
+      },
+      "options/test_options.py": {
+        "path": "/root/.cache/claimforge/third_party/NPR-DeepfakeDetection-781ced3f/options/test_options.py",
+        "sha256": "d0a6e520c9d4a9b034ba237f97d594a0284872879042ba5a7325b601adced10e"
+      },
+      "networks/resnet.py": {
+        "path": "/root/.cache/claimforge/third_party/NPR-DeepfakeDetection-781ced3f/networks/resnet.py",
+        "sha256": "c7663a02a322dc2a68625535b367e8800df42bacca3d0526cafef8c32168c67e"
+      }
+    },
+    "checkpoint_history": {
+      "path": "/root/.cache/claimforge/third_party/NPR-DeepfakeDetection-781ced3f/model_epoch_last_3090.pth",
+      "introduced_commit": "68338a07847e891534f3d0b0a0e25bb137b684f7"
+    },
+    "root_license_files": [],
+    "license_record": {
+      "github_code": {
+        "license": "not_stated",
+        "osi_open_source_license_established": false
+      },
+      "github_checkpoint": {
+        "license": "not_stated",
+        "commercial_clearance_established": false
+      },
+      "hf_space_metadata": {
+        "license": "Apache-2.0",
+        "scope": "space_repository_only_not_upstream_github_checkpoint"
+      },
+      "overall_commercial_clearance": "not_established"
+    }
+  },
+  "assets": {
+    "checkpoint": {
+      "id": "NPR-AIGC-ProGAN4class@68338a",
+      "filename": "model_epoch_last_3090.pth",
+      "repo_relative_path": "model_epoch_last_3090.pth",
+      "introduced_commit": "68338a07847e891534f3d0b0a0e25bb137b684f7",
+      "bytes": 5842385,
+      "sha256": "b67a91555ce786a6d0463ff0cb2b0b874d1c3f971b0e3febd2ae5618a80f7e8a",
+      "state_entries": 146,
+      "state_elements": 1447897,
+      "trainable_parameters": 1437761,
+      "format": "torch_ordered_state_dict_weights_only",
+      "official_role": "AIGCDetectBenchmark ProGAN-4class and HF demo",
+      "pinned_url": "https://raw.githubusercontent.com/chuangchuangtan/NPR-DeepfakeDetection/68338a07847e891534f3d0b0a0e25bb137b684f7/model_epoch_last_3090.pth",
+      "path": "/root/.cache/claimforge/third_party/NPR-DeepfakeDetection-781ced3f/model_epoch_last_3090.pth",
+      "actual_bytes": 5842385,
+      "actual_sha256": "b67a91555ce786a6d0463ff0cb2b0b874d1c3f971b0e3febd2ae5618a80f7e8a",
+      "serialization_safety": {
+        "unsafe_globals": [],
+        "weights_only": true,
+        "map_location": "cpu"
+      },
+      "schema": {
+        "container": "collections.OrderedDict",
+        "entries": 146,
+        "elements": 1447897,
+        "items_sha256": "e60d79370c937aede4ff54ff57663207b6282f566c28caf56f6afd924af530d6"
+      }
+    },
+    "excluded_release_assets": {
+      "NPR.pth": {
+        "sha256": "3939297e9399e0b992f87211610769d87d899de50d56da0204d6cbda2d483a53",
+        "bytes": 17393733,
+        "reason": "paper-era training snapshot with nested model/optimizer/step payload and module-prefixed keys; incompatible with current test.py and not the AIGCDetectBenchmark/HF checkpoint"
+      },
+      "NPR_GenImage_sdv4.pth": {
+        "sha256": "9bc961e7d643581aa0ea879cbd322dcc2e543877568a43d2f6cdb92906379015",
+        "bytes": 5842385,
+        "reason": "separately trained SDv1.4/GenImage checkpoint"
+      }
+    },
+    "bundle_sha256": "d1ad4b90566974ca858d248f21b45f95de4e076be2ecd560be319d7bf8a84a2c"
+  },
+  "runtime": {
+    "python": "3.12.3 (main, Jan 17 2025, 18:03:48) [GCC 13.3.0]",
+    "executable": "/usr/bin/python",
+    "platform": "Linux-5.10.134-16.103.al8.x86_64-x86_64-with-glibc2.39",
+    "torch": "2.8.0.dev20250627+cu128",
+    "torchvision": "0.23.0.dev20250627+cu128",
+    "pillow": "11.1.0",
+    "numpy": "2.2.6",
+    "scikit_learn": "1.5.2",
+    "device": "cuda:0",
+    "seed": 100,
+    "inference_dtype": "torch.float32",
+    "autocast": false,
+    "grad_enabled": false,
+    "cudnn": {
+      "enabled": false,
+      "benchmark": false,
+      "deterministic": true,
+      "allow_tf32": false
+    },
+    "matmul_allow_tf32": false,
+    "cuda": {
+      "runtime": "12.8",
+      "device_index": 0,
+      "device_name": "NVIDIA L20Z",
+      "total_memory_bytes": 85017624576,
+      "capability": [
+        9,
+        0
+      ]
+    }
+  },
+  "dataset": {
+    "manifest_path": "outputs/opensource/mouse_canonical_v1/manifest.json",
+    "manifest_sha256": "beb3c30e436db682bbadef794404838f33a4812f18f22819dd6ab1ef3de6f0b1",
+    "inputs_path": "outputs/opensource/mouse_canonical_v1/inputs.jsonl",
+    "inputs_sha256": "e4cb3d6a78fa68f06341457e2234c630a455a9b6b9789e59abf45c15b292060a",
+    "expected_inputs_path": "results/opensource/npr/npr_aigcdetect_progan4class_mouse_pair1_cuda_smoke_v2_20260725/expected_inputs.jsonl",
+    "expected_inputs_sha256": "977ee052d9e7925de37af04d670b7fe7dfcaf11fdc1b003b671e06627cf1fd8b",
+    "selected_images": 2,
+    "selected_tasks": 1
+  },
+  "visibility_census": {
+    "full": 1
+  },
+  "outputs": {
+    "results_path": "results/opensource/npr/npr_aigcdetect_progan4class_mouse_pair1_cuda_smoke_v2_20260725/results.jsonl",
+    "summary_path": "results/opensource/npr/npr_aigcdetect_progan4class_mouse_pair1_cuda_smoke_v2_20260725/summary.json",
+    "feature_dir": "results/opensource/npr/npr_aigcdetect_progan4class_mouse_pair1_cuda_smoke_v2_20260725/features",
+    "results_sha256": "23ad77971ff100312f89f8756ef10bddf764e774f36ecccfdf96c31adb5c5786",
+    "summary_sha256": "51ee7efc228137025100d70166df1a900b75685cb73c85b1dc44fdd092d73b7d",
+    "feature_files": 2
+  },
+  "execution": {
+    "new_successes": 2,
+    "resume_skips": 0,
+    "new_errors": 0,
+    "physical_result_rows": 2
+  }
+}

@@ -1,0 +1,2294 @@
+{
+  "schema_version": "whole_image_detection_summary_v1",
+  "task_scope": {
+    "primary_task": "T1_whole_image_AIGC_detection",
+    "valid_for_t1": true,
+    "valid_for_t2": false,
+    "primary_score": "ai_score",
+    "score_direction": "higher_means_fake",
+    "score_range": "finite_binary64_with_finite_paired_differences",
+    "released_threshold": 2.0,
+    "released_threshold_operator": ">",
+    "fpr_target": 0.05,
+    "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+    "fpr_threshold_operator": ">",
+    "bootstrap_unit": "task_id_pair",
+    "precision_zero_division": 0
+  },
+  "coverage": {
+    "expected_images": 10,
+    "physical_result_rows": 10,
+    "result_images": 10,
+    "valid_images": 10,
+    "error_images": 0,
+    "missing_images": 0,
+    "coverage_fraction": 1.0,
+    "valid_fraction": 1.0,
+    "is_complete": true
+  },
+  "paired_coverage": {
+    "expected_tasks": 5,
+    "expected_complete_pairs": 5,
+    "expected_incomplete_tasks": 0,
+    "preflight_expected_incomplete_pairs": false,
+    "complete_valid_pairs": 5,
+    "paired_valid_images": 10,
+    "unpaired_valid_images": 0,
+    "valid_complete_task_fraction": 1.0
+  },
+  "score_by_kind": {
+    "forged": {
+      "count": 5,
+      "min": 0.34977523416799217,
+      "mean": 1.5990356076723975,
+      "median": 1.4566215987213986,
+      "p05": 0.4517929465405105,
+      "p95": 3.1890039740209355,
+      "max": 3.538700820220888
+    },
+    "real": {
+      "count": 5,
+      "min": 0.34977523416799217,
+      "mean": 1.6010967456481544,
+      "median": 1.4674240232699962,
+      "p05": 0.45156945442071017,
+      "p95": 3.1895005547642863,
+      "max": 3.539321546150077
+    }
+  },
+  "detection": {
+    "valid_images": 10,
+    "tp": 1,
+    "fp": 1,
+    "fn": 4,
+    "tn": 4,
+    "accuracy": 0.5,
+    "balanced_accuracy": 0.5,
+    "precision": 0.5,
+    "precision_zero_division": 0,
+    "recall": 0.2,
+    "f1": 0.2857142857142857,
+    "specificity": 0.8,
+    "threshold": 2.0,
+    "threshold_operator": ">",
+    "score_direction": "higher_means_fake",
+    "auroc": 0.48,
+    "average_precision": 0.5142857142857142,
+    "tpr_at_fpr_5_percent": 0.0,
+    "tpr_at_fpr_5_percent_threshold": 3.539321546150077,
+    "tpr_at_fpr_5_percent_actual_fpr": 0.0,
+    "tpr_at_fpr_5_percent_threshold_source": "real_scores_quantile_0_95_method_higher",
+    "tpr_at_fpr_5_percent_threshold_operator": ">",
+    "score_key": "ai_score"
+  },
+  "paired_score_delta": {
+    "count": 5,
+    "min": -0.010802424548597589,
+    "mean": -0.0020611379757569546,
+    "median": 0.0,
+    "p05": -0.008766084824715836,
+    "p95": 0.0008939684792013123,
+    "max": 0.0011174605990016406
+  },
+  "paired_ranking_accuracy": 0.2,
+  "paired_ranking": {
+    "comparison": "forged_ai_score_strictly_greater_than_real",
+    "wins": 1,
+    "losses": 2,
+    "ties": 2,
+    "strict_accuracy": 0.2
+  },
+  "paired_sign_test": {
+    "wins": 1,
+    "losses": 2,
+    "ties": 2,
+    "non_ties": 3,
+    "alternative": "two-sided",
+    "null_win_probability": 0.5,
+    "two_sided_exact_p": 1.0
+  },
+  "pair_bootstrap": {
+    "pairs": 5,
+    "images": 10,
+    "bootstrap_unit": "task_id_pair",
+    "bootstrap_samples": 1000,
+    "seed": 20260724,
+    "score_key": "ai_score",
+    "score_direction": "higher_means_fake",
+    "fixed_threshold": 2.0,
+    "fixed_threshold_operator": ">",
+    "fpr_target": 0.05,
+    "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+    "fpr_threshold_operator": ">",
+    "auroc": {
+      "estimate": 0.48,
+      "ci95_percentile": [
+        0.3,
+        0.66
+      ]
+    },
+    "average_precision": {
+      "estimate": 0.5142857142857142,
+      "ci95_percentile": [
+        0.5,
+        0.68
+      ]
+    },
+    "tpr_at_fpr_5_percent": {
+      "estimate": 0.0,
+      "ci95_percentile": [
+        0.0,
+        0.0
+      ]
+    },
+    "tpr_at_fpr_5_percent_threshold": {
+      "estimate": 3.539321546150077,
+      "ci95_percentile": [
+        1.4674240232699962,
+        3.539321546150077
+      ]
+    },
+    "tpr_at_fpr_5_percent_actual_fpr": {
+      "estimate": 0.0,
+      "ci95_percentile": [
+        0.0,
+        0.0
+      ]
+    },
+    "accuracy_at_2": {
+      "estimate": 0.5,
+      "ci95_percentile": [
+        0.5,
+        0.5
+      ]
+    },
+    "balanced_accuracy_at_2": {
+      "estimate": 0.5,
+      "ci95_percentile": [
+        0.5,
+        0.5
+      ]
+    },
+    "precision_at_2": {
+      "estimate": 0.5,
+      "ci95_percentile": [
+        0.0,
+        0.5
+      ]
+    },
+    "recall_at_2": {
+      "estimate": 0.2,
+      "ci95_percentile": [
+        0.0,
+        0.6
+      ]
+    },
+    "f1_at_2": {
+      "estimate": 0.2857142857142857,
+      "ci95_percentile": [
+        0.0,
+        0.5454545454545454
+      ]
+    },
+    "specificity_at_2": {
+      "estimate": 0.8,
+      "ci95_percentile": [
+        0.4,
+        1.0
+      ]
+    },
+    "paired_ranking_accuracy": {
+      "estimate": 0.2,
+      "ci95_percentile": [
+        0.0,
+        0.6
+      ]
+    },
+    "paired_score_delta_mean": {
+      "estimate": -0.0020611379757569546,
+      "ci95_percentile": [
+        -0.006481454729158553,
+        0.0005463311735632193
+      ]
+    },
+    "image_confusion_at_2": {
+      "tp": 1,
+      "fp": 1,
+      "fn": 4,
+      "tn": 4
+    },
+    "paired_score_delta": {
+      "count": 5,
+      "min": -0.010802424548597589,
+      "mean": -0.0020611379757569546,
+      "median": 0.0,
+      "p05": -0.008766084824715836,
+      "p95": 0.0008939684792013123,
+      "max": 0.0011174605990016406
+    },
+    "paired_ranking": {
+      "comparison": "forged_ai_score_strictly_greater_than_real",
+      "wins": 1,
+      "losses": 2,
+      "ties": 2,
+      "strict_accuracy": 0.2
+    },
+    "paired_sign_test": {
+      "wins": 1,
+      "losses": 2,
+      "ties": 2,
+      "non_ties": 3,
+      "alternative": "two-sided",
+      "null_win_probability": 0.5,
+      "two_sided_exact_p": 1.0
+    },
+    "domains": [
+      "lodging",
+      "restaurant"
+    ],
+    "edit_visibilities": [
+      "full",
+      "none"
+    ],
+    "edit_visible_gt_fraction": {
+      "count": 5,
+      "min": 0.0,
+      "mean": 0.6,
+      "median": 1.0,
+      "p05": 0.0,
+      "p95": 1.0,
+      "max": 1.0
+    }
+  },
+  "by_domain": {
+    "lodging": {
+      "pairs": 3,
+      "images": 6,
+      "bootstrap_unit": "task_id_pair",
+      "bootstrap_samples": 1000,
+      "seed": 20261724,
+      "score_key": "ai_score",
+      "score_direction": "higher_means_fake",
+      "fixed_threshold": 2.0,
+      "fixed_threshold_operator": ">",
+      "fpr_target": 0.05,
+      "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+      "fpr_threshold_operator": ">",
+      "auroc": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.0,
+          1.0
+        ]
+      },
+      "average_precision": {
+        "estimate": 0.5555555555555556,
+        "ci95_percentile": [
+          0.5,
+          1.0
+        ]
+      },
+      "tpr_at_fpr_5_percent": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          1.0
+        ]
+      },
+      "tpr_at_fpr_5_percent_threshold": {
+        "estimate": 1.4674240232699962,
+        "ci95_percentile": [
+          0.34977523416799217,
+          1.4674240232699962
+        ]
+      },
+      "tpr_at_fpr_5_percent_actual_fpr": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "accuracy_at_2": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "balanced_accuracy_at_2": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "precision_at_2": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "recall_at_2": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "f1_at_2": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "specificity_at_2": {
+        "estimate": 1.0,
+        "ci95_percentile": [
+          1.0,
+          1.0
+        ]
+      },
+      "paired_ranking_accuracy": {
+        "estimate": 0.3333333333333333,
+        "ci95_percentile": [
+          0.0,
+          1.0
+        ]
+      },
+      "paired_score_delta_mean": {
+        "estimate": -0.0032283213165319826,
+        "ci95_percentile": [
+          -0.010802424548597589,
+          0.0011174605990016406
+        ]
+      },
+      "image_confusion_at_2": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 3,
+        "tn": 3
+      },
+      "paired_score_delta": {
+        "count": 3,
+        "min": -0.010802424548597589,
+        "mean": -0.0032283213165319826,
+        "median": 0.0,
+        "p05": -0.009722182093737831,
+        "p95": 0.0010057145391014766,
+        "max": 0.0011174605990016406
+      },
+      "paired_ranking": {
+        "comparison": "forged_ai_score_strictly_greater_than_real",
+        "wins": 1,
+        "losses": 1,
+        "ties": 1,
+        "strict_accuracy": 0.3333333333333333
+      },
+      "paired_sign_test": {
+        "wins": 1,
+        "losses": 1,
+        "ties": 1,
+        "non_ties": 2,
+        "alternative": "two-sided",
+        "null_win_probability": 0.5,
+        "two_sided_exact_p": 1.0
+      },
+      "domains": [
+        "lodging"
+      ],
+      "edit_visibilities": [
+        "full",
+        "none"
+      ],
+      "edit_visible_gt_fraction": {
+        "count": 3,
+        "min": 0.0,
+        "mean": 0.6666666666666666,
+        "median": 1.0,
+        "p05": 0.1,
+        "p95": 1.0,
+        "max": 1.0
+      }
+    },
+    "restaurant": {
+      "pairs": 2,
+      "images": 4,
+      "bootstrap_unit": "task_id_pair",
+      "bootstrap_samples": 1000,
+      "seed": 20261725,
+      "score_key": "ai_score",
+      "score_direction": "higher_means_fake",
+      "fixed_threshold": 2.0,
+      "fixed_threshold_operator": ">",
+      "fpr_target": 0.05,
+      "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+      "fpr_threshold_operator": ">",
+      "auroc": {
+        "estimate": 0.375,
+        "ci95_percentile": [
+          0.0,
+          0.5
+        ]
+      },
+      "average_precision": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "tpr_at_fpr_5_percent": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "tpr_at_fpr_5_percent_threshold": {
+        "estimate": 3.539321546150077,
+        "ci95_percentile": [
+          1.790216589221125,
+          3.539321546150077
+        ]
+      },
+      "tpr_at_fpr_5_percent_actual_fpr": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "accuracy_at_2": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "balanced_accuracy_at_2": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "precision_at_2": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.0,
+          0.5
+        ]
+      },
+      "recall_at_2": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.0,
+          1.0
+        ]
+      },
+      "f1_at_2": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.0,
+          0.6666666666666666
+        ]
+      },
+      "specificity_at_2": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.0,
+          1.0
+        ]
+      },
+      "paired_ranking_accuracy": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "paired_score_delta_mean": {
+        "estimate": -0.0003103629645944128,
+        "ci95_percentile": [
+          -0.0006207259291888256,
+          0.0
+        ]
+      },
+      "image_confusion_at_2": {
+        "tp": 1,
+        "fp": 1,
+        "fn": 1,
+        "tn": 1
+      },
+      "paired_score_delta": {
+        "count": 2,
+        "min": -0.0006207259291888256,
+        "mean": -0.0003103629645944128,
+        "median": -0.0003103629645944128,
+        "p05": -0.0005896896327293843,
+        "p95": -3.103629645944131e-05,
+        "max": 0.0
+      },
+      "paired_ranking": {
+        "comparison": "forged_ai_score_strictly_greater_than_real",
+        "wins": 0,
+        "losses": 1,
+        "ties": 1,
+        "strict_accuracy": 0.0
+      },
+      "paired_sign_test": {
+        "wins": 0,
+        "losses": 1,
+        "ties": 1,
+        "non_ties": 1,
+        "alternative": "two-sided",
+        "null_win_probability": 0.5,
+        "two_sided_exact_p": 1.0
+      },
+      "domains": [
+        "restaurant"
+      ],
+      "edit_visibilities": [
+        "full",
+        "none"
+      ],
+      "edit_visible_gt_fraction": {
+        "count": 2,
+        "min": 0.0,
+        "mean": 0.5,
+        "median": 0.5,
+        "p05": 0.05,
+        "p95": 0.95,
+        "max": 1.0
+      }
+    }
+  },
+  "by_edit_visibility": {
+    "full": {
+      "pairs": 3,
+      "images": 6,
+      "bootstrap_unit": "task_id_pair",
+      "bootstrap_samples": 1000,
+      "seed": 20262724,
+      "score_key": "ai_score",
+      "score_direction": "higher_means_fake",
+      "fixed_threshold": 2.0,
+      "fixed_threshold_operator": ">",
+      "fpr_target": 0.05,
+      "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+      "fpr_threshold_operator": ">",
+      "auroc": {
+        "estimate": 0.4444444444444445,
+        "ci95_percentile": [
+          0.0,
+          1.0
+        ]
+      },
+      "average_precision": {
+        "estimate": 0.5333333333333333,
+        "ci95_percentile": [
+          0.5,
+          1.0
+        ]
+      },
+      "tpr_at_fpr_5_percent": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          1.0
+        ]
+      },
+      "tpr_at_fpr_5_percent_threshold": {
+        "estimate": 3.539321546150077,
+        "ci95_percentile": [
+          0.8587463354315823,
+          3.539321546150077
+        ]
+      },
+      "tpr_at_fpr_5_percent_actual_fpr": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "accuracy_at_2": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "balanced_accuracy_at_2": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "precision_at_2": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.0,
+          0.5
+        ]
+      },
+      "recall_at_2": {
+        "estimate": 0.3333333333333333,
+        "ci95_percentile": [
+          0.0,
+          1.0
+        ]
+      },
+      "f1_at_2": {
+        "estimate": 0.4,
+        "ci95_percentile": [
+          0.0,
+          0.6666666666666666
+        ]
+      },
+      "specificity_at_2": {
+        "estimate": 0.6666666666666666,
+        "ci95_percentile": [
+          0.0,
+          1.0
+        ]
+      },
+      "paired_ranking_accuracy": {
+        "estimate": 0.3333333333333333,
+        "ci95_percentile": [
+          0.0,
+          1.0
+        ]
+      },
+      "paired_score_delta_mean": {
+        "estimate": -0.0034352299595949245,
+        "ci95_percentile": [
+          -0.010802424548597589,
+          0.0011174605990016406
+        ]
+      },
+      "image_confusion_at_2": {
+        "tp": 1,
+        "fp": 1,
+        "fn": 2,
+        "tn": 2
+      },
+      "paired_score_delta": {
+        "count": 3,
+        "min": -0.010802424548597589,
+        "mean": -0.0034352299595949245,
+        "median": -0.0006207259291888256,
+        "p05": -0.009784254686656713,
+        "p95": 0.0009436419461825939,
+        "max": 0.0011174605990016406
+      },
+      "paired_ranking": {
+        "comparison": "forged_ai_score_strictly_greater_than_real",
+        "wins": 1,
+        "losses": 2,
+        "ties": 0,
+        "strict_accuracy": 0.3333333333333333
+      },
+      "paired_sign_test": {
+        "wins": 1,
+        "losses": 2,
+        "ties": 0,
+        "non_ties": 3,
+        "alternative": "two-sided",
+        "null_win_probability": 0.5,
+        "two_sided_exact_p": 1.0
+      },
+      "domains": [
+        "lodging",
+        "restaurant"
+      ],
+      "edit_visibilities": [
+        "full"
+      ],
+      "edit_visible_gt_fraction": {
+        "count": 3,
+        "min": 1.0,
+        "mean": 1.0,
+        "median": 1.0,
+        "p05": 1.0,
+        "p95": 1.0,
+        "max": 1.0
+      }
+    },
+    "none": {
+      "pairs": 2,
+      "images": 4,
+      "bootstrap_unit": "task_id_pair",
+      "bootstrap_samples": 1000,
+      "seed": 20262725,
+      "score_key": "ai_score",
+      "score_direction": "higher_means_fake",
+      "fixed_threshold": 2.0,
+      "fixed_threshold_operator": ">",
+      "fpr_target": 0.05,
+      "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+      "fpr_threshold_operator": ">",
+      "auroc": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "average_precision": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "tpr_at_fpr_5_percent": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "tpr_at_fpr_5_percent_threshold": {
+        "estimate": 1.790216589221125,
+        "ci95_percentile": [
+          0.34977523416799217,
+          1.790216589221125
+        ]
+      },
+      "tpr_at_fpr_5_percent_actual_fpr": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "accuracy_at_2": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "balanced_accuracy_at_2": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "precision_at_2": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "recall_at_2": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "f1_at_2": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "specificity_at_2": {
+        "estimate": 1.0,
+        "ci95_percentile": [
+          1.0,
+          1.0
+        ]
+      },
+      "paired_ranking_accuracy": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "paired_score_delta_mean": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "image_confusion_at_2": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 2,
+        "tn": 2
+      },
+      "paired_score_delta": {
+        "count": 2,
+        "min": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "p05": 0.0,
+        "p95": 0.0,
+        "max": 0.0
+      },
+      "paired_ranking": {
+        "comparison": "forged_ai_score_strictly_greater_than_real",
+        "wins": 0,
+        "losses": 0,
+        "ties": 2,
+        "strict_accuracy": 0.0
+      },
+      "paired_sign_test": {
+        "wins": 0,
+        "losses": 0,
+        "ties": 2,
+        "non_ties": 0,
+        "alternative": "two-sided",
+        "null_win_probability": 0.5,
+        "two_sided_exact_p": 1.0
+      },
+      "domains": [
+        "lodging",
+        "restaurant"
+      ],
+      "edit_visibilities": [
+        "none"
+      ],
+      "edit_visible_gt_fraction": {
+        "count": 2,
+        "min": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "p05": 0.0,
+        "p95": 0.0,
+        "max": 0.0
+      }
+    }
+  },
+  "edit_visible_gt_fraction": {
+    "count": 5,
+    "min": 0.0,
+    "mean": 0.6,
+    "median": 1.0,
+    "p05": 0.0,
+    "p95": 1.0,
+    "max": 1.0
+  },
+  "latency_ms": {
+    "count": 10,
+    "min": 98.801,
+    "mean": 139.1286,
+    "median": 118.478,
+    "p05": 98.9153,
+    "p95": 265.97389999999973,
+    "max": 380.381
+  },
+  "peak_cuda_memory_bytes": {
+    "count": 10,
+    "min": 11227498496.0,
+    "mean": 11232177766.4,
+    "median": 11227498496.0,
+    "p05": 11227498496.0,
+    "p95": 11239294976.0,
+    "max": 11239294976.0
+  },
+  "run_id": "fsd_v1_2_0_mouse_canonical_v1_smoke5_20260724",
+  "condition": "mouse_canonical_v1",
+  "model": "FSD",
+  "model_slug": "fsd_v1_2_0_official",
+  "model_source_commit": "50f2eae06efdac2e5a33f407ca9a27a2295133ac",
+  "release_tag": "v1.2.0",
+  "weights_bundle_sha256": "3c1959f0092fdbe681e41c96f12c1b6d3762e46f21b37b08d4a7e617d1acdfce",
+  "input_manifest_sha256": "e4cb3d6a78fa68f06341457e2234c630a455a9b6b9789e59abf45c15b292060a",
+  "run_manifest_fingerprint": "985b89bc5da1febfaae3075ffcdcb76476e7a6353222efe8284d112085c80108",
+  "valid_for_t1": true,
+  "valid_for_t2": false,
+  "model_load_audit": {
+    "source": {
+      "repo_url": "https://github.com/ductai199x/Forensic-Self-Descriptions-CVPR25",
+      "root": "/root/.cache/claimforge/third_party/Forensic-Self-Descriptions-CVPR25-50f2eae",
+      "commit": "50f2eae06efdac2e5a33f407ca9a27a2295133ac",
+      "tracked_dirty": false,
+      "source_files": {
+        "LICENSE": {
+          "path": "/root/.cache/claimforge/third_party/Forensic-Self-Descriptions-CVPR25-50f2eae/LICENSE",
+          "sha256": "30a334fa2dcf04640eda2341b4f5add02103fb81431c5e8ee2053114846b8d7d"
+        },
+        "README.md": {
+          "path": "/root/.cache/claimforge/third_party/Forensic-Self-Descriptions-CVPR25-50f2eae/README.md",
+          "sha256": "f4decb89e649632c3f11eae26098891c05103da35fdc36459fee4a33f84c9d12"
+        },
+        "CITATION.cff": {
+          "path": "/root/.cache/claimforge/third_party/Forensic-Self-Descriptions-CVPR25-50f2eae/CITATION.cff",
+          "sha256": "db7776258148c1cdad9a9ebfbdf9130b127d1159267df18f1dee62c05e666d3e"
+        },
+        "pyproject.toml": {
+          "path": "/root/.cache/claimforge/third_party/Forensic-Self-Descriptions-CVPR25-50f2eae/pyproject.toml",
+          "sha256": "d3499085168fdae7b1205513e5e7ed2cfb6a2d2c33a6e256ad64cf5963ef14e9"
+        },
+        "fsd/__init__.py": {
+          "path": "/root/.cache/claimforge/third_party/Forensic-Self-Descriptions-CVPR25-50f2eae/fsd/__init__.py",
+          "sha256": "cd55645d42b65b390780a99fcf1d1280ae7c5c111a15e6260978dd662a129449"
+        },
+        "fsd/attribution.py": {
+          "path": "/root/.cache/claimforge/third_party/Forensic-Self-Descriptions-CVPR25-50f2eae/fsd/attribution.py",
+          "sha256": "a1904196cfb0c26deff4aefdad6aad6b5d1576a906a9f3da095a12c6c7f51861"
+        },
+        "fsd/detector.py": {
+          "path": "/root/.cache/claimforge/third_party/Forensic-Self-Descriptions-CVPR25-50f2eae/fsd/detector.py",
+          "sha256": "8d8ddbce2fc36b03ba5d13df64b442585b13f2dd8b25fa10c7266782150f2b0a"
+        },
+        "fsd/fre.py": {
+          "path": "/root/.cache/claimforge/third_party/Forensic-Self-Descriptions-CVPR25-50f2eae/fsd/fre.py",
+          "sha256": "351d4e41c6a46e55b156870336c192a08f5d4b5c72af169a978f1cb7a7073acb"
+        },
+        "fsd/fsd_computation.py": {
+          "path": "/root/.cache/claimforge/third_party/Forensic-Self-Descriptions-CVPR25-50f2eae/fsd/fsd_computation.py",
+          "sha256": "f60d4d6d7f26b31cae53e82b32e5747602cbc242089c793f964ca715af4eabc6"
+        },
+        "fsd/gmm.py": {
+          "path": "/root/.cache/claimforge/third_party/Forensic-Self-Descriptions-CVPR25-50f2eae/fsd/gmm.py",
+          "sha256": "a6c476732fe783726d25cf0eb3ea2262bb3c23c69185a0b4d46b18148d9fa35d"
+        },
+        "fsd/projection.py": {
+          "path": "/root/.cache/claimforge/third_party/Forensic-Self-Descriptions-CVPR25-50f2eae/fsd/projection.py",
+          "sha256": "336dd6a59e41c84676846e5a23f77f8674268a739997a75ffcbcf01e80306bba"
+        },
+        "fsd/weights.py": {
+          "path": "/root/.cache/claimforge/third_party/Forensic-Self-Descriptions-CVPR25-50f2eae/fsd/weights.py",
+          "sha256": "6a1413c0a9fc50318729d941c1c4639d0b4e4b6950ae6cc596a5308178fb98ad"
+        }
+      },
+      "source_tag_drift": {
+        "release_tag": "v1.2.0",
+        "release_tag_commit": "5b317a00251988b5ec5a47317f4d82e5bdfd009d",
+        "source_commit": "50f2eae06efdac2e5a33f407ca9a27a2295133ac",
+        "commits_ahead_of_tag": 1,
+        "changed_files": [
+          "fsd/__init__.py",
+          "fsd/attribution.py",
+          "fsd/weights.py"
+        ],
+        "detection_math_changed_files": [],
+        "interpretation": "the pinned main commit is one commit after the v1.2.0 tag; the detection math files used by score() are unchanged"
+      }
+    },
+    "weights": {
+      "provider": "official_github_release",
+      "release_tag": "v1.2.0",
+      "release_url": "https://github.com/ductai199x/Forensic-Self-Descriptions-CVPR25/releases/tag/v1.2.0",
+      "weights_dir": "/root/.cache/claimforge/checkpoints/fsd-v1.2.0",
+      "explicit_weights_dir_required": true,
+      "automatic_download_used": false,
+      "files": {
+        "config.json": {
+          "path": "/root/.cache/claimforge/checkpoints/fsd-v1.2.0/config.json",
+          "bytes": 634,
+          "sha256": "7cc34433045adb998762e00de7de25c50f9c1e10dbac1c18899c6c63c4cfafe4",
+          "kind": "json"
+        },
+        "fre.pt": {
+          "path": "/root/.cache/claimforge/checkpoints/fsd-v1.2.0/fre.pt",
+          "bytes": 9861,
+          "sha256": "d95b9c50837dbf7b660bbefa20cdaa5db5e59601a9d6544573c10e78e04906bb",
+          "kind": "torch_weights_only",
+          "serialization_safety": {
+            "preflight": "torch.serialization.get_unsafe_globals_in_checkpoint",
+            "unsafe_globals": [],
+            "required_unsafe_globals": [],
+            "weights_only": true
+          },
+          "payload_schema": {
+            "type": "builtins.dict",
+            "items": {
+              "w": {
+                "type": "tensor",
+                "shape": [
+                  8,
+                  1,
+                  15,
+                  15
+                ],
+                "dtype": "torch.float32",
+                "numel": 1800
+              },
+              "one_middle": {
+                "type": "tensor",
+                "shape": [
+                  225
+                ],
+                "dtype": "torch.float32",
+                "numel": 225
+              }
+            }
+          }
+        },
+        "gmm.pt": {
+          "path": "/root/.cache/claimforge/checkpoints/fsd-v1.2.0/gmm.pt",
+          "bytes": 14786229,
+          "sha256": "0f9fa030a3d5816266d0329fd0fb614b65e322d4bda6d083613c713bfe9bc829",
+          "kind": "torch_weights_only",
+          "serialization_safety": {
+            "preflight": "torch.serialization.get_unsafe_globals_in_checkpoint",
+            "unsafe_globals": [],
+            "required_unsafe_globals": [],
+            "weights_only": true
+          },
+          "payload_schema": {
+            "type": "builtins.dict",
+            "items": {
+              "means_": {
+                "type": "tensor",
+                "shape": [
+                  5,
+                  960
+                ],
+                "dtype": "torch.float64",
+                "numel": 4800
+              },
+              "weights_": {
+                "type": "tensor",
+                "shape": [
+                  5
+                ],
+                "dtype": "torch.float64",
+                "numel": 5
+              },
+              "covariances_": {
+                "type": "tensor",
+                "shape": [
+                  960,
+                  960
+                ],
+                "dtype": "torch.float64",
+                "numel": 921600
+              },
+              "precisions_cholesky_": {
+                "type": "tensor",
+                "shape": [
+                  960,
+                  960
+                ],
+                "dtype": "torch.float64",
+                "numel": 921600
+              },
+              "n_components": {
+                "type": "int",
+                "value": 5
+              },
+              "covariance_type": {
+                "type": "str",
+                "value": "tied"
+              }
+            }
+          }
+        },
+        "fsd_transforms.pt": {
+          "path": "/root/.cache/claimforge/checkpoints/fsd-v1.2.0/fsd_transforms.pt",
+          "bytes": 42177409,
+          "sha256": "1e87d792b413101e58d9de71551182a1fab8b879ca6f6ba9780b6adcb9a5a699",
+          "kind": "torch_weights_only",
+          "serialization_safety": {
+            "preflight": "torch.serialization.get_unsafe_globals_in_checkpoint",
+            "unsafe_globals": [],
+            "required_unsafe_globals": [],
+            "weights_only": true
+          },
+          "payload_schema": {
+            "type": "builtins.dict",
+            "items": {
+              "config": {
+                "type": "builtins.dict",
+                "items": {
+                  "dim": {
+                    "type": "int",
+                    "value": 960
+                  },
+                  "hidden": {
+                    "type": "int",
+                    "value": 128
+                  }
+                }
+              },
+              "transforms": {
+                "type": "builtins.list",
+                "length": 20,
+                "items": [
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  },
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  },
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  },
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  },
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  },
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  },
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  },
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  },
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  },
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  },
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  },
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  },
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  },
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  },
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  },
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  },
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  },
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  },
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  },
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "config": {
+        "fre": {
+          "in_channels": 1,
+          "out_channels": 8,
+          "kernel_size": 15,
+          "weights_file": "fre.pt"
+        },
+        "fsd": {
+          "kernel_size": 11,
+          "num_scales": 3,
+          "max_size": 1024,
+          "resize_mode": "resize_and_crop"
+        },
+        "gmm": {
+          "n_components": 5,
+          "covariance_type": "tied",
+          "weights_file": "gmm.pt"
+        },
+        "transforms": {
+          "weights_file": "fsd_transforms.pt"
+        },
+        "scoring": {
+          "train_mean": -42.25325127289017,
+          "train_std": 706.0556010649537,
+          "default_threshold": -2.0
+        },
+        "attribution": {
+          "weights_file": "attribution_transforms.pt",
+          "source_gmms_file": "source_gmms.pt"
+        }
+      },
+      "bundle_sha256": "3c1959f0092fdbe681e41c96f12c1b6d3762e46f21b37b08d4a7e617d1acdfce"
+    },
+    "class_module": "_claimforge_fsd_50f2eae.detector",
+    "class_name": "FSDDetector",
+    "load_api": "FSDDetector.load",
+    "weights_dir_argument": "/root/.cache/claimforge/checkpoints/fsd-v1.2.0",
+    "weights_dir_was_explicit": true,
+    "automatic_download_used": false,
+    "attribution_loaded": false,
+    "released_threshold": -2.0,
+    "projection_count": 20
+  },
+  "completed_at": "2026-07-24T19:50:09.987961+00:00"
+}

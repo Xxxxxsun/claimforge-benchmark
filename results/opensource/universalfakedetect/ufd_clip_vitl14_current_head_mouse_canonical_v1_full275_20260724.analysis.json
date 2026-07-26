@@ -1,0 +1,2846 @@
+{
+  "schema_version": "ufd_independent_analysis_v1",
+  "run_id": "ufd_clip_vitl14_current_head_mouse_canonical_v1_full275_20260724",
+  "generated_at": "2026-07-24T22:12:44.960317+00:00",
+  "method": "physical-history/latest audit; immutable source/head/CLIP and runtime verification; independent Pillow preprocessing, crop RGB/tensor hashing, exact-GT visibility, full CUDA CLIP re-encoding, persisted-feature comparison, linear-head replay, float32 sigmoid, strict >0.5 decision, and ufd_metrics recomputation",
+  "result_history": {
+    "physical_rows": 550,
+    "unique_ids": 550,
+    "duplicate_rows": 0,
+    "ids_with_multiple_rows": 0,
+    "recovered_error_to_ok": 0,
+    "recovered_ids": [],
+    "historical_status_counts": {
+      "ok": 550
+    },
+    "latest_status_counts": {
+      "ok": 550
+    },
+    "duplicate_histories": [],
+    "latest_policy": "last physical JSONL row for each sample id"
+  },
+  "provenance": {
+    "run_manifest_fingerprint": "88d101117d02fd2466da5bac2fb5c35a3444cc2c6fcc2d240350928a768e84c6",
+    "preprocess_profile": "current_head_native_center_crop224",
+    "profile_kind": "current_head_native",
+    "preprocess_profile_contract": {
+      "profile_id": "current_head_native_center_crop224",
+      "steps": [
+        "Pillow.Image.open.convert_RGB",
+        "torchvision.transforms.CenterCrop_224",
+        "torchvision.transforms.ToTensor",
+        "CLIP_Normalize"
+      ],
+      "resize_short_side": null,
+      "center_crop": 224,
+      "source_basis": "current_HEAD_validate.py",
+      "source_commit": "76a0e3e60a8a06458707a625d269ba815a2e5919",
+      "drift": "current HEAD removed Resize(256) after the released linear head was committed"
+    },
+    "source_commit": "76a0e3e60a8a06458707a625d269ba815a2e5919",
+    "source_files_validated": 15,
+    "head_checkpoint": "/root/.cache/claimforge/checkpoints/universal-fake-detect-76a0e3e60a8a/fc_weights.pth",
+    "head_checkpoint_audit": {
+      "unsafe_globals": [],
+      "weights_only": true,
+      "keys": [
+        "weight",
+        "bias"
+      ],
+      "weight_shape": [
+        1,
+        768
+      ],
+      "bias_shape": [
+        1
+      ],
+      "dtype": "float32"
+    },
+    "backbone_checkpoint": "/root/.cache/claimforge/checkpoints/openai-clip/ViT-L-14.pt",
+    "asset_bundle_sha256": "b57c7a8865336b82fe716dc7871006883417cf60f7b36ca8a9a5f925da009121",
+    "adapter_contract": {
+      "files_validated": 3,
+      "filenames": [
+        "common.py",
+        "run_universalfakedetect.py",
+        "ufd_metrics.py"
+      ]
+    },
+    "canonical_inputs_sha256": "e4cb3d6a78fa68f06341457e2234c630a455a9b6b9789e59abf45c15b292060a",
+    "canonical_dataset_manifest_sha256": "beb3c30e436db682bbadef794404838f33a4812f18f22819dd6ab1ef3de6f0b1",
+    "physical_result_rows_validated": 550,
+    "latest_rows_validated": 550,
+    "selected_inputs_validated": 550,
+    "bootstrap_samples": 1000,
+    "bootstrap_seed": 20260724
+  },
+  "artifact_replay": {
+    "images_redecoded": 550,
+    "images_fully_reencoded": 550,
+    "persisted_features_validated": 550,
+    "feature_shape": [
+      768
+    ],
+    "feature_dtype": "float32",
+    "feature_l2_normalized": false,
+    "maximum_feature_absolute_difference": 0.0,
+    "maximum_raw_logit_absolute_difference": 0.0,
+    "maximum_probability_absolute_difference": 0.0,
+    "head_replayed_from_persisted_feature": true,
+    "float32_sigmoid_replayed": true,
+    "strict_decision_replayed": "probability > 0.5",
+    "preprocess_profile": "current_head_native_center_crop224",
+    "profile_kind": "current_head_native",
+    "crop_rgb_hash_replayed": true,
+    "normalized_tensor_hash_replayed": true,
+    "edit_visibility_tasks": {
+      "full": 14,
+      "none": 247,
+      "partial": 14
+    },
+    "complete_pair_edit_visibility": {
+      "full": 14,
+      "none": 247,
+      "partial": 14
+    },
+    "full_selection": true,
+    "required_full_visibility_census": {
+      "none": 247,
+      "partial": 14,
+      "full": 14
+    },
+    "canonical_crop_pair_equivalence": {
+      "basis": "np.array_equal_on_independently_decoded_and_preprocessed_canonical_RGB_crop_uint8_[224,224,3]",
+      "gt_visibility_semantics": "pre_canonicalization_input_location_condition_only; exact-diff GT precedes independent real/forged JPEG_q95 canonicalization",
+      "pairs": 275,
+      "crop_equal_pairs": 246,
+      "crop_different_pairs": 29,
+      "crop_equal_fraction": 0.8945454545454545,
+      "by_edit_visibility": {
+        "full": {
+          "pairs": 14,
+          "crop_equal_pairs": 0,
+          "crop_different_pairs": 14,
+          "crop_equal_fraction": 0.0
+        },
+        "none": {
+          "pairs": 247,
+          "crop_equal_pairs": 246,
+          "crop_different_pairs": 1,
+          "crop_equal_fraction": 0.9959514170040485
+        },
+        "partial": {
+          "pairs": 14,
+          "crop_equal_pairs": 0,
+          "crop_different_pairs": 14,
+          "crop_equal_fraction": 0.0
+        }
+      },
+      "crop_different_task_ids_by_edit_visibility": {
+        "full": [
+          "lodging_202_slot_001",
+          "lodging_268_slot_001",
+          "restaurant_285_slot_001",
+          "restaurant_283_slot_001",
+          "lodging_093_slot_001",
+          "lodging_266_slot_001",
+          "lodging_036_slot_001",
+          "lodging_104_slot_001",
+          "restaurant_072_slot_001",
+          "restaurant_020_slot_001",
+          "restaurant_152_slot_001",
+          "restaurant_088_slot_001",
+          "lodging_207_slot_001",
+          "restaurant_188_slot_001"
+        ],
+        "none": [
+          "lodging_205_slot_001"
+        ],
+        "partial": [
+          "lodging_121_slot_001",
+          "lodging_144_slot_001",
+          "lodging_280_slot_001",
+          "lodging_154_slot_001",
+          "lodging_096_slot_001",
+          "lodging_270_slot_001",
+          "lodging_020_slot_001",
+          "lodging_126_slot_001",
+          "lodging_281_slot_001",
+          "lodging_097_slot_001",
+          "lodging_075_slot_001",
+          "lodging_152_slot_001",
+          "lodging_169_slot_001",
+          "restaurant_035_slot_001"
+        ]
+      },
+      "crop_different_pair_details": [
+        {
+          "task_id": "lodging_202_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 1866,
+          "differing_pixels": 709,
+          "maximum_rgb_absolute_difference": 77,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.5032072067260742,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -0.0004031411954201758,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_205_slot_001",
+          "edit_visibility": "none",
+          "differing_channel_values": 21,
+          "differing_pixels": 7,
+          "maximum_rgb_absolute_difference": 1,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.002849578857421875,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 1.7176847904920578e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_268_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 11549,
+          "differing_pixels": 3932,
+          "maximum_rgb_absolute_difference": 186,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.18140554428100586,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.0011844011023640633,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_121_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 3324,
+          "differing_pixels": 1170,
+          "maximum_rgb_absolute_difference": 96,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.7084355354309082,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -0.000566402159165591,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_144_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 4289,
+          "differing_pixels": 1501,
+          "maximum_rgb_absolute_difference": 236,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 1.0669422149658203,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.0007162158144637942,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_285_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 6985,
+          "differing_pixels": 2441,
+          "maximum_rgb_absolute_difference": 158,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.6371631622314453,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.000977907795459032,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_283_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 11056,
+          "differing_pixels": 3846,
+          "maximum_rgb_absolute_difference": 185,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -1.6489977836608887,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -0.0016220888355746865,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_093_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 1915,
+          "differing_pixels": 709,
+          "maximum_rgb_absolute_difference": 202,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.7043094635009766,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -0.000697690004017204,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_280_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 6760,
+          "differing_pixels": 2365,
+          "maximum_rgb_absolute_difference": 143,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.37058544158935547,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.001316198380663991,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_266_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 3780,
+          "differing_pixels": 1409,
+          "maximum_rgb_absolute_difference": 120,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -1.2907342910766602,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -0.007078144932165742,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_154_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 9737,
+          "differing_pixels": 3345,
+          "maximum_rgb_absolute_difference": 206,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -5.721169352531433,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -0.449735690606758,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_096_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 1078,
+          "differing_pixels": 410,
+          "maximum_rgb_absolute_difference": 107,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 3.042501926422119,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.04660282237455249,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_270_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 1881,
+          "differing_pixels": 665,
+          "maximum_rgb_absolute_difference": 187,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.5861663818359375,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.014804698526859283,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_020_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 188,
+          "differing_pixels": 90,
+          "maximum_rgb_absolute_difference": 3,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.017332077026367188,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -0.00010278262197971344,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_126_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 483,
+          "differing_pixels": 186,
+          "maximum_rgb_absolute_difference": 78,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.1724109649658203,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -6.161135388538241e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_036_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 2274,
+          "differing_pixels": 854,
+          "maximum_rgb_absolute_difference": 203,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.0717768669128418,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 3.663951065391302e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_104_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 6544,
+          "differing_pixels": 2317,
+          "maximum_rgb_absolute_difference": 194,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 1.68919038772583,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.026694905944168568,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_072_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 2074,
+          "differing_pixels": 772,
+          "maximum_rgb_absolute_difference": 138,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.2933926582336426,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.0009346476290374994,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_281_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 788,
+          "differing_pixels": 288,
+          "maximum_rgb_absolute_difference": 105,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.26462459564208984,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 7.284128514584154e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_020_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 2314,
+          "differing_pixels": 878,
+          "maximum_rgb_absolute_difference": 205,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.11559534072875977,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.00010176061186939478,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_097_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 193,
+          "differing_pixels": 80,
+          "maximum_rgb_absolute_difference": 3,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.029086947441101074,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -0.005105748772621155,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_075_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 2127,
+          "differing_pixels": 777,
+          "maximum_rgb_absolute_difference": 101,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.4849276542663574,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.0002989178174175322,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_152_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 2579,
+          "differing_pixels": 933,
+          "maximum_rgb_absolute_difference": 157,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.13355350494384766,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 9.496499842498451e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_152_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 10567,
+          "differing_pixels": 3596,
+          "maximum_rgb_absolute_difference": 195,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -5.214617490768433,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -0.6767767500132322,
+          "decision_exact": false
+        },
+        {
+          "task_id": "restaurant_088_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 2030,
+          "differing_pixels": 730,
+          "maximum_rgb_absolute_difference": 130,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.8642663955688477,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.0019704164005815983,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_169_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 157,
+          "differing_pixels": 71,
+          "maximum_rgb_absolute_difference": 4,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.007782459259033203,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -2.6172958314418793e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_035_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 160,
+          "differing_pixels": 77,
+          "maximum_rgb_absolute_difference": 3,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.006250858306884766,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -0.0005698874592781067,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_207_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 2798,
+          "differing_pixels": 1024,
+          "maximum_rgb_absolute_difference": 158,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.0795135498046875,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.00016285222955048084,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_188_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 1409,
+          "differing_pixels": 546,
+          "maximum_rgb_absolute_difference": 146,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.9426965713500977,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.0004082310479134321,
+          "decision_exact": true
+        }
+      ],
+      "crop_equal_downstream_exact_pairs_validated": 246,
+      "crop_equal_downstream_exact_contract": [
+        "normalized_tensor_bytes",
+        "persisted_CLIP_feature_float32_array",
+        "independently_reencoded_CLIP_feature_float32_array",
+        "raw_logit",
+        "sigmoid_probability_and_all_score_aliases",
+        "strict_probability_greater_than_0.5_decision"
+      ],
+      "crop_different_pair_downstream_equality_not_assumed": true,
+      "full_current_expected_census": {
+        "pairs": 275,
+        "crop_equal_pairs": 246,
+        "crop_different_pairs": 29,
+        "by_edit_visibility": {
+          "none": {
+            "pairs": 247,
+            "crop_equal_pairs": 246,
+            "crop_different_pairs": 1
+          },
+          "partial": {
+            "pairs": 14,
+            "crop_equal_pairs": 0,
+            "crop_different_pairs": 14
+          },
+          "full": {
+            "pairs": 14,
+            "crop_equal_pairs": 0,
+            "crop_different_pairs": 14
+          }
+        }
+      },
+      "full_current_expected_census_enforced": true
+    },
+    "gt_visibility_interpretation": "pre-canonicalization input-location condition only; Mouse exact-diff GT is computed before independent real/forged JPEG_q95 canonicalization and cannot establish canonical crop or downstream equality",
+    "runtime": {
+      "recorded_device": "cuda:4",
+      "actual_device": "cuda:4",
+      "gpu_name": "NVIDIA L20Z",
+      "gpu_capability": [
+        9,
+        0
+      ],
+      "torch": "2.8.0.dev20250627+cu128",
+      "torch_cuda": "12.8",
+      "cudnn_version": 91002,
+      "numerical_flags": {
+        "cudnn_deterministic": true,
+        "cudnn_benchmark": false,
+        "cuda_matmul_allow_tf32": false,
+        "cudnn_allow_tf32": false,
+        "float32_matmul_precision": "highest"
+      },
+      "silent_cpu_fallback_rejected": true
+    }
+  },
+  "recomputed_summary": {
+    "schema_version": "ufd_detection_summary_v1",
+    "task_scope": {
+      "primary_task": "T1_whole_image_AIGC_detection",
+      "valid_for_t1": true,
+      "valid_for_t2": false,
+      "primary_score": "ai_score",
+      "score_direction": "higher_means_fake",
+      "score_range": "finite_probability_closed_interval_[0,1]",
+      "released_threshold": 0.5,
+      "released_threshold_operator": ">",
+      "fpr_target": 0.05,
+      "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+      "fpr_threshold_operator": ">",
+      "bootstrap_unit": "task_id_pair",
+      "precision_zero_division": 0
+    },
+    "coverage": {
+      "expected_images": 550,
+      "physical_result_rows": 550,
+      "result_images": 550,
+      "valid_images": 550,
+      "error_images": 0,
+      "missing_images": 0,
+      "coverage_fraction": 1.0,
+      "valid_fraction": 1.0,
+      "is_complete": true
+    },
+    "paired_coverage": {
+      "expected_tasks": 275,
+      "expected_complete_pairs": 275,
+      "expected_incomplete_tasks": 0,
+      "preflight_expected_incomplete_pairs": false,
+      "complete_valid_pairs": 275,
+      "paired_valid_images": 550,
+      "unpaired_valid_images": 0,
+      "valid_complete_task_fraction": 1.0
+    },
+    "score_by_kind": {
+      "forged": {
+        "count": 275,
+        "min": 2.197672301917919e-06,
+        "mean": 0.046798095617472925,
+        "median": 0.0032757013104856014,
+        "p05": 3.2046404157881625e-05,
+        "p95": 0.23115223646163965,
+        "max": 0.8954507112503052
+      },
+      "real": {
+        "count": 275,
+        "min": 2.197672301917919e-06,
+        "mean": 0.05060335411940783,
+        "median": 0.002910280367359519,
+        "p05": 3.1625561132386795e-05,
+        "p95": 0.27462117671966596,
+        "max": 0.8954507112503052
+      }
+    },
+    "detection": {
+      "valid_images": 550,
+      "tp": 10,
+      "fp": 11,
+      "fn": 265,
+      "tn": 264,
+      "accuracy_at_0_5": 0.49818181818181817,
+      "balanced_accuracy_at_0_5": 0.49818181818181817,
+      "precision_at_0_5": 0.47619047619047616,
+      "precision_zero_division": 0,
+      "recall_at_0_5": 0.03636363636363636,
+      "f1_at_0_5": 0.06756756756756757,
+      "specificity_at_0_5": 0.96,
+      "threshold": 0.5,
+      "threshold_operator": ">",
+      "score_direction": "higher_means_fake",
+      "score_range": "finite_probability_closed_interval_[0,1]",
+      "auroc": 0.4996495867768595,
+      "average_precision": 0.49729330544760075,
+      "tpr_at_fpr_5_percent": 0.04,
+      "tpr_at_fpr_5_percent_threshold": 0.2999618351459503,
+      "tpr_at_fpr_5_percent_actual_fpr": 0.04727272727272727,
+      "tpr_at_fpr_5_percent_threshold_source": "real_scores_quantile_0_95_method_higher",
+      "tpr_at_fpr_5_percent_threshold_operator": ">",
+      "score_key": "ai_score"
+    },
+    "paired_score_delta": {
+      "count": 275,
+      "min": -0.6767767500132322,
+      "mean": -0.0038052585019349035,
+      "median": 0.0,
+      "p05": 0.0,
+      "p95": 2.301564672961853e-05,
+      "max": 0.04660282237455249
+    },
+    "paired_ranking_accuracy": 0.06181818181818182,
+    "paired_ranking": {
+      "comparison": "forged_ai_score_strictly_greater_than_real",
+      "wins": 17,
+      "losses": 12,
+      "ties": 246,
+      "strict_accuracy": 0.06181818181818182
+    },
+    "paired_sign_test": {
+      "wins": 17,
+      "losses": 12,
+      "ties": 246,
+      "non_ties": 29,
+      "alternative": "two-sided",
+      "null_win_probability": 0.5,
+      "two_sided_exact_p": 0.45825831964612007
+    },
+    "pair_bootstrap": {
+      "pairs": 275,
+      "images": 550,
+      "bootstrap_unit": "task_id_pair",
+      "bootstrap_samples": 1000,
+      "seed": 20260724,
+      "score_key": "ai_score",
+      "score_direction": "higher_means_fake",
+      "score_range": "finite_probability_closed_interval_[0,1]",
+      "fixed_threshold": 0.5,
+      "fixed_threshold_operator": ">",
+      "fpr_target": 0.05,
+      "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+      "fpr_threshold_operator": ">",
+      "auroc": {
+        "estimate": 0.4996495867768595,
+        "ci95_percentile": [
+          0.4931899173553719,
+          0.5056662809917355
+        ]
+      },
+      "average_precision": {
+        "estimate": 0.49729330544760075,
+        "ci95_percentile": [
+          0.4899898689053787,
+          0.5038724716784495
+        ]
+      },
+      "tpr_at_fpr_5_percent": {
+        "estimate": 0.04,
+        "ci95_percentile": [
+          0.02909090909090909,
+          0.04727272727272727
+        ]
+      },
+      "tpr_at_fpr_5_percent_threshold": {
+        "estimate": 0.2999618351459503,
+        "ci95_percentile": [
+          0.17642781138420105,
+          0.5942330956459045
+        ]
+      },
+      "tpr_at_fpr_5_percent_actual_fpr": {
+        "estimate": 0.04727272727272727,
+        "ci95_percentile": [
+          0.03636363636363636,
+          0.04727272727272727
+        ]
+      },
+      "accuracy_at_0_5": {
+        "estimate": 0.49818181818181817,
+        "ci95_percentile": [
+          0.49454545454545457,
+          0.5
+        ]
+      },
+      "balanced_accuracy_at_0_5": {
+        "estimate": 0.49818181818181817,
+        "ci95_percentile": [
+          0.4945454545454545,
+          0.5
+        ]
+      },
+      "precision_at_0_5": {
+        "estimate": 0.47619047619047616,
+        "ci95_percentile": [
+          0.4166666666666667,
+          0.5
+        ]
+      },
+      "recall_at_0_5": {
+        "estimate": 0.03636363636363636,
+        "ci95_percentile": [
+          0.01818181818181818,
+          0.05818181818181818
+        ]
+      },
+      "f1_at_0_5": {
+        "estimate": 0.06756756756756757,
+        "ci95_percentile": [
+          0.03484018099109562,
+          0.10390456449088371
+        ]
+      },
+      "specificity_at_0_5": {
+        "estimate": 0.96,
+        "ci95_percentile": [
+          0.9380909090909091,
+          0.9781818181818182
+        ]
+      },
+      "paired_ranking_accuracy": {
+        "estimate": 0.06181818181818182,
+        "ci95_percentile": [
+          0.03636363636363636,
+          0.09090909090909091
+        ]
+      },
+      "paired_score_delta_mean": {
+        "estimate": -0.0038052585019349035,
+        "ci95_percentile": [
+          -0.010887752538849202,
+          0.00044020580573190014
+        ]
+      },
+      "image_confusion_at_0_5": {
+        "tp": 10,
+        "fp": 11,
+        "fn": 265,
+        "tn": 264
+      },
+      "paired_score_delta": {
+        "count": 275,
+        "min": -0.6767767500132322,
+        "mean": -0.0038052585019349035,
+        "median": 0.0,
+        "p05": 0.0,
+        "p95": 2.301564672961853e-05,
+        "max": 0.04660282237455249
+      },
+      "paired_ranking": {
+        "comparison": "forged_ai_score_strictly_greater_than_real",
+        "wins": 17,
+        "losses": 12,
+        "ties": 246,
+        "strict_accuracy": 0.06181818181818182
+      },
+      "paired_sign_test": {
+        "wins": 17,
+        "losses": 12,
+        "ties": 246,
+        "non_ties": 29,
+        "alternative": "two-sided",
+        "null_win_probability": 0.5,
+        "two_sided_exact_p": 0.45825831964612007
+      },
+      "domains": [
+        "lodging",
+        "restaurant"
+      ],
+      "edit_visibilities": [
+        "full",
+        "none",
+        "partial"
+      ],
+      "edit_visible_gt_fraction": {
+        "count": 275,
+        "min": 0.0,
+        "mean": 0.07201555782557531,
+        "median": 0.0,
+        "p05": 0.0,
+        "p95": 0.9794711538461541,
+        "max": 1.0
+      }
+    },
+    "by_domain": {
+      "lodging": {
+        "pairs": 147,
+        "images": 294,
+        "bootstrap_unit": "task_id_pair",
+        "bootstrap_samples": 1000,
+        "seed": 20261724,
+        "score_key": "ai_score",
+        "score_direction": "higher_means_fake",
+        "score_range": "finite_probability_closed_interval_[0,1]",
+        "fixed_threshold": 0.5,
+        "fixed_threshold_operator": ">",
+        "fpr_target": 0.05,
+        "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+        "fpr_threshold_operator": ">",
+        "auroc": {
+          "estimate": 0.49766301078254427,
+          "ci95_percentile": [
+            0.48550893146374197,
+            0.5091877227081307
+          ]
+        },
+        "average_precision": {
+          "estimate": 0.4942409321013761,
+          "ci95_percentile": [
+            0.480941075307801,
+            0.5062396306822102
+          ]
+        },
+        "tpr_at_fpr_5_percent": {
+          "estimate": 0.04081632653061224,
+          "ci95_percentile": [
+            0.02040816326530612,
+            0.047619047619047616
+          ]
+        },
+        "tpr_at_fpr_5_percent_threshold": {
+          "estimate": 0.5001212954521179,
+          "ci95_percentile": [
+            0.2290146823972464,
+            0.6719925999641418
+          ]
+        },
+        "tpr_at_fpr_5_percent_actual_fpr": {
+          "estimate": 0.047619047619047616,
+          "ci95_percentile": [
+            0.034013605442176874,
+            0.047619047619047616
+          ]
+        },
+        "accuracy_at_0_5": {
+          "estimate": 0.4965986394557823,
+          "ci95_percentile": [
+            0.4897959183673469,
+            0.5
+          ]
+        },
+        "balanced_accuracy_at_0_5": {
+          "estimate": 0.4965986394557823,
+          "ci95_percentile": [
+            0.4897959183673469,
+            0.5
+          ]
+        },
+        "precision_at_0_5": {
+          "estimate": 0.4666666666666667,
+          "ci95_percentile": [
+            0.375,
+            0.5
+          ]
+        },
+        "recall_at_0_5": {
+          "estimate": 0.047619047619047616,
+          "ci95_percentile": [
+            0.02040816326530612,
+            0.08843537414965986
+          ]
+        },
+        "f1_at_0_5": {
+          "estimate": 0.08641975308641975,
+          "ci95_percentile": [
+            0.03870967741935484,
+            0.14857142857142858
+          ]
+        },
+        "specificity_at_0_5": {
+          "estimate": 0.9455782312925171,
+          "ci95_percentile": [
+            0.9047619047619048,
+            0.9795918367346939
+          ]
+        },
+        "paired_ranking_accuracy": {
+          "estimate": 0.07482993197278912,
+          "ci95_percentile": [
+            0.034013605442176874,
+            0.11564625850340136
+          ]
+        },
+        "paired_score_delta_mean": {
+          "estimate": -0.007133718174979246,
+          "ci95_percentile": [
+            -0.019761649870411114,
+            0.000899870884285253
+          ]
+        },
+        "image_confusion_at_0_5": {
+          "tp": 7,
+          "fp": 8,
+          "fn": 140,
+          "tn": 139
+        },
+        "paired_score_delta": {
+          "count": 147,
+          "min": -0.6767767500132322,
+          "mean": -0.007133718174979246,
+          "median": 0.0,
+          "p05": -7.9799722880125e-05,
+          "p95": 0.00012498841388150906,
+          "max": 0.04660282237455249
+        },
+        "paired_ranking": {
+          "comparison": "forged_ai_score_strictly_greater_than_real",
+          "wins": 11,
+          "losses": 10,
+          "ties": 126,
+          "strict_accuracy": 0.07482993197278912
+        },
+        "paired_sign_test": {
+          "wins": 11,
+          "losses": 10,
+          "ties": 126,
+          "non_ties": 21,
+          "alternative": "two-sided",
+          "null_win_probability": 0.5,
+          "two_sided_exact_p": 1.0
+        },
+        "domains": [
+          "lodging"
+        ],
+        "edit_visibilities": [
+          "full",
+          "none",
+          "partial"
+        ],
+        "edit_visible_gt_fraction": {
+          "count": 147,
+          "min": 0.0,
+          "mean": 0.08698520138275674,
+          "median": 0.0,
+          "p05": 0.0,
+          "p95": 0.94831585081585,
+          "max": 1.0
+        }
+      },
+      "restaurant": {
+        "pairs": 128,
+        "images": 256,
+        "bootstrap_unit": "task_id_pair",
+        "bootstrap_samples": 1000,
+        "seed": 20261725,
+        "score_key": "ai_score",
+        "score_direction": "higher_means_fake",
+        "score_range": "finite_probability_closed_interval_[0,1]",
+        "fixed_threshold": 0.5,
+        "fixed_threshold_operator": ">",
+        "fpr_target": 0.05,
+        "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+        "fpr_threshold_operator": ">",
+        "auroc": {
+          "estimate": 0.50146484375,
+          "ci95_percentile": [
+            0.496307373046875,
+            0.5063789367675782
+          ]
+        },
+        "average_precision": {
+          "estimate": 0.5008644435672303,
+          "ci95_percentile": [
+            0.4987089130383469,
+            0.5035829242526699
+          ]
+        },
+        "tpr_at_fpr_5_percent": {
+          "estimate": 0.046875,
+          "ci95_percentile": [
+            0.0234375,
+            0.046875
+          ]
+        },
+        "tpr_at_fpr_5_percent_threshold": {
+          "estimate": 0.11276686191558838,
+          "ci95_percentile": [
+            0.0550149530172348,
+            0.7076597213745117
+          ]
+        },
+        "tpr_at_fpr_5_percent_actual_fpr": {
+          "estimate": 0.046875,
+          "ci95_percentile": [
+            0.0234375,
+            0.046875
+          ]
+        },
+        "accuracy_at_0_5": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "balanced_accuracy_at_0_5": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "precision_at_0_5": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.0,
+            0.5
+          ]
+        },
+        "recall_at_0_5": {
+          "estimate": 0.0234375,
+          "ci95_percentile": [
+            0.0,
+            0.0546875
+          ]
+        },
+        "f1_at_0_5": {
+          "estimate": 0.04477611940298507,
+          "ci95_percentile": [
+            0.0,
+            0.09859154929577464
+          ]
+        },
+        "specificity_at_0_5": {
+          "estimate": 0.9765625,
+          "ci95_percentile": [
+            0.9453125,
+            1.0
+          ]
+        },
+        "paired_ranking_accuracy": {
+          "estimate": 0.046875,
+          "ci95_percentile": [
+            0.015625,
+            0.0859375
+          ]
+        },
+        "paired_score_delta_mean": {
+          "estimate": 1.7269403826958296e-05,
+          "ci95_percentile": [
+            -2.5547029140682297e-05,
+            6.152408220003732e-05
+          ]
+        },
+        "image_confusion_at_0_5": {
+          "tp": 3,
+          "fp": 3,
+          "fn": 125,
+          "tn": 125
+        },
+        "paired_score_delta": {
+          "count": 128,
+          "min": -0.0016220888355746865,
+          "mean": 1.7269403826958296e-05,
+          "median": 0.0,
+          "p05": 0.0,
+          "p95": 0.0,
+          "max": 0.0019704164005815983
+        },
+        "paired_ranking": {
+          "comparison": "forged_ai_score_strictly_greater_than_real",
+          "wins": 6,
+          "losses": 2,
+          "ties": 120,
+          "strict_accuracy": 0.046875
+        },
+        "paired_sign_test": {
+          "wins": 6,
+          "losses": 2,
+          "ties": 120,
+          "non_ties": 8,
+          "alternative": "two-sided",
+          "null_win_probability": 0.5,
+          "two_sided_exact_p": 0.2890625
+        },
+        "domains": [
+          "restaurant"
+        ],
+        "edit_visibilities": [
+          "full",
+          "none",
+          "partial"
+        ],
+        "edit_visible_gt_fraction": {
+          "count": 128,
+          "min": 0.0,
+          "mean": 0.05482385780287474,
+          "median": 0.0,
+          "p05": 0.0,
+          "p95": 0.6561088295687801,
+          "max": 1.0
+        }
+      }
+    },
+    "by_edit_visibility": {
+      "full": {
+        "pairs": 14,
+        "images": 28,
+        "bootstrap_unit": "task_id_pair",
+        "bootstrap_samples": 1000,
+        "seed": 20262724,
+        "score_key": "ai_score",
+        "score_direction": "higher_means_fake",
+        "score_range": "finite_probability_closed_interval_[0,1]",
+        "fixed_threshold": 0.5,
+        "fixed_threshold_operator": ">",
+        "fpr_target": 0.05,
+        "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+        "fpr_threshold_operator": ">",
+        "auroc": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.38252551020408165,
+            0.6225765306122449
+          ]
+        },
+        "average_precision": {
+          "estimate": 0.5686362142573322,
+          "ci95_percentile": [
+            0.48925483226916494,
+            0.7076222114281998
+          ]
+        },
+        "tpr_at_fpr_5_percent": {
+          "estimate": 0.07142857142857142,
+          "ci95_percentile": [
+            0.0,
+            0.35714285714285715
+          ]
+        },
+        "tpr_at_fpr_5_percent_threshold": {
+          "estimate": 0.00979043822735548,
+          "ci95_percentile": [
+            0.002751290798187256,
+            0.00979043822735548
+          ]
+        },
+        "tpr_at_fpr_5_percent_actual_fpr": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "accuracy_at_0_5": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "balanced_accuracy_at_0_5": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "precision_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "f1_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "specificity_at_0_5": {
+          "estimate": 1.0,
+          "ci95_percentile": [
+            1.0,
+            1.0
+          ]
+        },
+        "paired_ranking_accuracy": {
+          "estimate": 0.7142857142857143,
+          "ci95_percentile": [
+            0.42857142857142855,
+            0.9285714285714286
+          ]
+        },
+        "paired_score_delta_mean": {
+          "estimate": 0.0016200138431616193,
+          "ci95_percentile": [
+            -0.0013884219863159939,
+            0.006078054877746451
+          ]
+        },
+        "image_confusion_at_0_5": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 14,
+          "tn": 14
+        },
+        "paired_score_delta": {
+          "count": 14,
+          "min": -0.007078144932165742,
+          "mean": 0.0016200138431616193,
+          "median": 0.0001323064207099378,
+          "p05": -0.003531708469381556,
+          "p95": 0.010623987740837029,
+          "max": 0.026694905944168568
+        },
+        "paired_ranking": {
+          "comparison": "forged_ai_score_strictly_greater_than_real",
+          "wins": 10,
+          "losses": 4,
+          "ties": 0,
+          "strict_accuracy": 0.7142857142857143
+        },
+        "paired_sign_test": {
+          "wins": 10,
+          "losses": 4,
+          "ties": 0,
+          "non_ties": 14,
+          "alternative": "two-sided",
+          "null_win_probability": 0.5,
+          "two_sided_exact_p": 0.1795654296875
+        },
+        "domains": [
+          "lodging",
+          "restaurant"
+        ],
+        "edit_visibilities": [
+          "full"
+        ],
+        "edit_visible_gt_fraction": {
+          "count": 14,
+          "min": 1.0,
+          "mean": 1.0,
+          "median": 1.0,
+          "p05": 1.0,
+          "p95": 1.0,
+          "max": 1.0
+        }
+      },
+      "none": {
+        "pairs": 247,
+        "images": 494,
+        "bootstrap_unit": "task_id_pair",
+        "bootstrap_samples": 1000,
+        "seed": 20262725,
+        "score_key": "ai_score",
+        "score_direction": "higher_means_fake",
+        "score_range": "finite_probability_closed_interval_[0,1]",
+        "fixed_threshold": 0.5,
+        "fixed_threshold_operator": ">",
+        "fpr_target": 0.05,
+        "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+        "fpr_threshold_operator": ">",
+        "auroc": {
+          "estimate": 0.5000081955121376,
+          "ci95_percentile": [
+            0.49999999999999994,
+            0.500073759609238
+          ]
+        },
+        "average_precision": {
+          "estimate": 0.5000097791859806,
+          "ci95_percentile": [
+            0.49999999999999994,
+            0.5000974521253159
+          ]
+        },
+        "tpr_at_fpr_5_percent": {
+          "estimate": 0.048582995951417005,
+          "ci95_percentile": [
+            0.040384615384615394,
+            0.048582995951417005
+          ]
+        },
+        "tpr_at_fpr_5_percent_threshold": {
+          "estimate": 0.26376089453697205,
+          "ci95_percentile": [
+            0.12093944847583771,
+            0.5942330956459045
+          ]
+        },
+        "tpr_at_fpr_5_percent_actual_fpr": {
+          "estimate": 0.048582995951417005,
+          "ci95_percentile": [
+            0.040384615384615394,
+            0.048582995951417005
+          ]
+        },
+        "accuracy_at_0_5": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "balanced_accuracy_at_0_5": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "precision_at_0_5": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "recall_at_0_5": {
+          "estimate": 0.04048582995951417,
+          "ci95_percentile": [
+            0.020242914979757085,
+            0.06487854251012136
+          ]
+        },
+        "f1_at_0_5": {
+          "estimate": 0.0749063670411985,
+          "ci95_percentile": [
+            0.038910505836575876,
+            0.11485286802127564
+          ]
+        },
+        "specificity_at_0_5": {
+          "estimate": 0.9595141700404858,
+          "ci95_percentile": [
+            0.9351214574898786,
+            0.979757085020243
+          ]
+        },
+        "paired_ranking_accuracy": {
+          "estimate": 0.004048582995951417,
+          "ci95_percentile": [
+            0.0,
+            0.012145748987854251
+          ]
+        },
+        "paired_score_delta_mean": {
+          "estimate": 6.954189435190517e-08,
+          "ci95_percentile": [
+            0.0,
+            2.0862568305571552e-07
+          ]
+        },
+        "image_confusion_at_0_5": {
+          "tp": 10,
+          "fp": 10,
+          "fn": 237,
+          "tn": 237
+        },
+        "paired_score_delta": {
+          "count": 247,
+          "min": 0.0,
+          "mean": 6.954189435190517e-08,
+          "median": 0.0,
+          "p05": 0.0,
+          "p95": 0.0,
+          "max": 1.7176847904920578e-05
+        },
+        "paired_ranking": {
+          "comparison": "forged_ai_score_strictly_greater_than_real",
+          "wins": 1,
+          "losses": 0,
+          "ties": 246,
+          "strict_accuracy": 0.004048582995951417
+        },
+        "paired_sign_test": {
+          "wins": 1,
+          "losses": 0,
+          "ties": 246,
+          "non_ties": 1,
+          "alternative": "two-sided",
+          "null_win_probability": 0.5,
+          "two_sided_exact_p": 1.0
+        },
+        "domains": [
+          "lodging",
+          "restaurant"
+        ],
+        "edit_visibilities": [
+          "none"
+        ],
+        "edit_visible_gt_fraction": {
+          "count": 247,
+          "min": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "p05": 0.0,
+          "p95": 0.0,
+          "max": 0.0
+        }
+      },
+      "partial": {
+        "pairs": 14,
+        "images": 28,
+        "bootstrap_unit": "task_id_pair",
+        "bootstrap_samples": 1000,
+        "seed": 20262726,
+        "score_key": "ai_score",
+        "score_direction": "higher_means_fake",
+        "score_range": "finite_probability_closed_interval_[0,1]",
+        "fixed_threshold": 0.5,
+        "fixed_threshold_operator": ">",
+        "fpr_target": 0.05,
+        "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+        "fpr_threshold_operator": ">",
+        "auroc": {
+          "estimate": 0.4744897959183674,
+          "ci95_percentile": [
+            0.3364795918367347,
+            0.6020408163265306
+          ]
+        },
+        "average_precision": {
+          "estimate": 0.47863528472772165,
+          "ci95_percentile": [
+            0.43241917849531236,
+            0.6102793724480754
+          ]
+        },
+        "tpr_at_fpr_5_percent": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "tpr_at_fpr_5_percent_threshold": {
+          "estimate": 0.6886589527130127,
+          "ci95_percentile": [
+            0.10175035893917084,
+            0.6886589527130127
+          ]
+        },
+        "tpr_at_fpr_5_percent_actual_fpr": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "accuracy_at_0_5": {
+          "estimate": 0.4642857142857143,
+          "ci95_percentile": [
+            0.39285714285714285,
+            0.5
+          ]
+        },
+        "balanced_accuracy_at_0_5": {
+          "estimate": 0.4642857142857143,
+          "ci95_percentile": [
+            0.39285714285714285,
+            0.5
+          ]
+        },
+        "precision_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "f1_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "specificity_at_0_5": {
+          "estimate": 0.9285714285714286,
+          "ci95_percentile": [
+            0.7857142857142857,
+            1.0
+          ]
+        },
+        "paired_ranking_accuracy": {
+          "estimate": 0.42857142857142855,
+          "ci95_percentile": [
+            0.14285714285714285,
+            0.7142857142857143
+          ]
+        },
+        "paired_score_delta_mean": {
+          "estimate": -0.076367389906019,
+          "ci95_percentile": [
+            -0.19293553822769485,
+            0.006829063524362157
+          ]
+        },
+        "image_confusion_at_0_5": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 14,
+          "tn": 13
+        },
+        "paired_score_delta": {
+          "count": 14,
+          "min": -0.6767767500132322,
+          "mean": -0.076367389906019,
+          "median": -1.6167046851478517e-05,
+          "p05": -0.529200061399024,
+          "p95": 0.025934041873551892,
+          "max": 0.04660282237455249
+        },
+        "paired_ranking": {
+          "comparison": "forged_ai_score_strictly_greater_than_real",
+          "wins": 6,
+          "losses": 8,
+          "ties": 0,
+          "strict_accuracy": 0.42857142857142855
+        },
+        "paired_sign_test": {
+          "wins": 6,
+          "losses": 8,
+          "ties": 0,
+          "non_ties": 14,
+          "alternative": "two-sided",
+          "null_win_probability": 0.5,
+          "two_sided_exact_p": 0.79052734375
+        },
+        "domains": [
+          "lodging",
+          "restaurant"
+        ],
+        "edit_visibilities": [
+          "partial"
+        ],
+        "edit_visible_gt_fraction": {
+          "count": 14,
+          "min": 0.005120702267739576,
+          "mean": 0.4145913144309435,
+          "median": 0.33434621627165023,
+          "p05": 0.008462021913111836,
+          "p95": 0.9222324203574204,
+          "max": 0.9706730769230769
+        }
+      }
+    },
+    "edit_visible_gt_fraction": {
+      "count": 275,
+      "min": 0.0,
+      "mean": 0.07201555782557531,
+      "median": 0.0,
+      "p05": 0.0,
+      "p95": 0.9794711538461541,
+      "max": 1.0
+    },
+    "latency_ms": {
+      "count": 550,
+      "min": 9.596,
+      "mean": 11.207650909090908,
+      "median": 9.698,
+      "p05": 9.614,
+      "p95": 21.00255,
+      "max": 197.917
+    },
+    "peak_cuda_memory_bytes": {
+      "count": 550,
+      "min": 1806185472.0,
+      "mean": 1806185472.0,
+      "median": 1806185472.0,
+      "p05": 1806185472.0,
+      "p95": 1806185472.0,
+      "max": 1806185472.0,
+      "unmeasured_cpu_rows": 0
+    }
+  },
+  "prefix_provenance": {
+    "run_manifest_fingerprint": "d025c1e67848dfd14392bdc23a7808f45ce90a9e0c6d68e3f6abbe144a706429",
+    "preprocess_profile": "current_head_native_center_crop224",
+    "profile_kind": "current_head_native",
+    "preprocess_profile_contract": {
+      "profile_id": "current_head_native_center_crop224",
+      "steps": [
+        "Pillow.Image.open.convert_RGB",
+        "torchvision.transforms.CenterCrop_224",
+        "torchvision.transforms.ToTensor",
+        "CLIP_Normalize"
+      ],
+      "resize_short_side": null,
+      "center_crop": 224,
+      "source_basis": "current_HEAD_validate.py",
+      "source_commit": "76a0e3e60a8a06458707a625d269ba815a2e5919",
+      "drift": "current HEAD removed Resize(256) after the released linear head was committed"
+    },
+    "source_commit": "76a0e3e60a8a06458707a625d269ba815a2e5919",
+    "source_files_validated": 15,
+    "head_checkpoint": "/root/.cache/claimforge/checkpoints/universal-fake-detect-76a0e3e60a8a/fc_weights.pth",
+    "head_checkpoint_audit": {
+      "unsafe_globals": [],
+      "weights_only": true,
+      "keys": [
+        "weight",
+        "bias"
+      ],
+      "weight_shape": [
+        1,
+        768
+      ],
+      "bias_shape": [
+        1
+      ],
+      "dtype": "float32"
+    },
+    "backbone_checkpoint": "/root/.cache/claimforge/checkpoints/openai-clip/ViT-L-14.pt",
+    "asset_bundle_sha256": "b57c7a8865336b82fe716dc7871006883417cf60f7b36ca8a9a5f925da009121",
+    "adapter_contract": {
+      "files_validated": 3,
+      "filenames": [
+        "common.py",
+        "run_universalfakedetect.py",
+        "ufd_metrics.py"
+      ]
+    },
+    "canonical_inputs_sha256": "e4cb3d6a78fa68f06341457e2234c630a455a9b6b9789e59abf45c15b292060a",
+    "canonical_dataset_manifest_sha256": "beb3c30e436db682bbadef794404838f33a4812f18f22819dd6ab1ef3de6f0b1",
+    "physical_result_rows_validated": 10,
+    "latest_rows_validated": 10,
+    "selected_inputs_validated": 10,
+    "bootstrap_samples": 1000,
+    "bootstrap_seed": 20260724
+  },
+  "prefix_artifact_replay": {
+    "images_redecoded": 10,
+    "images_fully_reencoded": 10,
+    "persisted_features_validated": 10,
+    "feature_shape": [
+      768
+    ],
+    "feature_dtype": "float32",
+    "feature_l2_normalized": false,
+    "maximum_feature_absolute_difference": 0.0,
+    "maximum_raw_logit_absolute_difference": 0.0,
+    "maximum_probability_absolute_difference": 0.0,
+    "head_replayed_from_persisted_feature": true,
+    "float32_sigmoid_replayed": true,
+    "strict_decision_replayed": "probability > 0.5",
+    "preprocess_profile": "current_head_native_center_crop224",
+    "profile_kind": "current_head_native",
+    "crop_rgb_hash_replayed": true,
+    "normalized_tensor_hash_replayed": true,
+    "edit_visibility_tasks": {
+      "full": 1,
+      "none": 4
+    },
+    "complete_pair_edit_visibility": {
+      "full": 1,
+      "none": 4
+    },
+    "full_selection": false,
+    "required_full_visibility_census": {
+      "none": 247,
+      "partial": 14,
+      "full": 14
+    },
+    "canonical_crop_pair_equivalence": {
+      "basis": "np.array_equal_on_independently_decoded_and_preprocessed_canonical_RGB_crop_uint8_[224,224,3]",
+      "gt_visibility_semantics": "pre_canonicalization_input_location_condition_only; exact-diff GT precedes independent real/forged JPEG_q95 canonicalization",
+      "pairs": 5,
+      "crop_equal_pairs": 4,
+      "crop_different_pairs": 1,
+      "crop_equal_fraction": 0.8,
+      "by_edit_visibility": {
+        "full": {
+          "pairs": 1,
+          "crop_equal_pairs": 0,
+          "crop_different_pairs": 1,
+          "crop_equal_fraction": 0.0
+        },
+        "none": {
+          "pairs": 4,
+          "crop_equal_pairs": 4,
+          "crop_different_pairs": 0,
+          "crop_equal_fraction": 1.0
+        }
+      },
+      "crop_different_task_ids_by_edit_visibility": {
+        "full": [
+          "lodging_202_slot_001"
+        ]
+      },
+      "crop_different_pair_details": [
+        {
+          "task_id": "lodging_202_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 1866,
+          "differing_pixels": 709,
+          "maximum_rgb_absolute_difference": 77,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.5032072067260742,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -0.0004031411954201758,
+          "decision_exact": true
+        }
+      ],
+      "crop_equal_downstream_exact_pairs_validated": 4,
+      "crop_equal_downstream_exact_contract": [
+        "normalized_tensor_bytes",
+        "persisted_CLIP_feature_float32_array",
+        "independently_reencoded_CLIP_feature_float32_array",
+        "raw_logit",
+        "sigmoid_probability_and_all_score_aliases",
+        "strict_probability_greater_than_0.5_decision"
+      ],
+      "crop_different_pair_downstream_equality_not_assumed": true,
+      "full_current_expected_census": {
+        "pairs": 275,
+        "crop_equal_pairs": 246,
+        "crop_different_pairs": 29,
+        "by_edit_visibility": {
+          "none": {
+            "pairs": 247,
+            "crop_equal_pairs": 246,
+            "crop_different_pairs": 1
+          },
+          "partial": {
+            "pairs": 14,
+            "crop_equal_pairs": 0,
+            "crop_different_pairs": 14
+          },
+          "full": {
+            "pairs": 14,
+            "crop_equal_pairs": 0,
+            "crop_different_pairs": 14
+          }
+        }
+      },
+      "full_current_expected_census_enforced": false
+    },
+    "gt_visibility_interpretation": "pre-canonicalization input-location condition only; Mouse exact-diff GT is computed before independent real/forged JPEG_q95 canonicalization and cannot establish canonical crop or downstream equality",
+    "runtime": {
+      "recorded_device": "cuda:4",
+      "actual_device": "cuda:4",
+      "gpu_name": "NVIDIA L20Z",
+      "gpu_capability": [
+        9,
+        0
+      ],
+      "torch": "2.8.0.dev20250627+cu128",
+      "torch_cuda": "12.8",
+      "cudnn_version": 91002,
+      "numerical_flags": {
+        "cudnn_deterministic": true,
+        "cudnn_benchmark": false,
+        "cuda_matmul_allow_tf32": false,
+        "cudnn_allow_tf32": false,
+        "float32_matmul_precision": "highest"
+      },
+      "silent_cpu_fallback_rejected": true
+    }
+  },
+  "prefix_recomputed_summary": {
+    "schema_version": "ufd_detection_summary_v1",
+    "task_scope": {
+      "primary_task": "T1_whole_image_AIGC_detection",
+      "valid_for_t1": true,
+      "valid_for_t2": false,
+      "primary_score": "ai_score",
+      "score_direction": "higher_means_fake",
+      "score_range": "finite_probability_closed_interval_[0,1]",
+      "released_threshold": 0.5,
+      "released_threshold_operator": ">",
+      "fpr_target": 0.05,
+      "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+      "fpr_threshold_operator": ">",
+      "bootstrap_unit": "task_id_pair",
+      "precision_zero_division": 0
+    },
+    "coverage": {
+      "expected_images": 10,
+      "physical_result_rows": 10,
+      "result_images": 10,
+      "valid_images": 10,
+      "error_images": 0,
+      "missing_images": 0,
+      "coverage_fraction": 1.0,
+      "valid_fraction": 1.0,
+      "is_complete": true
+    },
+    "paired_coverage": {
+      "expected_tasks": 5,
+      "expected_complete_pairs": 5,
+      "expected_incomplete_tasks": 0,
+      "preflight_expected_incomplete_pairs": false,
+      "complete_valid_pairs": 5,
+      "paired_valid_images": 10,
+      "unpaired_valid_images": 0,
+      "valid_complete_task_fraction": 1.0
+    },
+    "score_by_kind": {
+      "forged": {
+        "count": 5,
+        "min": 2.197672301917919e-06,
+        "mean": 0.05711768443838992,
+        "median": 0.0006258108769543469,
+        "p05": 0.00012516551523731324,
+        "p95": 0.17699227333068845,
+        "max": 0.200205996632576
+      },
+      "real": {
+        "count": 5,
+        "min": 2.197672301917919e-06,
+        "mean": 0.05719831267747395,
+        "median": 0.0010201780823990703,
+        "p05": 0.00012692031323240373,
+        "p95": 0.17699227333068845,
+        "max": 0.200205996632576
+      }
+    },
+    "detection": {
+      "valid_images": 10,
+      "tp": 0,
+      "fp": 0,
+      "fn": 5,
+      "tn": 5,
+      "accuracy_at_0_5": 0.5,
+      "balanced_accuracy_at_0_5": 0.5,
+      "precision_at_0_5": 0.0,
+      "precision_zero_division": 0,
+      "recall_at_0_5": 0.0,
+      "f1_at_0_5": 0.0,
+      "specificity_at_0_5": 1.0,
+      "threshold": 0.5,
+      "threshold_operator": ">",
+      "score_direction": "higher_means_fake",
+      "score_range": "finite_probability_closed_interval_[0,1]",
+      "auroc": 0.43999999999999995,
+      "average_precision": 0.48571428571428565,
+      "tpr_at_fpr_5_percent": 0.0,
+      "tpr_at_fpr_5_percent_threshold": 0.200205996632576,
+      "tpr_at_fpr_5_percent_actual_fpr": 0.0,
+      "tpr_at_fpr_5_percent_threshold_source": "real_scores_quantile_0_95_method_higher",
+      "tpr_at_fpr_5_percent_threshold_operator": ">",
+      "score_key": "ai_score"
+    },
+    "paired_score_delta": {
+      "count": 5,
+      "min": -0.0004031411954201758,
+      "mean": -8.062823908403516e-05,
+      "median": 0.0,
+      "p05": -0.00032251295633614065,
+      "p95": 0.0,
+      "max": 0.0
+    },
+    "paired_ranking_accuracy": 0.0,
+    "paired_ranking": {
+      "comparison": "forged_ai_score_strictly_greater_than_real",
+      "wins": 0,
+      "losses": 1,
+      "ties": 4,
+      "strict_accuracy": 0.0
+    },
+    "paired_sign_test": {
+      "wins": 0,
+      "losses": 1,
+      "ties": 4,
+      "non_ties": 1,
+      "alternative": "two-sided",
+      "null_win_probability": 0.5,
+      "two_sided_exact_p": 1.0
+    },
+    "pair_bootstrap": {
+      "pairs": 5,
+      "images": 10,
+      "bootstrap_unit": "task_id_pair",
+      "bootstrap_samples": 1000,
+      "seed": 20260724,
+      "score_key": "ai_score",
+      "score_direction": "higher_means_fake",
+      "score_range": "finite_probability_closed_interval_[0,1]",
+      "fixed_threshold": 0.5,
+      "fixed_threshold_operator": ">",
+      "fpr_target": 0.05,
+      "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+      "fpr_threshold_operator": ">",
+      "auroc": {
+        "estimate": 0.43999999999999995,
+        "ci95_percentile": [
+          0.2,
+          0.5
+        ]
+      },
+      "average_precision": {
+        "estimate": 0.48571428571428565,
+        "ci95_percentile": [
+          0.44000000000000006,
+          0.5
+        ]
+      },
+      "tpr_at_fpr_5_percent": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "tpr_at_fpr_5_percent_threshold": {
+        "estimate": 0.200205996632576,
+        "ci95_percentile": [
+          0.0010201780823990703,
+          0.200205996632576
+        ]
+      },
+      "tpr_at_fpr_5_percent_actual_fpr": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "accuracy_at_0_5": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "balanced_accuracy_at_0_5": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "precision_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "recall_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "f1_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "specificity_at_0_5": {
+        "estimate": 1.0,
+        "ci95_percentile": [
+          1.0,
+          1.0
+        ]
+      },
+      "paired_ranking_accuracy": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "paired_score_delta_mean": {
+        "estimate": -8.062823908403516e-05,
+        "ci95_percentile": [
+          -0.00024188471725210546,
+          0.0
+        ]
+      },
+      "image_confusion_at_0_5": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 5,
+        "tn": 5
+      },
+      "paired_score_delta": {
+        "count": 5,
+        "min": -0.0004031411954201758,
+        "mean": -8.062823908403516e-05,
+        "median": 0.0,
+        "p05": -0.00032251295633614065,
+        "p95": 0.0,
+        "max": 0.0
+      },
+      "paired_ranking": {
+        "comparison": "forged_ai_score_strictly_greater_than_real",
+        "wins": 0,
+        "losses": 1,
+        "ties": 4,
+        "strict_accuracy": 0.0
+      },
+      "paired_sign_test": {
+        "wins": 0,
+        "losses": 1,
+        "ties": 4,
+        "non_ties": 1,
+        "alternative": "two-sided",
+        "null_win_probability": 0.5,
+        "two_sided_exact_p": 1.0
+      },
+      "domains": [
+        "lodging",
+        "restaurant"
+      ],
+      "edit_visibilities": [
+        "full",
+        "none"
+      ],
+      "edit_visible_gt_fraction": {
+        "count": 5,
+        "min": 0.0,
+        "mean": 0.2,
+        "median": 0.0,
+        "p05": 0.0,
+        "p95": 0.7999999999999998,
+        "max": 1.0
+      }
+    },
+    "by_domain": {
+      "lodging": {
+        "pairs": 3,
+        "images": 6,
+        "bootstrap_unit": "task_id_pair",
+        "bootstrap_samples": 1000,
+        "seed": 20261724,
+        "score_key": "ai_score",
+        "score_direction": "higher_means_fake",
+        "score_range": "finite_probability_closed_interval_[0,1]",
+        "fixed_threshold": 0.5,
+        "fixed_threshold_operator": ">",
+        "fpr_target": 0.05,
+        "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+        "fpr_threshold_operator": ">",
+        "auroc": {
+          "estimate": 0.4444444444444444,
+          "ci95_percentile": [
+            0.0,
+            0.5
+          ]
+        },
+        "average_precision": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "tpr_at_fpr_5_percent": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "tpr_at_fpr_5_percent_threshold": {
+          "estimate": 0.200205996632576,
+          "ci95_percentile": [
+            0.0010201780823990703,
+            0.200205996632576
+          ]
+        },
+        "tpr_at_fpr_5_percent_actual_fpr": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "accuracy_at_0_5": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "balanced_accuracy_at_0_5": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "precision_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "f1_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "specificity_at_0_5": {
+          "estimate": 1.0,
+          "ci95_percentile": [
+            1.0,
+            1.0
+          ]
+        },
+        "paired_ranking_accuracy": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "paired_score_delta_mean": {
+          "estimate": -0.00013438039847339192,
+          "ci95_percentile": [
+            -0.0004031411954201758,
+            0.0
+          ]
+        },
+        "image_confusion_at_0_5": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "tn": 3
+        },
+        "paired_score_delta": {
+          "count": 3,
+          "min": -0.0004031411954201758,
+          "mean": -0.00013438039847339192,
+          "median": 0.0,
+          "p05": -0.0003628270758781582,
+          "p95": 0.0,
+          "max": 0.0
+        },
+        "paired_ranking": {
+          "comparison": "forged_ai_score_strictly_greater_than_real",
+          "wins": 0,
+          "losses": 1,
+          "ties": 2,
+          "strict_accuracy": 0.0
+        },
+        "paired_sign_test": {
+          "wins": 0,
+          "losses": 1,
+          "ties": 2,
+          "non_ties": 1,
+          "alternative": "two-sided",
+          "null_win_probability": 0.5,
+          "two_sided_exact_p": 1.0
+        },
+        "domains": [
+          "lodging"
+        ],
+        "edit_visibilities": [
+          "full",
+          "none"
+        ],
+        "edit_visible_gt_fraction": {
+          "count": 3,
+          "min": 0.0,
+          "mean": 0.3333333333333333,
+          "median": 0.0,
+          "p05": 0.0,
+          "p95": 0.8999999999999999,
+          "max": 1.0
+        }
+      },
+      "restaurant": {
+        "pairs": 2,
+        "images": 4,
+        "bootstrap_unit": "task_id_pair",
+        "bootstrap_samples": 1000,
+        "seed": 20261725,
+        "score_key": "ai_score",
+        "score_direction": "higher_means_fake",
+        "score_range": "finite_probability_closed_interval_[0,1]",
+        "fixed_threshold": 0.5,
+        "fixed_threshold_operator": ">",
+        "fpr_target": 0.05,
+        "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+        "fpr_threshold_operator": ">",
+        "auroc": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "average_precision": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "tpr_at_fpr_5_percent": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "tpr_at_fpr_5_percent_threshold": {
+          "estimate": 0.0006258108769543469,
+          "ci95_percentile": [
+            2.197672301917919e-06,
+            0.0006258108769543469
+          ]
+        },
+        "tpr_at_fpr_5_percent_actual_fpr": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "accuracy_at_0_5": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "balanced_accuracy_at_0_5": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "precision_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "f1_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "specificity_at_0_5": {
+          "estimate": 1.0,
+          "ci95_percentile": [
+            1.0,
+            1.0
+          ]
+        },
+        "paired_ranking_accuracy": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "paired_score_delta_mean": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "image_confusion_at_0_5": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 2,
+          "tn": 2
+        },
+        "paired_score_delta": {
+          "count": 2,
+          "min": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "p05": 0.0,
+          "p95": 0.0,
+          "max": 0.0
+        },
+        "paired_ranking": {
+          "comparison": "forged_ai_score_strictly_greater_than_real",
+          "wins": 0,
+          "losses": 0,
+          "ties": 2,
+          "strict_accuracy": 0.0
+        },
+        "paired_sign_test": {
+          "wins": 0,
+          "losses": 0,
+          "ties": 2,
+          "non_ties": 0,
+          "alternative": "two-sided",
+          "null_win_probability": 0.5,
+          "two_sided_exact_p": 1.0
+        },
+        "domains": [
+          "restaurant"
+        ],
+        "edit_visibilities": [
+          "none"
+        ],
+        "edit_visible_gt_fraction": {
+          "count": 2,
+          "min": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "p05": 0.0,
+          "p95": 0.0,
+          "max": 0.0
+        }
+      }
+    },
+    "by_edit_visibility": {
+      "full": {
+        "pairs": 1,
+        "images": 2,
+        "bootstrap_unit": "task_id_pair",
+        "bootstrap_samples": 1000,
+        "seed": 20262724,
+        "score_key": "ai_score",
+        "score_direction": "higher_means_fake",
+        "score_range": "finite_probability_closed_interval_[0,1]",
+        "fixed_threshold": 0.5,
+        "fixed_threshold_operator": ">",
+        "fpr_target": 0.05,
+        "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+        "fpr_threshold_operator": ">",
+        "auroc": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "average_precision": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "tpr_at_fpr_5_percent": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "tpr_at_fpr_5_percent_threshold": {
+          "estimate": 0.0010201780823990703,
+          "ci95_percentile": [
+            0.0010201780823990703,
+            0.0010201780823990703
+          ]
+        },
+        "tpr_at_fpr_5_percent_actual_fpr": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "accuracy_at_0_5": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "balanced_accuracy_at_0_5": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "precision_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "f1_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "specificity_at_0_5": {
+          "estimate": 1.0,
+          "ci95_percentile": [
+            1.0,
+            1.0
+          ]
+        },
+        "paired_ranking_accuracy": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "paired_score_delta_mean": {
+          "estimate": -0.0004031411954201758,
+          "ci95_percentile": [
+            -0.0004031411954201758,
+            -0.0004031411954201758
+          ]
+        },
+        "image_confusion_at_0_5": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "tn": 1
+        },
+        "paired_score_delta": {
+          "count": 1,
+          "min": -0.0004031411954201758,
+          "mean": -0.0004031411954201758,
+          "median": -0.0004031411954201758,
+          "p05": -0.0004031411954201758,
+          "p95": -0.0004031411954201758,
+          "max": -0.0004031411954201758
+        },
+        "paired_ranking": {
+          "comparison": "forged_ai_score_strictly_greater_than_real",
+          "wins": 0,
+          "losses": 1,
+          "ties": 0,
+          "strict_accuracy": 0.0
+        },
+        "paired_sign_test": {
+          "wins": 0,
+          "losses": 1,
+          "ties": 0,
+          "non_ties": 1,
+          "alternative": "two-sided",
+          "null_win_probability": 0.5,
+          "two_sided_exact_p": 1.0
+        },
+        "domains": [
+          "lodging"
+        ],
+        "edit_visibilities": [
+          "full"
+        ],
+        "edit_visible_gt_fraction": {
+          "count": 1,
+          "min": 1.0,
+          "mean": 1.0,
+          "median": 1.0,
+          "p05": 1.0,
+          "p95": 1.0,
+          "max": 1.0
+        }
+      },
+      "none": {
+        "pairs": 4,
+        "images": 8,
+        "bootstrap_unit": "task_id_pair",
+        "bootstrap_samples": 1000,
+        "seed": 20262725,
+        "score_key": "ai_score",
+        "score_direction": "higher_means_fake",
+        "score_range": "finite_probability_closed_interval_[0,1]",
+        "fixed_threshold": 0.5,
+        "fixed_threshold_operator": ">",
+        "fpr_target": 0.05,
+        "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+        "fpr_threshold_operator": ">",
+        "auroc": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "average_precision": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "tpr_at_fpr_5_percent": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "tpr_at_fpr_5_percent_threshold": {
+          "estimate": 0.200205996632576,
+          "ci95_percentile": [
+            0.0006258108769543469,
+            0.200205996632576
+          ]
+        },
+        "tpr_at_fpr_5_percent_actual_fpr": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "accuracy_at_0_5": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "balanced_accuracy_at_0_5": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "precision_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "f1_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "specificity_at_0_5": {
+          "estimate": 1.0,
+          "ci95_percentile": [
+            1.0,
+            1.0
+          ]
+        },
+        "paired_ranking_accuracy": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "paired_score_delta_mean": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "image_confusion_at_0_5": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 4,
+          "tn": 4
+        },
+        "paired_score_delta": {
+          "count": 4,
+          "min": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "p05": 0.0,
+          "p95": 0.0,
+          "max": 0.0
+        },
+        "paired_ranking": {
+          "comparison": "forged_ai_score_strictly_greater_than_real",
+          "wins": 0,
+          "losses": 0,
+          "ties": 4,
+          "strict_accuracy": 0.0
+        },
+        "paired_sign_test": {
+          "wins": 0,
+          "losses": 0,
+          "ties": 4,
+          "non_ties": 0,
+          "alternative": "two-sided",
+          "null_win_probability": 0.5,
+          "two_sided_exact_p": 1.0
+        },
+        "domains": [
+          "lodging",
+          "restaurant"
+        ],
+        "edit_visibilities": [
+          "none"
+        ],
+        "edit_visible_gt_fraction": {
+          "count": 4,
+          "min": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "p05": 0.0,
+          "p95": 0.0,
+          "max": 0.0
+        }
+      }
+    },
+    "edit_visible_gt_fraction": {
+      "count": 5,
+      "min": 0.0,
+      "mean": 0.2,
+      "median": 0.0,
+      "p05": 0.0,
+      "p95": 0.7999999999999998,
+      "max": 1.0
+    },
+    "latency_ms": {
+      "count": 10,
+      "min": 9.697,
+      "mean": 38.4401,
+      "median": 9.7765,
+      "p05": 9.7042,
+      "p95": 167.4909999999997,
+      "max": 296.353
+    },
+    "peak_cuda_memory_bytes": {
+      "count": 10,
+      "min": 1806185472.0,
+      "mean": 1806185472.0,
+      "median": 1806185472.0,
+      "p05": 1806185472.0,
+      "p95": 1806185472.0,
+      "max": 1806185472.0,
+      "unmeasured_cpu_rows": 0
+    }
+  },
+  "prefix_reproducibility": {
+    "policy": "independent run identities and feature paths; exact ordered prefix; byte-identical float32 features, preprocessing, scores, and decisions",
+    "prefix_run_id": "ufd_clip_vitl14_current_head_mouse_canonical_v1_smoke5_20260724",
+    "full_run_id": "ufd_clip_vitl14_current_head_mouse_canonical_v1_full275_20260724",
+    "prefix_manifest_fingerprint": "d025c1e67848dfd14392bdc23a7808f45ce90a9e0c6d68e3f6abbe144a706429",
+    "full_manifest_fingerprint": "88d101117d02fd2466da5bac2fb5c35a3444cc2c6fcc2d240350928a768e84c6",
+    "prefix_images": 10,
+    "prefix_pairs": 5,
+    "samples_compared": 10,
+    "copied_full_rows_rejected": true
+  },
+  "task_scope": {
+    "valid_for_t1": true,
+    "valid_for_t2": false,
+    "localization_outputs_rejected": true,
+    "s_joint_outputs_rejected": true
+  },
+  "status": "audited"
+}

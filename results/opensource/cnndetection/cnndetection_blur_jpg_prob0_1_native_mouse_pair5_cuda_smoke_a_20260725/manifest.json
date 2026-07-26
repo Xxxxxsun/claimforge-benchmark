@@ -1,0 +1,414 @@
+{
+  "schema_version": "cnndetection_run_manifest_v1",
+  "run_id": "cnndetection_blur_jpg_prob0_1_native_mouse_pair5_cuda_smoke_a_20260725",
+  "status": "complete",
+  "started_at": "2026-07-25T22:28:11.263118+00:00",
+  "completed_at": "2026-07-25T22:28:20.483401+00:00",
+  "repo_root": "/root/claimforge-benchmark",
+  "config_fingerprint": "d47933bbebfce8cc75c11f77a11363ba17b45ccf5c63860bd44bc394aa43e014",
+  "config": {
+    "model": "CNNDetection",
+    "model_slug": "cnndetection_blur_jpg_prob0_1",
+    "model_arch": "official vendored ResNet-50, one-logit head",
+    "repo_url": "https://github.com/PeterWang512/CNNDetection",
+    "source_commit": "ea0b5622365e3a9cd31d1b54b6b5971131a839ab",
+    "paper_url": "https://openaccess.thecvf.com/content_CVPR_2020/html/Wang_CNN-Generated_Images_Are_Surprisingly_Easy_to_Spot..._for_Now_CVPR_2020_paper.html",
+    "checkpoint_id": "CNNDetection-BlurJPEG0.1@official-dropbox",
+    "checkpoint_sha256": "a73295ac66f9cb74d558ce3ade46f75e2f2997ed05eeed0f4b774623372058ea",
+    "checkpoint_bytes": 282442597,
+    "checkpoint_selection_frozen_before_mouse_scores": true,
+    "checkpoint_variant": "Blur+JPEG(0.1)",
+    "excluded_primary_variant": {
+      "name": "Blur+JPEG(0.5)",
+      "reason": "README quick-start default only; not selected through post-hoc Mouse performance"
+    },
+    "preprocess_profile": "official_recommended_native_rgb_no_resize_no_crop",
+    "preprocess_profile_contract": {
+      "profile_id": "official_recommended_native_rgb_no_resize_no_crop",
+      "role": "primary",
+      "steps": [
+        "Pillow.Image.open.convert_RGB",
+        "no_EXIF_transpose",
+        "no_resize",
+        "no_crop",
+        "torchvision.transforms.functional.to_tensor",
+        "torchvision.transforms.functional.normalize_ImageNet"
+      ],
+      "resize": null,
+      "center_crop": null,
+      "batch_size": 1,
+      "source_basis": "official_2020_06_uncropped_update_and_demo_default",
+      "source_commit": "ea0b5622365e3a9cd31d1b54b6b5971131a839ab",
+      "selection_frozen_before_mouse_scores": true
+    },
+    "available_profiles": {
+      "official_recommended_native_rgb_no_resize_no_crop": {
+        "profile_id": "official_recommended_native_rgb_no_resize_no_crop",
+        "role": "primary",
+        "steps": [
+          "Pillow.Image.open.convert_RGB",
+          "no_EXIF_transpose",
+          "no_resize",
+          "no_crop",
+          "torchvision.transforms.functional.to_tensor",
+          "torchvision.transforms.functional.normalize_ImageNet"
+        ],
+        "resize": null,
+        "center_crop": null,
+        "batch_size": 1,
+        "source_basis": "official_2020_06_uncropped_update_and_demo_default",
+        "source_commit": "ea0b5622365e3a9cd31d1b54b6b5971131a839ab",
+        "selection_frozen_before_mouse_scores": true
+      },
+      "paper_native_center_crop224_no_resize": {
+        "profile_id": "paper_native_center_crop224_no_resize",
+        "role": "preregistered_sensitivity_not_primary",
+        "steps": [
+          "Pillow.Image.open.convert_RGB",
+          "no_EXIF_transpose",
+          "no_resize",
+          "torchvision.transforms.functional.center_crop_224",
+          "torchvision.transforms.functional.to_tensor",
+          "torchvision.transforms.functional.normalize_ImageNet"
+        ],
+        "resize": null,
+        "center_crop": 224,
+        "batch_size": 1,
+        "source_basis": "CVPR_2020_paper_evaluation",
+        "source_commit": "f692c138482137c92280c01a45ae190379f16790",
+        "selection_frozen_before_mouse_scores": true
+      }
+    },
+    "profile_selection_frozen_before_mouse_scores": true,
+    "no_test_time_blur_or_jpeg": true,
+    "batch_size": 1,
+    "classification": {
+      "raw_output": "one_float32_logit",
+      "score": "torch_float32_sigmoid_uncalibrated_fake_score",
+      "calibrated_probability": false,
+      "threshold": 0.5,
+      "threshold_operator": ">",
+      "score_direction": "higher_means_fake",
+      "target_domain_calibration": "forbidden"
+    },
+    "task_scope": {
+      "primary_task": "T1_whole_image_AIGC_detection",
+      "valid_for_t1": true,
+      "valid_for_t2": false,
+      "localization_output": null,
+      "joint_output": null
+    },
+    "adapter": {
+      "eval/opensource/run_cnndetection.py": "e81316eddf05eed8e7fa01530de492d19a2b543cba1077eb661d225ab30ab96b",
+      "eval/opensource/cnndetection_metrics.py": "152b6be26afbf12549ccd35f68302f5a43398153195a92415f288a66f47221ac",
+      "eval/opensource/analyze_cnndetection_run.py": "de3e8fe7e4f12e8bc0271741d70d0eb4e74a712fe59317d5f382fa5e4bb4c674",
+      "eval/opensource/common.py": "66ee7134e8398bb8121034fb7f9aef007137a09e03426af24e0faae886188c9f",
+      "eval/opensource/ufd_metrics.py": "2ac33d7eafe2b33913f671cfa8304233421609bf5eac05186ef4556f729d7347"
+    },
+    "source": {
+      "repo_url": "https://github.com/PeterWang512/CNNDetection",
+      "root": "/root/.cache/claimforge/cnndetection_official",
+      "commit": "ea0b5622365e3a9cd31d1b54b6b5971131a839ab",
+      "paper_era_stable_commit": "f692c138482137c92280c01a45ae190379f16790",
+      "tracked_dirty": false,
+      "source_files": {
+        "LICENSE.txt": "6079b20c4344bc679958d3709a8e2c09bafc5acb897531257288f4f6dcfb7471",
+        "README.md": "00a70018864cd01f873ce728a5b766cbc148aa7811e8e8e8b308dd4ff2b6d856",
+        "demo.py": "ae5aa6d4e6eb5490a31d9f2f50d5211c9be1f13392b264dc9189636b7565a1b4",
+        "demo_dir.py": "d4a30eee1477216f52393b9d2e9b37bf59ce12fede02de1220f3b6bd626bee0c",
+        "eval.py": "f71436d78631e074cfaf33b6ae86514144fd8894a3335ee8e60091a87b2c554b",
+        "eval_config.py": "2d6151e649f8ce5afb296381656107fa8223790d2942a31519dd2c19e01828f1",
+        "validate.py": "dca8aa2aed02d6630ba4d58feab69e2f80e4f76e803d5365bf35b2b9ca776be3",
+        "data/datasets.py": "689e113556829c2fc72e249f1ca36d8e65661e13fadf57da462c1c49e2cf8e32",
+        "networks/resnet.py": "987a2ea7f70f80bd60fbf46d5e610fb89df91cbaa35fc887e65243e205eb8e58",
+        "options/base_options.py": "ca8c38346ba9b4e1d8689c774b0a6f01053e31a8d1442228951c1e1e9b26521f",
+        "options/test_options.py": "89cdad6b02bf171f132bf19f4a0728925c6d76237568b2dc947674a3d8abc8f5",
+        "requirements.txt": "b627f074063b6212324f961af65ebfe0195330247afde041f1901d57d0d09d6b",
+        "weights/download_weights.sh": "3d9bdbb89c64e6ee1789b4bbd93bc4919bc099eaf9eef74dbf9de27b13f18f3c"
+      },
+      "core_inference_byte_identical_to_paper_era_commit": true
+    },
+    "asset": {
+      "id": "CNNDetection-BlurJPEG0.1@official-dropbox",
+      "filename": "blur_jpg_prob0.1.pth",
+      "bytes": 282442597,
+      "sha256": "a73295ac66f9cb74d558ce3ade46f75e2f2997ed05eeed0f4b774623372058ea",
+      "format": "torch_legacy_pickle_nested_training_checkpoint",
+      "safe_load": "torch.load_weights_only_true",
+      "outer_keys": [
+        "model",
+        "optimizer",
+        "total_steps"
+      ],
+      "state_entries": 320,
+      "state_elements": 23563254,
+      "trainable_parameters": 23510081,
+      "optimizer_state_entries": 161,
+      "optimizer_param_groups": 1,
+      "total_steps": 270048,
+      "state_payload_sha256": "8c62f887d5b97a0337f0ed598ac80cb9d86929613d3bc5c08fb0331b470c8931",
+      "official_url": "https://www.dropbox.com/s/h7tkpcgiwuftb6g/blur_jpg_prob0.1.pth?dl=1",
+      "official_digest_published": false,
+      "selection_basis": "paper mean cross-generator AP 92.6; paper calls 0.1 a good balance and uses it for StyleGAN2, ranking, and calibration experiments",
+      "path": "/root/.cache/claimforge/models/cnndetection/blur_jpg_prob0.1.pth",
+      "serialization_safety": {
+        "weights_only": true,
+        "weights_only_load_succeeded": true,
+        "static_unsafe_global_scan": {
+          "supported": false,
+          "unsafe_globals": null,
+          "reason": "PyTorch static scanner does not support this legacy torch.save stream"
+        },
+        "unrestricted_pickle_used": false
+      },
+      "schema": {
+        "outer_type": "dict",
+        "outer_keys": [
+          "model",
+          "optimizer",
+          "total_steps"
+        ],
+        "model_type": "OrderedDict",
+        "state_entries": 320,
+        "state_elements": 23563254,
+        "state_payload_sha256": "8c62f887d5b97a0337f0ed598ac80cb9d86929613d3bc5c08fb0331b470c8931",
+        "conv1_weight_shape": [
+          64,
+          3,
+          7,
+          7
+        ],
+        "fc_weight_shape": [
+          1,
+          2048
+        ],
+        "fc_bias_shape": [
+          1
+        ],
+        "optimizer_state_entries": 161,
+        "optimizer_param_groups": 1,
+        "total_steps": 270048,
+        "strict_model_load": true
+      }
+    },
+    "runtime": {
+      "device": "cuda:0",
+      "python": "3.12.3",
+      "platform": "Linux-5.10.134-16.103.al8.x86_64-x86_64-with-glibc2.39",
+      "torch": "2.8.0.dev20250627+cu128",
+      "torchvision": "0.23.0.dev20250627+cu128",
+      "pillow": "11.1.0",
+      "numpy": "2.2.6",
+      "seed": 20260725,
+      "dtype": "float32",
+      "batch_size": 1,
+      "autocast": false,
+      "deterministic_algorithms_enabled": true,
+      "deterministic_algorithms_warn_only": false,
+      "cublas_workspace_config": ":4096:8",
+      "cudnn": {
+        "enabled": true,
+        "benchmark": false,
+        "deterministic": true,
+        "allow_tf32": false
+      },
+      "matmul_allow_tf32": false,
+      "cuda": {
+        "runtime": "12.8",
+        "device_index": 0,
+        "device_name": "NVIDIA L20Z",
+        "total_memory_bytes": 85017624576,
+        "capability": [
+          9,
+          0
+        ]
+      }
+    },
+    "dataset": {
+      "schema_version": "claimforge_mouse_canonical_v1",
+      "dataset_id": "claimforge-mouse-good275-canonical-jpeg-q95-v1",
+      "inputs_sha256": "e4cb3d6a78fa68f06341457e2234c630a455a9b6b9789e59abf45c15b292060a",
+      "selected_ids": [
+        "0cca3f606edf434904f7bea5",
+        "ae5f5c15ded9fb7d08809d31",
+        "0757160e6912ebe6d3bdaeb8",
+        "90d6a8fe135d78909c688dae",
+        "b260b4ea209c39e746e1e718",
+        "dea8400c9a29eb08e3e59ecd",
+        "1ee60135d95ae17050977cf7",
+        "50df11321257619a3a37605f",
+        "ff437e8bbe6e8f4f22031d3a",
+        "a79b23d1e93d7055241331ea"
+      ],
+      "selected_rows_sha256": "d18681c46babc0f0e4e2ab1811b8cf8e6bba38fcdf3c8276e5b840fb8990efef",
+      "pair_limit": 5,
+      "sample_id": null
+    },
+    "metrics": {
+      "bootstrap_samples": 1000,
+      "bootstrap_seed": 20260724,
+      "fixed_threshold": 0.5,
+      "threshold_operator": ">",
+      "raw_logit_diagnostic": "always_reported_never_replaces_released_sigmoid_rule"
+    },
+    "license": {
+      "repository": {
+        "license": "CC-BY-NC-SA-4.0",
+        "osi_open_source": false,
+        "commercial_use_permitted": false
+      },
+      "checkpoint": {
+        "separate_terms_found": false,
+        "conservative_terms": "CC-BY-NC-SA-4.0",
+        "commercial_clearance_established": false
+      },
+      "overall_commercial_clearance": "not_established"
+    }
+  },
+  "source": {
+    "repo_url": "https://github.com/PeterWang512/CNNDetection",
+    "root": "/root/.cache/claimforge/cnndetection_official",
+    "commit": "ea0b5622365e3a9cd31d1b54b6b5971131a839ab",
+    "paper_era_stable_commit": "f692c138482137c92280c01a45ae190379f16790",
+    "tracked_dirty": false,
+    "source_files": {
+      "LICENSE.txt": "6079b20c4344bc679958d3709a8e2c09bafc5acb897531257288f4f6dcfb7471",
+      "README.md": "00a70018864cd01f873ce728a5b766cbc148aa7811e8e8e8b308dd4ff2b6d856",
+      "demo.py": "ae5aa6d4e6eb5490a31d9f2f50d5211c9be1f13392b264dc9189636b7565a1b4",
+      "demo_dir.py": "d4a30eee1477216f52393b9d2e9b37bf59ce12fede02de1220f3b6bd626bee0c",
+      "eval.py": "f71436d78631e074cfaf33b6ae86514144fd8894a3335ee8e60091a87b2c554b",
+      "eval_config.py": "2d6151e649f8ce5afb296381656107fa8223790d2942a31519dd2c19e01828f1",
+      "validate.py": "dca8aa2aed02d6630ba4d58feab69e2f80e4f76e803d5365bf35b2b9ca776be3",
+      "data/datasets.py": "689e113556829c2fc72e249f1ca36d8e65661e13fadf57da462c1c49e2cf8e32",
+      "networks/resnet.py": "987a2ea7f70f80bd60fbf46d5e610fb89df91cbaa35fc887e65243e205eb8e58",
+      "options/base_options.py": "ca8c38346ba9b4e1d8689c774b0a6f01053e31a8d1442228951c1e1e9b26521f",
+      "options/test_options.py": "89cdad6b02bf171f132bf19f4a0728925c6d76237568b2dc947674a3d8abc8f5",
+      "requirements.txt": "b627f074063b6212324f961af65ebfe0195330247afde041f1901d57d0d09d6b",
+      "weights/download_weights.sh": "3d9bdbb89c64e6ee1789b4bbd93bc4919bc099eaf9eef74dbf9de27b13f18f3c"
+    },
+    "core_inference_byte_identical_to_paper_era_commit": true
+  },
+  "asset": {
+    "id": "CNNDetection-BlurJPEG0.1@official-dropbox",
+    "filename": "blur_jpg_prob0.1.pth",
+    "bytes": 282442597,
+    "sha256": "a73295ac66f9cb74d558ce3ade46f75e2f2997ed05eeed0f4b774623372058ea",
+    "format": "torch_legacy_pickle_nested_training_checkpoint",
+    "safe_load": "torch.load_weights_only_true",
+    "outer_keys": [
+      "model",
+      "optimizer",
+      "total_steps"
+    ],
+    "state_entries": 320,
+    "state_elements": 23563254,
+    "trainable_parameters": 23510081,
+    "optimizer_state_entries": 161,
+    "optimizer_param_groups": 1,
+    "total_steps": 270048,
+    "state_payload_sha256": "8c62f887d5b97a0337f0ed598ac80cb9d86929613d3bc5c08fb0331b470c8931",
+    "official_url": "https://www.dropbox.com/s/h7tkpcgiwuftb6g/blur_jpg_prob0.1.pth?dl=1",
+    "official_digest_published": false,
+    "selection_basis": "paper mean cross-generator AP 92.6; paper calls 0.1 a good balance and uses it for StyleGAN2, ranking, and calibration experiments",
+    "path": "/root/.cache/claimforge/models/cnndetection/blur_jpg_prob0.1.pth",
+    "serialization_safety": {
+      "weights_only": true,
+      "weights_only_load_succeeded": true,
+      "static_unsafe_global_scan": {
+        "supported": false,
+        "unsafe_globals": null,
+        "reason": "PyTorch static scanner does not support this legacy torch.save stream"
+      },
+      "unrestricted_pickle_used": false
+    },
+    "schema": {
+      "outer_type": "dict",
+      "outer_keys": [
+        "model",
+        "optimizer",
+        "total_steps"
+      ],
+      "model_type": "OrderedDict",
+      "state_entries": 320,
+      "state_elements": 23563254,
+      "state_payload_sha256": "8c62f887d5b97a0337f0ed598ac80cb9d86929613d3bc5c08fb0331b470c8931",
+      "conv1_weight_shape": [
+        64,
+        3,
+        7,
+        7
+      ],
+      "fc_weight_shape": [
+        1,
+        2048
+      ],
+      "fc_bias_shape": [
+        1
+      ],
+      "optimizer_state_entries": 161,
+      "optimizer_param_groups": 1,
+      "total_steps": 270048,
+      "strict_model_load": true
+    }
+  },
+  "runtime": {
+    "device": "cuda:0",
+    "python": "3.12.3",
+    "platform": "Linux-5.10.134-16.103.al8.x86_64-x86_64-with-glibc2.39",
+    "torch": "2.8.0.dev20250627+cu128",
+    "torchvision": "0.23.0.dev20250627+cu128",
+    "pillow": "11.1.0",
+    "numpy": "2.2.6",
+    "seed": 20260725,
+    "dtype": "float32",
+    "batch_size": 1,
+    "autocast": false,
+    "deterministic_algorithms_enabled": true,
+    "deterministic_algorithms_warn_only": false,
+    "cublas_workspace_config": ":4096:8",
+    "cudnn": {
+      "enabled": true,
+      "benchmark": false,
+      "deterministic": true,
+      "allow_tf32": false
+    },
+    "matmul_allow_tf32": false,
+    "cuda": {
+      "runtime": "12.8",
+      "device_index": 0,
+      "device_name": "NVIDIA L20Z",
+      "total_memory_bytes": 85017624576,
+      "capability": [
+        9,
+        0
+      ]
+    }
+  },
+  "dataset": {
+    "manifest_path": "outputs/opensource/mouse_canonical_v1/manifest.json",
+    "manifest_sha256": "beb3c30e436db682bbadef794404838f33a4812f18f22819dd6ab1ef3de6f0b1",
+    "inputs_path": "outputs/opensource/mouse_canonical_v1/inputs.jsonl",
+    "inputs_sha256": "e4cb3d6a78fa68f06341457e2234c630a455a9b6b9789e59abf45c15b292060a",
+    "expected_inputs_path": "results/opensource/cnndetection/cnndetection_blur_jpg_prob0_1_native_mouse_pair5_cuda_smoke_a_20260725/expected_inputs.jsonl",
+    "expected_inputs_sha256": "d18681c46babc0f0e4e2ab1811b8cf8e6bba38fcdf3c8276e5b840fb8990efef",
+    "selected_images": 10,
+    "selected_tasks": 5
+  },
+  "visibility_census": {
+    "full": 5
+  },
+  "outputs": {
+    "results_path": "results/opensource/cnndetection/cnndetection_blur_jpg_prob0_1_native_mouse_pair5_cuda_smoke_a_20260725/results.jsonl",
+    "summary_path": "results/opensource/cnndetection/cnndetection_blur_jpg_prob0_1_native_mouse_pair5_cuda_smoke_a_20260725/summary.json",
+    "feature_dir": "results/opensource/cnndetection/cnndetection_blur_jpg_prob0_1_native_mouse_pair5_cuda_smoke_a_20260725/features",
+    "results_sha256": "023ccde0c32459f369afecbbfa28a29075b5ad307bd6578e02ae12138101e03f",
+    "summary_sha256": "eedf72b39e223079e98fa5f76a8f1014c350f4d9dc63079ce9ead37b0e46f028",
+    "feature_files": 10
+  },
+  "execution": {
+    "new_successes": 10,
+    "resume_skips": 0,
+    "new_errors": 0,
+    "physical_result_rows": 10
+  }
+}

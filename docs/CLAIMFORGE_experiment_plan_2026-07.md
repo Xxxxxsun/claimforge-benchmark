@@ -81,15 +81,222 @@ AISI 评审按六项打分（问题重要性 / 跨学科文献 / 对 AI 社区�
 
 ### 家族 A/C：局部取证检测与定位（T1+T2，核心竞争者）— 11 个
 已完成全量：**CAT-Net v2、MVSS-Net、TruFor、MaskCLIP、PSCC-Net、IML-ViT、
-HiFi-IFDL、Mesorch**。
-冻结待跑：**RelayFormer、DINOv3-IML、NFA-ViT/BR-Gen**。其中只有作者原生
+HiFi-IFDL、Mesorch、RelayFormer、DINOv3-IML**。
+暂缓：**NFA-ViT/BR-Gen**（runner、指标与独立审计已就绪，但官方
+`checkpoint-9999.pth` 只有需登录的百度网盘入口；不计作完成）。其中只有作者原生
 提供独立 image score/head 的方法进入
 原生 T1；map-only 方法的 T1 记 N/A，不把 map mean/max 冒充分类头。
 
 ### 家族 B：整图 AIGC 检测（仅 T1，预期接近随机——本身就是结果）— 10 个
-冻结待跑：**FSD、UniversalFakeDetect、NPR、Community Forensics、SPAI、
-B-Free、Effort、OmniAID、LTD、CNNDetection**。前 7 个构成最小机制完备集，
-后 3 个完成推荐主表；全部同时跑 local-splice 主集和 D4 整图生成对照集。
+已完成 9 个 local-splice 全量。**FSD official v1.2 inference release**
+为 550/550 有效，AUROC `0.500350`、AP `0.502708`、无原生 T2（详见
+[`FSD_V1_2_0_MOUSE_FULL_RESULTS_2026-07-24.md`](FSD_V1_2_0_MOUSE_FULL_RESULTS_2026-07-24.md)）；
+**UniversalFakeDetect official Ours LC** 当前官方 HEAD 主流程为
+550/550 有效，AUROC `0.499650`、AP
+`0.497293`、无原生 T2，另有独立 checkpoint-era preprocessing
+sensitivity（AUROC `0.503260`、AP `0.510188`；详见
+[`UNIVERSALFAKEDETECT_OURS_LC_MOUSE_FULL_RESULTS_2026-07-24.md`](UNIVERSALFAKEDETECT_OURS_LC_MOUSE_FULL_RESULTS_2026-07-24.md)）。
+**NPR official AIGCDetectBenchmark ProGAN-4class** 已于 2026-07-25
+完成并通过独立全模型审计：550/550 有效，官方 probability AUROC
+`0.500198`、AP `0.502661`，严格 `sigmoid(logit) > 0.5` 下
+TP/FP/FN/TN=`0/0/275/275`，无原生 T2（详见
+[`NPR_AIGC_PROGAN4CLASS_MOUSE_FULL_RESULTS_2026-07-25.md`](NPR_AIGC_PROGAN4CLASS_MOUSE_FULL_RESULTS_2026-07-25.md)）。
+其主协议在查看结果前冻结为官方仓库 AIGCDetectBenchmark 配置：commit
+`781ced3f7ca2cdc69ec9dd4ef27e8d0b3c07752a`、官方链接的 ProGAN-4class
+`model_epoch_last_3090.pth`（SHA-256
+`b67a91555ce786a6d0463ff0cb2b0b874d1c3f971b0e3febd2ae5618a80f7e8a`）、
+原生分辨率、不 resize/crop、batch 1，奇数边仅删最后一行/列，并以严格
+`sigmoid(logit) > 0.5` 判 fake；无原生 T2。仓库另一份 `NPR.pth`
+只记录为发布歧义，不根据 Mouse 分数事后选权重。全量前 CUDA pair smoke
+发现约 `-170` 的有限 logit 会在 float32 sigmoid 中精确下溢成 0，因此预注册
+双轨且全量无条件同时报告：官方 sigmoid 概率仍是主 operational score 和
+`>0.5` 判定唯一依据；raw-logit AUROC/AP、real-only 5% FPR、paired
+ranking/delta 与同一 pair bootstrap 只作数值稳定诊断，不能在两者间择优。
+官方 HF Space 只用于佐证 checkpoint 与原生尺寸预处理；其代码漏掉
+`model.eval()`，会令 BatchNorm 保持 train mode，因此记为部署缺陷，不作为
+可执行参考或额外 sensitivity。主跑遵循官方 GitHub `test.py` 的 eval mode。
+**Community Forensics** 已于 2026-07-25 完成 Mouse local-splice 主条件并
+通过独立全模型审计。其主协议在查看任何 Mouse 模型分数前冻结为论文后续
+实验采用的最佳 384×384
+High-res ViT-S/16：官方 main commit
+`ee5b71d43db0f3779e1edd64ee927b13f2dd6ad4`，单图执行语义佐证 commit
+`5e52ed690bdbd609f9bb1705c4c80d11872a05bd`，HF 模型 revision
+`6076002bf0d9dd37537f965ee2f06f826c333b61` 的
+`model.safetensors`（87,262,324 bytes；SHA-256
+`b89f36275f3bf5e2b040eee36597a8f19db051bff9a473a9cf7b2466284fb387`）
+及 HF processor revision `3540a3f0d688f8bf492a8aed48613b891f88047e`。
+主预处理为 Pillow RGB → bilinear 短边 `Resize(440)` → `CenterCrop(384)`
+→ `[0,1]` tensor → ImageNet normalize → float32，batch 1、eval mode、
+无 AMP；主分数为 float32 `sigmoid(logit)`，严格 `>0.5` 判 fake，
+无原生 T2。完整 safetensors 覆盖全部 21,811,969 个参数，因此 adapter
+以 `pretrained=False` 构造同一 timm 1.0.15 架构后 strict-load，避免官方
+class 在随即被完整覆盖前再下载一个可变 ImageNet base；官方 notebook 五张
+DALL·E 2 golden probability 已在 `1e-5` 绝对误差门禁内复现，并匹配其
+四位小数显示。224 版本不根据 Mouse 分数追加或
+替换；论文明确将 384 版本作为 best-performing model。裁剪前置可见性也已
+冻结：162/275 full、32 partial、81 none，不能把被裁掉的 edit 当模型漏检，
+且不能把分类 attention/feature 冒充定位输出。
+全量为 550/550 有效、0 error；官方 probability AUROC `0.502340`（pair
+bootstrap 95% CI `[0.500674, 0.504873]`）、AP `0.504511`
+（`[0.502691, 0.511090]`），严格 `probability > 0.5` 下
+TP/FP/FN/TN=`1/1/274/274`。唯一被判 fake 的 forged 与其 matched real
+同时被判 fake。独立审计重新执行 550 次完整 ViT 前向并以最大绝对误差
+`0.0` 重现全部 384 维 feature、logit、probability 与 decision（详见
+[`COMMUNITY_FORENSICS_HIGHRES384_MOUSE_FULL_RESULTS_2026-07-25.md`](COMMUNITY_FORENSICS_HIGHRES384_MOUSE_FULL_RESULTS_2026-07-25.md)）。
+**SPAI** 已于 2026-07-25 完成 Mouse local-splice 主条件并通过独立全模型
+审计。其主协议在查看任何 Mouse 模型分数前冻结为
+CVPR 2025 官方唯一 release：`mever-team/spai` commit
+`8ff7b3b6779b4fcb43cf313471d9cb1c62d129a4`，Google Drive 官方唯一
+`spai.pth`（934,865,338 bytes；SHA-256
+`24159f27d7c8c2cd0cb6c4019189eb89ad0874a0d9d15f8dc9afd39ca9648a55`；
+324 tensors / 139,945,243 elements）。主路径为 Pillow RGB、原生分辨率、
+`[0,1]` float32、无 resize/crop、batch 1、eval、无 AMP；224×224
+非重叠 patch、stride 224，当前官方 config/README 的
+`MINIMUM_PATCHES=4`（少于 4 块时 five-crop），patch feature chunk 400，
+SCA 聚合后输出 float32 `sigmoid(logit)`，严格 `>0.5` 判 fake。
+checkpoint 内嵌的旧训练 config 仍是 `MINIMUM_PATCHES=1`，但不覆盖当前
+release inference config，也不能根据 Mouse 分数事后改选。由于常规
+`unfold` 会丢弃不能整除 224 的右/下余边，前置 exact-GT 可见性已冻结为
+243/275 full、14 partial、18 none，平均可见 GT 比例
+`0.9096355444251016`；262 对走网格、13 对走 five-crop（后者全部 full）。
+该分层只是输入条件，不是模型定位。官方可选 SCA attention 是分类决策
+重要性可视化而非编辑概率 mask，因此 T2 与 joint gate 记 N/A。
+Mouse 主跑前还用官方 3.72 GB evaluation bundle 的两个原始样本完成了
+非 Mouse release audit。当前 NGC 环境启动时把 matmul precision/TF32
+设为 `high/true/true`，主协议显式覆盖为 PyTorch 标准严格 float32：
+matmul precision `highest`、CUDA matmul TF32 false、cuDNN TF32 false。
+在这个冻结精度下，MJ v6.1 `224.png` 为
+logit `0.9909347295761108` / probability `0.7292724847793579`，SD3
+`000001046_4.webp` 为 `1.6814128160476685` / `0.8430914878845215`。
+当前 checkpoint/code 的重复前向 bit-identical，但这两个概率不落在项目页
+手写 `0.748`、`0.87` 的舍入区间内；项目页没有提供 checkpoint hash 或
+full-precision reference。因此网页值只记作 stale/approximate release
+evidence，不据此调预处理、换权重或阻止 Mouse 主跑；上述当前唯一 release
+的 full-precision 值冻结为 implementation regression reference。
+全量为 550/550 有效、275/275 complete pairs、0 error；官方 probability
+AUROC `0.497931`（pair-bootstrap 95% CI `[0.495543, 0.499836]`），
+AP `0.500215`（`[0.499264, 0.506572]`），严格
+`probability > 0.5` 下 TP/FP/FN/TN=`46/48/229/227`。forged 分数仅在
+111/275 对中严格高于 matched real，另有 145 losses、19 ties；平均
+forged-minus-real delta 为 `-0.003603`（95% CI
+`[-0.006439, -0.001193]`）。18 个 none-visibility pair 因 edit 全在模型
+未消费的余边像素而逐对 exact tie。独立审计重新执行 550 次完整
+FFT/ViT/SRS/SCA/MLP 前向，所有 patch feature、聚合 feature、attention
+diagnostic 与 raw logit 最大绝对误差均为 `0.0`，probability 最大误差仅
+一个 float32 ULP（`5.960464477539063e-08`）；T2 仍为 N/A（详见
+[`SPAI_MOUSE_FULL_RESULTS_2026-07-25.md`](SPAI_MOUSE_FULL_RESULTS_2026-07-25.md)）。
+**B-Free** 已于 2026-07-25 完成 Mouse local-splice 主条件并通过独立全模型
+审计。其主协议在查看任何 Mouse 模型分数前冻结为
+CVPR 2025 官方唯一 release：`grip-unina/B-Free` commit
+`c6a9f898782fb466b29af01f21960b67415afb0e`；官方唯一
+`BFREE_dino2reg4.zip` 为 321,653,488 bytes、MD5
+`f3f53fa647848b16cf81c913f148a198`、SHA-256
+`8230fd3f0f3a64a6403acb692ce1663718ed16f36a5a4de4a68c0d273781769f`，
+其中 checkpoint SHA-256 为
+`5948ca78f4d94e820c250d24cdf155035b4a85960443800bfe6bb7f06bffe947`。
+模型是端到端微调的 DINOv2 ViT-B/14 + 4 registers + 单 logit head。
+主路径为 Pillow RGB → ToTensor → ImageNet normalize，保持原生分辨率；
+14×14 patch embedding 后取 center/TL/BL/BR/TR 五个 504×504 等价 token
+crop，并平均 **raw logits**，严格 `logit > 0` 判 fake。任一 token-grid
+维不足 36 时，release 实际执行 periodic wrap，并把另一维也截为最前 36
+tokens，之后五份相同；这比论文的“padding/multiple crops”描述更具体，
+因此以 release 为准。前置 exact-GT 可见性已冻结为 173/275 full、36
+partial、66 none，平均可见 GT 比例 `0.6891766376903072`；26 对进入 wrap
+路径。crop logit/feature 不是定位输出，T2/joint 均 N/A。
+B-Free 的 `origBG` 训练版本会把生成区域与原始真实背景组合，论文明确称其
+“effectively a local image edit”，因此与 Mouse 高度相关；但 COCO/SD2.1、
+全图重生成样本、额外全局增强和当前 Hunyuan 场景仍有明显分布差异。
+官方 config 不记录 inpainted++ recipe 且未发布训练代码，所以只声称官方
+release inference。其 GRIP 自定义许可仅允许 informational/nonprofit use，
+不是可商用的宽松开源许可。
+正式 run `bfree_dino2reg4_mouse_canonical_v1_full275_20260725` 为
+550/550 有效、275/275 complete pairs、0 error。官方 raw-logit AUROC
+`0.512529`（1,000-pair-bootstrap 95% CI
+`[0.507815, 0.518612]`），AP `0.513062`
+（`[0.509910, 0.521203]`）；严格 `raw_logit > 0` 下
+TP/FP/FN/TN=`2/1/273/274`，forged recall 仅 `0.007273`。
+forged 分数在 143/275 对中严格高于 matched real，另有 67 losses、65
+ties；paired ranking accuracy `0.520000`（95% CI
+`[0.458182, 0.578182]`），平均 forged-minus-real delta `0.061657`
+（`[0.039677, 0.084790]`）。可见性分层揭示弱但真实的局部响应：
+173 个 `full` pair 的 paired ranking accuracy 为 `0.693642`，36 个
+`partial` 为 `0.638889`，而 66 个 `none` 中 65 个精确打平。独立审计
+重新解码并完整前向全部 550 张图，逐一验证 550 个 `[5,768]` feature 和
+`[5]` crop-logit 产物，并以最大绝对误差 `0.0` 重放 feature、crop logit、
+raw logit、decision 与汇总（详见
+[`BFREE_DINO2REG4_MOUSE_FULL_RESULTS_2026-07-25.md`](BFREE_DINO2REG4_MOUSE_FULL_RESULTS_2026-07-25.md)）。
+**Effort** 已于 2026-07-25 完成 Mouse local-splice 主条件并通过独立
+全模型审计。主协议在查看 Mouse 模型分数前冻结为 ICML 2025 官方
+GenImage SDv1.4 checkpoint：源码 commit
+`96f5dea2b534d400cfd7003f053c7e93c8e16461`，checkpoint
+1,213,769,519 bytes、SHA-256
+`7c32ceb4e66d303050e8fc5dc7543fa347693fb4ee6b5df4d6eaf9f6a92fb813`，
+以及官方 natural-image demo 的 OpenCV BGR→RGB、直接
+224×224 `INTER_LINEAR`、CLIP normalization 路径。模型为
+CLIP ViT-L/14；24 层的 q/k/v/out 共 96 个 attention linear 都使用
+rank-1023 冻结主子空间加 rank-1 可训练残差，随后以两类 float32
+softmax class-1 概率、严格 `>0.5` 判 fake。checkpoint 的 681 个
+FP32 tensor / 303,378,530 elements 已严格 681/681 加载；无原生定位
+输出，T2/joint 均 N/A。正式 run 为 550/550 有效、275/275 complete
+pairs、0 error；AUROC `0.500456`（95% pair-bootstrap CI
+`[0.498379,0.502850]`）、AP `0.506262`，TPR@5%FPR
+`0.054545`。发布阈值下 TP/FP/FN/TN=`23/23/252/252`，全部 275 对的
+real/forged 判定均相同；paired ranking 为 `0.530909`
+（CI `[0.469091,0.589091]`），胜/负/平 `146/129/0`，sign-test
+`p=0.334638`。独立审计 fresh-forward 全部 550 张图并以最大绝对误差
+`0.0` 重现 feature、logit、概率、判定和 summary（详见
+[`EFFORT_CLIP_L14_GENIMAGE_SDV14_MOUSE_FULL_RESULTS_2026-07-25.md`](EFFORT_CLIP_L14_GENIMAGE_SDV14_MOUSE_FULL_RESULTS_2026-07-25.md)）。
+**OmniAID-DINO v2** 已于 2026-07-25 完成 Mouse local-splice 主条件并
+通过独立全模型审计。主协议在查看 Mouse 分数前冻结为当前官方推荐且 Space
+默认的 DINO v2 / Mirage / Auto Router：GitHub commit
+`40749406fbcd8893c11a160edf4a72a2d4dc7056`、Space commit
+`cf99ed518af8b7256854d01994d6e41165553bb3`、checkpoint
+3,238,483,725 bytes / SHA-256
+`8135cf83a7acbd3d88e457062f7ad693b1f2e27ffc8d5ae7ec73fcb5de806ea9`。
+模型含两个 DINOv3 ViT-L/16 图、96 个 SVD-MoE attention projection、
+top-2/5 semantic router 和固定 Artifact expert；主路径为 RGB、直接
+bilinear+antialias 448×448 拉伸、ImageNet normalize、float32、batch 1，
+以 softmax class-1 严格 `>0.5` 判 fake，无原生 T2。
+正式 run 为 550/550 有效、275/275 complete pairs、0 error；AUROC
+`0.499636`（95% pair-bootstrap CI `[0.496661,0.502401]`）、AP
+`0.505429`、TPR@5%FPR `0.058182`。发布阈值下
+TP/FP/FN/TN=`8/8/267/267`，全部 275 对的判定均未翻转；paired ranking
+`0.501818`（CI `[0.447273,0.560000]`），胜/负/平 `138/137/0`，
+平均 forged-minus-real delta `0.000575010`
+（CI `[-0.000497496,0.001597893]`）。274/275 对的 semantic top-2
+集合不变。独立审计重新构图并 fresh-forward 全部 550 张图，逐项重放六类
+artifact、router/head/softmax、判定和汇总，所有最大绝对差均为 `0.0`
+（详见
+[`OMNIAID_DINO_V2_MIRAGE_MOUSE_FULL_RESULTS_2026-07-25.md`](OMNIAID_DINO_V2_MIRAGE_MOUSE_FULL_RESULTS_2026-07-25.md)）。
+**CNNDetection Blur+JPEG(0.1)** 已于 2026-07-25 完成 Mouse
+local-splice 主条件、预注册的 paper-era crop sensitivity 和全模型 replay
+审计。主协议在查看 Mouse 分数前冻结为官方 commit
+`ea0b5622365e3a9cd31d1b54b6b5971131a839ab`、官方 Dropbox 的
+Blur+JPEG(0.1) checkpoint（282,442,597 bytes；SHA-256
+`a73295ac66f9cb74d558ce3ade46f75e2f2997ed05eeed0f4b774623372058ea`）
+及官方 2020-06 推荐的 RGB、原生分辨率、no resize/no crop、batch 1、
+ImageNet normalize 路径。单 float32 logit 经未校准 sigmoid 后严格
+`>0.5` 判 fake，无原生 T2；Blur/JPEG 只属于训练增强，测试时不施加。
+正式 native run 为 550/550 有效、275/275 complete pairs、0 error；
+AUROC `0.498896`（95% pair-bootstrap CI
+`[0.497401,0.500046]`）、AP `0.502089`、TPR@5%FPR `0.047273`，
+发布阈值下 TP/FP/FN/TN=`0/0/275/275`。paired ranking 为
+`0.454545`（CI `[0.396364,0.512727]`），胜/负/平 `125/150/0`，
+sign-test `p=0.147691`，平均 forged-minus-real score delta
+`-7.381589e-7`（CI `[-2.581092e-6,5.426804e-7]`）。全模型 replay
+重新前向 550 张图并以最大绝对误差 `0.0` 核验全部 2,048 维 feature；
+统计复算使用共享 metrics，因此明确不声称第二套完全独立统计实现。
+预注册的 native CenterCrop(224) sensitivity 同样 550/550 完成和审计，
+AUROC `0.499702`、AP `0.499548`；它只保留 14 个 full、14 个 partial
+编辑，247 个 none，产生 246 个 exact score ties，不能替换 native
+primary（详见
+[`CNNDETECTION_BLUR_JPG_PROB0_1_NATIVE_MOUSE_FULL_RESULTS_2026-07-25.md`](CNNDETECTION_BLUR_JPG_PROB0_1_NATIVE_MOUSE_FULL_RESULTS_2026-07-25.md)）。
+至此所有可取得官方权重的候选都已执行；仅 **LTD** 的官方权重访问受阻，
+没有用第三方权重或伪造 Mouse 分数。前 7 个构成的最小机制完备集已全部
+完成；当前完成 9/10 个 local-splice 条件、尚余 1 个 official-weight
+blocker。D4 同域整图生成
+对照集尚未建立，因此 0/10 达到“local-splice + fully synthetic contrast”
+双条件完成标准。
 
 完整 checkpoint、顺序、完成判据和 appendix 候选冻结在
 [`OPENSOURCE_BASELINE_EXECUTION_PLAN_2026-07-24.md`](OPENSOURCE_BASELINE_EXECUTION_PLAN_2026-07-24.md)。

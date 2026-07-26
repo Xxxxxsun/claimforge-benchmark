@@ -1,0 +1,278 @@
+{
+  "schema_version": "claimforge_fsd_analysis_v1",
+  "created_at": "2026-07-24T19:51:53.012185+00:00",
+  "method": "FSD",
+  "model_slug": "fsd_v1_2_0_official",
+  "task_scope": {
+    "T1": "native_official_whole_image_score",
+    "T2": "N/A",
+    "S_joint": "N/A",
+    "crop_visibility": "input_condition_diagnostic_only_not_model_localization"
+  },
+  "run_id": "fsd_v1_2_0_mouse_canonical_v1_preflight1_20260724",
+  "condition": "mouse_canonical_v1",
+  "history": {
+    "physical_rows": 1,
+    "unique_ids": 1,
+    "duplicate_rows": 0,
+    "ids_with_multiple_rows": 0,
+    "recovered_error_to_ok": 0,
+    "recovered_ids": [],
+    "historical_status_counts": {
+      "ok": 1
+    },
+    "latest_status_counts": {
+      "ok": 1
+    },
+    "duplicate_histories": [],
+    "latest_policy": "last physical JSONL row for each sample id"
+  },
+  "provenance": {
+    "run_manifest_fingerprint": "0c1d86969f0d83832faab32ea672769093493300b6dec50025fe5e8fbeed6de3",
+    "source_commit": "50f2eae06efdac2e5a33f407ca9a27a2295133ac",
+    "source_files_validated": 12,
+    "weights_dir": "/root/.cache/claimforge/checkpoints/fsd-v1.2.0",
+    "weight_files_validated": 4,
+    "weights_bundle_sha256": "3c1959f0092fdbe681e41c96f12c1b6d3762e46f21b37b08d4a7e617d1acdfce",
+    "config": {
+      "fre": {
+        "in_channels": 1,
+        "out_channels": 8,
+        "kernel_size": 15,
+        "weights_file": "fre.pt"
+      },
+      "fsd": {
+        "kernel_size": 11,
+        "num_scales": 3,
+        "max_size": 1024,
+        "resize_mode": "resize_and_crop"
+      },
+      "gmm": {
+        "n_components": 5,
+        "covariance_type": "tied",
+        "weights_file": "gmm.pt"
+      },
+      "transforms": {
+        "weights_file": "fsd_transforms.pt"
+      },
+      "scoring": {
+        "train_mean": -42.25325127289017,
+        "train_std": 706.0556010649537,
+        "default_threshold": -2.0
+      },
+      "attribution": {
+        "weights_file": "attribution_transforms.pt",
+        "source_gmms_file": "source_gmms.pt"
+      }
+    },
+    "paper_release_drift": {
+      "paper": {
+        "url": "https://arxiv.org/abs/2503.21003",
+        "venue": "CVPR 2025",
+        "fre_neighborhood": "11x11",
+        "per_image_solver": "AdamW with plateau scheduling for at most 10000 iterations",
+        "scoring_chain": "Phi_directly_to_GMM",
+        "reported_gmm_parameters_approx": 2000,
+        "threshold_note": "the paper and supplement discuss an older normalized threshold; that operating point is not reused by this adapter"
+      },
+      "release": {
+        "tag": "v1.2.0",
+        "public_inference_timeline": "post-paper_2026_release",
+        "fre_weight_shape": [
+          8,
+          1,
+          15,
+          15
+        ],
+        "per_image_solver": "float64_KKT_constrained_least_squares",
+        "pre_gmm_transforms": {
+          "count": 20,
+          "architecture": "residual_MLP_960_128_128_960",
+          "parameters": 5267200
+        },
+        "threshold_source": "v1.2.0_config_json",
+        "decision": "released_z_score < -2.0",
+        "training_or_evaluation_scripts_in_repository": false
+      },
+      "evaluation_claim": "reproduces the pinned v1.2.0 inference release API only; it does not claim paper-protocol parity, independently verify real-only release training, or reproduce the paper's reported 0.960 AUC"
+    },
+    "canonical_dataset_manifest_sha256": "beb3c30e436db682bbadef794404838f33a4812f18f22819dd6ab1ef3de6f0b1",
+    "adapter_files_validated": 3,
+    "physical_result_rows_validated": 1,
+    "latest_rows_validated": 1,
+    "input_images_validated": 1
+  },
+  "artifact_and_score_replay": {
+    "images_replayed": 1,
+    "descriptors_validated": 1,
+    "descriptor_shape": [
+      960
+    ],
+    "descriptor_dtype": "float64",
+    "transforms_replayed": 20,
+    "gmm_likelihood_replayed": true,
+    "normalization_replayed": "released_z=(raw_likelihood-train_mean)/train_std; ai_score=-z",
+    "strict_decision_replayed": "ai_score > 2.0",
+    "maximum_raw_likelihood_absolute_difference": 0.0,
+    "maximum_ai_score_absolute_difference": 0.0,
+    "runtime": {
+      "torch": "2.10.0+cu128",
+      "device": "cuda:4",
+      "device_type": "cuda",
+      "fail_closed": true
+    },
+    "edit_visibility_tasks": {
+      "none": 1
+    },
+    "complete_pair_edit_visibility": {},
+    "incomplete_selection_tasks": [
+      "lodging_088_slot_001"
+    ],
+    "crop_geometry_and_exact_gt_visibility_replayed": true
+  },
+  "recomputed_whole_image_metrics": {
+    "schema_version": "whole_image_detection_summary_v1",
+    "task_scope": {
+      "primary_task": "T1_whole_image_AIGC_detection",
+      "valid_for_t1": true,
+      "valid_for_t2": false,
+      "primary_score": "ai_score",
+      "score_direction": "higher_means_fake",
+      "score_range": "finite_binary64_with_finite_paired_differences",
+      "released_threshold": 2.0,
+      "released_threshold_operator": ">",
+      "fpr_target": 0.05,
+      "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+      "fpr_threshold_operator": ">",
+      "bootstrap_unit": "task_id_pair",
+      "precision_zero_division": 0
+    },
+    "coverage": {
+      "expected_images": 1,
+      "physical_result_rows": 1,
+      "result_images": 1,
+      "valid_images": 1,
+      "error_images": 0,
+      "missing_images": 0,
+      "coverage_fraction": 1.0,
+      "valid_fraction": 1.0,
+      "is_complete": true
+    },
+    "paired_coverage": {
+      "expected_tasks": 1,
+      "expected_complete_pairs": 0,
+      "expected_incomplete_tasks": 1,
+      "preflight_expected_incomplete_pairs": true,
+      "complete_valid_pairs": 0,
+      "paired_valid_images": 0,
+      "unpaired_valid_images": 1,
+      "valid_complete_task_fraction": null
+    },
+    "score_by_kind": {
+      "forged": {
+        "count": 1,
+        "min": 0.34977523416799217,
+        "mean": 0.34977523416799217,
+        "median": 0.34977523416799217,
+        "p05": 0.34977523416799217,
+        "p95": 0.34977523416799217,
+        "max": 0.34977523416799217
+      }
+    },
+    "detection": {
+      "valid_images": 1,
+      "tp": 0,
+      "fp": 0,
+      "fn": 1,
+      "tn": 0,
+      "accuracy": 0.0,
+      "balanced_accuracy": null,
+      "precision": 0.0,
+      "precision_zero_division": 0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "specificity": null,
+      "threshold": 2.0,
+      "threshold_operator": ">",
+      "score_direction": "higher_means_fake",
+      "auroc": null,
+      "average_precision": null,
+      "tpr_at_fpr_5_percent": null,
+      "tpr_at_fpr_5_percent_threshold": null,
+      "tpr_at_fpr_5_percent_actual_fpr": null,
+      "tpr_at_fpr_5_percent_threshold_source": "real_scores_quantile_0_95_method_higher",
+      "tpr_at_fpr_5_percent_threshold_operator": ">",
+      "score_key": "ai_score"
+    },
+    "paired_score_delta": {
+      "count": 0
+    },
+    "paired_ranking_accuracy": null,
+    "paired_ranking": {
+      "comparison": "forged_ai_score_strictly_greater_than_real",
+      "wins": 0,
+      "losses": 0,
+      "ties": 0,
+      "strict_accuracy": null
+    },
+    "paired_sign_test": null,
+    "pair_bootstrap": null,
+    "by_domain": {},
+    "by_edit_visibility": {},
+    "edit_visible_gt_fraction": {
+      "count": 0
+    },
+    "latency_ms": {
+      "count": 1,
+      "min": 378.316,
+      "mean": 378.316,
+      "median": 378.316,
+      "p05": 378.316,
+      "p95": 378.316,
+      "max": 378.316
+    },
+    "peak_cuda_memory_bytes": {
+      "count": 1,
+      "min": 11227498496.0,
+      "mean": 11227498496.0,
+      "median": 11227498496.0,
+      "p05": 11227498496.0,
+      "p95": 11227498496.0,
+      "max": 11227498496.0
+    }
+  },
+  "diagnostic_slices_by_edit_visibility": {
+    "none": {
+      "pairs": 0,
+      "images": 0,
+      "status": "empty_slice",
+      "bootstrap_samples": 1000,
+      "seed": 20260724
+    },
+    "partial": {
+      "pairs": 0,
+      "images": 0,
+      "status": "empty_slice",
+      "bootstrap_samples": 1000,
+      "seed": 20260725
+    },
+    "full": {
+      "pairs": 0,
+      "images": 0,
+      "status": "empty_slice",
+      "bootstrap_samples": 1000,
+      "seed": 20260726
+    }
+  },
+  "prefix_reproducibility": null,
+  "evidence": {
+    "results_path": "results/opensource/fsd/fsd_v1_2_0_mouse_canonical_v1_preflight1_20260724.jsonl",
+    "results_sha256": "706a7362163b16a4ffc852f4c65f6380a61f3ead0a76c81b193f7f9f348d92e4",
+    "run_manifest_path": "results/opensource/fsd/fsd_v1_2_0_mouse_canonical_v1_preflight1_20260724.run_manifest.json",
+    "run_manifest_sha256": "376d2ed56c18784b2da263095c7a78522324dcb5f53c90be770536b48722c3fe",
+    "runner_summary_path": "results/opensource/fsd/fsd_v1_2_0_mouse_canonical_v1_preflight1_20260724.summary.json",
+    "runner_summary_sha256": "f94ab9ecb3611e475fd15a3def7640bb9f194f27fffe10b39678c05d6230a2ac",
+    "inputs_path": "outputs/opensource/mouse_canonical_v1/inputs.jsonl",
+    "inputs_sha256": "e4cb3d6a78fa68f06341457e2234c630a455a9b6b9789e59abf45c15b292060a"
+  }
+}

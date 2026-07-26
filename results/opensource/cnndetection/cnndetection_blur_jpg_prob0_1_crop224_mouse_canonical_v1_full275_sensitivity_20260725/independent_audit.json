@@ -1,0 +1,62 @@
+{
+  "schema_version": "cnndetection_replay_audit_v1",
+  "status": "replay_audit_passed",
+  "run_id": "cnndetection_blur_jpg_prob0_1_crop224_mouse_canonical_v1_full275_sensitivity_20260725",
+  "audited_at": "2026-07-25T22:39:09.760863+00:00",
+  "source_commit": "ea0b5622365e3a9cd31d1b54b6b5971131a839ab",
+  "checkpoint_sha256": "a73295ac66f9cb74d558ce3ade46f75e2f2997ed05eeed0f4b774623372058ea",
+  "preprocess_profile": "paper_native_center_crop224_no_resize",
+  "physical_result_rows": 550,
+  "latest_result_rows": 550,
+  "expected_images": 550,
+  "successful_images_replayed": 550,
+  "feature_replay_max_abs_difference": 0.0,
+  "raw_logit_abs_tolerance": 0.0001,
+  "score_abs_tolerance": 1e-07,
+  "feature_abs_tolerance": 0.0001,
+  "replay_runtime": {
+    "device": "cuda:0",
+    "python": "3.12.3",
+    "platform": "Linux-5.10.134-16.103.al8.x86_64-x86_64-with-glibc2.39",
+    "torch": "2.8.0.dev20250627+cu128",
+    "torchvision": "0.23.0.dev20250627+cu128",
+    "pillow": "11.1.0",
+    "numpy": "2.2.6",
+    "seed": 20260725,
+    "dtype": "float32",
+    "batch_size": 1,
+    "autocast": false,
+    "deterministic_algorithms_enabled": true,
+    "deterministic_algorithms_warn_only": false,
+    "cublas_workspace_config": ":4096:8",
+    "cudnn": {
+      "enabled": true,
+      "benchmark": false,
+      "deterministic": true,
+      "allow_tf32": false
+    },
+    "matmul_allow_tf32": false,
+    "cuda": {
+      "runtime": "12.8",
+      "device_index": 0,
+      "device_name": "NVIDIA L20Z",
+      "total_memory_bytes": 85017624576,
+      "capability": [
+        9,
+        0
+      ]
+    }
+  },
+  "audit_scope": {
+    "source_checkpoint_artifact_replay": true,
+    "every_expected_image_inference_replayed": true,
+    "summary_recomputed_with_shared_metrics": true,
+    "fully_independent_statistical_implementation": false
+  },
+  "summary_recomputed_with_shared_metrics": true,
+  "localization_claims_rejected": true,
+  "manifest_sha256": "6ea13047b5c819f19858f1d0d0b214591ad4a381da52927b05b3cc2ec480e26c",
+  "results_sha256": "39c5e46217aad84c128f521d3b9a0894e1e56e573c0ec4cec22f0713c0d0fce4",
+  "summary_sha256": "a0a1404d52ae90ab609f86011241732ad85058e21b024d03fa109a2e89e34e6b",
+  "expected_inputs_sha256": "e4cb3d6a78fa68f06341457e2234c630a455a9b6b9789e59abf45c15b292060a"
+}

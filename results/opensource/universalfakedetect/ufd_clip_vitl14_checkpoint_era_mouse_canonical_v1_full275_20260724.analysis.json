@@ -1,0 +1,5516 @@
+{
+  "schema_version": "ufd_independent_analysis_v1",
+  "run_id": "ufd_clip_vitl14_checkpoint_era_mouse_canonical_v1_full275_20260724",
+  "generated_at": "2026-07-24T22:16:40.599006+00:00",
+  "method": "physical-history/latest audit; immutable source/head/CLIP and runtime verification; independent Pillow preprocessing, crop RGB/tensor hashing, pre-canonical exact-GT visibility, canonical crop pair-equality census, conditional downstream equality, full CUDA CLIP re-encoding, persisted-feature comparison, linear-head replay, float32 sigmoid, strict >0.5 decision, and ufd_metrics recomputation",
+  "result_history": {
+    "physical_rows": 550,
+    "unique_ids": 550,
+    "duplicate_rows": 0,
+    "ids_with_multiple_rows": 0,
+    "recovered_error_to_ok": 0,
+    "recovered_ids": [],
+    "historical_status_counts": {
+      "ok": 550
+    },
+    "latest_status_counts": {
+      "ok": 550
+    },
+    "duplicate_histories": [],
+    "latest_policy": "last physical JSONL row for each sample id"
+  },
+  "provenance": {
+    "run_manifest_fingerprint": "42f1c96bc501fbb89da0b64187c51f128b8be1ea69cd6a60af5719e46363766c",
+    "preprocess_profile": "checkpoint_era_resize256_center_crop224",
+    "profile_kind": "checkpoint_era_resize256",
+    "preprocess_profile_contract": {
+      "profile_id": "checkpoint_era_resize256_center_crop224",
+      "steps": [
+        "Pillow.Image.open.convert_RGB",
+        "torchvision.transforms.Resize_short_side_256_PIL_bilinear",
+        "torchvision.transforms.CenterCrop_224",
+        "torchvision.transforms.ToTensor",
+        "CLIP_Normalize"
+      ],
+      "resize_short_side": 256,
+      "center_crop": 224,
+      "source_basis": "validate.py_at_head_introduction_commit",
+      "source_commit": "763391eff3284f6950ffb323599c1a7a819f2ecd",
+      "validate_blob_sha256": "8a68ba2af3e7586f294bdbc5643a1e46f418916406c3129f24647f275da8d77a",
+      "resize_removed_by_commit": "3bf72282088e47be7e784e104e577790a55d4e48",
+      "drift": "fc_weights.pth was introduced while validate.py still applied Resize(256) before CenterCrop(224)"
+    },
+    "source_commit": "76a0e3e60a8a06458707a625d269ba815a2e5919",
+    "source_files_validated": 15,
+    "head_checkpoint": "/root/.cache/claimforge/checkpoints/universal-fake-detect-76a0e3e60a8a/fc_weights.pth",
+    "head_checkpoint_audit": {
+      "unsafe_globals": [],
+      "weights_only": true,
+      "keys": [
+        "weight",
+        "bias"
+      ],
+      "weight_shape": [
+        1,
+        768
+      ],
+      "bias_shape": [
+        1
+      ],
+      "dtype": "float32"
+    },
+    "backbone_checkpoint": "/root/.cache/claimforge/checkpoints/openai-clip/ViT-L-14.pt",
+    "asset_bundle_sha256": "b57c7a8865336b82fe716dc7871006883417cf60f7b36ca8a9a5f925da009121",
+    "adapter_contract": {
+      "files_validated": 3,
+      "filenames": [
+        "common.py",
+        "run_universalfakedetect.py",
+        "ufd_metrics.py"
+      ]
+    },
+    "canonical_inputs_sha256": "e4cb3d6a78fa68f06341457e2234c630a455a9b6b9789e59abf45c15b292060a",
+    "canonical_dataset_manifest_sha256": "beb3c30e436db682bbadef794404838f33a4812f18f22819dd6ab1ef3de6f0b1",
+    "physical_result_rows_validated": 550,
+    "latest_rows_validated": 550,
+    "selected_inputs_validated": 550,
+    "bootstrap_samples": 1000,
+    "bootstrap_seed": 20260724
+  },
+  "artifact_replay": {
+    "images_redecoded": 550,
+    "images_fully_reencoded": 550,
+    "persisted_features_validated": 550,
+    "feature_shape": [
+      768
+    ],
+    "feature_dtype": "float32",
+    "feature_l2_normalized": false,
+    "maximum_feature_absolute_difference": 0.0,
+    "maximum_raw_logit_absolute_difference": 0.0,
+    "maximum_probability_absolute_difference": 0.0,
+    "head_replayed_from_persisted_feature": true,
+    "float32_sigmoid_replayed": true,
+    "strict_decision_replayed": "probability > 0.5",
+    "preprocess_profile": "checkpoint_era_resize256_center_crop224",
+    "profile_kind": "checkpoint_era_resize256",
+    "crop_rgb_hash_replayed": true,
+    "normalized_tensor_hash_replayed": true,
+    "edit_visibility_tasks": {
+      "full": 162,
+      "none": 80,
+      "partial": 33
+    },
+    "complete_pair_edit_visibility": {
+      "full": 162,
+      "none": 80,
+      "partial": 33
+    },
+    "full_selection": true,
+    "required_full_visibility_census": {
+      "none": 80,
+      "partial": 33,
+      "full": 162
+    },
+    "canonical_crop_pair_equivalence": {
+      "basis": "np.array_equal_on_independently_decoded_and_preprocessed_canonical_RGB_crop_uint8_[224,224,3]",
+      "gt_visibility_semantics": "pre_canonicalization_input_location_condition_only; exact-diff GT precedes independent real/forged JPEG_q95 canonicalization",
+      "pairs": 275,
+      "crop_equal_pairs": 79,
+      "crop_different_pairs": 196,
+      "crop_equal_fraction": 0.2872727272727273,
+      "by_edit_visibility": {
+        "full": {
+          "pairs": 162,
+          "crop_equal_pairs": 0,
+          "crop_different_pairs": 162,
+          "crop_equal_fraction": 0.0
+        },
+        "none": {
+          "pairs": 80,
+          "crop_equal_pairs": 79,
+          "crop_different_pairs": 1,
+          "crop_equal_fraction": 0.9875
+        },
+        "partial": {
+          "pairs": 33,
+          "crop_equal_pairs": 0,
+          "crop_different_pairs": 33,
+          "crop_equal_fraction": 0.0
+        }
+      },
+      "crop_different_task_ids_by_edit_visibility": {
+        "full": [
+          "restaurant_089_slot_001",
+          "lodging_202_slot_001",
+          "lodging_071_slot_001",
+          "lodging_205_slot_001",
+          "restaurant_173_slot_001",
+          "restaurant_031_slot_001",
+          "restaurant_138_slot_001",
+          "lodging_268_slot_001",
+          "lodging_256_slot_001",
+          "lodging_034_slot_001",
+          "restaurant_264_slot_001",
+          "lodging_022_slot_001",
+          "restaurant_246_slot_001",
+          "restaurant_202_slot_001",
+          "lodging_064_slot_001",
+          "restaurant_116_slot_001",
+          "lodging_235_slot_001",
+          "restaurant_057_slot_001",
+          "lodging_061_slot_001",
+          "restaurant_055_slot_001",
+          "lodging_120_slot_001",
+          "lodging_073_slot_001",
+          "lodging_294_slot_001",
+          "restaurant_076_slot_001",
+          "lodging_111_slot_001",
+          "lodging_090_slot_001",
+          "restaurant_149_slot_001",
+          "lodging_222_slot_001",
+          "lodging_121_slot_001",
+          "lodging_263_slot_001",
+          "lodging_156_slot_001",
+          "restaurant_199_slot_001",
+          "lodging_144_slot_001",
+          "lodging_153_slot_001",
+          "lodging_275_slot_001",
+          "restaurant_285_slot_001",
+          "lodging_179_slot_001",
+          "restaurant_283_slot_001",
+          "lodging_093_slot_001",
+          "restaurant_062_slot_001",
+          "lodging_280_slot_001",
+          "lodging_266_slot_001",
+          "restaurant_051_slot_001",
+          "restaurant_058_slot_001",
+          "lodging_074_slot_001",
+          "restaurant_228_slot_001",
+          "lodging_154_slot_001",
+          "restaurant_036_slot_001",
+          "lodging_096_slot_001",
+          "lodging_270_slot_001",
+          "restaurant_028_slot_001",
+          "lodging_287_slot_001",
+          "lodging_013_slot_001",
+          "restaurant_204_slot_001",
+          "restaurant_167_slot_001",
+          "lodging_161_slot_001",
+          "lodging_007_slot_001",
+          "restaurant_270_slot_001",
+          "lodging_020_slot_001",
+          "lodging_043_slot_001",
+          "lodging_228_slot_001",
+          "restaurant_223_slot_001",
+          "lodging_033_slot_001",
+          "lodging_246_slot_001",
+          "lodging_145_slot_001",
+          "restaurant_194_slot_001",
+          "lodging_291_slot_001",
+          "restaurant_129_slot_001",
+          "restaurant_298_slot_001",
+          "lodging_183_slot_001",
+          "lodging_057_slot_001",
+          "restaurant_044_slot_001",
+          "lodging_244_slot_001",
+          "lodging_242_slot_001",
+          "restaurant_037_slot_001",
+          "lodging_265_slot_001",
+          "lodging_168_slot_001",
+          "restaurant_002_slot_001",
+          "lodging_030_slot_001",
+          "restaurant_003_slot_001",
+          "lodging_118_slot_001",
+          "lodging_001_slot_001",
+          "lodging_225_slot_001",
+          "restaurant_181_slot_001",
+          "restaurant_106_slot_001",
+          "lodging_032_slot_001",
+          "lodging_231_slot_001",
+          "restaurant_236_slot_001",
+          "lodging_126_slot_001",
+          "lodging_091_slot_001",
+          "restaurant_291_slot_001",
+          "lodging_269_slot_001",
+          "lodging_173_slot_001",
+          "lodging_285_slot_001",
+          "restaurant_029_slot_001",
+          "lodging_199_slot_001",
+          "lodging_209_slot_001",
+          "restaurant_245_slot_001",
+          "lodging_036_slot_001",
+          "restaurant_134_slot_001",
+          "restaurant_111_slot_001",
+          "lodging_190_slot_001",
+          "lodging_219_slot_001",
+          "restaurant_135_slot_001",
+          "lodging_056_slot_001",
+          "lodging_197_slot_001",
+          "lodging_104_slot_001",
+          "restaurant_112_slot_001",
+          "lodging_286_slot_001",
+          "restaurant_072_slot_001",
+          "lodging_281_slot_001",
+          "lodging_238_slot_001",
+          "lodging_247_slot_001",
+          "restaurant_013_slot_001",
+          "lodging_092_slot_001",
+          "lodging_031_slot_001",
+          "restaurant_200_slot_001",
+          "lodging_249_slot_001",
+          "restaurant_020_slot_001",
+          "restaurant_205_slot_001",
+          "lodging_097_slot_001",
+          "lodging_075_slot_001",
+          "lodging_028_slot_001",
+          "lodging_167_slot_001",
+          "restaurant_010_slot_001",
+          "lodging_076_slot_001",
+          "lodging_048_slot_001",
+          "restaurant_241_slot_001",
+          "restaurant_152_slot_001",
+          "lodging_152_slot_001",
+          "restaurant_242_slot_001",
+          "restaurant_088_slot_001",
+          "lodging_038_slot_001",
+          "lodging_169_slot_001",
+          "restaurant_237_slot_001",
+          "lodging_042_slot_001",
+          "restaurant_243_slot_001",
+          "lodging_087_slot_001",
+          "restaurant_225_slot_001",
+          "lodging_211_slot_001",
+          "restaurant_045_slot_001",
+          "restaurant_035_slot_001",
+          "lodging_129_slot_001",
+          "lodging_135_slot_001",
+          "lodging_217_slot_001",
+          "restaurant_171_slot_001",
+          "restaurant_215_slot_001",
+          "lodging_015_slot_001",
+          "restaurant_071_slot_001",
+          "lodging_070_slot_001",
+          "lodging_207_slot_001",
+          "lodging_221_slot_001",
+          "restaurant_052_slot_001",
+          "restaurant_253_slot_001",
+          "restaurant_024_slot_001",
+          "lodging_220_slot_001",
+          "restaurant_016_slot_001",
+          "lodging_058_slot_001",
+          "restaurant_188_slot_001",
+          "lodging_233_slot_001",
+          "restaurant_019_slot_001",
+          "lodging_182_slot_001"
+        ],
+        "none": [
+          "lodging_191_slot_001"
+        ],
+        "partial": [
+          "restaurant_137_slot_001",
+          "restaurant_151_slot_001",
+          "restaurant_043_slot_001",
+          "lodging_025_slot_001",
+          "restaurant_206_slot_001",
+          "lodging_108_slot_001",
+          "lodging_094_slot_001",
+          "restaurant_162_slot_001",
+          "restaurant_119_slot_001",
+          "lodging_261_slot_001",
+          "restaurant_299_slot_001",
+          "lodging_208_slot_001",
+          "lodging_089_slot_001",
+          "restaurant_166_slot_001",
+          "restaurant_155_slot_001",
+          "restaurant_256_slot_001",
+          "restaurant_042_slot_001",
+          "lodging_274_slot_001",
+          "lodging_176_slot_001",
+          "restaurant_091_slot_001",
+          "lodging_297_slot_001",
+          "lodging_180_slot_001",
+          "restaurant_276_slot_001",
+          "lodging_272_slot_001",
+          "restaurant_164_slot_001",
+          "restaurant_234_slot_001",
+          "lodging_276_slot_001",
+          "lodging_172_slot_001",
+          "restaurant_081_slot_001",
+          "lodging_295_slot_001",
+          "restaurant_078_slot_001",
+          "restaurant_000_slot_001",
+          "restaurant_267_slot_001"
+        ]
+      },
+      "crop_different_pair_details": [
+        {
+          "task_id": "restaurant_089_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 337,
+          "differing_pixels": 133,
+          "maximum_rgb_absolute_difference": 147,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.5024175643920898,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.00011933753557968885,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_202_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 245,
+          "differing_pixels": 114,
+          "maximum_rgb_absolute_difference": 59,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.0551447868347168,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.00013603083789348602,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_071_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 534,
+          "differing_pixels": 198,
+          "maximum_rgb_absolute_difference": 148,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.09856891632080078,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 3.6357727367430925e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_205_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 220,
+          "differing_pixels": 108,
+          "maximum_rgb_absolute_difference": 118,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.08680963516235352,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 3.0459865229204297e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_173_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 146,
+          "differing_pixels": 61,
+          "maximum_rgb_absolute_difference": 183,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.09908485412597656,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 7.677135727135465e-07,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_031_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 313,
+          "differing_pixels": 123,
+          "maximum_rgb_absolute_difference": 129,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.10741090774536133,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.003558613359928131,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_138_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 170,
+          "differing_pixels": 74,
+          "maximum_rgb_absolute_difference": 124,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.004673004150390625,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 3.389781340956688e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_268_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 463,
+          "differing_pixels": 169,
+          "maximum_rgb_absolute_difference": 145,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.7279911041259766,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.019407223910093307,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_137_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 135,
+          "differing_pixels": 56,
+          "maximum_rgb_absolute_difference": 99,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.012033462524414062,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -6.620126669076853e-10,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_256_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 436,
+          "differing_pixels": 181,
+          "maximum_rgb_absolute_difference": 146,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.0539546012878418,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -0.0009982120245695114,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_034_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 208,
+          "differing_pixels": 87,
+          "maximum_rgb_absolute_difference": 137,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.04746246337890625,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 1.2402088032104075e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_264_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 223,
+          "differing_pixels": 98,
+          "maximum_rgb_absolute_difference": 134,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.006617546081542969,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -7.14324414730072e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_022_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 142,
+          "differing_pixels": 66,
+          "maximum_rgb_absolute_difference": 123,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.009528160095214844,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -9.302239050157368e-07,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_246_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 329,
+          "differing_pixels": 137,
+          "maximum_rgb_absolute_difference": 32,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.011168479919433594,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -2.6284396881237626e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_202_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 2323,
+          "differing_pixels": 874,
+          "maximum_rgb_absolute_difference": 99,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 1.7346372604370117,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.07296526990830898,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_064_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 97,
+          "differing_pixels": 41,
+          "maximum_rgb_absolute_difference": 128,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.031731605529785156,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 1.0555595508776605e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_116_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 226,
+          "differing_pixels": 86,
+          "maximum_rgb_absolute_difference": 139,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.11669921875,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -1.4294600987341255e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_235_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 412,
+          "differing_pixels": 177,
+          "maximum_rgb_absolute_difference": 167,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.40291404724121094,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.022148091346025467,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_057_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 519,
+          "differing_pixels": 198,
+          "maximum_rgb_absolute_difference": 157,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.06145477294921875,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 3.7622976378770545e-07,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_061_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 352,
+          "differing_pixels": 157,
+          "maximum_rgb_absolute_difference": 130,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.03301239013671875,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -2.3788088583387434e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_055_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 514,
+          "differing_pixels": 195,
+          "maximum_rgb_absolute_difference": 111,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.04355144500732422,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -0.00016112998127937317,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_120_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 297,
+          "differing_pixels": 111,
+          "maximum_rgb_absolute_difference": 159,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.10859155654907227,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.00021843938156962395,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_073_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 244,
+          "differing_pixels": 96,
+          "maximum_rgb_absolute_difference": 139,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.03905010223388672,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 3.667937562568113e-07,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_294_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 889,
+          "differing_pixels": 310,
+          "maximum_rgb_absolute_difference": 142,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.20240116119384766,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 2.0555648916342761e-07,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_076_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 184,
+          "differing_pixels": 76,
+          "maximum_rgb_absolute_difference": 116,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.10886096954345703,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.0003059536684304476,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_151_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 24,
+          "differing_pixels": 13,
+          "maximum_rgb_absolute_difference": 27,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.016263961791992188,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -1.424791662429925e-08,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_111_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 2045,
+          "differing_pixels": 828,
+          "maximum_rgb_absolute_difference": 117,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -4.211013317108154,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -0.0010525373800192028,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_090_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 314,
+          "differing_pixels": 124,
+          "maximum_rgb_absolute_difference": 98,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.4387979507446289,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.0003210357972420752,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_149_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 449,
+          "differing_pixels": 168,
+          "maximum_rgb_absolute_difference": 162,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.009188652038574219,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 1.4054080565983895e-08,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_222_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 743,
+          "differing_pixels": 306,
+          "maximum_rgb_absolute_difference": 93,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.10435676574707031,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.0005466933362185955,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_121_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 661,
+          "differing_pixels": 265,
+          "maximum_rgb_absolute_difference": 85,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.012728691101074219,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -6.139598554000258e-07,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_043_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 4,
+          "differing_pixels": 3,
+          "maximum_rgb_absolute_difference": 1,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -8.96453857421875e-05,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -5.862675607204437e-07,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_263_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 832,
+          "differing_pixels": 359,
+          "maximum_rgb_absolute_difference": 139,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.30555295944213867,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.001091038342565298,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_156_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 2648,
+          "differing_pixels": 937,
+          "maximum_rgb_absolute_difference": 184,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.999506950378418,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -0.0001343583790003322,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_199_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 179,
+          "differing_pixels": 67,
+          "maximum_rgb_absolute_difference": 88,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.034806251525878906,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 3.5531484172679484e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_144_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 276,
+          "differing_pixels": 104,
+          "maximum_rgb_absolute_difference": 160,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.00385284423828125,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 2.4629116524010897e-07,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_153_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 217,
+          "differing_pixels": 83,
+          "maximum_rgb_absolute_difference": 82,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.017301559448242188,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 3.6148849176242948e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_275_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 238,
+          "differing_pixels": 96,
+          "maximum_rgb_absolute_difference": 179,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.0014858245849609375,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -2.713022695388645e-08,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_285_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 514,
+          "differing_pixels": 197,
+          "maximum_rgb_absolute_difference": 133,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.09916305541992188,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 3.685061528813094e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_179_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 1275,
+          "differing_pixels": 451,
+          "maximum_rgb_absolute_difference": 203,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.9510207176208496,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.000369791392586194,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_025_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 292,
+          "differing_pixels": 112,
+          "maximum_rgb_absolute_difference": 100,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.2136988639831543,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.002151285298168659,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_283_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 454,
+          "differing_pixels": 177,
+          "maximum_rgb_absolute_difference": 150,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.08466243743896484,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -7.816588549758308e-07,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_093_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 872,
+          "differing_pixels": 375,
+          "maximum_rgb_absolute_difference": 184,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.0054798126220703125,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -1.7535639926791191e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_062_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 324,
+          "differing_pixels": 124,
+          "maximum_rgb_absolute_difference": 79,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.08697652816772461,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.00082396250218153,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_280_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 268,
+          "differing_pixels": 101,
+          "maximum_rgb_absolute_difference": 84,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.004277229309082031,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 2.7245841920375824e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_266_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 1195,
+          "differing_pixels": 507,
+          "maximum_rgb_absolute_difference": 102,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.589968204498291,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -0.0013117275666445494,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_051_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 294,
+          "differing_pixels": 115,
+          "maximum_rgb_absolute_difference": 172,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.05780315399169922,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 2.885714638978243e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_206_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 104,
+          "differing_pixels": 40,
+          "maximum_rgb_absolute_difference": 73,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.03527259826660156,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 4.875864760833792e-07,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_108_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 281,
+          "differing_pixels": 103,
+          "maximum_rgb_absolute_difference": 107,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.018342554569244385,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.003671407699584961,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_058_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 330,
+          "differing_pixels": 125,
+          "maximum_rgb_absolute_difference": 134,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.17125463485717773,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.0022154198959469795,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_074_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 163,
+          "differing_pixels": 66,
+          "maximum_rgb_absolute_difference": 148,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.019287586212158203,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -1.9137514755129814e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_228_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 1097,
+          "differing_pixels": 395,
+          "maximum_rgb_absolute_difference": 152,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.0449671745300293,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -0.00014077103696763515,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_154_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 371,
+          "differing_pixels": 146,
+          "maximum_rgb_absolute_difference": 144,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.4804854393005371,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.002520957961678505,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_036_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 326,
+          "differing_pixels": 130,
+          "maximum_rgb_absolute_difference": 119,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.02848958969116211,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -4.632049240171909e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_096_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 833,
+          "differing_pixels": 350,
+          "maximum_rgb_absolute_difference": 130,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.23616504669189453,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 1.4984496374381706e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_270_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 753,
+          "differing_pixels": 304,
+          "maximum_rgb_absolute_difference": 154,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.4775104522705078,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.0068906573578715324,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_028_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 154,
+          "differing_pixels": 65,
+          "maximum_rgb_absolute_difference": 103,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.07767200469970703,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 1.603460987098515e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_287_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 124,
+          "differing_pixels": 53,
+          "maximum_rgb_absolute_difference": 92,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.20199966430664062,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.0015972377732396126,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_013_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 334,
+          "differing_pixels": 132,
+          "maximum_rgb_absolute_difference": 114,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.02312469482421875,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 7.461232598870993e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_204_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 1268,
+          "differing_pixels": 455,
+          "maximum_rgb_absolute_difference": 212,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.368746280670166,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -0.007591014727950096,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_094_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 26,
+          "differing_pixels": 11,
+          "maximum_rgb_absolute_difference": 48,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.06202983856201172,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 1.2479591532610357e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_167_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 154,
+          "differing_pixels": 60,
+          "maximum_rgb_absolute_difference": 166,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.3264789581298828,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 1.1347461622790433e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_161_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 573,
+          "differing_pixels": 234,
+          "maximum_rgb_absolute_difference": 125,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.059337615966796875,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -5.275142029859126e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_007_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 351,
+          "differing_pixels": 136,
+          "maximum_rgb_absolute_difference": 151,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.2664966583251953,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 5.864890408702195e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_270_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 854,
+          "differing_pixels": 312,
+          "maximum_rgb_absolute_difference": 136,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.04876136779785156,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 2.8092239517718554e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_020_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 912,
+          "differing_pixels": 385,
+          "maximum_rgb_absolute_difference": 33,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.17443466186523438,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 1.2964283087057993e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_043_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 209,
+          "differing_pixels": 82,
+          "maximum_rgb_absolute_difference": 91,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.35276317596435547,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.0001047466357704252,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_228_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 837,
+          "differing_pixels": 333,
+          "maximum_rgb_absolute_difference": 109,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.24396228790283203,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -0.000411474728025496,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_223_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 1173,
+          "differing_pixels": 477,
+          "maximum_rgb_absolute_difference": 112,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.0001697540283203125,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -6.857590051367879e-09,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_033_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 311,
+          "differing_pixels": 122,
+          "maximum_rgb_absolute_difference": 86,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.06527519226074219,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 4.764217010233551e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_162_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 465,
+          "differing_pixels": 191,
+          "maximum_rgb_absolute_difference": 98,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.02673053741455078,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 5.200763553148136e-07,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_246_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 196,
+          "differing_pixels": 78,
+          "maximum_rgb_absolute_difference": 103,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.05561351776123047,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -5.3693889640271664e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_145_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 425,
+          "differing_pixels": 181,
+          "maximum_rgb_absolute_difference": 71,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.25460052490234375,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.00017894594930112362,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_194_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 235,
+          "differing_pixels": 91,
+          "maximum_rgb_absolute_difference": 142,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.030051708221435547,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.00010437425225973129,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_291_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 143,
+          "differing_pixels": 56,
+          "maximum_rgb_absolute_difference": 155,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.022109031677246094,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 6.144924554973841e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_119_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 469,
+          "differing_pixels": 173,
+          "maximum_rgb_absolute_difference": 193,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.024127960205078125,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -0.00018362142145633698,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_129_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 615,
+          "differing_pixels": 232,
+          "maximum_rgb_absolute_difference": 118,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.15213489532470703,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.0004739698488265276,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_261_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 62,
+          "differing_pixels": 37,
+          "maximum_rgb_absolute_difference": 10,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.0003719329833984375,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 5.195615813136101e-07,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_298_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 568,
+          "differing_pixels": 215,
+          "maximum_rgb_absolute_difference": 113,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.255587100982666,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 8.004138362593949e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_183_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 578,
+          "differing_pixels": 222,
+          "maximum_rgb_absolute_difference": 164,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.05389881134033203,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 7.791750249452889e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_057_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 89,
+          "differing_pixels": 40,
+          "maximum_rgb_absolute_difference": 146,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.015949726104736328,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -1.3965240214020014e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_044_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 276,
+          "differing_pixels": 112,
+          "maximum_rgb_absolute_difference": 86,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.10235595703125,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.00012300838716328144,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_244_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 134,
+          "differing_pixels": 59,
+          "maximum_rgb_absolute_difference": 90,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.08355712890625,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -1.344873453490436e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_242_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 252,
+          "differing_pixels": 97,
+          "maximum_rgb_absolute_difference": 108,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.3052206039428711,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.003746247850358486,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_037_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 324,
+          "differing_pixels": 133,
+          "maximum_rgb_absolute_difference": 109,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.008530616760253906,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -4.5503475121222436e-07,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_265_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 421,
+          "differing_pixels": 152,
+          "maximum_rgb_absolute_difference": 122,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.08666419982910156,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 1.572041946928948e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_168_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 320,
+          "differing_pixels": 124,
+          "maximum_rgb_absolute_difference": 161,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.2945108413696289,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -4.945611635776004e-07,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_299_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 101,
+          "differing_pixels": 43,
+          "maximum_rgb_absolute_difference": 101,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.06077766418457031,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -2.5192450266331434e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_208_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 12,
+          "differing_pixels": 7,
+          "maximum_rgb_absolute_difference": 3,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.003108978271484375,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 4.805624485015869e-07,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_002_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 591,
+          "differing_pixels": 213,
+          "maximum_rgb_absolute_difference": 17,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.059214115142822266,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.0001731892116367817,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_030_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 194,
+          "differing_pixels": 74,
+          "maximum_rgb_absolute_difference": 146,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.25811100006103516,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -3.093474515480921e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_003_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 243,
+          "differing_pixels": 96,
+          "maximum_rgb_absolute_difference": 184,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.060317039489746094,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -1.3732598745264113e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_118_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 1029,
+          "differing_pixels": 402,
+          "maximum_rgb_absolute_difference": 120,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.054846763610839844,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -1.9327890186104923e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_089_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 377,
+          "differing_pixels": 144,
+          "maximum_rgb_absolute_difference": 143,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.4507255554199219,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.00013632397167384624,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_166_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 136,
+          "differing_pixels": 50,
+          "maximum_rgb_absolute_difference": 183,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.004146575927734375,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -2.2274434741120785e-08,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_001_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 590,
+          "differing_pixels": 248,
+          "maximum_rgb_absolute_difference": 132,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.6400365829467773,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.0005531162023544312,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_225_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 259,
+          "differing_pixels": 99,
+          "maximum_rgb_absolute_difference": 71,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.13095378875732422,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -1.4623947208747268e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_181_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 750,
+          "differing_pixels": 253,
+          "maximum_rgb_absolute_difference": 113,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 1.0224227905273438,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.0017610741779208183,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_106_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 196,
+          "differing_pixels": 81,
+          "maximum_rgb_absolute_difference": 141,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.028037071228027344,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 5.245208740234375e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_032_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 224,
+          "differing_pixels": 100,
+          "maximum_rgb_absolute_difference": 161,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.11848068237304688,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 1.2525279089459218e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_155_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 828,
+          "differing_pixels": 292,
+          "maximum_rgb_absolute_difference": 129,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.09299850463867188,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 2.6509460440138355e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_231_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 1630,
+          "differing_pixels": 583,
+          "maximum_rgb_absolute_difference": 103,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.6882209777832031,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -6.648099952144548e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_236_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 900,
+          "differing_pixels": 351,
+          "maximum_rgb_absolute_difference": 119,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.07207250595092773,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -0.00015373551286756992,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_126_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 154,
+          "differing_pixels": 64,
+          "maximum_rgb_absolute_difference": 191,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.13083648681640625,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -2.4987064534798265e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_256_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 126,
+          "differing_pixels": 53,
+          "maximum_rgb_absolute_difference": 50,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.11581230163574219,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -2.443839912302792e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_091_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 234,
+          "differing_pixels": 94,
+          "maximum_rgb_absolute_difference": 122,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.018448829650878906,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -7.775670383125544e-07,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_291_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 264,
+          "differing_pixels": 107,
+          "maximum_rgb_absolute_difference": 84,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.01812458038330078,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 2.5865447241812944e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_269_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 506,
+          "differing_pixels": 188,
+          "maximum_rgb_absolute_difference": 122,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.005730628967285156,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 3.374952939338982e-08,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_173_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 260,
+          "differing_pixels": 105,
+          "maximum_rgb_absolute_difference": 162,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.2374420166015625,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 7.057597395032644e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_042_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 93,
+          "differing_pixels": 36,
+          "maximum_rgb_absolute_difference": 82,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.15691184997558594,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.0007288968190550804,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_285_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 354,
+          "differing_pixels": 146,
+          "maximum_rgb_absolute_difference": 140,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.05561542510986328,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -0.0025267452001571655,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_029_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 95,
+          "differing_pixels": 45,
+          "maximum_rgb_absolute_difference": 73,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.12026405334472656,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 3.204686800017953e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_199_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 307,
+          "differing_pixels": 118,
+          "maximum_rgb_absolute_difference": 172,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.11873817443847656,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.00046710087917745113,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_209_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 248,
+          "differing_pixels": 97,
+          "maximum_rgb_absolute_difference": 88,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.12320423126220703,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.0001667108153924346,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_245_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 220,
+          "differing_pixels": 92,
+          "maximum_rgb_absolute_difference": 110,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.23735618591308594,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 6.049040530342609e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_036_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 749,
+          "differing_pixels": 319,
+          "maximum_rgb_absolute_difference": 163,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.27118682861328125,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 7.4513318395474926e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_134_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 134,
+          "differing_pixels": 54,
+          "maximum_rgb_absolute_difference": 156,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.017892837524414062,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -8.113102012430318e-08,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_111_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 293,
+          "differing_pixels": 142,
+          "maximum_rgb_absolute_difference": 152,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.01690196990966797,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 2.700020559132099e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_274_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 1263,
+          "differing_pixels": 454,
+          "maximum_rgb_absolute_difference": 137,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.5258340835571289,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.012792211025953293,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_176_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 166,
+          "differing_pixels": 62,
+          "maximum_rgb_absolute_difference": 69,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 1.0295109748840332,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.0014665403869003057,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_190_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 764,
+          "differing_pixels": 275,
+          "maximum_rgb_absolute_difference": 182,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.3087468147277832,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.00032100407406687737,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_219_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 293,
+          "differing_pixels": 114,
+          "maximum_rgb_absolute_difference": 177,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.1337728500366211,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.0006118742749094963,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_135_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 368,
+          "differing_pixels": 145,
+          "maximum_rgb_absolute_difference": 75,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.0681467056274414,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -3.243690116505604e-07,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_056_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 223,
+          "differing_pixels": 86,
+          "maximum_rgb_absolute_difference": 210,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.0032930374145507812,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 1.7258207662962377e-07,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_197_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 518,
+          "differing_pixels": 198,
+          "maximum_rgb_absolute_difference": 122,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.1960926055908203,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -5.678599336533807e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_104_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 1806,
+          "differing_pixels": 694,
+          "maximum_rgb_absolute_difference": 187,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.5129032135009766,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -1.5728284779470414e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_112_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 155,
+          "differing_pixels": 65,
+          "maximum_rgb_absolute_difference": 202,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.09705162048339844,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -2.8252143238205463e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_286_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 322,
+          "differing_pixels": 121,
+          "maximum_rgb_absolute_difference": 205,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.06203937530517578,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -4.62142052128911e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_072_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 123,
+          "differing_pixels": 64,
+          "maximum_rgb_absolute_difference": 111,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.032967567443847656,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 7.077087502693757e-07,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_281_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 677,
+          "differing_pixels": 260,
+          "maximum_rgb_absolute_difference": 128,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.3307199478149414,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 4.880072083324194e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_238_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 368,
+          "differing_pixels": 137,
+          "maximum_rgb_absolute_difference": 192,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.24590587615966797,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.0012769647873938084,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_247_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 678,
+          "differing_pixels": 253,
+          "maximum_rgb_absolute_difference": 147,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.38646602630615234,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -1.4141873180051334e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_091_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 70,
+          "differing_pixels": 31,
+          "maximum_rgb_absolute_difference": 141,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.0018796920776367188,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 8.905044523999095e-08,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_013_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 189,
+          "differing_pixels": 73,
+          "maximum_rgb_absolute_difference": 133,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.008395195007324219,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -2.666289219632745e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_297_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 367,
+          "differing_pixels": 154,
+          "maximum_rgb_absolute_difference": 144,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.31335020065307617,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.0011649313382804394,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_092_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 239,
+          "differing_pixels": 98,
+          "maximum_rgb_absolute_difference": 120,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.1015176773071289,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 5.9894577134400606e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_031_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 204,
+          "differing_pixels": 78,
+          "maximum_rgb_absolute_difference": 117,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.03224325180053711,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 1.1811964213848114e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_200_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 390,
+          "differing_pixels": 146,
+          "maximum_rgb_absolute_difference": 200,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.028493404388427734,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -0.0004279566928744316,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_249_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 283,
+          "differing_pixels": 115,
+          "maximum_rgb_absolute_difference": 86,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.20360088348388672,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.0001382043119519949,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_020_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 120,
+          "differing_pixels": 50,
+          "maximum_rgb_absolute_difference": 184,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.03611946105957031,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -7.22899567335844e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_180_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 403,
+          "differing_pixels": 148,
+          "maximum_rgb_absolute_difference": 99,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.24655437469482422,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 2.288244286319241e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_205_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 378,
+          "differing_pixels": 147,
+          "maximum_rgb_absolute_difference": 96,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.011740684509277344,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 3.779246071644593e-08,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_097_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 173,
+          "differing_pixels": 69,
+          "maximum_rgb_absolute_difference": 166,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.0998697280883789,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 1.2911968951812014e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_276_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 136,
+          "differing_pixels": 52,
+          "maximum_rgb_absolute_difference": 150,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.10992288589477539,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 3.544508945196867e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_272_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 36,
+          "differing_pixels": 16,
+          "maximum_rgb_absolute_difference": 77,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.005843162536621094,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.00011562928557395935,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_164_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 246,
+          "differing_pixels": 97,
+          "maximum_rgb_absolute_difference": 123,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.028390884399414062,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 3.4180942520833923e-09,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_234_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 990,
+          "differing_pixels": 396,
+          "maximum_rgb_absolute_difference": 157,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.017004013061523438,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 6.8633235059678555e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_075_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 572,
+          "differing_pixels": 220,
+          "maximum_rgb_absolute_difference": 88,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.9150924682617188,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.0001947346027009189,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_276_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 1964,
+          "differing_pixels": 751,
+          "maximum_rgb_absolute_difference": 200,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.2898750305175781,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -4.005053051514551e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_028_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 439,
+          "differing_pixels": 175,
+          "maximum_rgb_absolute_difference": 119,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.13032245635986328,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -0.00020349863916635513,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_172_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 292,
+          "differing_pixels": 117,
+          "maximum_rgb_absolute_difference": 111,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.30273008346557617,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -0.010343806818127632,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_081_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 1503,
+          "differing_pixels": 552,
+          "maximum_rgb_absolute_difference": 92,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.11449527740478516,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -1.1557545803952962e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_167_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 1607,
+          "differing_pixels": 570,
+          "maximum_rgb_absolute_difference": 209,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -2.814887523651123,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -0.0033121338055934757,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_010_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 384,
+          "differing_pixels": 146,
+          "maximum_rgb_absolute_difference": 105,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.15607929229736328,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 6.760699761798605e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_076_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 380,
+          "differing_pixels": 142,
+          "maximum_rgb_absolute_difference": 112,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.05304670333862305,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 3.911956446245313e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_048_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 184,
+          "differing_pixels": 74,
+          "maximum_rgb_absolute_difference": 133,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.09689140319824219,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -1.6265898011624813e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_241_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 172,
+          "differing_pixels": 78,
+          "maximum_rgb_absolute_difference": 109,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.024934768676757812,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 6.000325083732605e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_295_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 208,
+          "differing_pixels": 78,
+          "maximum_rgb_absolute_difference": 145,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.5694894790649414,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.00015684028039686382,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_152_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 401,
+          "differing_pixels": 180,
+          "maximum_rgb_absolute_difference": 120,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.040012359619140625,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 1.5879413695074618e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_152_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 1661,
+          "differing_pixels": 618,
+          "maximum_rgb_absolute_difference": 164,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.19358158111572266,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -0.0049477554857730865,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_242_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 1293,
+          "differing_pixels": 498,
+          "maximum_rgb_absolute_difference": 197,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.20653915405273438,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 2.5947583708330058e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_088_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 629,
+          "differing_pixels": 281,
+          "maximum_rgb_absolute_difference": 110,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.08313560485839844,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 3.828077751677483e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_038_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 283,
+          "differing_pixels": 119,
+          "maximum_rgb_absolute_difference": 131,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.000244140625,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -3.4968252293765545e-08,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_169_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 564,
+          "differing_pixels": 248,
+          "maximum_rgb_absolute_difference": 156,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.3604292869567871,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -0.0010403306223452091,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_237_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 205,
+          "differing_pixels": 89,
+          "maximum_rgb_absolute_difference": 217,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.07722854614257812,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -3.384834599273745e-07,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_042_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 354,
+          "differing_pixels": 143,
+          "maximum_rgb_absolute_difference": 124,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.035797119140625,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -1.3595155905932188e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_243_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 377,
+          "differing_pixels": 153,
+          "maximum_rgb_absolute_difference": 126,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.05457019805908203,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -8.125934982672334e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_087_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 255,
+          "differing_pixels": 100,
+          "maximum_rgb_absolute_difference": 136,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.08453512191772461,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.0006834249943494797,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_225_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 214,
+          "differing_pixels": 91,
+          "maximum_rgb_absolute_difference": 72,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.08910560607910156,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -1.8400078261038288e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_211_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 426,
+          "differing_pixels": 158,
+          "maximum_rgb_absolute_difference": 171,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.17278194427490234,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -9.280128870159388e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_045_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 206,
+          "differing_pixels": 92,
+          "maximum_rgb_absolute_difference": 73,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.05375480651855469,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 3.005006874445826e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_035_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 239,
+          "differing_pixels": 98,
+          "maximum_rgb_absolute_difference": 88,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.01916646957397461,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 1.772260293364525e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_129_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 230,
+          "differing_pixels": 88,
+          "maximum_rgb_absolute_difference": 87,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.18594646453857422,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 9.304079867433757e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_135_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 161,
+          "differing_pixels": 62,
+          "maximum_rgb_absolute_difference": 96,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.023857593536376953,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -1.8380465917289257e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_078_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 304,
+          "differing_pixels": 129,
+          "maximum_rgb_absolute_difference": 136,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.07558059692382812,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 1.0757416021078825e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_217_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 460,
+          "differing_pixels": 194,
+          "maximum_rgb_absolute_difference": 127,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.05183887481689453,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 1.1058073141612113e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_171_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 199,
+          "differing_pixels": 83,
+          "maximum_rgb_absolute_difference": 81,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.003968715667724609,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 3.1131203286349773e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_215_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 216,
+          "differing_pixels": 93,
+          "maximum_rgb_absolute_difference": 157,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.0092315673828125,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -1.230830093845725e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_015_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 204,
+          "differing_pixels": 83,
+          "maximum_rgb_absolute_difference": 94,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.0335993766784668,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -3.771658521145582e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_071_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 584,
+          "differing_pixels": 215,
+          "maximum_rgb_absolute_difference": 76,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.0673055648803711,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 2.7517875423654914e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_070_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 217,
+          "differing_pixels": 82,
+          "maximum_rgb_absolute_difference": 187,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.01583242416381836,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 4.660314880311489e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_191_slot_001",
+          "edit_visibility": "none",
+          "differing_channel_values": 8,
+          "differing_pixels": 6,
+          "maximum_rgb_absolute_difference": 1,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.00043392181396484375,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -1.1714291758835316e-07,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_000_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 192,
+          "differing_pixels": 82,
+          "maximum_rgb_absolute_difference": 180,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.01929473876953125,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 4.0713464841246605e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_207_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 467,
+          "differing_pixels": 203,
+          "maximum_rgb_absolute_difference": 139,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.2236804962158203,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 2.2145890397951007e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_221_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 276,
+          "differing_pixels": 115,
+          "maximum_rgb_absolute_difference": 145,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.2480616569519043,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -0.0006921754684299231,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_052_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 129,
+          "differing_pixels": 54,
+          "maximum_rgb_absolute_difference": 95,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.07774591445922852,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.00031810952350497246,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_253_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 157,
+          "differing_pixels": 66,
+          "maximum_rgb_absolute_difference": 164,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.08309555053710938,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -4.164128768024966e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_024_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 404,
+          "differing_pixels": 177,
+          "maximum_rgb_absolute_difference": 125,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.18911361694335938,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 2.9794173315167427e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_220_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 100,
+          "differing_pixels": 40,
+          "maximum_rgb_absolute_difference": 107,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.08443784713745117,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -0.0001564722042530775,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_016_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 462,
+          "differing_pixels": 173,
+          "maximum_rgb_absolute_difference": 147,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.1653738021850586,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 3.134279040750698e-07,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_058_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 1180,
+          "differing_pixels": 449,
+          "maximum_rgb_absolute_difference": 198,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.554011344909668,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.0004994819755665958,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_188_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 613,
+          "differing_pixels": 286,
+          "maximum_rgb_absolute_difference": 125,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.5449862480163574,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.0012337352382019162,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_267_slot_001",
+          "edit_visibility": "partial",
+          "differing_channel_values": 320,
+          "differing_pixels": 110,
+          "maximum_rgb_absolute_difference": 39,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": -0.22188282012939453,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": -4.172688932158053e-05,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_233_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 270,
+          "differing_pixels": 101,
+          "maximum_rgb_absolute_difference": 104,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.4691276550292969,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.0013685617595911026,
+          "decision_exact": true
+        },
+        {
+          "task_id": "restaurant_019_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 272,
+          "differing_pixels": 108,
+          "maximum_rgb_absolute_difference": 169,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.15054607391357422,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 1.3163216863176785e-06,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_182_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 293,
+          "differing_pixels": 112,
+          "maximum_rgb_absolute_difference": 103,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.7225341796875,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.00023697703727521002,
+          "decision_exact": true
+        }
+      ],
+      "crop_equal_downstream_exact_pairs_validated": 79,
+      "crop_equal_downstream_exact_contract": [
+        "normalized_tensor_bytes",
+        "persisted_CLIP_feature_float32_array",
+        "independently_reencoded_CLIP_feature_float32_array",
+        "raw_logit",
+        "sigmoid_probability_and_all_score_aliases",
+        "strict_probability_greater_than_0.5_decision"
+      ],
+      "crop_different_pair_downstream_equality_not_assumed": true,
+      "full_current_expected_census": null,
+      "full_current_expected_census_enforced": false
+    },
+    "gt_visibility_interpretation": "pre-canonicalization input-location condition only; Mouse exact-diff GT is computed before independent real/forged JPEG_q95 canonicalization and cannot establish canonical crop or downstream equality",
+    "runtime": {
+      "recorded_device": "cuda:4",
+      "actual_device": "cuda:4",
+      "gpu_name": "NVIDIA L20Z",
+      "gpu_capability": [
+        9,
+        0
+      ],
+      "torch": "2.8.0.dev20250627+cu128",
+      "torch_cuda": "12.8",
+      "cudnn_version": 91002,
+      "numerical_flags": {
+        "cudnn_deterministic": true,
+        "cudnn_benchmark": false,
+        "cuda_matmul_allow_tf32": false,
+        "cudnn_allow_tf32": false,
+        "float32_matmul_precision": "highest"
+      },
+      "silent_cpu_fallback_rejected": true
+    }
+  },
+  "recomputed_summary": {
+    "schema_version": "ufd_detection_summary_v1",
+    "task_scope": {
+      "primary_task": "T1_whole_image_AIGC_detection",
+      "valid_for_t1": true,
+      "valid_for_t2": false,
+      "primary_score": "ai_score",
+      "score_direction": "higher_means_fake",
+      "score_range": "finite_probability_closed_interval_[0,1]",
+      "released_threshold": 0.5,
+      "released_threshold_operator": ">",
+      "fpr_target": 0.05,
+      "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+      "fpr_threshold_operator": ">",
+      "bootstrap_unit": "task_id_pair",
+      "precision_zero_division": 0
+    },
+    "coverage": {
+      "expected_images": 550,
+      "physical_result_rows": 550,
+      "result_images": 550,
+      "valid_images": 550,
+      "error_images": 0,
+      "missing_images": 0,
+      "coverage_fraction": 1.0,
+      "valid_fraction": 1.0,
+      "is_complete": true
+    },
+    "paired_coverage": {
+      "expected_tasks": 275,
+      "expected_complete_pairs": 275,
+      "expected_incomplete_tasks": 0,
+      "preflight_expected_incomplete_pairs": false,
+      "complete_valid_pairs": 275,
+      "paired_valid_images": 550,
+      "unpaired_valid_images": 0,
+      "valid_complete_task_fraction": 1.0
+    },
+    "score_by_kind": {
+      "forged": {
+        "count": 275,
+        "min": 5.4684505812474526e-08,
+        "mean": 0.0041830135985070046,
+        "median": 0.00028288637986406684,
+        "p05": 3.6210804410075077e-06,
+        "p95": 0.018368827924132348,
+        "max": 0.27858883142471313
+      },
+      "real": {
+        "count": 275,
+        "min": 5.534651847938221e-08,
+        "mean": 0.003685335059863529,
+        "median": 0.00024176397710107267,
+        "p05": 3.609742702792574e-06,
+        "p95": 0.018522449582815174,
+        "max": 0.2749174237251282
+      }
+    },
+    "detection": {
+      "valid_images": 550,
+      "tp": 0,
+      "fp": 0,
+      "fn": 275,
+      "tn": 275,
+      "accuracy_at_0_5": 0.5,
+      "balanced_accuracy_at_0_5": 0.5,
+      "precision_at_0_5": 0.0,
+      "precision_zero_division": 0,
+      "recall_at_0_5": 0.0,
+      "f1_at_0_5": 0.0,
+      "specificity_at_0_5": 1.0,
+      "threshold": 0.5,
+      "threshold_operator": ">",
+      "score_direction": "higher_means_fake",
+      "score_range": "finite_probability_closed_interval_[0,1]",
+      "auroc": 0.5032595041322314,
+      "average_precision": 0.5101879980065332,
+      "tpr_at_fpr_5_percent": 0.04727272727272727,
+      "tpr_at_fpr_5_percent_threshold": 0.01884281635284424,
+      "tpr_at_fpr_5_percent_actual_fpr": 0.04727272727272727,
+      "tpr_at_fpr_5_percent_threshold_source": "real_scores_quantile_0_95_method_higher",
+      "tpr_at_fpr_5_percent_threshold_operator": ">",
+      "score_key": "ai_score"
+    },
+    "paired_score_delta": {
+      "count": 275,
+      "min": -0.010343806818127632,
+      "mean": 0.0004976785386434751,
+      "median": 0.0,
+      "p05": -0.00016787741333246228,
+      "p95": 0.0013979553477838646,
+      "max": 0.07296526990830898
+    },
+    "paired_ranking_accuracy": 0.44363636363636366,
+    "paired_ranking": {
+      "comparison": "forged_ai_score_strictly_greater_than_real",
+      "wins": 122,
+      "losses": 74,
+      "ties": 79,
+      "strict_accuracy": 0.44363636363636366
+    },
+    "paired_sign_test": {
+      "wins": 122,
+      "losses": 74,
+      "ties": 79,
+      "non_ties": 196,
+      "alternative": "two-sided",
+      "null_win_probability": 0.5,
+      "two_sided_exact_p": 0.0007459375982855871
+    },
+    "pair_bootstrap": {
+      "pairs": 275,
+      "images": 550,
+      "bootstrap_unit": "task_id_pair",
+      "bootstrap_samples": 1000,
+      "seed": 20260724,
+      "score_key": "ai_score",
+      "score_direction": "higher_means_fake",
+      "score_range": "finite_probability_closed_interval_[0,1]",
+      "fixed_threshold": 0.5,
+      "fixed_threshold_operator": ">",
+      "fpr_target": 0.05,
+      "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+      "fpr_threshold_operator": ">",
+      "auroc": {
+        "estimate": 0.5032595041322314,
+        "ci95_percentile": [
+          0.49680611570247935,
+          0.5089457851239669
+        ]
+      },
+      "average_precision": {
+        "estimate": 0.5101879980065332,
+        "ci95_percentile": [
+          0.5055358003490171,
+          0.521317650153665
+        ]
+      },
+      "tpr_at_fpr_5_percent": {
+        "estimate": 0.04727272727272727,
+        "ci95_percentile": [
+          0.03636363636363636,
+          0.06909090909090909
+        ]
+      },
+      "tpr_at_fpr_5_percent_threshold": {
+        "estimate": 0.01884281635284424,
+        "ci95_percentile": [
+          0.009158802218735218,
+          0.02879958599805832
+        ]
+      },
+      "tpr_at_fpr_5_percent_actual_fpr": {
+        "estimate": 0.04727272727272727,
+        "ci95_percentile": [
+          0.04,
+          0.04727272727272727
+        ]
+      },
+      "accuracy_at_0_5": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "balanced_accuracy_at_0_5": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "precision_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "recall_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "f1_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "specificity_at_0_5": {
+        "estimate": 1.0,
+        "ci95_percentile": [
+          1.0,
+          1.0
+        ]
+      },
+      "paired_ranking_accuracy": {
+        "estimate": 0.44363636363636366,
+        "ci95_percentile": [
+          0.38545454545454544,
+          0.5018181818181818
+        ]
+      },
+      "paired_score_delta_mean": {
+        "estimate": 0.0004976785386434751,
+        "ci95_percentile": [
+          4.477580846164968e-05,
+          0.0012123246622642938
+        ]
+      },
+      "image_confusion_at_0_5": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 275,
+        "tn": 275
+      },
+      "paired_score_delta": {
+        "count": 275,
+        "min": -0.010343806818127632,
+        "mean": 0.0004976785386434751,
+        "median": 0.0,
+        "p05": -0.00016787741333246228,
+        "p95": 0.0013979553477838646,
+        "max": 0.07296526990830898
+      },
+      "paired_ranking": {
+        "comparison": "forged_ai_score_strictly_greater_than_real",
+        "wins": 122,
+        "losses": 74,
+        "ties": 79,
+        "strict_accuracy": 0.44363636363636366
+      },
+      "paired_sign_test": {
+        "wins": 122,
+        "losses": 74,
+        "ties": 79,
+        "non_ties": 196,
+        "alternative": "two-sided",
+        "null_win_probability": 0.5,
+        "two_sided_exact_p": 0.0007459375982855871
+      },
+      "domains": [
+        "lodging",
+        "restaurant"
+      ],
+      "edit_visibilities": [
+        "full",
+        "none",
+        "partial"
+      ],
+      "edit_visible_gt_fraction": {
+        "count": 275,
+        "min": 0.0,
+        "mean": 0.6488893649781637,
+        "median": 1.0,
+        "p05": 0.0,
+        "p95": 1.0,
+        "max": 1.0
+      }
+    },
+    "by_domain": {
+      "lodging": {
+        "pairs": 147,
+        "images": 294,
+        "bootstrap_unit": "task_id_pair",
+        "bootstrap_samples": 1000,
+        "seed": 20261724,
+        "score_key": "ai_score",
+        "score_direction": "higher_means_fake",
+        "score_range": "finite_probability_closed_interval_[0,1]",
+        "fixed_threshold": 0.5,
+        "fixed_threshold_operator": ">",
+        "fpr_target": 0.05,
+        "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+        "fpr_threshold_operator": ">",
+        "auroc": {
+          "estimate": 0.5026840668240086,
+          "ci95_percentile": [
+            0.49072030172613257,
+            0.5140288768568652
+          ]
+        },
+        "average_precision": {
+          "estimate": 0.5126544166221819,
+          "ci95_percentile": [
+            0.5065969273387748,
+            0.5276281881213509
+          ]
+        },
+        "tpr_at_fpr_5_percent": {
+          "estimate": 0.061224489795918366,
+          "ci95_percentile": [
+            0.034013605442176874,
+            0.08163265306122448
+          ]
+        },
+        "tpr_at_fpr_5_percent_threshold": {
+          "estimate": 0.019360044971108437,
+          "ci95_percentile": [
+            0.010649215430021286,
+            0.04084683582186699
+          ]
+        },
+        "tpr_at_fpr_5_percent_actual_fpr": {
+          "estimate": 0.047619047619047616,
+          "ci95_percentile": [
+            0.034013605442176874,
+            0.047619047619047616
+          ]
+        },
+        "accuracy_at_0_5": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "balanced_accuracy_at_0_5": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "precision_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "f1_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "specificity_at_0_5": {
+          "estimate": 1.0,
+          "ci95_percentile": [
+            1.0,
+            1.0
+          ]
+        },
+        "paired_ranking_accuracy": {
+          "estimate": 0.46938775510204084,
+          "ci95_percentile": [
+            0.3877551020408163,
+            0.5578231292517006
+          ]
+        },
+        "paired_score_delta_mean": {
+          "estimate": 0.00041063020526795594,
+          "ci95_percentile": [
+            4.403811058963454e-06,
+            0.0009238877706067199
+          ]
+        },
+        "image_confusion_at_0_5": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 147,
+          "tn": 147
+        },
+        "paired_score_delta": {
+          "count": 147,
+          "min": -0.010343806818127632,
+          "mean": 0.00041063020526795594,
+          "median": 0.0,
+          "p05": -0.0009064010577276347,
+          "p95": 0.001985071040689939,
+          "max": 0.022148091346025467
+        },
+        "paired_ranking": {
+          "comparison": "forged_ai_score_strictly_greater_than_real",
+          "wins": 69,
+          "losses": 42,
+          "ties": 36,
+          "strict_accuracy": 0.46938775510204084
+        },
+        "paired_sign_test": {
+          "wins": 69,
+          "losses": 42,
+          "ties": 36,
+          "non_ties": 111,
+          "alternative": "two-sided",
+          "null_win_probability": 0.5,
+          "two_sided_exact_p": 0.013233607758826317
+        },
+        "domains": [
+          "lodging"
+        ],
+        "edit_visibilities": [
+          "full",
+          "none",
+          "partial"
+        ],
+        "edit_visible_gt_fraction": {
+          "count": 147,
+          "min": 0.0,
+          "mean": 0.7033406884555383,
+          "median": 1.0,
+          "p05": 0.0,
+          "p95": 1.0,
+          "max": 1.0
+        }
+      },
+      "restaurant": {
+        "pairs": 128,
+        "images": 256,
+        "bootstrap_unit": "task_id_pair",
+        "bootstrap_samples": 1000,
+        "seed": 20261725,
+        "score_key": "ai_score",
+        "score_direction": "higher_means_fake",
+        "score_range": "finite_probability_closed_interval_[0,1]",
+        "fixed_threshold": 0.5,
+        "fixed_threshold_operator": ">",
+        "fpr_target": 0.05,
+        "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+        "fpr_threshold_operator": ">",
+        "auroc": {
+          "estimate": 0.505218505859375,
+          "ci95_percentile": [
+            0.5018600463867188,
+            0.5101631164550782
+          ]
+        },
+        "average_precision": {
+          "estimate": 0.5150102008263706,
+          "ci95_percentile": [
+            0.5059595918466546,
+            0.5313703068384049
+          ]
+        },
+        "tpr_at_fpr_5_percent": {
+          "estimate": 0.046875,
+          "ci95_percentile": [
+            0.0234375,
+            0.0703125
+          ]
+        },
+        "tpr_at_fpr_5_percent_threshold": {
+          "estimate": 0.015467124059796333,
+          "ci95_percentile": [
+            0.005550382658839226,
+            0.025051675736904144
+          ]
+        },
+        "tpr_at_fpr_5_percent_actual_fpr": {
+          "estimate": 0.046875,
+          "ci95_percentile": [
+            0.03125,
+            0.046875
+          ]
+        },
+        "accuracy_at_0_5": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "balanced_accuracy_at_0_5": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "precision_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "f1_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "specificity_at_0_5": {
+          "estimate": 1.0,
+          "ci95_percentile": [
+            1.0,
+            1.0
+          ]
+        },
+        "paired_ranking_accuracy": {
+          "estimate": 0.4140625,
+          "ci95_percentile": [
+            0.328125,
+            0.4921875
+          ]
+        },
+        "paired_score_delta_mean": {
+          "estimate": 0.0005976481090044228,
+          "ci95_percentile": [
+            -8.9241336260365e-05,
+            0.0018284885886621193
+          ]
+        },
+        "image_confusion_at_0_5": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 128,
+          "tn": 128
+        },
+        "paired_score_delta": {
+          "count": 128,
+          "min": -0.007591014727950096,
+          "mean": 0.0005976481090044228,
+          "median": 0.0,
+          "p05": -6.320064421743153e-05,
+          "p95": 0.0006396723794750848,
+          "max": 0.07296526990830898
+        },
+        "paired_ranking": {
+          "comparison": "forged_ai_score_strictly_greater_than_real",
+          "wins": 53,
+          "losses": 32,
+          "ties": 43,
+          "strict_accuracy": 0.4140625
+        },
+        "paired_sign_test": {
+          "wins": 53,
+          "losses": 32,
+          "ties": 43,
+          "non_ties": 85,
+          "alternative": "two-sided",
+          "null_win_probability": 0.5,
+          "two_sided_exact_p": 0.02945636178577888
+        },
+        "domains": [
+          "restaurant"
+        ],
+        "edit_visibilities": [
+          "full",
+          "none",
+          "partial"
+        ],
+        "edit_visible_gt_fraction": {
+          "count": 128,
+          "min": 0.0,
+          "mean": 0.5863554231721163,
+          "median": 1.0,
+          "p05": 0.0,
+          "p95": 1.0,
+          "max": 1.0
+        }
+      }
+    },
+    "by_edit_visibility": {
+      "full": {
+        "pairs": 162,
+        "images": 324,
+        "bootstrap_unit": "task_id_pair",
+        "bootstrap_samples": 1000,
+        "seed": 20262724,
+        "score_key": "ai_score",
+        "score_direction": "higher_means_fake",
+        "score_range": "finite_probability_closed_interval_[0,1]",
+        "fixed_threshold": 0.5,
+        "fixed_threshold_operator": ">",
+        "fpr_target": 0.05,
+        "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+        "fpr_threshold_operator": ">",
+        "auroc": {
+          "estimate": 0.5037341868617589,
+          "ci95_percentile": [
+            0.4927192882182594,
+            0.514327084285932
+          ]
+        },
+        "average_precision": {
+          "estimate": 0.5166466465956835,
+          "ci95_percentile": [
+            0.5087757523817864,
+            0.5332031260793311
+          ]
+        },
+        "tpr_at_fpr_5_percent": {
+          "estimate": 0.05555555555555555,
+          "ci95_percentile": [
+            0.030864197530864196,
+            0.08641975308641975
+          ]
+        },
+        "tpr_at_fpr_5_percent_threshold": {
+          "estimate": 0.015467124059796333,
+          "ci95_percentile": [
+            0.006397359073162079,
+            0.025051675736904144
+          ]
+        },
+        "tpr_at_fpr_5_percent_actual_fpr": {
+          "estimate": 0.04938271604938271,
+          "ci95_percentile": [
+            0.030864197530864196,
+            0.04938271604938271
+          ]
+        },
+        "accuracy_at_0_5": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "balanced_accuracy_at_0_5": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "precision_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "f1_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "specificity_at_0_5": {
+          "estimate": 1.0,
+          "ci95_percentile": [
+            1.0,
+            1.0
+          ]
+        },
+        "paired_ranking_accuracy": {
+          "estimate": 0.6172839506172839,
+          "ci95_percentile": [
+            0.5370370370370371,
+            0.691358024691358
+          ]
+        },
+        "paired_score_delta_mean": {
+          "estimate": 0.0007716961366738506,
+          "ci95_percentile": [
+            5.084861446372343e-05,
+            0.001860592457299328
+          ]
+        },
+        "image_confusion_at_0_5": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 162,
+          "tn": 162
+        },
+        "paired_score_delta": {
+          "count": 162,
+          "min": -0.007591014727950096,
+          "mean": 0.0007716961366738506,
+          "median": 2.59065154750715e-06,
+          "p05": -0.0006789645296521483,
+          "p95": 0.0017528823576867562,
+          "max": 0.07296526990830898
+        },
+        "paired_ranking": {
+          "comparison": "forged_ai_score_strictly_greater_than_real",
+          "wins": 100,
+          "losses": 62,
+          "ties": 0,
+          "strict_accuracy": 0.6172839506172839
+        },
+        "paired_sign_test": {
+          "wins": 100,
+          "losses": 62,
+          "ties": 0,
+          "non_ties": 162,
+          "alternative": "two-sided",
+          "null_win_probability": 0.5,
+          "two_sided_exact_p": 0.00351893499322376
+        },
+        "domains": [
+          "lodging",
+          "restaurant"
+        ],
+        "edit_visibilities": [
+          "full"
+        ],
+        "edit_visible_gt_fraction": {
+          "count": 162,
+          "min": 1.0,
+          "mean": 1.0,
+          "median": 1.0,
+          "p05": 1.0,
+          "p95": 1.0,
+          "max": 1.0
+        }
+      },
+      "none": {
+        "pairs": 80,
+        "images": 160,
+        "bootstrap_unit": "task_id_pair",
+        "bootstrap_samples": 1000,
+        "seed": 20262725,
+        "score_key": "ai_score",
+        "score_direction": "higher_means_fake",
+        "score_range": "finite_probability_closed_interval_[0,1]",
+        "fixed_threshold": 0.5,
+        "fixed_threshold_operator": ">",
+        "fpr_target": 0.05,
+        "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+        "fpr_threshold_operator": ">",
+        "auroc": {
+          "estimate": 0.49984375000000003,
+          "ci95_percentile": [
+            0.49859375,
+            0.5
+          ]
+        },
+        "average_precision": {
+          "estimate": 0.4999166666666665,
+          "ci95_percentile": [
+            0.49944029850746263,
+            0.5
+          ]
+        },
+        "tpr_at_fpr_5_percent": {
+          "estimate": 0.0375,
+          "ci95_percentile": [
+            0.0,
+            0.0375
+          ]
+        },
+        "tpr_at_fpr_5_percent_threshold": {
+          "estimate": 0.018385149538517,
+          "ci95_percentile": [
+            0.005550382658839226,
+            0.030527839437127113
+          ]
+        },
+        "tpr_at_fpr_5_percent_actual_fpr": {
+          "estimate": 0.0375,
+          "ci95_percentile": [
+            0.0,
+            0.0375
+          ]
+        },
+        "accuracy_at_0_5": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "balanced_accuracy_at_0_5": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "precision_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "f1_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "specificity_at_0_5": {
+          "estimate": 1.0,
+          "ci95_percentile": [
+            1.0,
+            1.0
+          ]
+        },
+        "paired_ranking_accuracy": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "paired_score_delta_mean": {
+          "estimate": -1.4642864698544145e-09,
+          "ci95_percentile": [
+            -4.392859409563243e-09,
+            0.0
+          ]
+        },
+        "image_confusion_at_0_5": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 80,
+          "tn": 80
+        },
+        "paired_score_delta": {
+          "count": 80,
+          "min": -1.1714291758835316e-07,
+          "mean": -1.4642864698544145e-09,
+          "median": 0.0,
+          "p05": 0.0,
+          "p95": 0.0,
+          "max": 0.0
+        },
+        "paired_ranking": {
+          "comparison": "forged_ai_score_strictly_greater_than_real",
+          "wins": 0,
+          "losses": 1,
+          "ties": 79,
+          "strict_accuracy": 0.0
+        },
+        "paired_sign_test": {
+          "wins": 0,
+          "losses": 1,
+          "ties": 79,
+          "non_ties": 1,
+          "alternative": "two-sided",
+          "null_win_probability": 0.5,
+          "two_sided_exact_p": 1.0
+        },
+        "domains": [
+          "lodging",
+          "restaurant"
+        ],
+        "edit_visibilities": [
+          "none"
+        ],
+        "edit_visible_gt_fraction": {
+          "count": 80,
+          "min": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "p05": 0.0,
+          "p95": 0.0,
+          "max": 0.0
+        }
+      },
+      "partial": {
+        "pairs": 33,
+        "images": 66,
+        "bootstrap_unit": "task_id_pair",
+        "bootstrap_samples": 1000,
+        "seed": 20262726,
+        "score_key": "ai_score",
+        "score_direction": "higher_means_fake",
+        "score_range": "finite_probability_closed_interval_[0,1]",
+        "fixed_threshold": 0.5,
+        "fixed_threshold_operator": ">",
+        "fpr_target": 0.05,
+        "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+        "fpr_threshold_operator": ">",
+        "auroc": {
+          "estimate": 0.5087235996326905,
+          "ci95_percentile": [
+            0.4876033057851239,
+            0.5390266299357208
+          ]
+        },
+        "average_precision": {
+          "estimate": 0.5367438645678055,
+          "ci95_percentile": [
+            0.5219952449003531,
+            0.5900885580187707
+          ]
+        },
+        "tpr_at_fpr_5_percent": {
+          "estimate": 0.030303030303030304,
+          "ci95_percentile": [
+            0.0,
+            0.15151515151515152
+          ]
+        },
+        "tpr_at_fpr_5_percent_threshold": {
+          "estimate": 0.04084683582186699,
+          "ci95_percentile": [
+            0.0077613103203475475,
+            0.2749174237251282
+          ]
+        },
+        "tpr_at_fpr_5_percent_actual_fpr": {
+          "estimate": 0.030303030303030304,
+          "ci95_percentile": [
+            0.0,
+            0.030303030303030304
+          ]
+        },
+        "accuracy_at_0_5": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "balanced_accuracy_at_0_5": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "precision_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "f1_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "specificity_at_0_5": {
+          "estimate": 1.0,
+          "ci95_percentile": [
+            1.0,
+            1.0
+          ]
+        },
+        "paired_ranking_accuracy": {
+          "estimate": 0.6666666666666666,
+          "ci95_percentile": [
+            0.48484848484848486,
+            0.8181818181818182
+          ]
+        },
+        "paired_score_delta_mean": {
+          "estimate": 0.0003589982160214979,
+          "ci95_percentile": [
+            -0.0006315725359132848,
+            0.0014328649966876472
+          ]
+        },
+        "image_confusion_at_0_5": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 33,
+          "tn": 33
+        },
+        "paired_score_delta": {
+          "count": 33,
+          "min": -0.010343806818127632,
+          "mean": 0.0003589982160214979,
+          "median": 5.200763553148136e-07,
+          "p05": -9.84847021754831e-05,
+          "p95": 0.002759334258735178,
+          "max": 0.012792211025953293
+        },
+        "paired_ranking": {
+          "comparison": "forged_ai_score_strictly_greater_than_real",
+          "wins": 22,
+          "losses": 11,
+          "ties": 0,
+          "strict_accuracy": 0.6666666666666666
+        },
+        "paired_sign_test": {
+          "wins": 22,
+          "losses": 11,
+          "ties": 0,
+          "non_ties": 33,
+          "alternative": "two-sided",
+          "null_win_probability": 0.5,
+          "two_sided_exact_p": 0.08014331245794892
+        },
+        "domains": [
+          "lodging",
+          "restaurant"
+        ],
+        "edit_visibilities": [
+          "partial"
+        ],
+        "edit_visible_gt_fraction": {
+          "count": 33,
+          "min": 0.0005717552887364208,
+          "mean": 0.49832046572712185,
+          "median": 0.45196615231458437,
+          "p05": 0.0406134053436958,
+          "p95": 0.9774555480387528,
+          "max": 0.9935245143385754
+        }
+      }
+    },
+    "edit_visible_gt_fraction": {
+      "count": 275,
+      "min": 0.0,
+      "mean": 0.6488893649781637,
+      "median": 1.0,
+      "p05": 0.0,
+      "p95": 1.0,
+      "max": 1.0
+    },
+    "latency_ms": {
+      "count": 550,
+      "min": 9.639,
+      "mean": 11.492496363636363,
+      "median": 9.765,
+      "p05": 9.661,
+      "p95": 20.8559,
+      "max": 207.395
+    },
+    "peak_cuda_memory_bytes": {
+      "count": 550,
+      "min": 1806185472.0,
+      "mean": 1806185472.0,
+      "median": 1806185472.0,
+      "p05": 1806185472.0,
+      "p95": 1806185472.0,
+      "max": 1806185472.0,
+      "unmeasured_cpu_rows": 0
+    }
+  },
+  "prefix_provenance": {
+    "run_manifest_fingerprint": "612d0c12aae775fc3727674b80197d49d6c702d489c4e5d40898f9a04fdd44ce",
+    "preprocess_profile": "checkpoint_era_resize256_center_crop224",
+    "profile_kind": "checkpoint_era_resize256",
+    "preprocess_profile_contract": {
+      "profile_id": "checkpoint_era_resize256_center_crop224",
+      "steps": [
+        "Pillow.Image.open.convert_RGB",
+        "torchvision.transforms.Resize_short_side_256_PIL_bilinear",
+        "torchvision.transforms.CenterCrop_224",
+        "torchvision.transforms.ToTensor",
+        "CLIP_Normalize"
+      ],
+      "resize_short_side": 256,
+      "center_crop": 224,
+      "source_basis": "validate.py_at_head_introduction_commit",
+      "source_commit": "763391eff3284f6950ffb323599c1a7a819f2ecd",
+      "validate_blob_sha256": "8a68ba2af3e7586f294bdbc5643a1e46f418916406c3129f24647f275da8d77a",
+      "resize_removed_by_commit": "3bf72282088e47be7e784e104e577790a55d4e48",
+      "drift": "fc_weights.pth was introduced while validate.py still applied Resize(256) before CenterCrop(224)"
+    },
+    "source_commit": "76a0e3e60a8a06458707a625d269ba815a2e5919",
+    "source_files_validated": 15,
+    "head_checkpoint": "/root/.cache/claimforge/checkpoints/universal-fake-detect-76a0e3e60a8a/fc_weights.pth",
+    "head_checkpoint_audit": {
+      "unsafe_globals": [],
+      "weights_only": true,
+      "keys": [
+        "weight",
+        "bias"
+      ],
+      "weight_shape": [
+        1,
+        768
+      ],
+      "bias_shape": [
+        1
+      ],
+      "dtype": "float32"
+    },
+    "backbone_checkpoint": "/root/.cache/claimforge/checkpoints/openai-clip/ViT-L-14.pt",
+    "asset_bundle_sha256": "b57c7a8865336b82fe716dc7871006883417cf60f7b36ca8a9a5f925da009121",
+    "adapter_contract": {
+      "files_validated": 3,
+      "filenames": [
+        "common.py",
+        "run_universalfakedetect.py",
+        "ufd_metrics.py"
+      ]
+    },
+    "canonical_inputs_sha256": "e4cb3d6a78fa68f06341457e2234c630a455a9b6b9789e59abf45c15b292060a",
+    "canonical_dataset_manifest_sha256": "beb3c30e436db682bbadef794404838f33a4812f18f22819dd6ab1ef3de6f0b1",
+    "physical_result_rows_validated": 10,
+    "latest_rows_validated": 10,
+    "selected_inputs_validated": 10,
+    "bootstrap_samples": 1000,
+    "bootstrap_seed": 20260724
+  },
+  "prefix_artifact_replay": {
+    "images_redecoded": 10,
+    "images_fully_reencoded": 10,
+    "persisted_features_validated": 10,
+    "feature_shape": [
+      768
+    ],
+    "feature_dtype": "float32",
+    "feature_l2_normalized": false,
+    "maximum_feature_absolute_difference": 0.0,
+    "maximum_raw_logit_absolute_difference": 0.0,
+    "maximum_probability_absolute_difference": 0.0,
+    "head_replayed_from_persisted_feature": true,
+    "float32_sigmoid_replayed": true,
+    "strict_decision_replayed": "probability > 0.5",
+    "preprocess_profile": "checkpoint_era_resize256_center_crop224",
+    "profile_kind": "checkpoint_era_resize256",
+    "crop_rgb_hash_replayed": true,
+    "normalized_tensor_hash_replayed": true,
+    "edit_visibility_tasks": {
+      "full": 3,
+      "none": 2
+    },
+    "complete_pair_edit_visibility": {
+      "full": 3,
+      "none": 2
+    },
+    "full_selection": false,
+    "required_full_visibility_census": {
+      "none": 80,
+      "partial": 33,
+      "full": 162
+    },
+    "canonical_crop_pair_equivalence": {
+      "basis": "np.array_equal_on_independently_decoded_and_preprocessed_canonical_RGB_crop_uint8_[224,224,3]",
+      "gt_visibility_semantics": "pre_canonicalization_input_location_condition_only; exact-diff GT precedes independent real/forged JPEG_q95 canonicalization",
+      "pairs": 5,
+      "crop_equal_pairs": 2,
+      "crop_different_pairs": 3,
+      "crop_equal_fraction": 0.4,
+      "by_edit_visibility": {
+        "full": {
+          "pairs": 3,
+          "crop_equal_pairs": 0,
+          "crop_different_pairs": 3,
+          "crop_equal_fraction": 0.0
+        },
+        "none": {
+          "pairs": 2,
+          "crop_equal_pairs": 2,
+          "crop_different_pairs": 0,
+          "crop_equal_fraction": 1.0
+        }
+      },
+      "crop_different_task_ids_by_edit_visibility": {
+        "full": [
+          "restaurant_089_slot_001",
+          "lodging_202_slot_001",
+          "lodging_071_slot_001"
+        ]
+      },
+      "crop_different_pair_details": [
+        {
+          "task_id": "restaurant_089_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 337,
+          "differing_pixels": 133,
+          "maximum_rgb_absolute_difference": 147,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.5024175643920898,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.00011933753557968885,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_202_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 245,
+          "differing_pixels": 114,
+          "maximum_rgb_absolute_difference": 59,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.0551447868347168,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 0.00013603083789348602,
+          "decision_exact": true
+        },
+        {
+          "task_id": "lodging_071_slot_001",
+          "edit_visibility": "full",
+          "differing_channel_values": 534,
+          "differing_pixels": 198,
+          "maximum_rgb_absolute_difference": 148,
+          "tensor_exact": false,
+          "persisted_feature_exact": false,
+          "reencoded_feature_exact": false,
+          "raw_logit_exact": false,
+          "raw_logit_delta_forged_minus_real": 0.09856891632080078,
+          "probability_exact": false,
+          "probability_delta_forged_minus_real": 3.6357727367430925e-05,
+          "decision_exact": true
+        }
+      ],
+      "crop_equal_downstream_exact_pairs_validated": 2,
+      "crop_equal_downstream_exact_contract": [
+        "normalized_tensor_bytes",
+        "persisted_CLIP_feature_float32_array",
+        "independently_reencoded_CLIP_feature_float32_array",
+        "raw_logit",
+        "sigmoid_probability_and_all_score_aliases",
+        "strict_probability_greater_than_0.5_decision"
+      ],
+      "crop_different_pair_downstream_equality_not_assumed": true,
+      "full_current_expected_census": null,
+      "full_current_expected_census_enforced": false
+    },
+    "gt_visibility_interpretation": "pre-canonicalization input-location condition only; Mouse exact-diff GT is computed before independent real/forged JPEG_q95 canonicalization and cannot establish canonical crop or downstream equality",
+    "runtime": {
+      "recorded_device": "cuda:4",
+      "actual_device": "cuda:4",
+      "gpu_name": "NVIDIA L20Z",
+      "gpu_capability": [
+        9,
+        0
+      ],
+      "torch": "2.8.0.dev20250627+cu128",
+      "torch_cuda": "12.8",
+      "cudnn_version": 91002,
+      "numerical_flags": {
+        "cudnn_deterministic": true,
+        "cudnn_benchmark": false,
+        "cuda_matmul_allow_tf32": false,
+        "cudnn_allow_tf32": false,
+        "float32_matmul_precision": "highest"
+      },
+      "silent_cpu_fallback_rejected": true
+    }
+  },
+  "prefix_recomputed_summary": {
+    "schema_version": "ufd_detection_summary_v1",
+    "task_scope": {
+      "primary_task": "T1_whole_image_AIGC_detection",
+      "valid_for_t1": true,
+      "valid_for_t2": false,
+      "primary_score": "ai_score",
+      "score_direction": "higher_means_fake",
+      "score_range": "finite_probability_closed_interval_[0,1]",
+      "released_threshold": 0.5,
+      "released_threshold_operator": ">",
+      "fpr_target": 0.05,
+      "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+      "fpr_threshold_operator": ">",
+      "bootstrap_unit": "task_id_pair",
+      "precision_zero_division": 0
+    },
+    "coverage": {
+      "expected_images": 10,
+      "physical_result_rows": 10,
+      "result_images": 10,
+      "valid_images": 10,
+      "error_images": 0,
+      "missing_images": 0,
+      "coverage_fraction": 1.0,
+      "valid_fraction": 1.0,
+      "is_complete": true
+    },
+    "paired_coverage": {
+      "expected_tasks": 5,
+      "expected_complete_pairs": 5,
+      "expected_incomplete_tasks": 0,
+      "preflight_expected_incomplete_pairs": false,
+      "complete_valid_pairs": 5,
+      "paired_valid_images": 10,
+      "unpaired_valid_images": 0,
+      "valid_complete_task_fraction": 1.0
+    },
+    "score_by_kind": {
+      "forged": {
+        "count": 5,
+        "min": 1.345905502603273e-06,
+        "mean": 0.0006547125236011197,
+        "median": 0.0003022261953447014,
+        "p05": 9.271519775211346e-06,
+        "p95": 0.002110731753055006,
+        "max": 0.0025415474083274603
+      },
+      "real": {
+        "count": 5,
+        "min": 1.345905502603273e-06,
+        "mean": 0.0005963673034329986,
+        "median": 0.00018288865976501256,
+        "p05": 9.271519775211346e-06,
+        "p95": 0.001994635537266731,
+        "max": 0.0024055165704339743
+      }
+    },
+    "detection": {
+      "valid_images": 10,
+      "tp": 0,
+      "fp": 0,
+      "fn": 5,
+      "tn": 5,
+      "accuracy_at_0_5": 0.5,
+      "balanced_accuracy_at_0_5": 0.5,
+      "precision_at_0_5": 0.0,
+      "precision_zero_division": 0,
+      "recall_at_0_5": 0.0,
+      "f1_at_0_5": 0.0,
+      "specificity_at_0_5": 1.0,
+      "threshold": 0.5,
+      "threshold_operator": ">",
+      "score_direction": "higher_means_fake",
+      "score_range": "finite_probability_closed_interval_[0,1]",
+      "auroc": 0.56,
+      "average_precision": 0.6533333333333333,
+      "tpr_at_fpr_5_percent": 0.2,
+      "tpr_at_fpr_5_percent_threshold": 0.0024055165704339743,
+      "tpr_at_fpr_5_percent_actual_fpr": 0.0,
+      "tpr_at_fpr_5_percent_threshold_source": "real_scores_quantile_0_95_method_higher",
+      "tpr_at_fpr_5_percent_threshold_operator": ">",
+      "score_key": "ai_score"
+    },
+    "paired_score_delta": {
+      "count": 5,
+      "min": 0.0,
+      "mean": 5.834522016812116e-05,
+      "median": 3.6357727367430925e-05,
+      "p05": 0.0,
+      "p95": 0.0001326921774307266,
+      "max": 0.00013603083789348602
+    },
+    "paired_ranking_accuracy": 0.6,
+    "paired_ranking": {
+      "comparison": "forged_ai_score_strictly_greater_than_real",
+      "wins": 3,
+      "losses": 0,
+      "ties": 2,
+      "strict_accuracy": 0.6
+    },
+    "paired_sign_test": {
+      "wins": 3,
+      "losses": 0,
+      "ties": 2,
+      "non_ties": 3,
+      "alternative": "two-sided",
+      "null_win_probability": 0.5,
+      "two_sided_exact_p": 0.25
+    },
+    "pair_bootstrap": {
+      "pairs": 5,
+      "images": 10,
+      "bootstrap_unit": "task_id_pair",
+      "bootstrap_samples": 1000,
+      "seed": 20260724,
+      "score_key": "ai_score",
+      "score_direction": "higher_means_fake",
+      "score_range": "finite_probability_closed_interval_[0,1]",
+      "fixed_threshold": 0.5,
+      "fixed_threshold_operator": ">",
+      "fpr_target": 0.05,
+      "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+      "fpr_threshold_operator": ">",
+      "auroc": {
+        "estimate": 0.56,
+        "ci95_percentile": [
+          0.52,
+          0.76
+        ]
+      },
+      "average_precision": {
+        "estimate": 0.6533333333333333,
+        "ci95_percentile": [
+          0.6000000000000001,
+          0.85
+        ]
+      },
+      "tpr_at_fpr_5_percent": {
+        "estimate": 0.2,
+        "ci95_percentile": [
+          0.2,
+          0.6
+        ]
+      },
+      "tpr_at_fpr_5_percent_threshold": {
+        "estimate": 0.0024055165704339743,
+        "ci95_percentile": [
+          0.00018288865976501256,
+          0.0024055165704339743
+        ]
+      },
+      "tpr_at_fpr_5_percent_actual_fpr": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "accuracy_at_0_5": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "balanced_accuracy_at_0_5": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "precision_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "recall_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "f1_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "specificity_at_0_5": {
+        "estimate": 1.0,
+        "ci95_percentile": [
+          1.0,
+          1.0
+        ]
+      },
+      "paired_ranking_accuracy": {
+        "estimate": 0.6,
+        "ci95_percentile": [
+          0.2,
+          1.0
+        ]
+      },
+      "paired_score_delta_mean": {
+        "estimate": 5.834522016812116e-05,
+        "ci95_percentile": [
+          7.271545473486185e-06,
+          0.00010941889486275614
+        ]
+      },
+      "image_confusion_at_0_5": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 5,
+        "tn": 5
+      },
+      "paired_score_delta": {
+        "count": 5,
+        "min": 0.0,
+        "mean": 5.834522016812116e-05,
+        "median": 3.6357727367430925e-05,
+        "p05": 0.0,
+        "p95": 0.0001326921774307266,
+        "max": 0.00013603083789348602
+      },
+      "paired_ranking": {
+        "comparison": "forged_ai_score_strictly_greater_than_real",
+        "wins": 3,
+        "losses": 0,
+        "ties": 2,
+        "strict_accuracy": 0.6
+      },
+      "paired_sign_test": {
+        "wins": 3,
+        "losses": 0,
+        "ties": 2,
+        "non_ties": 3,
+        "alternative": "two-sided",
+        "null_win_probability": 0.5,
+        "two_sided_exact_p": 0.25
+      },
+      "domains": [
+        "lodging",
+        "restaurant"
+      ],
+      "edit_visibilities": [
+        "full",
+        "none"
+      ],
+      "edit_visible_gt_fraction": {
+        "count": 5,
+        "min": 0.0,
+        "mean": 0.6,
+        "median": 1.0,
+        "p05": 0.0,
+        "p95": 1.0,
+        "max": 1.0
+      }
+    },
+    "by_domain": {
+      "lodging": {
+        "pairs": 3,
+        "images": 6,
+        "bootstrap_unit": "task_id_pair",
+        "bootstrap_samples": 1000,
+        "seed": 20261724,
+        "score_key": "ai_score",
+        "score_direction": "higher_means_fake",
+        "score_range": "finite_probability_closed_interval_[0,1]",
+        "fixed_threshold": 0.5,
+        "fixed_threshold_operator": ">",
+        "fpr_target": 0.05,
+        "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+        "fpr_threshold_operator": ">",
+        "auroc": {
+          "estimate": 0.6111111111111112,
+          "ci95_percentile": [
+            0.5,
+            1.0
+          ]
+        },
+        "average_precision": {
+          "estimate": 0.7222222222222222,
+          "ci95_percentile": [
+            0.5,
+            1.0
+          ]
+        },
+        "tpr_at_fpr_5_percent": {
+          "estimate": 0.3333333333333333,
+          "ci95_percentile": [
+            0.0,
+            1.0
+          ]
+        },
+        "tpr_at_fpr_5_percent_threshold": {
+          "estimate": 0.0024055165704339743,
+          "ci95_percentile": [
+            4.0973976865643635e-05,
+            0.0024055165704339743
+          ]
+        },
+        "tpr_at_fpr_5_percent_actual_fpr": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "accuracy_at_0_5": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "balanced_accuracy_at_0_5": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "precision_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "f1_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "specificity_at_0_5": {
+          "estimate": 1.0,
+          "ci95_percentile": [
+            1.0,
+            1.0
+          ]
+        },
+        "paired_ranking_accuracy": {
+          "estimate": 0.6666666666666666,
+          "ci95_percentile": [
+            0.0,
+            1.0
+          ]
+        },
+        "paired_score_delta_mean": {
+          "estimate": 5.746285508697232e-05,
+          "ci95_percentile": [
+            0.0,
+            0.00013603083789348602
+          ]
+        },
+        "image_confusion_at_0_5": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "tn": 3
+        },
+        "paired_score_delta": {
+          "count": 3,
+          "min": 0.0,
+          "mean": 5.746285508697232e-05,
+          "median": 3.6357727367430925e-05,
+          "p05": 3.635772736743093e-06,
+          "p95": 0.0001260635268408805,
+          "max": 0.00013603083789348602
+        },
+        "paired_ranking": {
+          "comparison": "forged_ai_score_strictly_greater_than_real",
+          "wins": 2,
+          "losses": 0,
+          "ties": 1,
+          "strict_accuracy": 0.6666666666666666
+        },
+        "paired_sign_test": {
+          "wins": 2,
+          "losses": 0,
+          "ties": 1,
+          "non_ties": 2,
+          "alternative": "two-sided",
+          "null_win_probability": 0.5,
+          "two_sided_exact_p": 0.5
+        },
+        "domains": [
+          "lodging"
+        ],
+        "edit_visibilities": [
+          "full",
+          "none"
+        ],
+        "edit_visible_gt_fraction": {
+          "count": 3,
+          "min": 0.0,
+          "mean": 0.6666666666666666,
+          "median": 1.0,
+          "p05": 0.1,
+          "p95": 1.0,
+          "max": 1.0
+        }
+      },
+      "restaurant": {
+        "pairs": 2,
+        "images": 4,
+        "bootstrap_unit": "task_id_pair",
+        "bootstrap_samples": 1000,
+        "seed": 20261725,
+        "score_key": "ai_score",
+        "score_direction": "higher_means_fake",
+        "score_range": "finite_probability_closed_interval_[0,1]",
+        "fixed_threshold": 0.5,
+        "fixed_threshold_operator": ">",
+        "fpr_target": 0.05,
+        "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+        "fpr_threshold_operator": ">",
+        "auroc": {
+          "estimate": 0.625,
+          "ci95_percentile": [
+            0.5,
+            1.0
+          ]
+        },
+        "average_precision": {
+          "estimate": 0.75,
+          "ci95_percentile": [
+            0.5,
+            1.0
+          ]
+        },
+        "tpr_at_fpr_5_percent": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.0,
+            1.0
+          ]
+        },
+        "tpr_at_fpr_5_percent_threshold": {
+          "estimate": 0.00018288865976501256,
+          "ci95_percentile": [
+            1.345905502603273e-06,
+            0.00018288865976501256
+          ]
+        },
+        "tpr_at_fpr_5_percent_actual_fpr": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "accuracy_at_0_5": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "balanced_accuracy_at_0_5": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "precision_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "f1_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "specificity_at_0_5": {
+          "estimate": 1.0,
+          "ci95_percentile": [
+            1.0,
+            1.0
+          ]
+        },
+        "paired_ranking_accuracy": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.0,
+            1.0
+          ]
+        },
+        "paired_score_delta_mean": {
+          "estimate": 5.9668767789844424e-05,
+          "ci95_percentile": [
+            0.0,
+            0.00011933753557968885
+          ]
+        },
+        "image_confusion_at_0_5": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 2,
+          "tn": 2
+        },
+        "paired_score_delta": {
+          "count": 2,
+          "min": 0.0,
+          "mean": 5.9668767789844424e-05,
+          "median": 5.9668767789844424e-05,
+          "p05": 5.966876778984443e-06,
+          "p95": 0.0001133706588007044,
+          "max": 0.00011933753557968885
+        },
+        "paired_ranking": {
+          "comparison": "forged_ai_score_strictly_greater_than_real",
+          "wins": 1,
+          "losses": 0,
+          "ties": 1,
+          "strict_accuracy": 0.5
+        },
+        "paired_sign_test": {
+          "wins": 1,
+          "losses": 0,
+          "ties": 1,
+          "non_ties": 1,
+          "alternative": "two-sided",
+          "null_win_probability": 0.5,
+          "two_sided_exact_p": 1.0
+        },
+        "domains": [
+          "restaurant"
+        ],
+        "edit_visibilities": [
+          "full",
+          "none"
+        ],
+        "edit_visible_gt_fraction": {
+          "count": 2,
+          "min": 0.0,
+          "mean": 0.5,
+          "median": 0.5,
+          "p05": 0.05,
+          "p95": 0.95,
+          "max": 1.0
+        }
+      }
+    },
+    "by_edit_visibility": {
+      "full": {
+        "pairs": 3,
+        "images": 6,
+        "bootstrap_unit": "task_id_pair",
+        "bootstrap_samples": 1000,
+        "seed": 20262724,
+        "score_key": "ai_score",
+        "score_direction": "higher_means_fake",
+        "score_range": "finite_probability_closed_interval_[0,1]",
+        "fixed_threshold": 0.5,
+        "fixed_threshold_operator": ">",
+        "fpr_target": 0.05,
+        "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+        "fpr_threshold_operator": ">",
+        "auroc": {
+          "estimate": 0.6666666666666667,
+          "ci95_percentile": [
+            0.6666666666666667,
+            1.0
+          ]
+        },
+        "average_precision": {
+          "estimate": 0.7555555555555555,
+          "ci95_percentile": [
+            0.7555555555555555,
+            1.0
+          ]
+        },
+        "tpr_at_fpr_5_percent": {
+          "estimate": 0.3333333333333333,
+          "ci95_percentile": [
+            0.3333333333333333,
+            1.0
+          ]
+        },
+        "tpr_at_fpr_5_percent_threshold": {
+          "estimate": 0.0024055165704339743,
+          "ci95_percentile": [
+            0.00018288865976501256,
+            0.0024055165704339743
+          ]
+        },
+        "tpr_at_fpr_5_percent_actual_fpr": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "accuracy_at_0_5": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "balanced_accuracy_at_0_5": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "precision_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "f1_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "specificity_at_0_5": {
+          "estimate": 1.0,
+          "ci95_percentile": [
+            1.0,
+            1.0
+          ]
+        },
+        "paired_ranking_accuracy": {
+          "estimate": 1.0,
+          "ci95_percentile": [
+            1.0,
+            1.0
+          ]
+        },
+        "paired_score_delta_mean": {
+          "estimate": 9.724203361353527e-05,
+          "ci95_percentile": [
+            3.6357727367430925e-05,
+            0.00013603083789348602
+          ]
+        },
+        "image_confusion_at_0_5": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 3,
+          "tn": 3
+        },
+        "paired_score_delta": {
+          "count": 3,
+          "min": 3.6357727367430925e-05,
+          "mean": 9.724203361353527e-05,
+          "median": 0.00011933753557968885,
+          "p05": 4.465570818865672e-05,
+          "p95": 0.0001343615076621063,
+          "max": 0.00013603083789348602
+        },
+        "paired_ranking": {
+          "comparison": "forged_ai_score_strictly_greater_than_real",
+          "wins": 3,
+          "losses": 0,
+          "ties": 0,
+          "strict_accuracy": 1.0
+        },
+        "paired_sign_test": {
+          "wins": 3,
+          "losses": 0,
+          "ties": 0,
+          "non_ties": 3,
+          "alternative": "two-sided",
+          "null_win_probability": 0.5,
+          "two_sided_exact_p": 0.25
+        },
+        "domains": [
+          "lodging",
+          "restaurant"
+        ],
+        "edit_visibilities": [
+          "full"
+        ],
+        "edit_visible_gt_fraction": {
+          "count": 3,
+          "min": 1.0,
+          "mean": 1.0,
+          "median": 1.0,
+          "p05": 1.0,
+          "p95": 1.0,
+          "max": 1.0
+        }
+      },
+      "none": {
+        "pairs": 2,
+        "images": 4,
+        "bootstrap_unit": "task_id_pair",
+        "bootstrap_samples": 1000,
+        "seed": 20262725,
+        "score_key": "ai_score",
+        "score_direction": "higher_means_fake",
+        "score_range": "finite_probability_closed_interval_[0,1]",
+        "fixed_threshold": 0.5,
+        "fixed_threshold_operator": ">",
+        "fpr_target": 0.05,
+        "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+        "fpr_threshold_operator": ">",
+        "auroc": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "average_precision": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "tpr_at_fpr_5_percent": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "tpr_at_fpr_5_percent_threshold": {
+          "estimate": 4.0973976865643635e-05,
+          "ci95_percentile": [
+            1.345905502603273e-06,
+            4.0973976865643635e-05
+          ]
+        },
+        "tpr_at_fpr_5_percent_actual_fpr": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "accuracy_at_0_5": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "balanced_accuracy_at_0_5": {
+          "estimate": 0.5,
+          "ci95_percentile": [
+            0.5,
+            0.5
+          ]
+        },
+        "precision_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "recall_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "f1_at_0_5": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "specificity_at_0_5": {
+          "estimate": 1.0,
+          "ci95_percentile": [
+            1.0,
+            1.0
+          ]
+        },
+        "paired_ranking_accuracy": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "paired_score_delta_mean": {
+          "estimate": 0.0,
+          "ci95_percentile": [
+            0.0,
+            0.0
+          ]
+        },
+        "image_confusion_at_0_5": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 2,
+          "tn": 2
+        },
+        "paired_score_delta": {
+          "count": 2,
+          "min": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "p05": 0.0,
+          "p95": 0.0,
+          "max": 0.0
+        },
+        "paired_ranking": {
+          "comparison": "forged_ai_score_strictly_greater_than_real",
+          "wins": 0,
+          "losses": 0,
+          "ties": 2,
+          "strict_accuracy": 0.0
+        },
+        "paired_sign_test": {
+          "wins": 0,
+          "losses": 0,
+          "ties": 2,
+          "non_ties": 0,
+          "alternative": "two-sided",
+          "null_win_probability": 0.5,
+          "two_sided_exact_p": 1.0
+        },
+        "domains": [
+          "lodging",
+          "restaurant"
+        ],
+        "edit_visibilities": [
+          "none"
+        ],
+        "edit_visible_gt_fraction": {
+          "count": 2,
+          "min": 0.0,
+          "mean": 0.0,
+          "median": 0.0,
+          "p05": 0.0,
+          "p95": 0.0,
+          "max": 0.0
+        }
+      }
+    },
+    "edit_visible_gt_fraction": {
+      "count": 5,
+      "min": 0.0,
+      "mean": 0.6,
+      "median": 1.0,
+      "p05": 0.0,
+      "p95": 1.0,
+      "max": 1.0
+    },
+    "latency_ms": {
+      "count": 10,
+      "min": 9.649,
+      "mean": 28.4329,
+      "median": 9.806999999999999,
+      "p05": 9.669699999999999,
+      "p95": 110.11369999999981,
+      "max": 189.212
+    },
+    "peak_cuda_memory_bytes": {
+      "count": 10,
+      "min": 1806185472.0,
+      "mean": 1806185472.0,
+      "median": 1806185472.0,
+      "p05": 1806185472.0,
+      "p95": 1806185472.0,
+      "max": 1806185472.0,
+      "unmeasured_cpu_rows": 0
+    }
+  },
+  "prefix_reproducibility": {
+    "policy": "independent run identities and feature paths; exact ordered prefix; byte-identical float32 features, preprocessing, scores, and decisions",
+    "prefix_run_id": "ufd_clip_vitl14_checkpoint_era_mouse_canonical_v1_smoke5_20260724",
+    "full_run_id": "ufd_clip_vitl14_checkpoint_era_mouse_canonical_v1_full275_20260724",
+    "prefix_manifest_fingerprint": "612d0c12aae775fc3727674b80197d49d6c702d489c4e5d40898f9a04fdd44ce",
+    "full_manifest_fingerprint": "42f1c96bc501fbb89da0b64187c51f128b8be1ea69cd6a60af5719e46363766c",
+    "prefix_images": 10,
+    "prefix_pairs": 5,
+    "samples_compared": 10,
+    "copied_full_rows_rejected": true
+  },
+  "task_scope": {
+    "valid_for_t1": true,
+    "valid_for_t2": false,
+    "localization_outputs_rejected": true,
+    "s_joint_outputs_rejected": true
+  },
+  "status": "audited"
+}

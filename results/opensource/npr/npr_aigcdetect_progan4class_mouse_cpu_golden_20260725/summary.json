@@ -1,0 +1,114 @@
+{
+  "schema_version": "npr_detection_summary_v1",
+  "task_scope": {
+    "primary_task": "T1_whole_image_AIGC_detection",
+    "valid_for_t1": true,
+    "valid_for_t2": false,
+    "primary_score": "ai_score",
+    "score_direction": "higher_means_fake",
+    "score_range": "finite_probability_closed_interval_[0,1]",
+    "released_threshold": 0.5,
+    "released_threshold_operator": ">",
+    "fpr_target": 0.05,
+    "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+    "fpr_threshold_operator": ">",
+    "bootstrap_unit": "task_id_pair",
+    "precision_zero_division": 0
+  },
+  "coverage": {
+    "expected_images": 1,
+    "physical_result_rows": 1,
+    "result_images": 1,
+    "valid_images": 1,
+    "error_images": 0,
+    "missing_images": 0,
+    "coverage_fraction": 1.0,
+    "valid_fraction": 1.0,
+    "is_complete": true
+  },
+  "paired_coverage": {
+    "expected_tasks": 1,
+    "expected_complete_pairs": 0,
+    "expected_incomplete_tasks": 1,
+    "preflight_expected_incomplete_pairs": true,
+    "complete_valid_pairs": 0,
+    "paired_valid_images": 0,
+    "unpaired_valid_images": 1,
+    "valid_complete_task_fraction": null
+  },
+  "score_by_kind": {
+    "forged": {
+      "count": 1,
+      "min": 6.183477948150264e-29,
+      "mean": 6.183477948150264e-29,
+      "median": 6.183477948150264e-29,
+      "p05": 6.183477948150264e-29,
+      "p95": 6.183477948150264e-29,
+      "max": 6.183477948150264e-29
+    }
+  },
+  "detection": {
+    "valid_images": 1,
+    "tp": 0,
+    "fp": 0,
+    "fn": 1,
+    "tn": 0,
+    "accuracy_at_0_5": 0.0,
+    "balanced_accuracy_at_0_5": null,
+    "precision_at_0_5": 0.0,
+    "precision_zero_division": 0,
+    "recall_at_0_5": 0.0,
+    "f1_at_0_5": 0.0,
+    "specificity_at_0_5": null,
+    "threshold": 0.5,
+    "threshold_operator": ">",
+    "score_direction": "higher_means_fake",
+    "score_range": "finite_probability_closed_interval_[0,1]",
+    "auroc": null,
+    "average_precision": null,
+    "tpr_at_fpr_5_percent": null,
+    "tpr_at_fpr_5_percent_threshold": null,
+    "tpr_at_fpr_5_percent_actual_fpr": null,
+    "tpr_at_fpr_5_percent_threshold_source": "real_scores_quantile_0_95_method_higher",
+    "tpr_at_fpr_5_percent_threshold_operator": ">",
+    "score_key": "ai_score"
+  },
+  "paired_score_delta": {
+    "count": 0
+  },
+  "paired_ranking_accuracy": null,
+  "paired_ranking": {
+    "comparison": "forged_ai_score_strictly_greater_than_real",
+    "wins": 0,
+    "losses": 0,
+    "ties": 0,
+    "strict_accuracy": null
+  },
+  "paired_sign_test": null,
+  "pair_bootstrap": null,
+  "by_domain": {},
+  "by_edit_visibility": {},
+  "edit_visible_gt_fraction": {
+    "count": 0
+  },
+  "latency_ms": {
+    "count": 1,
+    "min": 1829.3557241559029,
+    "mean": 1829.3557241559029,
+    "median": 1829.3557241559029,
+    "p05": 1829.3557241559029,
+    "p95": 1829.3557241559029,
+    "max": 1829.3557241559029
+  },
+  "peak_cuda_memory_bytes": {
+    "count": 0,
+    "unmeasured_cpu_rows": 1
+  },
+  "run_id": "npr_aigcdetect_progan4class_mouse_cpu_golden_20260725",
+  "model": "NPR",
+  "model_slug": "npr_aigcdetect_progan4class",
+  "checkpoint_id": "NPR-AIGC-ProGAN4class@68338a",
+  "preprocess_profile": "official_aigcdetect_native_even_trim",
+  "config_fingerprint": "ce766b1a8343e042ab935dc95d016483799cb61e9429c8e874610ed387ac6997",
+  "generated_at": "2026-07-25T13:43:03.942539+00:00"
+}

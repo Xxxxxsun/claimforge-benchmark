@@ -1,0 +1,712 @@
+{
+  "schema_version": "opensource_run_manifest_v1",
+  "run_id": "dinov3_iml_cat_vitl_lora_r32_checkpoint48_mouse_preflight1_20260724",
+  "condition": "mouse_canonical_v1",
+  "input": {
+    "dataset_id": "claimforge-mouse-good275-canonical-jpeg-q95-v1",
+    "dataset_manifest": "outputs/opensource/mouse_canonical_v1/manifest.json",
+    "dataset_manifest_sha256": "beb3c30e436db682bbadef794404838f33a4812f18f22819dd6ab1ef3de6f0b1",
+    "dataset_contract_sha256": "c419e24d6f9d69822ca575e00e30f2c769ba7a28a2fcea1f6634466caf540757",
+    "inputs_manifest": "outputs/opensource/mouse_canonical_v1/inputs.jsonl",
+    "inputs_sha256": "e4cb3d6a78fa68f06341457e2234c630a455a9b6b9789e59abf45c15b292060a",
+    "selection_mode": "explicit_single_sample_preflight",
+    "selection_sha256": "b8ad49dbfba745f87a4d47dcb11e940c378193ef4482a82551797aa80b74728a",
+    "encoding": {
+      "quality": 95,
+      "subsampling": 0,
+      "optimize": false,
+      "metadata": "stripped",
+      "encoder": {
+        "pillow": "11.1.0",
+        "libjpeg": "6.2"
+      }
+    }
+  },
+  "ordered_inputs": [
+    {
+      "rank": 1,
+      "pair_rank": 0,
+      "sample_id": "ae5f5c15ded9fb7d08809d31",
+      "task_id": "lodging_088_slot_001",
+      "kind": "forged",
+      "label": 1,
+      "canonical_path": "outputs/opensource/mouse_canonical_v1/images/ae5f5c15ded9fb7d08809d31.jpg",
+      "canonical_sha256": "f90c849192fd53e2e9560192d91b5b37a6162f80c14c862e24d37482784b8078",
+      "gt_mask_sha256": "178782445ab34cded97e1bce55e87533e019706638e5849c54066afff8e1a577"
+    }
+  ],
+  "runtime_contract": {
+    "python": {
+      "implementation": "CPython",
+      "version": "3.12.3",
+      "executable": "/usr/bin/python3.12"
+    },
+    "packages": {
+      "torch": {
+        "module": "torch",
+        "module_version": "2.8.0.dev20250627+cu128",
+        "source": "/usr/local/lib/python3.12/dist-packages/torch/__init__.py",
+        "distributions": [
+          {
+            "name": "torch",
+            "version": "2.8.0.dev20250627+cu128"
+          }
+        ]
+      },
+      "peft": {
+        "module": "peft",
+        "module_version": "0.18.1",
+        "source": "/root/.cache/claimforge/venvs/dinov3iml-ba45b0a/lib/python3.12/site-packages/peft/__init__.py",
+        "distributions": [
+          {
+            "name": "peft",
+            "version": "0.18.1"
+          }
+        ]
+      },
+      "transformers": {
+        "module": "transformers",
+        "module_version": "4.53.2",
+        "source": "/usr/local/lib/python3.12/dist-packages/transformers/__init__.py",
+        "distributions": [
+          {
+            "name": "transformers",
+            "version": "4.53.2"
+          }
+        ]
+      },
+      "accelerate": {
+        "module": "accelerate",
+        "module_version": "1.9.0",
+        "source": "/usr/local/lib/python3.12/dist-packages/accelerate/__init__.py",
+        "distributions": [
+          {
+            "name": "accelerate",
+            "version": "1.9.0"
+          }
+        ]
+      },
+      "huggingface-hub": {
+        "module": "huggingface_hub",
+        "module_version": "0.33.4",
+        "source": "/usr/local/lib/python3.12/dist-packages/huggingface_hub/__init__.py",
+        "distributions": [
+          {
+            "name": "huggingface-hub",
+            "version": "0.33.4"
+          }
+        ]
+      },
+      "safetensors": {
+        "module": "safetensors",
+        "module_version": "0.5.2",
+        "source": "/usr/local/lib/python3.12/dist-packages/safetensors/__init__.py",
+        "distributions": [
+          {
+            "name": "safetensors",
+            "version": "0.5.2"
+          }
+        ]
+      },
+      "numpy": {
+        "module": "numpy",
+        "module_version": "2.2.6",
+        "source": "/usr/local/lib/python3.12/dist-packages/numpy/__init__.py",
+        "distributions": [
+          {
+            "name": "numpy",
+            "version": "2.2.6"
+          }
+        ]
+      },
+      "Pillow": {
+        "module": "PIL",
+        "module_version": "11.1.0",
+        "source": "/usr/local/lib/python3.12/dist-packages/PIL/__init__.py",
+        "distributions": [
+          {
+            "name": "pillow",
+            "version": "11.1.0"
+          }
+        ]
+      },
+      "scikit-learn": {
+        "module": "sklearn",
+        "module_version": "1.5.2",
+        "source": "/usr/local/lib/python3.12/dist-packages/sklearn/__init__.py",
+        "distributions": [
+          {
+            "name": "scikit-learn",
+            "version": "1.5.2"
+          }
+        ]
+      }
+    },
+    "optional_imdlbenco_present": false,
+    "accelerator": {
+      "requested_device": "cuda:0",
+      "torch_cuda": "12.8",
+      "cudnn_version": 91002,
+      "gpu_name": "NVIDIA L20Z",
+      "gpu_capability": [
+        9,
+        0
+      ]
+    },
+    "numerical_flags": {
+      "cublas_workspace_config": ":4096:8",
+      "deterministic_algorithms": true,
+      "cudnn_deterministic": true,
+      "cudnn_benchmark": false,
+      "cuda_matmul_allow_tf32": false,
+      "cudnn_allow_tf32": false,
+      "float32_matmul_precision": "highest",
+      "flash_sdp_enabled": false,
+      "mem_efficient_sdp_enabled": false,
+      "math_sdp_enabled": true
+    }
+  },
+  "model": {
+    "name": "DINOv3-IML",
+    "model_slug": "dinov3_iml_cat_vitl_lora_r32_checkpoint48_official",
+    "repo_url": "https://github.com/Irennnne/DINOv3-IML",
+    "source_root": "/root/.cache/claimforge/third_party/DINOv3-IML",
+    "source_commit": "ba45b0a203c698b36fe2b0e658bb49ebbb1163cc",
+    "source_pin_role": "operational_reproduction_pin_not_claimed_training_commit",
+    "source_tracked_clean": true,
+    "source_files": [
+      {
+        "path": "README.md",
+        "sha256": "afab44826398bd7fb532747a3358a0fb0412a24970392d91b55932f32171b8f1"
+      },
+      {
+        "path": "LICENSE",
+        "sha256": "f73896baf1965c31ca84a67f1e48f4e926faefd34ab96c78cd17566cb9d2f431"
+      },
+      {
+        "path": "inference.py",
+        "sha256": "c3c05dc74983e7c5037944ee89f975056d3a036035dfad7bacc7d0271683d5b9"
+      },
+      {
+        "path": "requirements.txt",
+        "sha256": "4a48b83d9fec3391f63918d1787e4c1970c144661285ae3ed555550e5e93a0df"
+      },
+      {
+        "path": "configs/lora_vitl_r32.yaml",
+        "sha256": "5e1340c7086f268a0cb67ae5d8e019e15d2361a5be91957ac85077b7f7425155"
+      },
+      {
+        "path": "configs/_base/lora_common.yaml",
+        "sha256": "2f74d897e666a83f81164bc4c138c4ace03d618f0f5d67421f4c522f1c17d75e"
+      },
+      {
+        "path": "configs/_base/paths_template.yaml",
+        "sha256": "b1a4a65e1027e65534a4f0209691548b521c312025112f546e5ff25bf370f353"
+      },
+      {
+        "path": "models/__init__.py",
+        "sha256": "1fe7c4f5de662f98a1b097573a12610132c12c7b99bbae347d41f3113a7d32fa"
+      },
+      {
+        "path": "models/dinov3_forensics_lora.py",
+        "sha256": "2ef507af139925ee3b99f791ec38b5f279f46727f251244bf55a331cdd367de6"
+      },
+      {
+        "path": "test.py",
+        "sha256": "4d992e86871cbd002e75a2883e2f6754f181f525cfca6fb47e18f8823c8a0bc9"
+      }
+    ],
+    "dinov3_architecture_source": {
+      "name": "Meta DINOv3",
+      "repo_url": "https://github.com/facebookresearch/dinov3",
+      "source_root": "/root/.cache/claimforge/third_party/dinov3",
+      "source_commit": "31703e4cbf1ccb7c4a72daa1350405f86754b6d1",
+      "source_pin_rule": "latest_observed_commit_before_checkpoint_last_modified",
+      "source_pin_role": "architecture_reproduction_pin_not_claimed_training_commit",
+      "source_tracked_clean": true,
+      "source_files": [
+        {
+          "path": "hubconf.py",
+          "sha256": "b36bf0b0502127fb938b6f3424c6e20b48206ee361422aae777e87e20006ba24"
+        },
+        {
+          "path": "LICENSE.md",
+          "sha256": "25d122eb8f5b880fd23c736fb6ea8018ee45c12237e00b8a86d14c653904999e"
+        },
+        {
+          "path": "dinov3/hub/backbones.py",
+          "sha256": "1b4a111e028e7a414c40f8b4bb84df6aac9c509bcc62aa6979ead92e8a81daae"
+        },
+        {
+          "path": "dinov3/models/vision_transformer.py",
+          "sha256": "1af05405e19bc42188f80bfcb204b87ed1ec72af998e0bbd4658a85d7fae93f2"
+        },
+        {
+          "path": "dinov3/layers/attention.py",
+          "sha256": "dfc21def6ba17d00cba18ea23a8726e7f1dd5a0dc8e43510852c999a173d37a8"
+        },
+        {
+          "path": "dinov3/layers/block.py",
+          "sha256": "809a3615ec93019042ab440f31c21d5242186d9e503c67ac0f42a324ceae1950"
+        },
+        {
+          "path": "dinov3/layers/patch_embed.py",
+          "sha256": "c592c7262779c8e1789ed502aee81bdd55eba4607065f8d04ae95eea683d0ef1"
+        }
+      ],
+      "pretrained": false,
+      "separate_backbone_weights_loaded": false,
+      "role": "architecture_only",
+      "license": {
+        "path": "LICENSE.md",
+        "sha256": "25d122eb8f5b880fd23c736fb6ea8018ee45c12237e00b8a86d14c653904999e",
+        "spdx": null,
+        "name": "DINOv3 License Agreement"
+      }
+    },
+    "variant": "official_CAT_ViT-L16_LoRA-r32_checkpoint-48",
+    "license": {
+      "path": "LICENSE",
+      "sha256": "f73896baf1965c31ca84a67f1e48f4e926faefd34ab96c78cd17566cb9d2f431",
+      "spdx": "MIT",
+      "scope": "DINOv3-IML_repository_code_only",
+      "checkpoint_license": "not_separately_stated_by_release"
+    },
+    "checkpoint": {
+      "provider": "official_author_google_drive",
+      "folder_id": "125leLub_M-lICa1ILTOL-FCz4ZY6eutj",
+      "file_id": "1xqZDqhSQUl_1vs3SD4EfjHHmeu2pwLh9",
+      "original_filename": "checkpoint-48.pth",
+      "last_modified_utc": "2026-04-07T14:28:38Z",
+      "bytes": 1321705819,
+      "sha256": "01f23401e048f706ea0e63fb0429ddef80db3197ac0f5707bd584a8b056177fa",
+      "container": "mapping_with_model_optimizer_epoch_scaler_args",
+      "top_level_keys": [
+        "model",
+        "optimizer",
+        "epoch",
+        "scaler",
+        "args"
+      ],
+      "epoch": 48,
+      "args_type": "argparse.Namespace",
+      "state_container": "collections.OrderedDict",
+      "state_keys": 432,
+      "state_elements": 312275987,
+      "tensor_bytes": 1249103956,
+      "state_dtypes": {
+        "torch.float32": 430,
+        "torch.int64": 2
+      },
+      "state_prefix_counts": {
+        "backbone.": 416,
+        "seg_head.": 16
+      },
+      "lora_state_keys": 48,
+      "parameters": 312200705,
+      "buffers": 75282,
+      "trainable_parameters": 9046529,
+      "expected_args": {
+        "model": "DINOv3ForensicsLoRA",
+        "if_predict_label": false,
+        "image_size": 512,
+        "if_padding": false,
+        "if_resizing": true,
+        "edge_mask_width": 7,
+        "batch_size": 24,
+        "test_batch_size": 48,
+        "epochs": 100,
+        "accum_iter": 10,
+        "weight_decay": 0.05,
+        "lr": 0.0003,
+        "device": "cuda",
+        "seed": 42,
+        "start_epoch": 41,
+        "opt": "AdamW"
+      },
+      "critical_state_shapes": {
+        "backbone.cls_token": [
+          1,
+          1,
+          1024
+        ],
+        "backbone.storage_tokens": [
+          1,
+          4,
+          1024
+        ],
+        "backbone.patch_embed.proj.weight": [
+          1024,
+          3,
+          16,
+          16
+        ],
+        "backbone.blocks.0.attn.qkv.base_layer.weight": [
+          3072,
+          1024
+        ],
+        "backbone.blocks.0.attn.qkv.lora_A.default.weight": [
+          32,
+          1024
+        ],
+        "backbone.blocks.0.attn.qkv.lora_B.default.weight": [
+          3072,
+          32
+        ],
+        "backbone.blocks.23.attn.qkv.lora_A.default.weight": [
+          32,
+          1024
+        ],
+        "backbone.blocks.23.attn.qkv.lora_B.default.weight": [
+          3072,
+          32
+        ],
+        "seg_head.0.weight": [
+          512,
+          1024,
+          3,
+          3
+        ],
+        "seg_head.3.weight": [
+          256,
+          512,
+          3,
+          3
+        ],
+        "seg_head.6.weight": [
+          1,
+          256,
+          1,
+          1
+        ]
+      },
+      "path": "/root/.cache/claimforge/checkpoints/dinov3iml-ba45b0a/checkpoint-48.pth",
+      "strict_load": true,
+      "safe_weights_only_load": true,
+      "safe_globals": [
+        "argparse.Namespace"
+      ],
+      "container_selection": "top_level_model_only",
+      "schema_fallbacks": false,
+      "prefix_rewrites": false,
+      "full_state_includes_backbone_lora_and_seg_head": true,
+      "separate_backbone_weights_required": false
+    },
+    "checkpoint_selection": {
+      "selected_before_claimforge_evaluation": true,
+      "claimforge_used_for_selection": false,
+      "paper_rule": "maximum_mean_F1_across_four_external_test_sets",
+      "disclosure": "external_test_set_selected_checkpoint"
+    },
+    "constructor": {
+      "class": "models.dinov3_forensics_lora.DINOv3ForensicsLoRA",
+      "dinov3_model_type": "dinov3_vitl16",
+      "image_size": 512,
+      "edge_lambda": 20.0,
+      "lora_rank": 32,
+      "lora_alpha": 64.0,
+      "lora_target_modules": [
+        "qkv"
+      ],
+      "lora_dropout": 0.0,
+      "lora_bias": "none",
+      "torch_hub_author_calls": 1,
+      "torch_hub_author_call_weights": "CLAIMFORGE_FULL_STATE_CHECKPOINT_NO_SEPARATE_BACKBONE_WEIGHTS",
+      "torch_hub_substitution": "direct_pinned_Meta_backbones_dinov3_vitl16_pretrained_false",
+      "weight_downloads_blocked": true,
+      "author_from_pretrained_used": false,
+      "lora_merged": false
+    },
+    "parameter_count": 312200705,
+    "buffer_elements": 75282,
+    "trainable_parameter_count": 9046529,
+    "supports_image_level_t1": false,
+    "image_score_source": null,
+    "supports_pixel_level_t2": true,
+    "primary_localization_output": "author_predict_float32_sigmoid_probability"
+  },
+  "inference": {
+    "precision": "float32",
+    "batch_size": 1,
+    "seed": 42,
+    "deterministic": true,
+    "input_source": "canonical_jpeg_original_bytes",
+    "decoder": "Pillow.Image.open.convert_RGB",
+    "channel_order": "RGB",
+    "input_geometry": "direct_stretch_to_512x512_without_aspect_ratio_preservation",
+    "preprocess_protocol": "official_standalone_pillow_rgb_bilinear_stretch_512_imagenet",
+    "resize": "Pillow.Image.resize",
+    "resize_interpolation": "Pillow.Image.Resampling.BILINEAR",
+    "resize_box": null,
+    "resize_reducing_gap": null,
+    "input_crop": null,
+    "input_reencode": false,
+    "normalization": {
+      "scale": "float32_divide_255",
+      "mean": [
+        0.485,
+        0.456,
+        0.406
+      ],
+      "std": [
+        0.229,
+        0.224,
+        0.225
+      ]
+    },
+    "official_model_output": {
+      "seg_head_logits_shape": [
+        1,
+        1,
+        32,
+        32
+      ],
+      "logit_resize": "bilinear_seg_head_logits_32_to_512_align_corners_false",
+      "resized_logits_shape": [
+        1,
+        1,
+        512,
+        512
+      ],
+      "probability": "single_sigmoid_after_logit_resize",
+      "captured_by": "one_forward_hook_on_author_model_seg_head",
+      "author_predict_calls_per_image": 1
+    },
+    "native_compatibility_adapter": {
+      "purpose": "CLAIMFORGE cross-method native-resolution comparison",
+      "source": "official_model_512_probability_not_logits",
+      "operation": "bilinear_official_model_512_probability_to_native_align_corners_false",
+      "mode": "bilinear",
+      "align_corners": false,
+      "threshold_after_restore": true,
+      "official_model_space_retained_as_auxiliary": true
+    },
+    "mask_threshold": 0.5,
+    "mask_threshold_comparison": "strict_greater_than",
+    "test_time_augmentation": false,
+    "ensemble": false,
+    "forward_passes_per_image": 1
+  },
+  "metrics": {
+    "task": "T2_pixel_localization_only",
+    "positive_class": "manipulated_pixel",
+    "t1_policy": "unsupported_no_derived_image_score",
+    "primary_localization_space": "native",
+    "auxiliary_localization_space": "model_512",
+    "mask_threshold": 0.5,
+    "threshold_comparison": "strict_greater_than",
+    "prediction_inversion": false,
+    "native_gt": "exact_canonical_mask",
+    "model_space_gt_resize": "Pillow.Image.Resampling.NEAREST_to_512x512",
+    "forged_pixel_ap_only": true,
+    "bootstrap_samples": 1000,
+    "bootstrap_unit": "task_id_pair"
+  },
+  "artifacts": {
+    "raw_logits_model_32": {
+      "format": "npy",
+      "dtype": "float32",
+      "shape": [
+        32,
+        32
+      ],
+      "semantics": "official_seg_head_pre_resize_logits",
+      "captured_from": "one_forward_hook_on_author_model_seg_head"
+    },
+    "raw_logits_model_512": {
+      "format": "npy",
+      "dtype": "float32",
+      "shape": [
+        512,
+        512
+      ],
+      "semantics": "official_bilinear_resized_pre_sigmoid_logits",
+      "derivation": "bilinear_seg_head_logits_32_to_512_align_corners_false"
+    },
+    "score_maps_model_512": {
+      "format": "npy",
+      "dtype": "float32",
+      "shape": [
+        512,
+        512
+      ],
+      "semantics": "official_author_predict_sigmoid_probability"
+    },
+    "score_maps_native": {
+      "format": "npy",
+      "dtype": "float32",
+      "shape": "native_HxW",
+      "semantics": "model_512_probability_restored_to_native",
+      "restore": "bilinear_official_model_512_probability_to_native_align_corners_false"
+    },
+    "masks_native": {
+      "format": "lossless_png",
+      "dtype": "uint8",
+      "values": [
+        0,
+        255
+      ],
+      "relation": "score_map_native > 0.5"
+    }
+  },
+  "expected_complete_pairs": 0,
+  "expected_images": 1,
+  "artifact_dir": "outputs/opensource/dinov3_iml/dinov3_iml_cat_vitl_lora_r32_checkpoint48_mouse_preflight1_20260724",
+  "adapter_contract": [
+    {
+      "path": "eval/opensource/run_dinov3_iml.py",
+      "sha256": "c3e937a58a8d828577c29f57697c36a1fbf146e8318a221c6b19dda7603978ff"
+    },
+    {
+      "path": "eval/opensource/dinov3_iml_metrics.py",
+      "sha256": "ada280b83213bcca59320c8df24a172967e3b756668e829cfb5a26f4c1dd3c98"
+    },
+    {
+      "path": "eval/opensource/mesorch_metrics.py",
+      "sha256": "5f8408cf95ece636041546d3ea8c50b66e233bbf4bba7a6af8c3cdff036020fa",
+      "role": "shared_512_native_t2_numerical_kernel"
+    },
+    {
+      "path": "eval/opensource/common.py",
+      "sha256": "66ee7134e8398bb8121034fb7f9aef007137a09e03426af24e0faae886188c9f"
+    }
+  ],
+  "fingerprint": "5f9902ab4f1bf493e98cb8faf2e26b56769484cb5efb3f59bd0dbc17d0c029ac",
+  "created_at": "2026-07-24T15:14:21.486396+00:00",
+  "adapter": {
+    "path": "eval/opensource/run_dinov3_iml.py",
+    "sha256": "c3e937a58a8d828577c29f57697c36a1fbf146e8318a221c6b19dda7603978ff",
+    "repo_commit": "ad6098014ff621202aedcecb56e86c2769f4b585"
+  },
+  "environment": {
+    "python": {
+      "implementation": "CPython",
+      "version": "3.12.3",
+      "executable": "/usr/bin/python3.12"
+    },
+    "packages": {
+      "torch": {
+        "module": "torch",
+        "module_version": "2.8.0.dev20250627+cu128",
+        "source": "/usr/local/lib/python3.12/dist-packages/torch/__init__.py",
+        "distributions": [
+          {
+            "name": "torch",
+            "version": "2.8.0.dev20250627+cu128"
+          }
+        ]
+      },
+      "peft": {
+        "module": "peft",
+        "module_version": "0.18.1",
+        "source": "/root/.cache/claimforge/venvs/dinov3iml-ba45b0a/lib/python3.12/site-packages/peft/__init__.py",
+        "distributions": [
+          {
+            "name": "peft",
+            "version": "0.18.1"
+          }
+        ]
+      },
+      "transformers": {
+        "module": "transformers",
+        "module_version": "4.53.2",
+        "source": "/usr/local/lib/python3.12/dist-packages/transformers/__init__.py",
+        "distributions": [
+          {
+            "name": "transformers",
+            "version": "4.53.2"
+          }
+        ]
+      },
+      "accelerate": {
+        "module": "accelerate",
+        "module_version": "1.9.0",
+        "source": "/usr/local/lib/python3.12/dist-packages/accelerate/__init__.py",
+        "distributions": [
+          {
+            "name": "accelerate",
+            "version": "1.9.0"
+          }
+        ]
+      },
+      "huggingface-hub": {
+        "module": "huggingface_hub",
+        "module_version": "0.33.4",
+        "source": "/usr/local/lib/python3.12/dist-packages/huggingface_hub/__init__.py",
+        "distributions": [
+          {
+            "name": "huggingface-hub",
+            "version": "0.33.4"
+          }
+        ]
+      },
+      "safetensors": {
+        "module": "safetensors",
+        "module_version": "0.5.2",
+        "source": "/usr/local/lib/python3.12/dist-packages/safetensors/__init__.py",
+        "distributions": [
+          {
+            "name": "safetensors",
+            "version": "0.5.2"
+          }
+        ]
+      },
+      "numpy": {
+        "module": "numpy",
+        "module_version": "2.2.6",
+        "source": "/usr/local/lib/python3.12/dist-packages/numpy/__init__.py",
+        "distributions": [
+          {
+            "name": "numpy",
+            "version": "2.2.6"
+          }
+        ]
+      },
+      "Pillow": {
+        "module": "PIL",
+        "module_version": "11.1.0",
+        "source": "/usr/local/lib/python3.12/dist-packages/PIL/__init__.py",
+        "distributions": [
+          {
+            "name": "pillow",
+            "version": "11.1.0"
+          }
+        ]
+      },
+      "scikit-learn": {
+        "module": "sklearn",
+        "module_version": "1.5.2",
+        "source": "/usr/local/lib/python3.12/dist-packages/sklearn/__init__.py",
+        "distributions": [
+          {
+            "name": "scikit-learn",
+            "version": "1.5.2"
+          }
+        ]
+      }
+    },
+    "optional_imdlbenco_present": false,
+    "accelerator": {
+      "requested_device": "cuda:0",
+      "torch_cuda": "12.8",
+      "cudnn_version": 91002,
+      "gpu_name": "NVIDIA L20Z",
+      "gpu_capability": [
+        9,
+        0
+      ]
+    },
+    "numerical_flags": {
+      "cublas_workspace_config": ":4096:8",
+      "deterministic_algorithms": true,
+      "cudnn_deterministic": true,
+      "cudnn_benchmark": false,
+      "cuda_matmul_allow_tf32": false,
+      "cudnn_allow_tf32": false,
+      "float32_matmul_precision": "highest",
+      "flash_sdp_enabled": false,
+      "mem_efficient_sdp_enabled": false,
+      "math_sdp_enabled": true
+    }
+  }
+}

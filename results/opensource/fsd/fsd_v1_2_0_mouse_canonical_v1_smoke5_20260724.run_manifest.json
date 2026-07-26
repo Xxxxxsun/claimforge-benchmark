@@ -1,0 +1,1705 @@
+{
+  "schema_version": "opensource_run_manifest_v1",
+  "run_id": "fsd_v1_2_0_mouse_canonical_v1_smoke5_20260724",
+  "condition": "mouse_canonical_v1",
+  "model": {
+    "name": "FSD",
+    "slug": "fsd_v1_2_0_official",
+    "task_support": {
+      "t1": true,
+      "t2": false
+    },
+    "repo_url": "https://github.com/ductai199x/Forensic-Self-Descriptions-CVPR25",
+    "source_root": "/root/.cache/claimforge/third_party/Forensic-Self-Descriptions-CVPR25-50f2eae",
+    "source_commit": "50f2eae06efdac2e5a33f407ca9a27a2295133ac",
+    "release_tag": "v1.2.0",
+    "license": {
+      "spdx": "CC-BY-NC-SA-4.0",
+      "commercial_use": false,
+      "share_alike": true
+    },
+    "source_audit": {
+      "repo_url": "https://github.com/ductai199x/Forensic-Self-Descriptions-CVPR25",
+      "root": "/root/.cache/claimforge/third_party/Forensic-Self-Descriptions-CVPR25-50f2eae",
+      "commit": "50f2eae06efdac2e5a33f407ca9a27a2295133ac",
+      "tracked_dirty": false,
+      "source_files": {
+        "LICENSE": {
+          "path": "/root/.cache/claimforge/third_party/Forensic-Self-Descriptions-CVPR25-50f2eae/LICENSE",
+          "sha256": "30a334fa2dcf04640eda2341b4f5add02103fb81431c5e8ee2053114846b8d7d"
+        },
+        "README.md": {
+          "path": "/root/.cache/claimforge/third_party/Forensic-Self-Descriptions-CVPR25-50f2eae/README.md",
+          "sha256": "f4decb89e649632c3f11eae26098891c05103da35fdc36459fee4a33f84c9d12"
+        },
+        "CITATION.cff": {
+          "path": "/root/.cache/claimforge/third_party/Forensic-Self-Descriptions-CVPR25-50f2eae/CITATION.cff",
+          "sha256": "db7776258148c1cdad9a9ebfbdf9130b127d1159267df18f1dee62c05e666d3e"
+        },
+        "pyproject.toml": {
+          "path": "/root/.cache/claimforge/third_party/Forensic-Self-Descriptions-CVPR25-50f2eae/pyproject.toml",
+          "sha256": "d3499085168fdae7b1205513e5e7ed2cfb6a2d2c33a6e256ad64cf5963ef14e9"
+        },
+        "fsd/__init__.py": {
+          "path": "/root/.cache/claimforge/third_party/Forensic-Self-Descriptions-CVPR25-50f2eae/fsd/__init__.py",
+          "sha256": "cd55645d42b65b390780a99fcf1d1280ae7c5c111a15e6260978dd662a129449"
+        },
+        "fsd/attribution.py": {
+          "path": "/root/.cache/claimforge/third_party/Forensic-Self-Descriptions-CVPR25-50f2eae/fsd/attribution.py",
+          "sha256": "a1904196cfb0c26deff4aefdad6aad6b5d1576a906a9f3da095a12c6c7f51861"
+        },
+        "fsd/detector.py": {
+          "path": "/root/.cache/claimforge/third_party/Forensic-Self-Descriptions-CVPR25-50f2eae/fsd/detector.py",
+          "sha256": "8d8ddbce2fc36b03ba5d13df64b442585b13f2dd8b25fa10c7266782150f2b0a"
+        },
+        "fsd/fre.py": {
+          "path": "/root/.cache/claimforge/third_party/Forensic-Self-Descriptions-CVPR25-50f2eae/fsd/fre.py",
+          "sha256": "351d4e41c6a46e55b156870336c192a08f5d4b5c72af169a978f1cb7a7073acb"
+        },
+        "fsd/fsd_computation.py": {
+          "path": "/root/.cache/claimforge/third_party/Forensic-Self-Descriptions-CVPR25-50f2eae/fsd/fsd_computation.py",
+          "sha256": "f60d4d6d7f26b31cae53e82b32e5747602cbc242089c793f964ca715af4eabc6"
+        },
+        "fsd/gmm.py": {
+          "path": "/root/.cache/claimforge/third_party/Forensic-Self-Descriptions-CVPR25-50f2eae/fsd/gmm.py",
+          "sha256": "a6c476732fe783726d25cf0eb3ea2262bb3c23c69185a0b4d46b18148d9fa35d"
+        },
+        "fsd/projection.py": {
+          "path": "/root/.cache/claimforge/third_party/Forensic-Self-Descriptions-CVPR25-50f2eae/fsd/projection.py",
+          "sha256": "336dd6a59e41c84676846e5a23f77f8674268a739997a75ffcbcf01e80306bba"
+        },
+        "fsd/weights.py": {
+          "path": "/root/.cache/claimforge/third_party/Forensic-Self-Descriptions-CVPR25-50f2eae/fsd/weights.py",
+          "sha256": "6a1413c0a9fc50318729d941c1c4639d0b4e4b6950ae6cc596a5308178fb98ad"
+        }
+      },
+      "source_tag_drift": {
+        "release_tag": "v1.2.0",
+        "release_tag_commit": "5b317a00251988b5ec5a47317f4d82e5bdfd009d",
+        "source_commit": "50f2eae06efdac2e5a33f407ca9a27a2295133ac",
+        "commits_ahead_of_tag": 1,
+        "changed_files": [
+          "fsd/__init__.py",
+          "fsd/attribution.py",
+          "fsd/weights.py"
+        ],
+        "detection_math_changed_files": [],
+        "interpretation": "the pinned main commit is one commit after the v1.2.0 tag; the detection math files used by score() are unchanged"
+      }
+    },
+    "weights": {
+      "provider": "official_github_release",
+      "release_tag": "v1.2.0",
+      "release_url": "https://github.com/ductai199x/Forensic-Self-Descriptions-CVPR25/releases/tag/v1.2.0",
+      "weights_dir": "/root/.cache/claimforge/checkpoints/fsd-v1.2.0",
+      "explicit_weights_dir_required": true,
+      "automatic_download_used": false,
+      "files": {
+        "config.json": {
+          "path": "/root/.cache/claimforge/checkpoints/fsd-v1.2.0/config.json",
+          "bytes": 634,
+          "sha256": "7cc34433045adb998762e00de7de25c50f9c1e10dbac1c18899c6c63c4cfafe4",
+          "kind": "json"
+        },
+        "fre.pt": {
+          "path": "/root/.cache/claimforge/checkpoints/fsd-v1.2.0/fre.pt",
+          "bytes": 9861,
+          "sha256": "d95b9c50837dbf7b660bbefa20cdaa5db5e59601a9d6544573c10e78e04906bb",
+          "kind": "torch_weights_only",
+          "serialization_safety": {
+            "preflight": "torch.serialization.get_unsafe_globals_in_checkpoint",
+            "unsafe_globals": [],
+            "required_unsafe_globals": [],
+            "weights_only": true
+          },
+          "payload_schema": {
+            "type": "builtins.dict",
+            "items": {
+              "w": {
+                "type": "tensor",
+                "shape": [
+                  8,
+                  1,
+                  15,
+                  15
+                ],
+                "dtype": "torch.float32",
+                "numel": 1800
+              },
+              "one_middle": {
+                "type": "tensor",
+                "shape": [
+                  225
+                ],
+                "dtype": "torch.float32",
+                "numel": 225
+              }
+            }
+          }
+        },
+        "gmm.pt": {
+          "path": "/root/.cache/claimforge/checkpoints/fsd-v1.2.0/gmm.pt",
+          "bytes": 14786229,
+          "sha256": "0f9fa030a3d5816266d0329fd0fb614b65e322d4bda6d083613c713bfe9bc829",
+          "kind": "torch_weights_only",
+          "serialization_safety": {
+            "preflight": "torch.serialization.get_unsafe_globals_in_checkpoint",
+            "unsafe_globals": [],
+            "required_unsafe_globals": [],
+            "weights_only": true
+          },
+          "payload_schema": {
+            "type": "builtins.dict",
+            "items": {
+              "means_": {
+                "type": "tensor",
+                "shape": [
+                  5,
+                  960
+                ],
+                "dtype": "torch.float64",
+                "numel": 4800
+              },
+              "weights_": {
+                "type": "tensor",
+                "shape": [
+                  5
+                ],
+                "dtype": "torch.float64",
+                "numel": 5
+              },
+              "covariances_": {
+                "type": "tensor",
+                "shape": [
+                  960,
+                  960
+                ],
+                "dtype": "torch.float64",
+                "numel": 921600
+              },
+              "precisions_cholesky_": {
+                "type": "tensor",
+                "shape": [
+                  960,
+                  960
+                ],
+                "dtype": "torch.float64",
+                "numel": 921600
+              },
+              "n_components": {
+                "type": "int",
+                "value": 5
+              },
+              "covariance_type": {
+                "type": "str",
+                "value": "tied"
+              }
+            }
+          }
+        },
+        "fsd_transforms.pt": {
+          "path": "/root/.cache/claimforge/checkpoints/fsd-v1.2.0/fsd_transforms.pt",
+          "bytes": 42177409,
+          "sha256": "1e87d792b413101e58d9de71551182a1fab8b879ca6f6ba9780b6adcb9a5a699",
+          "kind": "torch_weights_only",
+          "serialization_safety": {
+            "preflight": "torch.serialization.get_unsafe_globals_in_checkpoint",
+            "unsafe_globals": [],
+            "required_unsafe_globals": [],
+            "weights_only": true
+          },
+          "payload_schema": {
+            "type": "builtins.dict",
+            "items": {
+              "config": {
+                "type": "builtins.dict",
+                "items": {
+                  "dim": {
+                    "type": "int",
+                    "value": 960
+                  },
+                  "hidden": {
+                    "type": "int",
+                    "value": 128
+                  }
+                }
+              },
+              "transforms": {
+                "type": "builtins.list",
+                "length": 20,
+                "items": [
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  },
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  },
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  },
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  },
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  },
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  },
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  },
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  },
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  },
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  },
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  },
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  },
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  },
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  },
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  },
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  },
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  },
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  },
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  },
+                  {
+                    "type": "collections.OrderedDict",
+                    "items": {
+                      "net.0.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.0.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.2.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          128,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 16384
+                      },
+                      "net.2.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 128
+                      },
+                      "net.4.weight": {
+                        "type": "tensor",
+                        "shape": [
+                          960,
+                          128
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 122880
+                      },
+                      "net.4.bias": {
+                        "type": "tensor",
+                        "shape": [
+                          960
+                        ],
+                        "dtype": "torch.float64",
+                        "numel": 960
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "config": {
+        "fre": {
+          "in_channels": 1,
+          "out_channels": 8,
+          "kernel_size": 15,
+          "weights_file": "fre.pt"
+        },
+        "fsd": {
+          "kernel_size": 11,
+          "num_scales": 3,
+          "max_size": 1024,
+          "resize_mode": "resize_and_crop"
+        },
+        "gmm": {
+          "n_components": 5,
+          "covariance_type": "tied",
+          "weights_file": "gmm.pt"
+        },
+        "transforms": {
+          "weights_file": "fsd_transforms.pt"
+        },
+        "scoring": {
+          "train_mean": -42.25325127289017,
+          "train_std": 706.0556010649537,
+          "default_threshold": -2.0
+        },
+        "attribution": {
+          "weights_file": "attribution_transforms.pt",
+          "source_gmms_file": "source_gmms.pt"
+        }
+      },
+      "bundle_sha256": "3c1959f0092fdbe681e41c96f12c1b6d3762e46f21b37b08d4a7e617d1acdfce"
+    }
+  },
+  "source_tag_drift": {
+    "release_tag": "v1.2.0",
+    "release_tag_commit": "5b317a00251988b5ec5a47317f4d82e5bdfd009d",
+    "source_commit": "50f2eae06efdac2e5a33f407ca9a27a2295133ac",
+    "commits_ahead_of_tag": 1,
+    "changed_files": [
+      "fsd/__init__.py",
+      "fsd/attribution.py",
+      "fsd/weights.py"
+    ],
+    "detection_math_changed_files": [],
+    "interpretation": "the pinned main commit is one commit after the v1.2.0 tag; the detection math files used by score() are unchanged"
+  },
+  "paper_release_drift": {
+    "paper": {
+      "url": "https://arxiv.org/abs/2503.21003",
+      "venue": "CVPR 2025",
+      "fre_neighborhood": "11x11",
+      "per_image_solver": "AdamW with plateau scheduling for at most 10000 iterations",
+      "scoring_chain": "Phi_directly_to_GMM",
+      "reported_gmm_parameters_approx": 2000,
+      "threshold_note": "the paper and supplement discuss an older normalized threshold; that operating point is not reused by this adapter"
+    },
+    "release": {
+      "tag": "v1.2.0",
+      "public_inference_timeline": "post-paper_2026_release",
+      "fre_weight_shape": [
+        8,
+        1,
+        15,
+        15
+      ],
+      "per_image_solver": "float64_KKT_constrained_least_squares",
+      "pre_gmm_transforms": {
+        "count": 20,
+        "architecture": "residual_MLP_960_128_128_960",
+        "parameters": 5267200
+      },
+      "threshold_source": "v1.2.0_config_json",
+      "decision": "released_z_score < -2.0",
+      "training_or_evaluation_scripts_in_repository": false
+    },
+    "evaluation_claim": "reproduces the pinned v1.2.0 inference release API only; it does not claim paper-protocol parity, independently verify real-only release training, or reproduce the paper's reported 0.960 AUC"
+  },
+  "dataset": {
+    "manifest_path": "outputs/opensource/mouse_canonical_v1/manifest.json",
+    "manifest_sha256": "beb3c30e436db682bbadef794404838f33a4812f18f22819dd6ab1ef3de6f0b1",
+    "dataset_id": "claimforge-mouse-good275-canonical-jpeg-q95-v1",
+    "inputs_path": "outputs/opensource/mouse_canonical_v1/inputs.jsonl",
+    "inputs_sha256": "e4cb3d6a78fa68f06341457e2234c630a455a9b6b9789e59abf45c15b292060a"
+  },
+  "selection": {
+    "pair_limit": 5,
+    "sample_id": null,
+    "rows": [
+      {
+        "rank": 0,
+        "pair_rank": 0,
+        "sample_id": "0cca3f606edf434904f7bea5",
+        "task_id": "lodging_088_slot_001",
+        "kind": "real",
+        "label": 0,
+        "canonical_path": "outputs/opensource/mouse_canonical_v1/images/0cca3f606edf434904f7bea5.jpg",
+        "canonical_sha256": "cdb08c8fe5b488b2f1cd5a5defba65e9cb1e7a4be965c9609e42210faa752d96",
+        "gt_mask_sha256": null
+      },
+      {
+        "rank": 1,
+        "pair_rank": 0,
+        "sample_id": "ae5f5c15ded9fb7d08809d31",
+        "task_id": "lodging_088_slot_001",
+        "kind": "forged",
+        "label": 1,
+        "canonical_path": "outputs/opensource/mouse_canonical_v1/images/ae5f5c15ded9fb7d08809d31.jpg",
+        "canonical_sha256": "f90c849192fd53e2e9560192d91b5b37a6162f80c14c862e24d37482784b8078",
+        "gt_mask_sha256": "178782445ab34cded97e1bce55e87533e019706638e5849c54066afff8e1a577"
+      },
+      {
+        "rank": 2,
+        "pair_rank": 1,
+        "sample_id": "0757160e6912ebe6d3bdaeb8",
+        "task_id": "restaurant_089_slot_001",
+        "kind": "real",
+        "label": 0,
+        "canonical_path": "outputs/opensource/mouse_canonical_v1/images/0757160e6912ebe6d3bdaeb8.jpg",
+        "canonical_sha256": "d946ada86878738b62106eecae721c31644f68580f8d7be77d1a6620bc1f710a",
+        "gt_mask_sha256": null
+      },
+      {
+        "rank": 3,
+        "pair_rank": 1,
+        "sample_id": "90d6a8fe135d78909c688dae",
+        "task_id": "restaurant_089_slot_001",
+        "kind": "forged",
+        "label": 1,
+        "canonical_path": "outputs/opensource/mouse_canonical_v1/images/90d6a8fe135d78909c688dae.jpg",
+        "canonical_sha256": "e8ad38f6e44b21a5d3cb7e2a290110e9e5995eaa770d5328723b3b717c168e50",
+        "gt_mask_sha256": "4948f57ebb6fb37c2fd565b107079593bec9c07b8f6035c94168eaa72f33e56b"
+      },
+      {
+        "rank": 4,
+        "pair_rank": 2,
+        "sample_id": "b260b4ea209c39e746e1e718",
+        "task_id": "lodging_202_slot_001",
+        "kind": "real",
+        "label": 0,
+        "canonical_path": "outputs/opensource/mouse_canonical_v1/images/b260b4ea209c39e746e1e718.jpg",
+        "canonical_sha256": "5b15a89457ac08687850a9cf7b1904bb5cf3112534a73d71621747a8f308f277",
+        "gt_mask_sha256": null
+      },
+      {
+        "rank": 5,
+        "pair_rank": 2,
+        "sample_id": "dea8400c9a29eb08e3e59ecd",
+        "task_id": "lodging_202_slot_001",
+        "kind": "forged",
+        "label": 1,
+        "canonical_path": "outputs/opensource/mouse_canonical_v1/images/dea8400c9a29eb08e3e59ecd.jpg",
+        "canonical_sha256": "03796733939afbb76a3b4025fc9308d5391d3e65b202372dcdb11205b24a6b37",
+        "gt_mask_sha256": "b5e8d440be3b72edd12907d016e249ecc7f1ae7c8566904b4ae5b0823edca0b0"
+      },
+      {
+        "rank": 6,
+        "pair_rank": 3,
+        "sample_id": "1ee60135d95ae17050977cf7",
+        "task_id": "lodging_071_slot_001",
+        "kind": "real",
+        "label": 0,
+        "canonical_path": "outputs/opensource/mouse_canonical_v1/images/1ee60135d95ae17050977cf7.jpg",
+        "canonical_sha256": "c9bbbb2a38513e3a570a886b436eaf40b819936f4377fe0815997d9a9dd976f5",
+        "gt_mask_sha256": null
+      },
+      {
+        "rank": 7,
+        "pair_rank": 3,
+        "sample_id": "50df11321257619a3a37605f",
+        "task_id": "lodging_071_slot_001",
+        "kind": "forged",
+        "label": 1,
+        "canonical_path": "outputs/opensource/mouse_canonical_v1/images/50df11321257619a3a37605f.jpg",
+        "canonical_sha256": "a8072f1da2e7b2b6fc35710815a24dec6d9cb3f2060f4e2b1ce29105d56b3e36",
+        "gt_mask_sha256": "d46b79a0f70122fd56751245fa8ba04dcb82809c4528b55b0eb3e6e46207fe07"
+      },
+      {
+        "rank": 8,
+        "pair_rank": 4,
+        "sample_id": "ff437e8bbe6e8f4f22031d3a",
+        "task_id": "restaurant_196_slot_001",
+        "kind": "real",
+        "label": 0,
+        "canonical_path": "outputs/opensource/mouse_canonical_v1/images/ff437e8bbe6e8f4f22031d3a.jpg",
+        "canonical_sha256": "63d67e5320382ad580a2fcc935ab0e1a5db58224f365ccb6605b45162e0125c7",
+        "gt_mask_sha256": null
+      },
+      {
+        "rank": 9,
+        "pair_rank": 4,
+        "sample_id": "a79b23d1e93d7055241331ea",
+        "task_id": "restaurant_196_slot_001",
+        "kind": "forged",
+        "label": 1,
+        "canonical_path": "outputs/opensource/mouse_canonical_v1/images/a79b23d1e93d7055241331ea.jpg",
+        "canonical_sha256": "6aac64751ec1d771ecec2c8045bc371137ec7dc72aaa7a8fa29c7fce3798d365",
+        "gt_mask_sha256": "63e89c4c817cc4a7e28b5ac875486a1f88546bc9b09a423b048469301e5cc456"
+      }
+    ]
+  },
+  "protocol": {
+    "official_api": "FSDDetector.score",
+    "weights_resolution": "explicit_cli_weights_dir_no_automatic_download",
+    "input_chain": [
+      "Pillow path decode",
+      "convert L",
+      "FRE 15x15 then trim 7-pixel border",
+      "bilinear resize short residual side to 1024",
+      "center crop 1024x1024",
+      "three bilinear scales",
+      "float64 KKT constrained least-squares",
+      "20 released residual MLP transforms",
+      "released tied-covariance GMM"
+    ],
+    "descriptor": {
+      "shape": [
+        960
+      ],
+      "dtype": "float64",
+      "persisted_for_every_ok_image": true
+    },
+    "scores": {
+      "raw_likelihood": "released_GMM_log_likelihood",
+      "released_z_score": "(raw_likelihood--42.25325127289017)/706.0556010649537",
+      "ai_score": "-released_z_score"
+    },
+    "classification": {
+      "released_threshold": -2.0,
+      "released_operator": "<",
+      "ai_score_threshold": 2.0,
+      "ai_score_operator": ">",
+      "strict": true
+    },
+    "manual_replay": "each descriptor is replayed through official apply_projections and GMM and must exactly equal FSDDetector.score",
+    "edit_visibility": {
+      "category_field": "edit_visibility",
+      "fraction_field": "edit_visible_gt_fraction",
+      "pair_level": true,
+      "real_policy": "copy counterfactual forged exact-diff GT visibility",
+      "formula": "d=(native_index-7+0.5)*resized_size/(native_size-14)-0.5; crop_start<=d<crop_start+1024"
+    },
+    "seed": 20260724,
+    "bootstrap_samples": 1000,
+    "bootstrap_unit": "task_id_pair"
+  },
+  "runtime_contract": {
+    "python": {
+      "implementation": "CPython",
+      "version": "3.12.3",
+      "executable": "/usr/bin/python3.12"
+    },
+    "packages": {
+      "torch": {
+        "version": "2.10.0+cu128",
+        "full_version": "2.10.0+cu128",
+        "distribution_version": "2.10.0"
+      },
+      "numpy": "2.4.3",
+      "Pillow": "12.1.1"
+    },
+    "accelerator": {
+      "requested_device": "cuda:4",
+      "device_type": "cuda",
+      "device_index": 4,
+      "machine": "x86_64",
+      "processor": "x86_64",
+      "torch_version": "2.10.0+cu128",
+      "torch_distribution_version": "2.10.0",
+      "torch_cuda": "12.8",
+      "cudnn_version": 91002,
+      "gpu_name": "NVIDIA L20Z",
+      "gpu_capability": [
+        9,
+        0
+      ]
+    },
+    "numerical_flags": {
+      "cudnn_deterministic": true,
+      "cudnn_benchmark": false,
+      "cuda_matmul_allow_tf32": false,
+      "cudnn_allow_tf32": false,
+      "float32_matmul_precision": "highest"
+    }
+  },
+  "expected_complete_pairs": 5,
+  "expected_images": 10,
+  "artifact_dir": "outputs/opensource/fsd/fsd_v1_2_0_mouse_canonical_v1_smoke5_20260724",
+  "adapter_contract": [
+    {
+      "path": "eval/opensource/run_fsd.py",
+      "sha256": "856f532b88ef5c7061da84ca7394f908287665dd5d68efb2a6db89d6835f6222"
+    },
+    {
+      "path": "eval/opensource/common.py",
+      "sha256": "66ee7134e8398bb8121034fb7f9aef007137a09e03426af24e0faae886188c9f"
+    },
+    {
+      "path": "eval/opensource/whole_image_metrics.py",
+      "sha256": "bc9d0b55c41caa9477e2e0b880aa2220927fb60c3748962a239d10fc3b59fe22"
+    }
+  ],
+  "fingerprint": "985b89bc5da1febfaae3075ffcdcb76476e7a6353222efe8284d112085c80108",
+  "created_at": "2026-07-24T19:49:32.642512+00:00",
+  "adapter": {
+    "path": "eval/opensource/run_fsd.py",
+    "sha256": "856f532b88ef5c7061da84ca7394f908287665dd5d68efb2a6db89d6835f6222",
+    "repo_commit": "9ba03c10f70675030380d669eaa7113d96d4ff4f"
+  },
+  "environment": {
+    "python": {
+      "implementation": "CPython",
+      "version": "3.12.3",
+      "executable": "/usr/bin/python3.12"
+    },
+    "packages": {
+      "torch": {
+        "version": "2.10.0+cu128",
+        "full_version": "2.10.0+cu128",
+        "distribution_version": "2.10.0"
+      },
+      "numpy": "2.4.3",
+      "Pillow": "12.1.1"
+    },
+    "accelerator": {
+      "requested_device": "cuda:4",
+      "device_type": "cuda",
+      "device_index": 4,
+      "machine": "x86_64",
+      "processor": "x86_64",
+      "torch_version": "2.10.0+cu128",
+      "torch_distribution_version": "2.10.0",
+      "torch_cuda": "12.8",
+      "cudnn_version": 91002,
+      "gpu_name": "NVIDIA L20Z",
+      "gpu_capability": [
+        9,
+        0
+      ]
+    },
+    "numerical_flags": {
+      "cudnn_deterministic": true,
+      "cudnn_benchmark": false,
+      "cuda_matmul_allow_tf32": false,
+      "cudnn_allow_tf32": false,
+      "float32_matmul_precision": "highest"
+    }
+  }
+}

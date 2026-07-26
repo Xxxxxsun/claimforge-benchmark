@@ -1,0 +1,287 @@
+{
+  "schema_version": "ufd_detection_summary_v1",
+  "task_scope": {
+    "primary_task": "T1_whole_image_AIGC_detection",
+    "valid_for_t1": true,
+    "valid_for_t2": false,
+    "primary_score": "ai_score",
+    "score_direction": "higher_means_fake",
+    "score_range": "finite_probability_closed_interval_[0,1]",
+    "released_threshold": 0.5,
+    "released_threshold_operator": ">",
+    "fpr_target": 0.05,
+    "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+    "fpr_threshold_operator": ">",
+    "bootstrap_unit": "task_id_pair",
+    "precision_zero_division": 0
+  },
+  "coverage": {
+    "expected_images": 1,
+    "physical_result_rows": 1,
+    "result_images": 1,
+    "valid_images": 1,
+    "error_images": 0,
+    "missing_images": 0,
+    "coverage_fraction": 1.0,
+    "valid_fraction": 1.0,
+    "is_complete": true
+  },
+  "paired_coverage": {
+    "expected_tasks": 1,
+    "expected_complete_pairs": 0,
+    "expected_incomplete_tasks": 1,
+    "preflight_expected_incomplete_pairs": true,
+    "complete_valid_pairs": 0,
+    "paired_valid_images": 0,
+    "unpaired_valid_images": 1,
+    "valid_complete_task_fraction": null
+  },
+  "score_by_kind": {
+    "forged": {
+      "count": 1,
+      "min": 0.200205996632576,
+      "mean": 0.200205996632576,
+      "median": 0.200205996632576,
+      "p05": 0.200205996632576,
+      "p95": 0.200205996632576,
+      "max": 0.200205996632576
+    }
+  },
+  "detection": {
+    "valid_images": 1,
+    "tp": 0,
+    "fp": 0,
+    "fn": 1,
+    "tn": 0,
+    "accuracy_at_0_5": 0.0,
+    "balanced_accuracy_at_0_5": null,
+    "precision_at_0_5": 0.0,
+    "precision_zero_division": 0,
+    "recall_at_0_5": 0.0,
+    "f1_at_0_5": 0.0,
+    "specificity_at_0_5": null,
+    "threshold": 0.5,
+    "threshold_operator": ">",
+    "score_direction": "higher_means_fake",
+    "score_range": "finite_probability_closed_interval_[0,1]",
+    "auroc": null,
+    "average_precision": null,
+    "tpr_at_fpr_5_percent": null,
+    "tpr_at_fpr_5_percent_threshold": null,
+    "tpr_at_fpr_5_percent_actual_fpr": null,
+    "tpr_at_fpr_5_percent_threshold_source": "real_scores_quantile_0_95_method_higher",
+    "tpr_at_fpr_5_percent_threshold_operator": ">",
+    "score_key": "ai_score"
+  },
+  "paired_score_delta": {
+    "count": 0
+  },
+  "paired_ranking_accuracy": null,
+  "paired_ranking": {
+    "comparison": "forged_ai_score_strictly_greater_than_real",
+    "wins": 0,
+    "losses": 0,
+    "ties": 0,
+    "strict_accuracy": null
+  },
+  "paired_sign_test": null,
+  "pair_bootstrap": null,
+  "by_domain": {},
+  "by_edit_visibility": {},
+  "edit_visible_gt_fraction": {
+    "count": 0
+  },
+  "latency_ms": {
+    "count": 1,
+    "min": 195.658,
+    "mean": 195.658,
+    "median": 195.658,
+    "p05": 195.658,
+    "p95": 195.658,
+    "max": 195.658
+  },
+  "peak_cuda_memory_bytes": {
+    "count": 1,
+    "min": 1806185472.0,
+    "mean": 1806185472.0,
+    "median": 1806185472.0,
+    "p05": 1806185472.0,
+    "p95": 1806185472.0,
+    "max": 1806185472.0,
+    "unmeasured_cpu_rows": 0
+  },
+  "run_id": "ufd_clip_vitl14_current_head_mouse_canonical_v1_preflight1_20260724",
+  "condition": "mouse_canonical_v1",
+  "model": "UniversalFakeDetect",
+  "model_slug": "universalfakedetect_clip_vit_l14_ours_lc",
+  "model_arch": "CLIP:ViT-L/14",
+  "model_source_commit": "76a0e3e60a8a06458707a625d269ba815a2e5919",
+  "asset_bundle_sha256": "b57c7a8865336b82fe716dc7871006883417cf60f7b36ca8a9a5f925da009121",
+  "head_checkpoint_sha256": "477100745713bcc957beb2b40859536859b6483fd6301b3b9293151b194c7847",
+  "backbone_checkpoint_sha256": "b8cca3fd41ae0c99ba7e8951adf17d267cdb84cd88be6f7c2e0eca1737a03836",
+  "preprocess_profile": "current_head_native_center_crop224",
+  "input_manifest_sha256": "e4cb3d6a78fa68f06341457e2234c630a455a9b6b9789e59abf45c15b292060a",
+  "run_manifest_fingerprint": "e757324c2854134e33bb75957b271482c77604d6f45ebb6277237e9ee23c47ac",
+  "valid_for_t1": true,
+  "valid_for_t2": false,
+  "model_load_audit": {
+    "source": {
+      "repo_url": "https://github.com/WisconsinAIVision/UniversalFakeDetect",
+      "root": "/root/.cache/claimforge/third_party/UniversalFakeDetect-76a0e3e60a8a",
+      "commit": "76a0e3e60a8a06458707a625d269ba815a2e5919",
+      "tracked_dirty": false,
+      "source_files": {
+        "LICENSE": {
+          "path": "/root/.cache/claimforge/third_party/UniversalFakeDetect-76a0e3e60a8a/LICENSE",
+          "sha256": "923dbc0fe040cc826122491e98b20d6f401e510d50c8b666de908e59ebf2f2b2"
+        },
+        "README.md": {
+          "path": "/root/.cache/claimforge/third_party/UniversalFakeDetect-76a0e3e60a8a/README.md",
+          "sha256": "9006d38199a13f64968f20e9a8ea6532cf54295d25efffb4354cc0d58a0a4951"
+        },
+        "validate.py": {
+          "path": "/root/.cache/claimforge/third_party/UniversalFakeDetect-76a0e3e60a8a/validate.py",
+          "sha256": "9ab4021cc6f85002a8b8cd0fc28baa9b4861b59bffcfbd98e10d02b08c42b2d6"
+        },
+        "models/__init__.py": {
+          "path": "/root/.cache/claimforge/third_party/UniversalFakeDetect-76a0e3e60a8a/models/__init__.py",
+          "sha256": "7ea7f9931cfb773d552e30d2333a83c416798a2862119373356c7d03fb552299"
+        },
+        "models/clip_models.py": {
+          "path": "/root/.cache/claimforge/third_party/UniversalFakeDetect-76a0e3e60a8a/models/clip_models.py",
+          "sha256": "57ce5898bf0bc7ff52b5922a0aefae8bc34a9237e4d59e4a1615ff5d8c6ff7a6"
+        },
+        "models/imagenet_models.py": {
+          "path": "/root/.cache/claimforge/third_party/UniversalFakeDetect-76a0e3e60a8a/models/imagenet_models.py",
+          "sha256": "f291a0179027a8efc0e59b62edb9eecfe7a28add8312e5929a81dfb46e3096e0"
+        },
+        "models/resnet.py": {
+          "path": "/root/.cache/claimforge/third_party/UniversalFakeDetect-76a0e3e60a8a/models/resnet.py",
+          "sha256": "c2e13589767e3da0af9f5037dfb6933bcd5bddffef4d50c81d80f8a22a49a263"
+        },
+        "models/vision_transformer.py": {
+          "path": "/root/.cache/claimforge/third_party/UniversalFakeDetect-76a0e3e60a8a/models/vision_transformer.py",
+          "sha256": "f1fd9e3023a0cf246e99bec02096a30228c72ae79e70e1346234468bc8f415f3"
+        },
+        "models/vision_transformer_misc.py": {
+          "path": "/root/.cache/claimforge/third_party/UniversalFakeDetect-76a0e3e60a8a/models/vision_transformer_misc.py",
+          "sha256": "d25390fc38a08ec0b005d76eeeb122a89a9c3eb296d8fb2b1da3f73745e1e715"
+        },
+        "models/vision_transformer_utils.py": {
+          "path": "/root/.cache/claimforge/third_party/UniversalFakeDetect-76a0e3e60a8a/models/vision_transformer_utils.py",
+          "sha256": "25be7a4a7a74a58e47ab4c32770b8334f1b000c9b4cd15fd0eb55e2faee68bcc"
+        },
+        "models/clip/__init__.py": {
+          "path": "/root/.cache/claimforge/third_party/UniversalFakeDetect-76a0e3e60a8a/models/clip/__init__.py",
+          "sha256": "d7930eb290ebed432116795c91473200d098451a94c0aedd4ae0f934f97955e8"
+        },
+        "models/clip/clip.py": {
+          "path": "/root/.cache/claimforge/third_party/UniversalFakeDetect-76a0e3e60a8a/models/clip/clip.py",
+          "sha256": "c3f1c09abe0a0d9c429e0d47f2b8d4a4ec09dbd11eec3d7dd9846babd717e43b"
+        },
+        "models/clip/model.py": {
+          "path": "/root/.cache/claimforge/third_party/UniversalFakeDetect-76a0e3e60a8a/models/clip/model.py",
+          "sha256": "c071d011e92226f1ca0a6f7c5098d8d7d08eadc7d6db125a81b52fc234b1ec59"
+        },
+        "models/clip/simple_tokenizer.py": {
+          "path": "/root/.cache/claimforge/third_party/UniversalFakeDetect-76a0e3e60a8a/models/clip/simple_tokenizer.py",
+          "sha256": "d1b09f10ed3d1e2c343619cb98cbfacb92363dd8607526a43aa7fe2d60d15bad"
+        },
+        "models/clip/bpe_simple_vocab_16e6.txt.gz": {
+          "path": "/root/.cache/claimforge/third_party/UniversalFakeDetect-76a0e3e60a8a/models/clip/bpe_simple_vocab_16e6.txt.gz",
+          "sha256": "924691ac288e54409236115652ad4aa250f48203de50a9e4722a6ecd48d6804a"
+        }
+      },
+      "bundled_head": {
+        "path": "/root/.cache/claimforge/third_party/UniversalFakeDetect-76a0e3e60a8a/pretrained_weights/fc_weights.pth",
+        "bytes": 4083,
+        "sha256": "477100745713bcc957beb2b40859536859b6483fd6301b3b9293151b194c7847"
+      },
+      "preprocess_drift": {
+        "head_introduction_commit": "763391eff3284f6950ffb323599c1a7a819f2ecd",
+        "head_era_validate_sha256": "8a68ba2af3e7586f294bdbc5643a1e46f418916406c3129f24647f275da8d77a",
+        "resize_removal_commit": "3bf72282088e47be7e784e104e577790a55d4e48",
+        "current_source_commit": "76a0e3e60a8a06458707a625d269ba815a2e5919",
+        "interpretation": "the repository does not identify whether the released head should use its checkpoint-era or current validation transform"
+      }
+    },
+    "assets": {
+      "bundle_sha256": "b57c7a8865336b82fe716dc7871006883417cf60f7b36ca8a9a5f925da009121",
+      "head": {
+        "released_name": "Ours (L/14 + LC)",
+        "filename": "fc_weights.pth",
+        "repo_relative_path": "pretrained_weights/fc_weights.pth",
+        "introduced_commit": "763391eff3284f6950ffb323599c1a7a819f2ecd",
+        "bytes": 4083,
+        "sha256": "477100745713bcc957beb2b40859536859b6483fd6301b3b9293151b194c7847",
+        "format": "torch_state_dict_weights_only",
+        "path": "/root/.cache/claimforge/checkpoints/universal-fake-detect-76a0e3e60a8a/fc_weights.pth",
+        "serialization_safety": {
+          "preflight": "torch.serialization.get_unsafe_globals_in_checkpoint",
+          "unsafe_globals": [],
+          "required_unsafe_globals": [],
+          "weights_only": true
+        },
+        "payload_schema": {
+          "type": "collections.OrderedDict",
+          "items": {
+            "weight": {
+              "type": "tensor",
+              "shape": [
+                1,
+                768
+              ],
+              "dtype": "torch.float32",
+              "numel": 768
+            },
+            "bias": {
+              "type": "tensor",
+              "shape": [
+                1
+              ],
+              "dtype": "torch.float32",
+              "numel": 1
+            }
+          }
+        }
+      },
+      "backbone": {
+        "provider": "OpenAI",
+        "architecture": "ViT-L/14",
+        "filename": "ViT-L-14.pt",
+        "bytes": 932768134,
+        "sha256": "b8cca3fd41ae0c99ba7e8951adf17d267cdb84cd88be6f7c2e0eca1737a03836",
+        "format": "torchscript_archive",
+        "official_url": "https://openaipublic.azureedge.net/clip/models/b8cca3fd41ae0c99ba7e8951adf17d267cdb84cd88be6f7c2e0eca1737a03836/ViT-L-14.pt",
+        "path": "/root/.cache/claimforge/checkpoints/openai-clip/ViT-L-14.pt",
+        "archive_preflight": "zipfile.is_zipfile",
+        "archive_preflight_passed": true,
+        "load_api": "official_clip.load_via_torch.jit.load",
+        "network_allowed": false
+      }
+    },
+    "class_module": "_claimforge_ufd_76a0e3e.models.clip_models",
+    "class_name": "CLIPModel",
+    "construction_api": "official models.get_model('CLIP:ViT-L/14')",
+    "official_download_patch_calls": [
+      {
+        "url": "https://openaipublic.azureedge.net/clip/models/b8cca3fd41ae0c99ba7e8951adf17d267cdb84cd88be6f7c2e0eca1737a03836/ViT-L-14.pt",
+        "requested_cache_root": "/root/.cache/clip"
+      }
+    ],
+    "urlopen_calls": 0,
+    "network_blocked": true,
+    "clip_torch_load_fallback_blocked": true,
+    "head_load": {
+      "api": "torch.load",
+      "weights_only": true,
+      "strict": true,
+      "missing_keys": [],
+      "unexpected_keys": []
+    },
+    "feature_dimension": 768,
+    "visual_input_resolution": 224,
+    "head_parameters": 769
+  },
+  "completed_at": "2026-07-24T22:02:57.343604+00:00"
+}

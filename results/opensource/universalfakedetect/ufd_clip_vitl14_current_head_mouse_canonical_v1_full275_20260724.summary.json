@@ -1,0 +1,1239 @@
+{
+  "schema_version": "ufd_detection_summary_v1",
+  "task_scope": {
+    "primary_task": "T1_whole_image_AIGC_detection",
+    "valid_for_t1": true,
+    "valid_for_t2": false,
+    "primary_score": "ai_score",
+    "score_direction": "higher_means_fake",
+    "score_range": "finite_probability_closed_interval_[0,1]",
+    "released_threshold": 0.5,
+    "released_threshold_operator": ">",
+    "fpr_target": 0.05,
+    "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+    "fpr_threshold_operator": ">",
+    "bootstrap_unit": "task_id_pair",
+    "precision_zero_division": 0
+  },
+  "coverage": {
+    "expected_images": 550,
+    "physical_result_rows": 550,
+    "result_images": 550,
+    "valid_images": 550,
+    "error_images": 0,
+    "missing_images": 0,
+    "coverage_fraction": 1.0,
+    "valid_fraction": 1.0,
+    "is_complete": true
+  },
+  "paired_coverage": {
+    "expected_tasks": 275,
+    "expected_complete_pairs": 275,
+    "expected_incomplete_tasks": 0,
+    "preflight_expected_incomplete_pairs": false,
+    "complete_valid_pairs": 275,
+    "paired_valid_images": 550,
+    "unpaired_valid_images": 0,
+    "valid_complete_task_fraction": 1.0
+  },
+  "score_by_kind": {
+    "forged": {
+      "count": 275,
+      "min": 2.197672301917919e-06,
+      "mean": 0.046798095617472925,
+      "median": 0.0032757013104856014,
+      "p05": 3.2046404157881625e-05,
+      "p95": 0.23115223646163965,
+      "max": 0.8954507112503052
+    },
+    "real": {
+      "count": 275,
+      "min": 2.197672301917919e-06,
+      "mean": 0.05060335411940783,
+      "median": 0.002910280367359519,
+      "p05": 3.1625561132386795e-05,
+      "p95": 0.27462117671966596,
+      "max": 0.8954507112503052
+    }
+  },
+  "detection": {
+    "valid_images": 550,
+    "tp": 10,
+    "fp": 11,
+    "fn": 265,
+    "tn": 264,
+    "accuracy_at_0_5": 0.49818181818181817,
+    "balanced_accuracy_at_0_5": 0.49818181818181817,
+    "precision_at_0_5": 0.47619047619047616,
+    "precision_zero_division": 0,
+    "recall_at_0_5": 0.03636363636363636,
+    "f1_at_0_5": 0.06756756756756757,
+    "specificity_at_0_5": 0.96,
+    "threshold": 0.5,
+    "threshold_operator": ">",
+    "score_direction": "higher_means_fake",
+    "score_range": "finite_probability_closed_interval_[0,1]",
+    "auroc": 0.4996495867768595,
+    "average_precision": 0.49729330544760075,
+    "tpr_at_fpr_5_percent": 0.04,
+    "tpr_at_fpr_5_percent_threshold": 0.2999618351459503,
+    "tpr_at_fpr_5_percent_actual_fpr": 0.04727272727272727,
+    "tpr_at_fpr_5_percent_threshold_source": "real_scores_quantile_0_95_method_higher",
+    "tpr_at_fpr_5_percent_threshold_operator": ">",
+    "score_key": "ai_score"
+  },
+  "paired_score_delta": {
+    "count": 275,
+    "min": -0.6767767500132322,
+    "mean": -0.0038052585019349035,
+    "median": 0.0,
+    "p05": 0.0,
+    "p95": 2.301564672961853e-05,
+    "max": 0.04660282237455249
+  },
+  "paired_ranking_accuracy": 0.06181818181818182,
+  "paired_ranking": {
+    "comparison": "forged_ai_score_strictly_greater_than_real",
+    "wins": 17,
+    "losses": 12,
+    "ties": 246,
+    "strict_accuracy": 0.06181818181818182
+  },
+  "paired_sign_test": {
+    "wins": 17,
+    "losses": 12,
+    "ties": 246,
+    "non_ties": 29,
+    "alternative": "two-sided",
+    "null_win_probability": 0.5,
+    "two_sided_exact_p": 0.45825831964612007
+  },
+  "pair_bootstrap": {
+    "pairs": 275,
+    "images": 550,
+    "bootstrap_unit": "task_id_pair",
+    "bootstrap_samples": 1000,
+    "seed": 20260724,
+    "score_key": "ai_score",
+    "score_direction": "higher_means_fake",
+    "score_range": "finite_probability_closed_interval_[0,1]",
+    "fixed_threshold": 0.5,
+    "fixed_threshold_operator": ">",
+    "fpr_target": 0.05,
+    "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+    "fpr_threshold_operator": ">",
+    "auroc": {
+      "estimate": 0.4996495867768595,
+      "ci95_percentile": [
+        0.4931899173553719,
+        0.5056662809917355
+      ]
+    },
+    "average_precision": {
+      "estimate": 0.49729330544760075,
+      "ci95_percentile": [
+        0.4899898689053787,
+        0.5038724716784495
+      ]
+    },
+    "tpr_at_fpr_5_percent": {
+      "estimate": 0.04,
+      "ci95_percentile": [
+        0.02909090909090909,
+        0.04727272727272727
+      ]
+    },
+    "tpr_at_fpr_5_percent_threshold": {
+      "estimate": 0.2999618351459503,
+      "ci95_percentile": [
+        0.17642781138420105,
+        0.5942330956459045
+      ]
+    },
+    "tpr_at_fpr_5_percent_actual_fpr": {
+      "estimate": 0.04727272727272727,
+      "ci95_percentile": [
+        0.03636363636363636,
+        0.04727272727272727
+      ]
+    },
+    "accuracy_at_0_5": {
+      "estimate": 0.49818181818181817,
+      "ci95_percentile": [
+        0.49454545454545457,
+        0.5
+      ]
+    },
+    "balanced_accuracy_at_0_5": {
+      "estimate": 0.49818181818181817,
+      "ci95_percentile": [
+        0.4945454545454545,
+        0.5
+      ]
+    },
+    "precision_at_0_5": {
+      "estimate": 0.47619047619047616,
+      "ci95_percentile": [
+        0.4166666666666667,
+        0.5
+      ]
+    },
+    "recall_at_0_5": {
+      "estimate": 0.03636363636363636,
+      "ci95_percentile": [
+        0.01818181818181818,
+        0.05818181818181818
+      ]
+    },
+    "f1_at_0_5": {
+      "estimate": 0.06756756756756757,
+      "ci95_percentile": [
+        0.03484018099109562,
+        0.10390456449088371
+      ]
+    },
+    "specificity_at_0_5": {
+      "estimate": 0.96,
+      "ci95_percentile": [
+        0.9380909090909091,
+        0.9781818181818182
+      ]
+    },
+    "paired_ranking_accuracy": {
+      "estimate": 0.06181818181818182,
+      "ci95_percentile": [
+        0.03636363636363636,
+        0.09090909090909091
+      ]
+    },
+    "paired_score_delta_mean": {
+      "estimate": -0.0038052585019349035,
+      "ci95_percentile": [
+        -0.010887752538849202,
+        0.00044020580573190014
+      ]
+    },
+    "image_confusion_at_0_5": {
+      "tp": 10,
+      "fp": 11,
+      "fn": 265,
+      "tn": 264
+    },
+    "paired_score_delta": {
+      "count": 275,
+      "min": -0.6767767500132322,
+      "mean": -0.0038052585019349035,
+      "median": 0.0,
+      "p05": 0.0,
+      "p95": 2.301564672961853e-05,
+      "max": 0.04660282237455249
+    },
+    "paired_ranking": {
+      "comparison": "forged_ai_score_strictly_greater_than_real",
+      "wins": 17,
+      "losses": 12,
+      "ties": 246,
+      "strict_accuracy": 0.06181818181818182
+    },
+    "paired_sign_test": {
+      "wins": 17,
+      "losses": 12,
+      "ties": 246,
+      "non_ties": 29,
+      "alternative": "two-sided",
+      "null_win_probability": 0.5,
+      "two_sided_exact_p": 0.45825831964612007
+    },
+    "domains": [
+      "lodging",
+      "restaurant"
+    ],
+    "edit_visibilities": [
+      "full",
+      "none",
+      "partial"
+    ],
+    "edit_visible_gt_fraction": {
+      "count": 275,
+      "min": 0.0,
+      "mean": 0.07201555782557531,
+      "median": 0.0,
+      "p05": 0.0,
+      "p95": 0.9794711538461541,
+      "max": 1.0
+    }
+  },
+  "by_domain": {
+    "lodging": {
+      "pairs": 147,
+      "images": 294,
+      "bootstrap_unit": "task_id_pair",
+      "bootstrap_samples": 1000,
+      "seed": 20261724,
+      "score_key": "ai_score",
+      "score_direction": "higher_means_fake",
+      "score_range": "finite_probability_closed_interval_[0,1]",
+      "fixed_threshold": 0.5,
+      "fixed_threshold_operator": ">",
+      "fpr_target": 0.05,
+      "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+      "fpr_threshold_operator": ">",
+      "auroc": {
+        "estimate": 0.49766301078254427,
+        "ci95_percentile": [
+          0.48550893146374197,
+          0.5091877227081307
+        ]
+      },
+      "average_precision": {
+        "estimate": 0.4942409321013761,
+        "ci95_percentile": [
+          0.480941075307801,
+          0.5062396306822102
+        ]
+      },
+      "tpr_at_fpr_5_percent": {
+        "estimate": 0.04081632653061224,
+        "ci95_percentile": [
+          0.02040816326530612,
+          0.047619047619047616
+        ]
+      },
+      "tpr_at_fpr_5_percent_threshold": {
+        "estimate": 0.5001212954521179,
+        "ci95_percentile": [
+          0.2290146823972464,
+          0.6719925999641418
+        ]
+      },
+      "tpr_at_fpr_5_percent_actual_fpr": {
+        "estimate": 0.047619047619047616,
+        "ci95_percentile": [
+          0.034013605442176874,
+          0.047619047619047616
+        ]
+      },
+      "accuracy_at_0_5": {
+        "estimate": 0.4965986394557823,
+        "ci95_percentile": [
+          0.4897959183673469,
+          0.5
+        ]
+      },
+      "balanced_accuracy_at_0_5": {
+        "estimate": 0.4965986394557823,
+        "ci95_percentile": [
+          0.4897959183673469,
+          0.5
+        ]
+      },
+      "precision_at_0_5": {
+        "estimate": 0.4666666666666667,
+        "ci95_percentile": [
+          0.375,
+          0.5
+        ]
+      },
+      "recall_at_0_5": {
+        "estimate": 0.047619047619047616,
+        "ci95_percentile": [
+          0.02040816326530612,
+          0.08843537414965986
+        ]
+      },
+      "f1_at_0_5": {
+        "estimate": 0.08641975308641975,
+        "ci95_percentile": [
+          0.03870967741935484,
+          0.14857142857142858
+        ]
+      },
+      "specificity_at_0_5": {
+        "estimate": 0.9455782312925171,
+        "ci95_percentile": [
+          0.9047619047619048,
+          0.9795918367346939
+        ]
+      },
+      "paired_ranking_accuracy": {
+        "estimate": 0.07482993197278912,
+        "ci95_percentile": [
+          0.034013605442176874,
+          0.11564625850340136
+        ]
+      },
+      "paired_score_delta_mean": {
+        "estimate": -0.007133718174979246,
+        "ci95_percentile": [
+          -0.019761649870411114,
+          0.000899870884285253
+        ]
+      },
+      "image_confusion_at_0_5": {
+        "tp": 7,
+        "fp": 8,
+        "fn": 140,
+        "tn": 139
+      },
+      "paired_score_delta": {
+        "count": 147,
+        "min": -0.6767767500132322,
+        "mean": -0.007133718174979246,
+        "median": 0.0,
+        "p05": -7.9799722880125e-05,
+        "p95": 0.00012498841388150906,
+        "max": 0.04660282237455249
+      },
+      "paired_ranking": {
+        "comparison": "forged_ai_score_strictly_greater_than_real",
+        "wins": 11,
+        "losses": 10,
+        "ties": 126,
+        "strict_accuracy": 0.07482993197278912
+      },
+      "paired_sign_test": {
+        "wins": 11,
+        "losses": 10,
+        "ties": 126,
+        "non_ties": 21,
+        "alternative": "two-sided",
+        "null_win_probability": 0.5,
+        "two_sided_exact_p": 1.0
+      },
+      "domains": [
+        "lodging"
+      ],
+      "edit_visibilities": [
+        "full",
+        "none",
+        "partial"
+      ],
+      "edit_visible_gt_fraction": {
+        "count": 147,
+        "min": 0.0,
+        "mean": 0.08698520138275674,
+        "median": 0.0,
+        "p05": 0.0,
+        "p95": 0.94831585081585,
+        "max": 1.0
+      }
+    },
+    "restaurant": {
+      "pairs": 128,
+      "images": 256,
+      "bootstrap_unit": "task_id_pair",
+      "bootstrap_samples": 1000,
+      "seed": 20261725,
+      "score_key": "ai_score",
+      "score_direction": "higher_means_fake",
+      "score_range": "finite_probability_closed_interval_[0,1]",
+      "fixed_threshold": 0.5,
+      "fixed_threshold_operator": ">",
+      "fpr_target": 0.05,
+      "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+      "fpr_threshold_operator": ">",
+      "auroc": {
+        "estimate": 0.50146484375,
+        "ci95_percentile": [
+          0.496307373046875,
+          0.5063789367675782
+        ]
+      },
+      "average_precision": {
+        "estimate": 0.5008644435672303,
+        "ci95_percentile": [
+          0.4987089130383469,
+          0.5035829242526699
+        ]
+      },
+      "tpr_at_fpr_5_percent": {
+        "estimate": 0.046875,
+        "ci95_percentile": [
+          0.0234375,
+          0.046875
+        ]
+      },
+      "tpr_at_fpr_5_percent_threshold": {
+        "estimate": 0.11276686191558838,
+        "ci95_percentile": [
+          0.0550149530172348,
+          0.7076597213745117
+        ]
+      },
+      "tpr_at_fpr_5_percent_actual_fpr": {
+        "estimate": 0.046875,
+        "ci95_percentile": [
+          0.0234375,
+          0.046875
+        ]
+      },
+      "accuracy_at_0_5": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "balanced_accuracy_at_0_5": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "precision_at_0_5": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.0,
+          0.5
+        ]
+      },
+      "recall_at_0_5": {
+        "estimate": 0.0234375,
+        "ci95_percentile": [
+          0.0,
+          0.0546875
+        ]
+      },
+      "f1_at_0_5": {
+        "estimate": 0.04477611940298507,
+        "ci95_percentile": [
+          0.0,
+          0.09859154929577464
+        ]
+      },
+      "specificity_at_0_5": {
+        "estimate": 0.9765625,
+        "ci95_percentile": [
+          0.9453125,
+          1.0
+        ]
+      },
+      "paired_ranking_accuracy": {
+        "estimate": 0.046875,
+        "ci95_percentile": [
+          0.015625,
+          0.0859375
+        ]
+      },
+      "paired_score_delta_mean": {
+        "estimate": 1.7269403826958296e-05,
+        "ci95_percentile": [
+          -2.5547029140682297e-05,
+          6.152408220003732e-05
+        ]
+      },
+      "image_confusion_at_0_5": {
+        "tp": 3,
+        "fp": 3,
+        "fn": 125,
+        "tn": 125
+      },
+      "paired_score_delta": {
+        "count": 128,
+        "min": -0.0016220888355746865,
+        "mean": 1.7269403826958296e-05,
+        "median": 0.0,
+        "p05": 0.0,
+        "p95": 0.0,
+        "max": 0.0019704164005815983
+      },
+      "paired_ranking": {
+        "comparison": "forged_ai_score_strictly_greater_than_real",
+        "wins": 6,
+        "losses": 2,
+        "ties": 120,
+        "strict_accuracy": 0.046875
+      },
+      "paired_sign_test": {
+        "wins": 6,
+        "losses": 2,
+        "ties": 120,
+        "non_ties": 8,
+        "alternative": "two-sided",
+        "null_win_probability": 0.5,
+        "two_sided_exact_p": 0.2890625
+      },
+      "domains": [
+        "restaurant"
+      ],
+      "edit_visibilities": [
+        "full",
+        "none",
+        "partial"
+      ],
+      "edit_visible_gt_fraction": {
+        "count": 128,
+        "min": 0.0,
+        "mean": 0.05482385780287474,
+        "median": 0.0,
+        "p05": 0.0,
+        "p95": 0.6561088295687801,
+        "max": 1.0
+      }
+    }
+  },
+  "by_edit_visibility": {
+    "full": {
+      "pairs": 14,
+      "images": 28,
+      "bootstrap_unit": "task_id_pair",
+      "bootstrap_samples": 1000,
+      "seed": 20262724,
+      "score_key": "ai_score",
+      "score_direction": "higher_means_fake",
+      "score_range": "finite_probability_closed_interval_[0,1]",
+      "fixed_threshold": 0.5,
+      "fixed_threshold_operator": ">",
+      "fpr_target": 0.05,
+      "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+      "fpr_threshold_operator": ">",
+      "auroc": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.38252551020408165,
+          0.6225765306122449
+        ]
+      },
+      "average_precision": {
+        "estimate": 0.5686362142573322,
+        "ci95_percentile": [
+          0.48925483226916494,
+          0.7076222114281998
+        ]
+      },
+      "tpr_at_fpr_5_percent": {
+        "estimate": 0.07142857142857142,
+        "ci95_percentile": [
+          0.0,
+          0.35714285714285715
+        ]
+      },
+      "tpr_at_fpr_5_percent_threshold": {
+        "estimate": 0.00979043822735548,
+        "ci95_percentile": [
+          0.002751290798187256,
+          0.00979043822735548
+        ]
+      },
+      "tpr_at_fpr_5_percent_actual_fpr": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "accuracy_at_0_5": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "balanced_accuracy_at_0_5": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "precision_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "recall_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "f1_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "specificity_at_0_5": {
+        "estimate": 1.0,
+        "ci95_percentile": [
+          1.0,
+          1.0
+        ]
+      },
+      "paired_ranking_accuracy": {
+        "estimate": 0.7142857142857143,
+        "ci95_percentile": [
+          0.42857142857142855,
+          0.9285714285714286
+        ]
+      },
+      "paired_score_delta_mean": {
+        "estimate": 0.0016200138431616193,
+        "ci95_percentile": [
+          -0.0013884219863159939,
+          0.006078054877746451
+        ]
+      },
+      "image_confusion_at_0_5": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 14,
+        "tn": 14
+      },
+      "paired_score_delta": {
+        "count": 14,
+        "min": -0.007078144932165742,
+        "mean": 0.0016200138431616193,
+        "median": 0.0001323064207099378,
+        "p05": -0.003531708469381556,
+        "p95": 0.010623987740837029,
+        "max": 0.026694905944168568
+      },
+      "paired_ranking": {
+        "comparison": "forged_ai_score_strictly_greater_than_real",
+        "wins": 10,
+        "losses": 4,
+        "ties": 0,
+        "strict_accuracy": 0.7142857142857143
+      },
+      "paired_sign_test": {
+        "wins": 10,
+        "losses": 4,
+        "ties": 0,
+        "non_ties": 14,
+        "alternative": "two-sided",
+        "null_win_probability": 0.5,
+        "two_sided_exact_p": 0.1795654296875
+      },
+      "domains": [
+        "lodging",
+        "restaurant"
+      ],
+      "edit_visibilities": [
+        "full"
+      ],
+      "edit_visible_gt_fraction": {
+        "count": 14,
+        "min": 1.0,
+        "mean": 1.0,
+        "median": 1.0,
+        "p05": 1.0,
+        "p95": 1.0,
+        "max": 1.0
+      }
+    },
+    "none": {
+      "pairs": 247,
+      "images": 494,
+      "bootstrap_unit": "task_id_pair",
+      "bootstrap_samples": 1000,
+      "seed": 20262725,
+      "score_key": "ai_score",
+      "score_direction": "higher_means_fake",
+      "score_range": "finite_probability_closed_interval_[0,1]",
+      "fixed_threshold": 0.5,
+      "fixed_threshold_operator": ">",
+      "fpr_target": 0.05,
+      "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+      "fpr_threshold_operator": ">",
+      "auroc": {
+        "estimate": 0.5000081955121376,
+        "ci95_percentile": [
+          0.49999999999999994,
+          0.500073759609238
+        ]
+      },
+      "average_precision": {
+        "estimate": 0.5000097791859806,
+        "ci95_percentile": [
+          0.49999999999999994,
+          0.5000974521253159
+        ]
+      },
+      "tpr_at_fpr_5_percent": {
+        "estimate": 0.048582995951417005,
+        "ci95_percentile": [
+          0.040384615384615394,
+          0.048582995951417005
+        ]
+      },
+      "tpr_at_fpr_5_percent_threshold": {
+        "estimate": 0.26376089453697205,
+        "ci95_percentile": [
+          0.12093944847583771,
+          0.5942330956459045
+        ]
+      },
+      "tpr_at_fpr_5_percent_actual_fpr": {
+        "estimate": 0.048582995951417005,
+        "ci95_percentile": [
+          0.040384615384615394,
+          0.048582995951417005
+        ]
+      },
+      "accuracy_at_0_5": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "balanced_accuracy_at_0_5": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "precision_at_0_5": {
+        "estimate": 0.5,
+        "ci95_percentile": [
+          0.5,
+          0.5
+        ]
+      },
+      "recall_at_0_5": {
+        "estimate": 0.04048582995951417,
+        "ci95_percentile": [
+          0.020242914979757085,
+          0.06487854251012136
+        ]
+      },
+      "f1_at_0_5": {
+        "estimate": 0.0749063670411985,
+        "ci95_percentile": [
+          0.038910505836575876,
+          0.11485286802127564
+        ]
+      },
+      "specificity_at_0_5": {
+        "estimate": 0.9595141700404858,
+        "ci95_percentile": [
+          0.9351214574898786,
+          0.979757085020243
+        ]
+      },
+      "paired_ranking_accuracy": {
+        "estimate": 0.004048582995951417,
+        "ci95_percentile": [
+          0.0,
+          0.012145748987854251
+        ]
+      },
+      "paired_score_delta_mean": {
+        "estimate": 6.954189435190517e-08,
+        "ci95_percentile": [
+          0.0,
+          2.0862568305571552e-07
+        ]
+      },
+      "image_confusion_at_0_5": {
+        "tp": 10,
+        "fp": 10,
+        "fn": 237,
+        "tn": 237
+      },
+      "paired_score_delta": {
+        "count": 247,
+        "min": 0.0,
+        "mean": 6.954189435190517e-08,
+        "median": 0.0,
+        "p05": 0.0,
+        "p95": 0.0,
+        "max": 1.7176847904920578e-05
+      },
+      "paired_ranking": {
+        "comparison": "forged_ai_score_strictly_greater_than_real",
+        "wins": 1,
+        "losses": 0,
+        "ties": 246,
+        "strict_accuracy": 0.004048582995951417
+      },
+      "paired_sign_test": {
+        "wins": 1,
+        "losses": 0,
+        "ties": 246,
+        "non_ties": 1,
+        "alternative": "two-sided",
+        "null_win_probability": 0.5,
+        "two_sided_exact_p": 1.0
+      },
+      "domains": [
+        "lodging",
+        "restaurant"
+      ],
+      "edit_visibilities": [
+        "none"
+      ],
+      "edit_visible_gt_fraction": {
+        "count": 247,
+        "min": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "p05": 0.0,
+        "p95": 0.0,
+        "max": 0.0
+      }
+    },
+    "partial": {
+      "pairs": 14,
+      "images": 28,
+      "bootstrap_unit": "task_id_pair",
+      "bootstrap_samples": 1000,
+      "seed": 20262726,
+      "score_key": "ai_score",
+      "score_direction": "higher_means_fake",
+      "score_range": "finite_probability_closed_interval_[0,1]",
+      "fixed_threshold": 0.5,
+      "fixed_threshold_operator": ">",
+      "fpr_target": 0.05,
+      "fpr_threshold_source": "real_scores_quantile_0_95_method_higher",
+      "fpr_threshold_operator": ">",
+      "auroc": {
+        "estimate": 0.4744897959183674,
+        "ci95_percentile": [
+          0.3364795918367347,
+          0.6020408163265306
+        ]
+      },
+      "average_precision": {
+        "estimate": 0.47863528472772165,
+        "ci95_percentile": [
+          0.43241917849531236,
+          0.6102793724480754
+        ]
+      },
+      "tpr_at_fpr_5_percent": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "tpr_at_fpr_5_percent_threshold": {
+        "estimate": 0.6886589527130127,
+        "ci95_percentile": [
+          0.10175035893917084,
+          0.6886589527130127
+        ]
+      },
+      "tpr_at_fpr_5_percent_actual_fpr": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "accuracy_at_0_5": {
+        "estimate": 0.4642857142857143,
+        "ci95_percentile": [
+          0.39285714285714285,
+          0.5
+        ]
+      },
+      "balanced_accuracy_at_0_5": {
+        "estimate": 0.4642857142857143,
+        "ci95_percentile": [
+          0.39285714285714285,
+          0.5
+        ]
+      },
+      "precision_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "recall_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "f1_at_0_5": {
+        "estimate": 0.0,
+        "ci95_percentile": [
+          0.0,
+          0.0
+        ]
+      },
+      "specificity_at_0_5": {
+        "estimate": 0.9285714285714286,
+        "ci95_percentile": [
+          0.7857142857142857,
+          1.0
+        ]
+      },
+      "paired_ranking_accuracy": {
+        "estimate": 0.42857142857142855,
+        "ci95_percentile": [
+          0.14285714285714285,
+          0.7142857142857143
+        ]
+      },
+      "paired_score_delta_mean": {
+        "estimate": -0.076367389906019,
+        "ci95_percentile": [
+          -0.19293553822769485,
+          0.006829063524362157
+        ]
+      },
+      "image_confusion_at_0_5": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 14,
+        "tn": 13
+      },
+      "paired_score_delta": {
+        "count": 14,
+        "min": -0.6767767500132322,
+        "mean": -0.076367389906019,
+        "median": -1.6167046851478517e-05,
+        "p05": -0.529200061399024,
+        "p95": 0.025934041873551892,
+        "max": 0.04660282237455249
+      },
+      "paired_ranking": {
+        "comparison": "forged_ai_score_strictly_greater_than_real",
+        "wins": 6,
+        "losses": 8,
+        "ties": 0,
+        "strict_accuracy": 0.42857142857142855
+      },
+      "paired_sign_test": {
+        "wins": 6,
+        "losses": 8,
+        "ties": 0,
+        "non_ties": 14,
+        "alternative": "two-sided",
+        "null_win_probability": 0.5,
+        "two_sided_exact_p": 0.79052734375
+      },
+      "domains": [
+        "lodging",
+        "restaurant"
+      ],
+      "edit_visibilities": [
+        "partial"
+      ],
+      "edit_visible_gt_fraction": {
+        "count": 14,
+        "min": 0.005120702267739576,
+        "mean": 0.4145913144309435,
+        "median": 0.33434621627165023,
+        "p05": 0.008462021913111836,
+        "p95": 0.9222324203574204,
+        "max": 0.9706730769230769
+      }
+    }
+  },
+  "edit_visible_gt_fraction": {
+    "count": 275,
+    "min": 0.0,
+    "mean": 0.07201555782557531,
+    "median": 0.0,
+    "p05": 0.0,
+    "p95": 0.9794711538461541,
+    "max": 1.0
+  },
+  "latency_ms": {
+    "count": 550,
+    "min": 9.596,
+    "mean": 11.207650909090908,
+    "median": 9.698,
+    "p05": 9.614,
+    "p95": 21.00255,
+    "max": 197.917
+  },
+  "peak_cuda_memory_bytes": {
+    "count": 550,
+    "min": 1806185472.0,
+    "mean": 1806185472.0,
+    "median": 1806185472.0,
+    "p05": 1806185472.0,
+    "p95": 1806185472.0,
+    "max": 1806185472.0,
+    "unmeasured_cpu_rows": 0
+  },
+  "run_id": "ufd_clip_vitl14_current_head_mouse_canonical_v1_full275_20260724",
+  "condition": "mouse_canonical_v1",
+  "model": "UniversalFakeDetect",
+  "model_slug": "universalfakedetect_clip_vit_l14_ours_lc",
+  "model_arch": "CLIP:ViT-L/14",
+  "model_source_commit": "76a0e3e60a8a06458707a625d269ba815a2e5919",
+  "asset_bundle_sha256": "b57c7a8865336b82fe716dc7871006883417cf60f7b36ca8a9a5f925da009121",
+  "head_checkpoint_sha256": "477100745713bcc957beb2b40859536859b6483fd6301b3b9293151b194c7847",
+  "backbone_checkpoint_sha256": "b8cca3fd41ae0c99ba7e8951adf17d267cdb84cd88be6f7c2e0eca1737a03836",
+  "preprocess_profile": "current_head_native_center_crop224",
+  "input_manifest_sha256": "e4cb3d6a78fa68f06341457e2234c630a455a9b6b9789e59abf45c15b292060a",
+  "run_manifest_fingerprint": "88d101117d02fd2466da5bac2fb5c35a3444cc2c6fcc2d240350928a768e84c6",
+  "valid_for_t1": true,
+  "valid_for_t2": false,
+  "model_load_audit": {
+    "source": {
+      "repo_url": "https://github.com/WisconsinAIVision/UniversalFakeDetect",
+      "root": "/root/.cache/claimforge/third_party/UniversalFakeDetect-76a0e3e60a8a",
+      "commit": "76a0e3e60a8a06458707a625d269ba815a2e5919",
+      "tracked_dirty": false,
+      "source_files": {
+        "LICENSE": {
+          "path": "/root/.cache/claimforge/third_party/UniversalFakeDetect-76a0e3e60a8a/LICENSE",
+          "sha256": "923dbc0fe040cc826122491e98b20d6f401e510d50c8b666de908e59ebf2f2b2"
+        },
+        "README.md": {
+          "path": "/root/.cache/claimforge/third_party/UniversalFakeDetect-76a0e3e60a8a/README.md",
+          "sha256": "9006d38199a13f64968f20e9a8ea6532cf54295d25efffb4354cc0d58a0a4951"
+        },
+        "validate.py": {
+          "path": "/root/.cache/claimforge/third_party/UniversalFakeDetect-76a0e3e60a8a/validate.py",
+          "sha256": "9ab4021cc6f85002a8b8cd0fc28baa9b4861b59bffcfbd98e10d02b08c42b2d6"
+        },
+        "models/__init__.py": {
+          "path": "/root/.cache/claimforge/third_party/UniversalFakeDetect-76a0e3e60a8a/models/__init__.py",
+          "sha256": "7ea7f9931cfb773d552e30d2333a83c416798a2862119373356c7d03fb552299"
+        },
+        "models/clip_models.py": {
+          "path": "/root/.cache/claimforge/third_party/UniversalFakeDetect-76a0e3e60a8a/models/clip_models.py",
+          "sha256": "57ce5898bf0bc7ff52b5922a0aefae8bc34a9237e4d59e4a1615ff5d8c6ff7a6"
+        },
+        "models/imagenet_models.py": {
+          "path": "/root/.cache/claimforge/third_party/UniversalFakeDetect-76a0e3e60a8a/models/imagenet_models.py",
+          "sha256": "f291a0179027a8efc0e59b62edb9eecfe7a28add8312e5929a81dfb46e3096e0"
+        },
+        "models/resnet.py": {
+          "path": "/root/.cache/claimforge/third_party/UniversalFakeDetect-76a0e3e60a8a/models/resnet.py",
+          "sha256": "c2e13589767e3da0af9f5037dfb6933bcd5bddffef4d50c81d80f8a22a49a263"
+        },
+        "models/vision_transformer.py": {
+          "path": "/root/.cache/claimforge/third_party/UniversalFakeDetect-76a0e3e60a8a/models/vision_transformer.py",
+          "sha256": "f1fd9e3023a0cf246e99bec02096a30228c72ae79e70e1346234468bc8f415f3"
+        },
+        "models/vision_transformer_misc.py": {
+          "path": "/root/.cache/claimforge/third_party/UniversalFakeDetect-76a0e3e60a8a/models/vision_transformer_misc.py",
+          "sha256": "d25390fc38a08ec0b005d76eeeb122a89a9c3eb296d8fb2b1da3f73745e1e715"
+        },
+        "models/vision_transformer_utils.py": {
+          "path": "/root/.cache/claimforge/third_party/UniversalFakeDetect-76a0e3e60a8a/models/vision_transformer_utils.py",
+          "sha256": "25be7a4a7a74a58e47ab4c32770b8334f1b000c9b4cd15fd0eb55e2faee68bcc"
+        },
+        "models/clip/__init__.py": {
+          "path": "/root/.cache/claimforge/third_party/UniversalFakeDetect-76a0e3e60a8a/models/clip/__init__.py",
+          "sha256": "d7930eb290ebed432116795c91473200d098451a94c0aedd4ae0f934f97955e8"
+        },
+        "models/clip/clip.py": {
+          "path": "/root/.cache/claimforge/third_party/UniversalFakeDetect-76a0e3e60a8a/models/clip/clip.py",
+          "sha256": "c3f1c09abe0a0d9c429e0d47f2b8d4a4ec09dbd11eec3d7dd9846babd717e43b"
+        },
+        "models/clip/model.py": {
+          "path": "/root/.cache/claimforge/third_party/UniversalFakeDetect-76a0e3e60a8a/models/clip/model.py",
+          "sha256": "c071d011e92226f1ca0a6f7c5098d8d7d08eadc7d6db125a81b52fc234b1ec59"
+        },
+        "models/clip/simple_tokenizer.py": {
+          "path": "/root/.cache/claimforge/third_party/UniversalFakeDetect-76a0e3e60a8a/models/clip/simple_tokenizer.py",
+          "sha256": "d1b09f10ed3d1e2c343619cb98cbfacb92363dd8607526a43aa7fe2d60d15bad"
+        },
+        "models/clip/bpe_simple_vocab_16e6.txt.gz": {
+          "path": "/root/.cache/claimforge/third_party/UniversalFakeDetect-76a0e3e60a8a/models/clip/bpe_simple_vocab_16e6.txt.gz",
+          "sha256": "924691ac288e54409236115652ad4aa250f48203de50a9e4722a6ecd48d6804a"
+        }
+      },
+      "bundled_head": {
+        "path": "/root/.cache/claimforge/third_party/UniversalFakeDetect-76a0e3e60a8a/pretrained_weights/fc_weights.pth",
+        "bytes": 4083,
+        "sha256": "477100745713bcc957beb2b40859536859b6483fd6301b3b9293151b194c7847"
+      },
+      "preprocess_drift": {
+        "head_introduction_commit": "763391eff3284f6950ffb323599c1a7a819f2ecd",
+        "head_era_validate_sha256": "8a68ba2af3e7586f294bdbc5643a1e46f418916406c3129f24647f275da8d77a",
+        "resize_removal_commit": "3bf72282088e47be7e784e104e577790a55d4e48",
+        "current_source_commit": "76a0e3e60a8a06458707a625d269ba815a2e5919",
+        "interpretation": "the repository does not identify whether the released head should use its checkpoint-era or current validation transform"
+      }
+    },
+    "assets": {
+      "bundle_sha256": "b57c7a8865336b82fe716dc7871006883417cf60f7b36ca8a9a5f925da009121",
+      "head": {
+        "released_name": "Ours (L/14 + LC)",
+        "filename": "fc_weights.pth",
+        "repo_relative_path": "pretrained_weights/fc_weights.pth",
+        "introduced_commit": "763391eff3284f6950ffb323599c1a7a819f2ecd",
+        "bytes": 4083,
+        "sha256": "477100745713bcc957beb2b40859536859b6483fd6301b3b9293151b194c7847",
+        "format": "torch_state_dict_weights_only",
+        "path": "/root/.cache/claimforge/checkpoints/universal-fake-detect-76a0e3e60a8a/fc_weights.pth",
+        "serialization_safety": {
+          "preflight": "torch.serialization.get_unsafe_globals_in_checkpoint",
+          "unsafe_globals": [],
+          "required_unsafe_globals": [],
+          "weights_only": true
+        },
+        "payload_schema": {
+          "type": "collections.OrderedDict",
+          "items": {
+            "weight": {
+              "type": "tensor",
+              "shape": [
+                1,
+                768
+              ],
+              "dtype": "torch.float32",
+              "numel": 768
+            },
+            "bias": {
+              "type": "tensor",
+              "shape": [
+                1
+              ],
+              "dtype": "torch.float32",
+              "numel": 1
+            }
+          }
+        }
+      },
+      "backbone": {
+        "provider": "OpenAI",
+        "architecture": "ViT-L/14",
+        "filename": "ViT-L-14.pt",
+        "bytes": 932768134,
+        "sha256": "b8cca3fd41ae0c99ba7e8951adf17d267cdb84cd88be6f7c2e0eca1737a03836",
+        "format": "torchscript_archive",
+        "official_url": "https://openaipublic.azureedge.net/clip/models/b8cca3fd41ae0c99ba7e8951adf17d267cdb84cd88be6f7c2e0eca1737a03836/ViT-L-14.pt",
+        "path": "/root/.cache/claimforge/checkpoints/openai-clip/ViT-L-14.pt",
+        "archive_preflight": "zipfile.is_zipfile",
+        "archive_preflight_passed": true,
+        "load_api": "official_clip.load_via_torch.jit.load",
+        "network_allowed": false
+      }
+    },
+    "class_module": "_claimforge_ufd_76a0e3e.models.clip_models",
+    "class_name": "CLIPModel",
+    "construction_api": "official models.get_model('CLIP:ViT-L/14')",
+    "official_download_patch_calls": [
+      {
+        "url": "https://openaipublic.azureedge.net/clip/models/b8cca3fd41ae0c99ba7e8951adf17d267cdb84cd88be6f7c2e0eca1737a03836/ViT-L-14.pt",
+        "requested_cache_root": "/root/.cache/clip"
+      }
+    ],
+    "urlopen_calls": 0,
+    "network_blocked": true,
+    "clip_torch_load_fallback_blocked": true,
+    "head_load": {
+      "api": "torch.load",
+      "weights_only": true,
+      "strict": true,
+      "missing_keys": [],
+      "unexpected_keys": []
+    },
+    "feature_dimension": 768,
+    "visual_input_resolution": 224,
+    "head_parameters": 769
+  },
+  "completed_at": "2026-07-24T22:08:56.298936+00:00"
+}

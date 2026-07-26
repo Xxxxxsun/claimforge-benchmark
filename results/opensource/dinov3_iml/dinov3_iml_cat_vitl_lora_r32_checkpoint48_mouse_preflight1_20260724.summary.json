@@ -1,0 +1,406 @@
+{
+  "schema_version": "opensource_summary_v1",
+  "task_scope": {
+    "primary_task": "T2_localization",
+    "valid_for_t1": false,
+    "valid_for_t2": true,
+    "primary_localization_space": "native",
+    "auxiliary_localization_space": "model_512",
+    "localization_semantics": "dinov3_iml_sigmoid_manipulation_probability_float32",
+    "probability_dtype": "float32",
+    "mask_threshold": 0.5,
+    "threshold_operator": ">",
+    "model_space_probability_source": "sigmoid_bilinear_align_corners_false_seg_head_logits_32_to_512",
+    "native_probability_source": "bilinear_align_corners_false_resize_of_model_512_probability"
+  },
+  "coverage": {
+    "expected_images": 1,
+    "result_images": 1,
+    "valid_images": 1,
+    "error_images": 0,
+    "missing_images": 0
+  },
+  "paired_coverage": {
+    "complete_pairs": 0,
+    "paired_images": 0,
+    "unpaired_valid_images": 1
+  },
+  "localization_forged": {
+    "model_512": {
+      "images": 1,
+      "pixel_ap": {
+        "count": 1,
+        "min": 0.002732386108030169,
+        "mean": 0.002732386108030169,
+        "median": 0.002732386108030169,
+        "p05": 0.002732386108030169,
+        "p95": 0.002732386108030169,
+        "max": 0.002732386108030169
+      },
+      "precision": {
+        "count": 1,
+        "min": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "p05": 0.0,
+        "p95": 0.0,
+        "max": 0.0
+      },
+      "recall": {
+        "count": 1,
+        "min": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "p05": 0.0,
+        "p95": 0.0,
+        "max": 0.0
+      },
+      "f1": {
+        "count": 1,
+        "min": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "p05": 0.0,
+        "p95": 0.0,
+        "max": 0.0
+      },
+      "iou": {
+        "count": 1,
+        "min": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "p05": 0.0,
+        "p95": 0.0,
+        "max": 0.0
+      },
+      "mcc": {
+        "count": 1,
+        "min": -0.00014458659736154783,
+        "mean": -0.00014458659736154783,
+        "median": -0.00014458659736154783,
+        "p05": -0.00014458659736154783,
+        "p95": -0.00014458659736154783,
+        "max": -0.00014458659736154783
+      },
+      "predicted_positive_fraction": {
+        "count": 1,
+        "min": 1.9073486328125e-05,
+        "mean": 1.9073486328125e-05,
+        "median": 1.9073486328125e-05,
+        "p05": 1.9073486328125e-05,
+        "p95": 1.9073486328125e-05,
+        "max": 1.9073486328125e-05
+      },
+      "score_mean": {
+        "count": 1,
+        "min": 0.021377770230174065,
+        "mean": 0.021377770230174065,
+        "median": 0.021377770230174065,
+        "p05": 0.021377770230174065,
+        "p95": 0.021377770230174065,
+        "max": 0.021377770230174065
+      },
+      "score_max": {
+        "count": 1,
+        "min": 0.5455930233001709,
+        "mean": 0.5455930233001709,
+        "median": 0.5455930233001709,
+        "p05": 0.5455930233001709,
+        "p95": 0.5455930233001709,
+        "max": 0.5455930233001709
+      },
+      "macro_at_threshold": {
+        "threshold": 0.5,
+        "threshold_operator": ">",
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "iou": 0.0,
+        "mcc": -0.00014458659736154783,
+        "predicted_positive_fraction": 1.9073486328125e-05
+      },
+      "micro_at_threshold": {
+        "threshold": 0.5,
+        "threshold_operator": ">",
+        "tp": 0,
+        "fp": 5,
+        "fn": 287,
+        "tn": 261852,
+        "pixels": 262144,
+        "target_positive_pixels": 287,
+        "predicted_positive_pixels": 5,
+        "predicted_positive_fraction": 1.9073486328125e-05,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "iou": 0.0,
+        "mcc": -0.00014458659736154783
+      }
+    },
+    "native": {
+      "images": 1,
+      "pixel_ap": {
+        "count": 1,
+        "min": 0.0027463013715002447,
+        "mean": 0.0027463013715002447,
+        "median": 0.0027463013715002447,
+        "p05": 0.0027463013715002447,
+        "p95": 0.0027463013715002447,
+        "max": 0.0027463013715002447
+      },
+      "precision": {
+        "count": 1,
+        "min": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "p05": 0.0,
+        "p95": 0.0,
+        "max": 0.0
+      },
+      "recall": {
+        "count": 1,
+        "min": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "p05": 0.0,
+        "p95": 0.0,
+        "max": 0.0
+      },
+      "f1": {
+        "count": 1,
+        "min": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "p05": 0.0,
+        "p95": 0.0,
+        "max": 0.0
+      },
+      "iou": {
+        "count": 1,
+        "min": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "p05": 0.0,
+        "p95": 0.0,
+        "max": 0.0
+      },
+      "mcc": {
+        "count": 1,
+        "min": -0.00010475701275923095,
+        "mean": -0.00010475701275923095,
+        "median": -0.00010475701275923095,
+        "p05": -0.00010475701275923095,
+        "p95": -0.00010475701275923095,
+        "max": -0.00010475701275923095
+      },
+      "predicted_positive_fraction": {
+        "count": 1,
+        "min": 9.876543209876543e-06,
+        "mean": 9.876543209876543e-06,
+        "median": 9.876543209876543e-06,
+        "p05": 9.876543209876543e-06,
+        "p95": 9.876543209876543e-06,
+        "max": 9.876543209876543e-06
+      },
+      "score_mean": {
+        "count": 1,
+        "min": 0.02137773111462593,
+        "mean": 0.02137773111462593,
+        "median": 0.02137773111462593,
+        "p05": 0.02137773111462593,
+        "p95": 0.02137773111462593,
+        "max": 0.02137773111462593
+      },
+      "score_max": {
+        "count": 1,
+        "min": 0.5366881489753723,
+        "mean": 0.5366881489753723,
+        "median": 0.5366881489753723,
+        "p05": 0.5366881489753723,
+        "p95": 0.5366881489753723,
+        "max": 0.5366881489753723
+      },
+      "macro_at_threshold": {
+        "threshold": 0.5,
+        "threshold_operator": ">",
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "iou": 0.0,
+        "mcc": -0.00010475701275923095,
+        "predicted_positive_fraction": 9.876543209876543e-06
+      },
+      "micro_at_threshold": {
+        "threshold": 0.5,
+        "threshold_operator": ">",
+        "tp": 0,
+        "fp": 24,
+        "fn": 2697,
+        "tn": 2427279,
+        "pixels": 2430000,
+        "target_positive_pixels": 2697,
+        "predicted_positive_pixels": 24,
+        "predicted_positive_fraction": 9.876543209876543e-06,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "iou": 0.0,
+        "mcc": -0.00010475701275923095
+      }
+    }
+  },
+  "localization_real": {
+    "model_512": {
+      "images": 0,
+      "pixel_ap": null,
+      "precision": {
+        "count": 0
+      },
+      "recall": {
+        "count": 0
+      },
+      "f1": {
+        "count": 0
+      },
+      "iou": {
+        "count": 0
+      },
+      "mcc": {
+        "count": 0
+      },
+      "predicted_positive_fraction": {
+        "count": 0
+      },
+      "score_mean": {
+        "count": 0
+      },
+      "score_max": {
+        "count": 0
+      },
+      "macro_at_threshold": {
+        "threshold": 0.5,
+        "threshold_operator": ">",
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "iou": null,
+        "mcc": null,
+        "predicted_positive_fraction": null,
+        "false_positive_area_fraction": null
+      },
+      "micro_at_threshold": {
+        "threshold": 0.5,
+        "threshold_operator": ">",
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 0,
+        "pixels": 0,
+        "target_positive_pixels": 0,
+        "predicted_positive_pixels": 0,
+        "predicted_positive_fraction": null,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "iou": null,
+        "mcc": null,
+        "false_positive_area_fraction": null
+      }
+    },
+    "native": {
+      "images": 0,
+      "pixel_ap": null,
+      "precision": {
+        "count": 0
+      },
+      "recall": {
+        "count": 0
+      },
+      "f1": {
+        "count": 0
+      },
+      "iou": {
+        "count": 0
+      },
+      "mcc": {
+        "count": 0
+      },
+      "predicted_positive_fraction": {
+        "count": 0
+      },
+      "score_mean": {
+        "count": 0
+      },
+      "score_max": {
+        "count": 0
+      },
+      "macro_at_threshold": {
+        "threshold": 0.5,
+        "threshold_operator": ">",
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "iou": null,
+        "mcc": null,
+        "predicted_positive_fraction": null,
+        "false_positive_area_fraction": null
+      },
+      "micro_at_threshold": {
+        "threshold": 0.5,
+        "threshold_operator": ">",
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "tn": 0,
+        "pixels": 0,
+        "target_positive_pixels": 0,
+        "predicted_positive_pixels": 0,
+        "predicted_positive_fraction": null,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "iou": null,
+        "mcc": null,
+        "false_positive_area_fraction": null
+      }
+    }
+  },
+  "pair_bootstrap": {
+    "bootstrap_samples": 1000,
+    "seed": 42,
+    "model_512": null,
+    "native": null
+  },
+  "latency_ms": {
+    "count": 1,
+    "min": 382.217,
+    "mean": 382.217,
+    "median": 382.217,
+    "p05": 382.217,
+    "p95": 382.217,
+    "max": 382.217
+  },
+  "peak_cuda_memory_bytes": {
+    "count": 1,
+    "min": 1474092544.0,
+    "mean": 1474092544.0,
+    "median": 1474092544.0,
+    "p05": 1474092544.0,
+    "p95": 1474092544.0,
+    "max": 1474092544.0
+  },
+  "run_id": "dinov3_iml_cat_vitl_lora_r32_checkpoint48_mouse_preflight1_20260724",
+  "condition": "mouse_canonical_v1",
+  "model": "DINOv3-IML",
+  "model_slug": "dinov3_iml_cat_vitl_lora_r32_checkpoint48_official",
+  "model_source_commit": "ba45b0a203c698b36fe2b0e658bb49ebbb1163cc",
+  "dinov3_source_commit": "31703e4cbf1ccb7c4a72daa1350405f86754b6d1",
+  "checkpoint_sha256": "01f23401e048f706ea0e63fb0429ddef80db3197ac0f5707bd584a8b056177fa",
+  "checkpoint_epoch": 48,
+  "input_manifest_sha256": "e4cb3d6a78fa68f06341457e2234c630a455a9b6b9789e59abf45c15b292060a",
+  "run_manifest_fingerprint": "5f9902ab4f1bf493e98cb8faf2e26b56769484cb5efb3f59bd0dbc17d0c029ac",
+  "valid_for_t1": false,
+  "valid_for_t2": true,
+  "t1_policy": "unsupported_no_derived_image_score",
+  "completed_at": "2026-07-24T15:14:33.982244+00:00"
+}
