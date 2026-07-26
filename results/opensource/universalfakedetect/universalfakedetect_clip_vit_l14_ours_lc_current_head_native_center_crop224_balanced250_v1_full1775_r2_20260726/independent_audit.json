@@ -1,0 +1,335 @@
+{
+  "schema_version": "universalfakedetect_balanced_replay_audit_v2",
+  "status": "replay_audit_passed",
+  "run_id": "universalfakedetect_clip_vit_l14_ours_lc_current_head_native_center_crop224_balanced250_v1_full1775_r2_20260726",
+  "run_manifest_fingerprint": "0eadd62b9a2b762dd90ad52579de0e46827d233b4f287dd6a27e2f033a6f2c78",
+  "audited_at": "2026-07-26T19:25:09.412103+00:00",
+  "formal_images": 1775,
+  "physical_result_rows": 1775,
+  "latest_result_rows": 1775,
+  "coverage": {
+    "expected_images": 1775,
+    "physical_attempts": 1775,
+    "result_images": 1775,
+    "valid_images": 1775,
+    "error_images": 0,
+    "missing_images": 0,
+    "superseded_attempts": 0,
+    "coverage_fraction": 1.0,
+    "success_fraction": 1.0,
+    "is_complete": true,
+    "counts_by_condition": {
+      "real": {
+        "expected_images": 275,
+        "result_images": 275,
+        "valid_images": 275,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "local_mouse": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "local_cat": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "local_trash_can": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "fullframe_mouse": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "fullframe_cat": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "fullframe_trash_can": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      }
+    }
+  },
+  "feature_files": 1775,
+  "metrics_schema_version": "balanced250_t1_summary_v1",
+  "metrics_bootstrap": {
+    "iterations": 1000,
+    "seed": 20260726,
+    "primary_unit": "shared_source_content_cluster_poisson_across_labels_and_conditions",
+    "secondary_unit": "shared_source_content_cluster_poisson_across_conditions",
+    "ci": "two_sided_95_percentile"
+  },
+  "analysis_runtime": {
+    "schema_version": "universalfakedetect_balanced_analysis_runtime_v1",
+    "inference_runtime": {
+      "device": "cpu",
+      "python": {
+        "implementation": "CPython",
+        "version": "3.12.3",
+        "executable": "/root/.cache/claimforge/venvs/ufd-balanced-torch2.8.0/bin/python"
+      },
+      "venv": {
+        "prefix": "/root/.cache/claimforge/venvs/ufd-balanced-torch2.8.0",
+        "base_prefix": "/usr",
+        "pyvenv_cfg_path": "/root/.cache/claimforge/venvs/ufd-balanced-torch2.8.0/pyvenv.cfg",
+        "pyvenv_cfg_sha256": "4126faa1b923a338127a0dc182f5df7f0dd0f53159c6f4568f56eb6582f22a8f",
+        "include_system_site_packages": false
+      },
+      "platform": "Linux-5.10.134-16.103.al8.x86_64-x86_64-with-glibc2.39",
+      "packages": {
+        "torch": {
+          "version": "2.8.0+cu128",
+          "distribution_version": "2.8.0+cu128",
+          "cuda_runtime": "12.8",
+          "cudnn_version": 91002
+        },
+        "torchvision": {
+          "version": "0.23.0+cu128",
+          "distribution_version": "0.23.0+cu128"
+        },
+        "numpy": "2.2.6",
+        "Pillow": "11.1.0",
+        "ftfy": "6.3.1",
+        "regex": "2024.11.6",
+        "setuptools": "75.8.0",
+        "tqdm": "4.67.1"
+      },
+      "seed": 20260726,
+      "preprocess_profile": "current_head_native_center_crop224",
+      "feature_dtype": "float32",
+      "batch_size": 1,
+      "autocast": false,
+      "deterministic_algorithms_enabled": true,
+      "deterministic_algorithms_warn_only": false,
+      "cublas_workspace_config": ":4096:8",
+      "cudnn": {
+        "enabled": true,
+        "benchmark": false,
+        "deterministic": true,
+        "allow_tf32": false
+      },
+      "matmul_allow_tf32": false,
+      "float32_matmul_precision": "highest",
+      "minimum_cuda_free_bytes": 8589934592
+    },
+    "analysis_packages": {
+      "scipy": "1.17.1",
+      "scikit-learn": "1.8.0"
+    }
+  },
+  "independent_linear_head_replay": {
+    "status": "independent_linear_head_replay_passed",
+    "features_replayed": 1775,
+    "head_checkpoint_sha256": "477100745713bcc957beb2b40859536859b6483fd6301b3b9293151b194c7847",
+    "device": "cuda:0",
+    "runtime": {
+      "device": "cuda:0",
+      "python": {
+        "implementation": "CPython",
+        "version": "3.12.3",
+        "executable": "/root/.cache/claimforge/venvs/ufd-balanced-torch2.8.0/bin/python"
+      },
+      "venv": {
+        "prefix": "/root/.cache/claimforge/venvs/ufd-balanced-torch2.8.0",
+        "base_prefix": "/usr",
+        "pyvenv_cfg_path": "/root/.cache/claimforge/venvs/ufd-balanced-torch2.8.0/pyvenv.cfg",
+        "pyvenv_cfg_sha256": "4126faa1b923a338127a0dc182f5df7f0dd0f53159c6f4568f56eb6582f22a8f",
+        "include_system_site_packages": false
+      },
+      "platform": "Linux-5.10.134-16.103.al8.x86_64-x86_64-with-glibc2.39",
+      "packages": {
+        "torch": {
+          "version": "2.8.0+cu128",
+          "distribution_version": "2.8.0+cu128",
+          "cuda_runtime": "12.8",
+          "cudnn_version": 91002
+        },
+        "torchvision": {
+          "version": "0.23.0+cu128",
+          "distribution_version": "0.23.0+cu128"
+        },
+        "numpy": "2.2.6",
+        "Pillow": "11.1.0",
+        "ftfy": "6.3.1",
+        "regex": "2024.11.6",
+        "setuptools": "75.8.0",
+        "tqdm": "4.67.1"
+      },
+      "seed": 20260726,
+      "preprocess_profile": "current_head_native_center_crop224",
+      "feature_dtype": "float32",
+      "batch_size": 1,
+      "autocast": false,
+      "deterministic_algorithms_enabled": true,
+      "deterministic_algorithms_warn_only": false,
+      "cublas_workspace_config": ":4096:8",
+      "cudnn": {
+        "enabled": true,
+        "benchmark": false,
+        "deterministic": true,
+        "allow_tf32": false
+      },
+      "matmul_allow_tf32": false,
+      "float32_matmul_precision": "highest",
+      "minimum_cuda_free_bytes": 8589934592,
+      "cuda": {
+        "runtime": "12.8",
+        "device_index": 0,
+        "device_name": "NVIDIA L20Z",
+        "total_memory_bytes": 85017624576,
+        "capability": [
+          9,
+          0
+        ]
+      }
+    },
+    "recorded_runtime_exact_match": true,
+    "raw_logit_abs_tolerance": 0.0,
+    "probability_abs_tolerance": 0.0,
+    "max_raw_logit_abs_difference": 0.0,
+    "max_probability_abs_difference": 0.0
+  },
+  "fresh_model_replay": {
+    "status": "fresh_full_image_to_feature_replay_passed",
+    "images_replayed": 1775,
+    "full_image_forward_per_input": true,
+    "feature_tail_only_replay": false,
+    "source_commit": "76a0e3e60a8a06458707a625d269ba815a2e5919",
+    "asset_bundle_sha256": "b57c7a8865336b82fe716dc7871006883417cf60f7b36ca8a9a5f925da009121",
+    "preprocess_profile": "current_head_native_center_crop224",
+    "runtime": {
+      "device": "cuda:0",
+      "python": {
+        "implementation": "CPython",
+        "version": "3.12.3",
+        "executable": "/root/.cache/claimforge/venvs/ufd-balanced-torch2.8.0/bin/python"
+      },
+      "venv": {
+        "prefix": "/root/.cache/claimforge/venvs/ufd-balanced-torch2.8.0",
+        "base_prefix": "/usr",
+        "pyvenv_cfg_path": "/root/.cache/claimforge/venvs/ufd-balanced-torch2.8.0/pyvenv.cfg",
+        "pyvenv_cfg_sha256": "4126faa1b923a338127a0dc182f5df7f0dd0f53159c6f4568f56eb6582f22a8f",
+        "include_system_site_packages": false
+      },
+      "platform": "Linux-5.10.134-16.103.al8.x86_64-x86_64-with-glibc2.39",
+      "packages": {
+        "torch": {
+          "version": "2.8.0+cu128",
+          "distribution_version": "2.8.0+cu128",
+          "cuda_runtime": "12.8",
+          "cudnn_version": 91002
+        },
+        "torchvision": {
+          "version": "0.23.0+cu128",
+          "distribution_version": "0.23.0+cu128"
+        },
+        "numpy": "2.2.6",
+        "Pillow": "11.1.0",
+        "ftfy": "6.3.1",
+        "regex": "2024.11.6",
+        "setuptools": "75.8.0",
+        "tqdm": "4.67.1"
+      },
+      "seed": 20260726,
+      "preprocess_profile": "current_head_native_center_crop224",
+      "feature_dtype": "float32",
+      "batch_size": 1,
+      "autocast": false,
+      "deterministic_algorithms_enabled": true,
+      "deterministic_algorithms_warn_only": false,
+      "cublas_workspace_config": ":4096:8",
+      "cudnn": {
+        "enabled": true,
+        "benchmark": false,
+        "deterministic": true,
+        "allow_tf32": false
+      },
+      "matmul_allow_tf32": false,
+      "float32_matmul_precision": "highest",
+      "minimum_cuda_free_bytes": 8589934592,
+      "cuda": {
+        "runtime": "12.8",
+        "device_index": 0,
+        "device_name": "NVIDIA L20Z",
+        "total_memory_bytes": 85017624576,
+        "capability": [
+          9,
+          0
+        ]
+      }
+    },
+    "raw_logit_abs_tolerance": 0.0,
+    "probability_abs_tolerance": 0.0,
+    "feature_comparison": "numpy.array_equal",
+    "max_raw_logit_abs_difference": 0.0,
+    "max_probability_abs_difference": 0.0,
+    "max_ai_score_abs_difference": 0.0,
+    "max_feature_abs_difference": 0.0
+  },
+  "method_boundary": {
+    "method": "UniversalFakeDetect released Ours (CLIP ViT-L/14 + LC)",
+    "preprocess_profile": "current_head_native_center_crop224",
+    "checkpoint_era_profile_evaluated": false,
+    "valid_for_t1": true,
+    "valid_for_t2": false,
+    "fullframe_t2": "not_applicable",
+    "license": {
+      "code": {
+        "spdx": "MIT"
+      },
+      "linear_head_weights": {
+        "terms": "no_separate_explicit_terms",
+        "commercial_cleared": false
+      },
+      "openai_clip": {
+        "code_license": "MIT",
+        "model_card_note": "deployment_out_of_scope_risk_note",
+        "commercial_cleared": false
+      },
+      "overall_commercial_clearance": "not_established"
+    },
+    "commercial_clearance": "not_established"
+  },
+  "contract_checks": {
+    "exact_formal_whole_image_t1_selection_rebuilt": true,
+    "all_physical_attempts_validated": true,
+    "complete_latest_coverage_required": true,
+    "current_head_profile_only": true,
+    "pair_rank_rejected": true,
+    "t2_joint_dense_claims_rejected": true,
+    "source_assets_runtime_adapter_hashes_validated": true,
+    "current_metrics_runtime_validated_before_recomputation": true,
+    "run_and_canonical_evidence_reverified_after_replay": true,
+    "feature_inventory_bytes_sha_array_shape_dtype_finite_validated": true,
+    "score_direction_threshold_sigmoid_and_head_replay_validated": true,
+    "shared_balanced250_metrics_only": true
+  },
+  "artifacts": {
+    "manifest_sha256": "a3f70959e815b2220a611350d01cfb3019276cdb800c2bf4bccc81d113366e9e",
+    "results_sha256": "580e05eb596ee0090416e732d88f2217d03df99b83def2170065fa3b9062a665",
+    "expected_inputs_sha256": "6b5128909eeffdbd88e61af02ca1bd191cb5460f94a23b47c87ebd0172e6d12c",
+    "summary_sha256": "ce50c144f9127ad4873658b2e138f314023750e0469159fffef7331895ffa2cc",
+    "feature_inventory_sha256": "9efedea4b9a4cf140db5383f015fa766a5a73c755461e34597f661da3ae49dd1",
+    "metrics_sha256": "1c5802aea3adc7671d576de0950c25eeff9c4e3e0a5917d3a0f7547452091c5d"
+  }
+}
