@@ -1,0 +1,144 @@
+{
+  "schema_version": "cnndetection_balanced_replay_audit_v2",
+  "status": "replay_audit_passed",
+  "run_id": "cnndetection_blur_jpg_prob0_1_native_balanced250_v1_full1775_20260726",
+  "run_manifest_fingerprint": "6803d619bf760c9d997f314fa31e4113810bc21eb6c38901f25e2f26d3c9b0f0",
+  "audited_at": "2026-07-26T12:26:32.883166+00:00",
+  "formal_images": 1775,
+  "physical_result_rows": 1775,
+  "latest_result_rows": 1775,
+  "coverage": {
+    "expected_images": 1775,
+    "physical_attempts": 1775,
+    "result_images": 1775,
+    "valid_images": 1775,
+    "error_images": 0,
+    "missing_images": 0,
+    "superseded_attempts": 0,
+    "coverage_fraction": 1.0,
+    "success_fraction": 1.0,
+    "is_complete": true,
+    "counts_by_condition": {
+      "real": {
+        "expected_images": 275,
+        "result_images": 275,
+        "valid_images": 275,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "local_mouse": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "local_cat": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "local_trash_can": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "fullframe_mouse": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "fullframe_cat": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "fullframe_trash_can": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      }
+    }
+  },
+  "feature_files": 1775,
+  "metrics_schema_version": "balanced250_t1_summary_v1",
+  "metrics_bootstrap": {
+    "iterations": 1000,
+    "seed": 20260726,
+    "primary_unit": "shared_source_content_cluster_poisson_across_labels_and_conditions",
+    "secondary_unit": "shared_source_content_cluster_poisson_across_conditions",
+    "ci": "two_sided_95_percentile"
+  },
+  "fresh_model_replay": {
+    "images_replayed": 1775,
+    "source_commit": "ea0b5622365e3a9cd31d1b54b6b5971131a839ab",
+    "checkpoint_sha256": "a73295ac66f9cb74d558ce3ade46f75e2f2997ed05eeed0f4b774623372058ea",
+    "runtime": {
+      "device": "cuda:0",
+      "python": "3.12.3",
+      "platform": "Linux-5.10.134-16.103.al8.x86_64-x86_64-with-glibc2.39",
+      "torch": "2.8.0.dev20250627+cu128",
+      "torchvision": "0.23.0.dev20250627+cu128",
+      "pillow": "11.1.0",
+      "numpy": "2.2.6",
+      "seed": 20260725,
+      "dtype": "float32",
+      "batch_size": 1,
+      "autocast": false,
+      "deterministic_algorithms_enabled": true,
+      "deterministic_algorithms_warn_only": false,
+      "cublas_workspace_config": ":4096:8",
+      "cudnn": {
+        "enabled": true,
+        "benchmark": false,
+        "deterministic": true,
+        "allow_tf32": false
+      },
+      "matmul_allow_tf32": false,
+      "cuda": {
+        "runtime": "12.8",
+        "device_index": 0,
+        "device_name": "NVIDIA L20Z",
+        "total_memory_bytes": 85017624576,
+        "capability": [
+          9,
+          0
+        ]
+      }
+    },
+    "raw_logit_abs_tolerance": 0.0001,
+    "score_abs_tolerance": 1e-07,
+    "feature_abs_tolerance": 0.0001,
+    "max_raw_logit_abs_difference": 0.0,
+    "max_ai_score_abs_difference": 0.0,
+    "max_feature_abs_difference": 0.0,
+    "saved_feature_fresh_fc_logit_verified": true,
+    "saved_feature_fresh_sigmoid_verified": true
+  },
+  "contract_checks": {
+    "exact_formal_selection_rebuilt": true,
+    "all_physical_attempts_validated": true,
+    "complete_latest_coverage_required": true,
+    "result_identity_run_id_fingerprint_status_validated": true,
+    "feature_inventory_sha256_shape_dtype_finiteness_validated": true,
+    "balanced250_primary_and_secondary_metrics_recomputed": true,
+    "localization_claims_made": false
+  },
+  "artifacts": {
+    "manifest_sha256": "c1038871a8faa2a91175104363529b252e58aaf7035a65948ed64b8ea4cede1d",
+    "results_sha256": "528801e7f66ceb3745aeaaa0bb5c79019d2d4681b4217679619b367f7ed9ea4c",
+    "expected_inputs_sha256": "6b5128909eeffdbd88e61af02ca1bd191cb5460f94a23b47c87ebd0172e6d12c",
+    "summary_sha256": "7e04a75f1dab2beaf1568d31b98ae5c8f853cec8c7ae7afa73fb61d00946e758",
+    "metrics_sha256": "e858c3af33c5b7d10338a463a2bfc91660e686ff588e491b45874b714f4656db"
+  }
+}
