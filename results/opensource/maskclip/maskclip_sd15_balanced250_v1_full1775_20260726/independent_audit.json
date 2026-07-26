@@ -1,0 +1,163 @@
+{
+  "schema_version": "maskclip_balanced_replay_audit_v2",
+  "status": "replay_audit_passed",
+  "run_id": "maskclip_sd15_balanced250_v1_full1775_20260726",
+  "run_manifest_fingerprint": "3d8fd53414fe032f7bcaac91a151cf72461b953117a7dc9a3f2d69691af2c3da",
+  "audited_at": "2026-07-26T14:13:59.727525+00:00",
+  "formal_images": 1775,
+  "physical_result_rows": 1775,
+  "latest_result_rows": 1775,
+  "coverage": {
+    "expected_images": 1775,
+    "physical_attempts": 1775,
+    "result_images": 1775,
+    "valid_images": 1775,
+    "error_images": 0,
+    "missing_images": 0,
+    "superseded_attempts": 0,
+    "coverage_fraction": 1.0,
+    "success_fraction": 1.0,
+    "is_complete": true,
+    "counts_by_condition": {
+      "real": {
+        "expected_images": 275,
+        "result_images": 275,
+        "valid_images": 275,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "local_mouse": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "local_cat": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "local_trash_can": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "fullframe_mouse": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "fullframe_cat": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "fullframe_trash_can": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      }
+    }
+  },
+  "artifact_inventory": {
+    "model_512_maps": 1775,
+    "native_maps": 1025,
+    "native_masks": 1025,
+    "fullframe_model_maps_diagnostic_only": 750
+  },
+  "metrics_schema_version": "maskclip_balanced250_summary_v2",
+  "t1_metrics_schema_version": "balanced250_t1_summary_v1",
+  "t2_metrics_schema_version": "balanced250_t2_summary_v1",
+  "metrics_bootstrap": {
+    "iterations": 1000,
+    "seed": 20260726
+  },
+  "fresh_model_replay": {
+    "images_replayed": 1775,
+    "t2_applicable_images_replayed": 1025,
+    "source_commit": "02c93d4891303637cb5d6852d3de63a099d69843",
+    "checkpoint_sha256": "481c8bd16077f942efec2901f93c1bc7008f6992402a1ab69fda2652408ca90f",
+    "mae_checkpoint_sha256": "aec5f0b68e5f3193a00b07bc65a37440db549c15b36b8bea242606cc40c4bc5d",
+    "clip_checkpoint_sha256": "b8cca3fd41ae0c99ba7e8951adf17d267cdb84cd88be6f7c2e0eca1737a03836",
+    "runtime": {
+      "device": "cuda:0",
+      "python": "3.12.3",
+      "platform": "Linux-5.10.134-16.103.al8.x86_64-x86_64-with-glibc2.39",
+      "torch": "2.8.0.dev20250627+cu128",
+      "torchvision": "0.23.0.dev20250627+cu128",
+      "numpy": "1.26.4",
+      "opencv": "4.10.0",
+      "pillow": "11.1.0",
+      "imdlbenco": "0.1.45",
+      "timm": "1.0.15",
+      "seed": 42,
+      "precision": "float32",
+      "batch_size": 1,
+      "autocast": false,
+      "deterministic_algorithms_enabled": true,
+      "deterministic_algorithms_warn_only": false,
+      "cublas_workspace_config": ":4096:8",
+      "cudnn": {
+        "benchmark": false,
+        "deterministic": true,
+        "allow_tf32": false
+      },
+      "matmul_allow_tf32": false,
+      "cuda": {
+        "runtime": "12.8",
+        "device_index": 0,
+        "device_name": "NVIDIA L20Z",
+        "total_memory_bytes": 85017624576,
+        "capability": [
+          9,
+          0
+        ]
+      }
+    },
+    "class_logit_abs_tolerance": 1e-05,
+    "class_probability_abs_tolerance": 1e-07,
+    "score_abs_tolerance": 1e-07,
+    "model_map_abs_tolerance": 1e-06,
+    "max_class_logit_abs_difference": 0.0,
+    "max_class_probability_abs_difference": 0.0,
+    "max_ai_score_abs_difference": 0.0,
+    "max_model_map_abs_difference": 0.0,
+    "max_applicable_native_map_abs_difference": 0.0,
+    "independent_preprocess_recomputed": true,
+    "independent_native_restore_recomputed": true,
+    "derived_native_threshold_masks_exact": true
+  },
+  "contract_checks": {
+    "exact_formal_selection_rebuilt": true,
+    "all_physical_attempts_validated": true,
+    "complete_latest_coverage_required": true,
+    "result_identity_run_id_fingerprint_status_validated": true,
+    "adapter_source_and_model_asset_hashes_validated": true,
+    "model_512_inventory_shape_dtype_hash_finite_range_validated": true,
+    "applicable_native_maps_exact_inter_linear_restore": true,
+    "applicable_masks_exact_native_ge_0_5": true,
+    "exact_diff_model_target_uses_inter_nearest": true,
+    "real_t2_restricted_to_false_positive_area": true,
+    "fullframe_t2_not_applicable": true,
+    "balanced250_t1_and_t2_metrics_recomputed": true,
+    "legacy_pair_rank_used": false
+  },
+  "artifacts": {
+    "manifest_sha256": "68144bd8376210567417f2960ac3039c7607a89c2dfa6fb3037072cba05370f4",
+    "results_sha256": "78c36935eb3e7a2ac25a340eabf36e401fdd99c6b25c6338821fca08ee50c04f",
+    "expected_inputs_sha256": "6b5128909eeffdbd88e61af02ca1bd191cb5460f94a23b47c87ebd0172e6d12c",
+    "summary_sha256": "076a8325527513d480e474751aec945d8fe15d9be2532751b0d045d46fa24edc",
+    "metrics_sha256": "d67ef86f24f75ecbb8fc2eaac4db0d7d67061cc8b044bcac665242202b8349c0"
+  }
+}
