@@ -113,7 +113,7 @@ class VisionClient:
                 delay = float(retry_after) if retry_after and retry_after.isdigit() else None
                 raise RetryableError(f"HTTP {exc.code}: {text}", retry_after=delay) from exc
             raise RuntimeError(f"HTTP {exc.code}: {text}") from exc
-        except (urllib.error.URLError, TimeoutError) as exc:
+        except (urllib.error.URLError, TimeoutError, ConnectionError) as exc:
             raise RetryableError(str(exc)) from exc
         try:
             content = body["choices"][0]["message"]["content"]
@@ -188,7 +188,7 @@ class VisionClient:
                 delay = float(retry_after) if retry_after and retry_after.isdigit() else None
                 raise RetryableError(f"HTTP {exc.code}: {text}", retry_after=delay) from exc
             raise RuntimeError(f"HTTP {exc.code}: {text}") from exc
-        except (urllib.error.URLError, TimeoutError) as exc:
+        except (urllib.error.URLError, TimeoutError, ConnectionError) as exc:
             raise RetryableError(str(exc)) from exc
         return self._extract_gemini_content(body), int((time.monotonic() - started) * 1000)
 

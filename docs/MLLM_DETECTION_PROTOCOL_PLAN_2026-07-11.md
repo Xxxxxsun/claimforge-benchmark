@@ -354,7 +354,7 @@ python -m eval.mllm.metrics \
 ```
 
 - 协议 A 的 `score = p_ai_edited / 100` 是 MLLM 的官方 T1 分数。
-- 协议 B 的 bbox union mask 用于 forged 图的 pixel F1、IoU、MCC、pixel-AP 和 box-hit；空框为全零 mask。
+- 协议 B 的 bbox union mask 用于 forged 图的 pixel Precision、Recall、F1、IoU、MCC 和辅助 box-hit；空框为全零 mask。主 T2 是与 decoded source RGB / lossless spliced PNG 的 canonical exact-diff GT 比较得到的 macro pixel IoU，`edit_region_xyxy` 只用于辅助 box 指标。MLLM 没有连续像素分数，因此 pixel AP 记为不适用。
 - 对 refusal/error/`incomplete_replicates` 单列 coverage 与 error reason；主指标预先规定为：错误不替换、不重标，按三次均成功的样本计算并同时报告覆盖率。若覆盖率低于 99%，主表脚注须列出成功数/总数。
 - raw JSONL 保存 `raw_response`、prompt 版本、请求参数、输入 hash、重试历史与每次 latency；不得只保存最终分数。
 - `--write-metrics` 在每个模型运行结束后自动回连本地 review export，输出两套完全分离的表。该 GT join 只发生在所有模型调用完成后，不会发送给模型。
@@ -362,7 +362,7 @@ python -m eval.mllm.metrics \
 - `--concurrency N` 覆盖所选模型本次 run 的请求并发数（默认使用 config 中该模型的 `concurrency`，当前为 1）。每个 replicate 仍独立请求、独立重试；raw JSONL 由主线程按完成顺序追加，故文件行序不代表图像顺序。并发值会写入 run manifest 和两份 metrics CSV。
 - 需要完整 coverage 时传入 `--retry-until-complete`。初始批次结束后，runner 仅将最终失败的 replicate 放入 recovery wave；每一 wave 仍先执行单个 replicate 的最多 5 次操作性重试。全部 replicate 成功之前不会写聚合 JSONL 或调用 `--write-metrics`。`--recovery-backoff-seconds` 控制 wave 间初始等待（默认 10 秒，逐 wave 线性增长且最多 60 秒）。
 - **detection 表：** 对 550 张配对图均按 `edited` / `not_edited` 统计 TP、TN、FP、FN、Accuracy、Precision、Recall/TPR、Specificity/TNR、FPR、F1、Balanced Accuracy、AUROC、AP 以及覆盖率。仅 `valid_for_metrics=true` 的三次成功聚合记录进入主指标。
-- **localization 表：** 对 forged 图以 `edit_region_xyxy`（实际插入框）为 GT，而不是较大的 `context_region_xyxy`。报告两种框级成功率：(1) 任一预测框与 GT 有正面积重合；(2) 至少有一个预测框且所有预测框完全位于 GT 内。真图单独报告 `no_localized_edit` 且无预测框的拒绝正确率；不把真图混入没有坐标 GT 的 forged 框命中分母。
+- **localization 表：** 主 T2 对 forged 图使用 source/spliced 的实际像素变化 mask，报告 macro/micro pixel Precision、Recall、F1、IoU 和 MCC，其中 macro pixel IoU 为主结果。`edit_region_xyxy` 仅用于辅助 box-hit、best-box IoU 阈值和 overlap；真图使用全零像素 GT，单独报告预测正像素比例以及 `no_localized_edit` 且无预测框的拒绝正确率。
 
 ---
 

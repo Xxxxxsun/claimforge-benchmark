@@ -1,0 +1,75 @@
+{
+  "api": {
+    "api_base": "https://llm-chat-api.alibaba-inc.com/openai",
+    "model_omitted_extra_body_keys": [
+      "thinking",
+      "thinking_type"
+    ],
+    "provider_extra_body_keys": [
+      "access_key",
+      "app",
+      "quota_id",
+      "reasoning_effort",
+      "response_format",
+      "user_id"
+    ],
+    "provider_header_keys": [],
+    "timeout_seconds": 120
+  },
+  "condition": "main_local_mouse275_cat251_trash250_suite0724",
+  "config_fingerprint_sha256": "db2355b5c4af835e679b6397b307b3bd83d3bc4386e604c1931a9e6ea6c73bd2",
+  "created_at_utc": "2026-07-26T15:13:13.632267+00:00",
+  "image": {
+    "detail": "high",
+    "maxLongSide": 2048,
+    "transport": "base64"
+  },
+  "input": {
+    "images": 776,
+    "include_source_pairs": null,
+    "list": "config/mllm_doubao_main_local776_20260726.local.jsonl",
+    "manifest_sha256": "817ba2b42ad9348a83c511456f41cad15ca2e31e60424eed3de7ac7ab34c8768",
+    "review_export": null,
+    "review_status": null,
+    "source": "list"
+  },
+  "model": {
+    "concurrency": 15,
+    "id": "doubao-seed-2-1-pro-260628",
+    "max_tokens": 600,
+    "request_format": "openai_chat_completions",
+    "slug": "doubao_seed_2_1_pro_260628",
+    "temperature": null
+  },
+  "outputs": {
+    "aggregate_jsonl": "results/mllm/doubao_seed_2_1_pro_260628/doubao_main_local776_suite0724_20260726.jsonl",
+    "metrics_dir": "results/mllm/doubao_seed_2_1_pro_260628/metrics/doubao_main_local776_suite0724_20260726",
+    "raw_jsonl": "results/mllm/doubao_seed_2_1_pro_260628/doubao_main_local776_suite0724_20260726.raw.jsonl",
+    "run_manifest": "results/mllm/doubao_seed_2_1_pro_260628/doubao_main_local776_suite0724_20260726.run_manifest.json"
+  },
+  "protocol": {
+    "keys": [
+      "detection",
+      "localization"
+    ],
+    "replicates_required": 3,
+    "suite_version": "mllm_protocol_suite_20260724",
+    "version": "mllm_protocol_suite_20260724",
+    "versions": {
+      "detection": "mllm_protocol_v3_reasoning_image_coordinates",
+      "localization": "mllm_protocol_v4_reasoning_pixel_coordinates"
+    }
+  },
+  "retry": {
+    "base_backoff_seconds": [
+      2,
+      4,
+      8,
+      16,
+      32
+    ],
+    "max_retries_per_replicate": 5
+  },
+  "run_id": "doubao_main_local776_suite0724_20260726",
+  "schema_version": "mllm_run_manifest_v1"
+}

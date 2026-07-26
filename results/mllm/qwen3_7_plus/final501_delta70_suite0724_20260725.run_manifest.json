@@ -1,0 +1,71 @@
+{
+  "api": {
+    "api_base": "https://llm-chat-api.alibaba-inc.com/openai",
+    "model_omitted_extra_body_keys": [],
+    "provider_extra_body_keys": [
+      "access_key",
+      "app",
+      "enable_thinking",
+      "quota_id",
+      "user_id"
+    ],
+    "provider_header_keys": [],
+    "timeout_seconds": 120
+  },
+  "condition": "final_cat251_trash250_delta70_suite0724",
+  "config_fingerprint_sha256": "15554659aa1afa0b667a906213540648c5925fcdc2d6dd140431d3ce14b6f058",
+  "created_at_utc": "2026-07-25T10:44:19.539642+00:00",
+  "image": {
+    "detail": "high",
+    "maxLongSide": 2048,
+    "transport": "base64"
+  },
+  "input": {
+    "images": 70,
+    "include_source_pairs": null,
+    "list": "config/mllm_final501_delta70_20260725.local.jsonl",
+    "manifest_sha256": "7ab31a70eecbb728ca26772da3ffeabe511465bbfffdee581d00380ccddce3f8",
+    "review_export": null,
+    "review_status": null,
+    "source": "list"
+  },
+  "model": {
+    "concurrency": 15,
+    "id": "qwen3.7-plus",
+    "max_tokens": 600,
+    "request_format": "openai_chat_completions",
+    "slug": "qwen3_7_plus",
+    "temperature": 0
+  },
+  "outputs": {
+    "aggregate_jsonl": "results/mllm/qwen3_7_plus/final501_delta70_suite0724_20260725.jsonl",
+    "metrics_dir": "results/mllm/qwen3_7_plus/metrics/final501_delta70_suite0724_20260725",
+    "raw_jsonl": "results/mllm/qwen3_7_plus/final501_delta70_suite0724_20260725.raw.jsonl",
+    "run_manifest": "results/mllm/qwen3_7_plus/final501_delta70_suite0724_20260725.run_manifest.json"
+  },
+  "protocol": {
+    "keys": [
+      "detection",
+      "localization"
+    ],
+    "replicates_required": 3,
+    "suite_version": "mllm_protocol_suite_20260724",
+    "version": "mllm_protocol_suite_20260724",
+    "versions": {
+      "detection": "mllm_protocol_v3_reasoning_image_coordinates",
+      "localization": "mllm_protocol_v4_reasoning_pixel_coordinates"
+    }
+  },
+  "retry": {
+    "base_backoff_seconds": [
+      2,
+      4,
+      8,
+      16,
+      32
+    ],
+    "max_retries_per_replicate": 5
+  },
+  "run_id": "final501_delta70_suite0724_20260725",
+  "schema_version": "mllm_run_manifest_v1"
+}
