@@ -1,0 +1,215 @@
+{
+  "schema_version": "fsd_balanced_replay_audit_v2",
+  "status": "replay_audit_passed",
+  "run_id": "fsd_v1_2_0_official_balanced250_v1_full1775_20260726",
+  "run_manifest_fingerprint": "91bfb04aa00c704f1d654d1b3fa766dd58230c108477c6aade3382b69ba26f5e",
+  "audited_at": "2026-07-26T16:39:23.490768+00:00",
+  "formal_images": 1775,
+  "physical_result_rows": 1775,
+  "latest_result_rows": 1775,
+  "coverage": {
+    "expected_images": 1775,
+    "physical_attempts": 1775,
+    "result_images": 1775,
+    "valid_images": 1775,
+    "error_images": 0,
+    "missing_images": 0,
+    "superseded_attempts": 0,
+    "coverage_fraction": 1.0,
+    "success_fraction": 1.0,
+    "is_complete": true,
+    "counts_by_condition": {
+      "real": {
+        "expected_images": 275,
+        "result_images": 275,
+        "valid_images": 275,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "local_mouse": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "local_cat": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "local_trash_can": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "fullframe_mouse": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "fullframe_cat": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "fullframe_trash_can": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      }
+    }
+  },
+  "descriptor_files": 1775,
+  "metrics_schema_version": "balanced250_t1_summary_v1",
+  "metrics_bootstrap": {
+    "iterations": 1000,
+    "seed": 20260726,
+    "primary_unit": "shared_source_content_cluster_poisson_across_labels_and_conditions",
+    "secondary_unit": "shared_source_content_cluster_poisson_across_conditions",
+    "ci": "two_sided_95_percentile"
+  },
+  "analysis_runtime": {
+    "device": "cpu",
+    "python": {
+      "implementation": "CPython",
+      "version": "3.12.3",
+      "executable": "/usr/bin/python3.12"
+    },
+    "platform": "Linux-5.10.134-16.103.al8.x86_64-x86_64-with-glibc2.39",
+    "packages": {
+      "torch": {
+        "version": "2.10.0+cu128",
+        "distribution_version": "2.10.0",
+        "cuda_runtime": "12.8",
+        "cudnn_version": 91002
+      },
+      "numpy": "2.4.3",
+      "Pillow": "12.1.1",
+      "scipy": "1.17.1",
+      "scikit-learn": "1.8.0"
+    },
+    "seed": 20260726,
+    "descriptor_dtype": "float64",
+    "batch_size": 1,
+    "autocast": false,
+    "deterministic_algorithms_enabled": true,
+    "deterministic_algorithms_warn_only": false,
+    "cublas_workspace_config": ":4096:8",
+    "cudnn": {
+      "enabled": true,
+      "benchmark": false,
+      "deterministic": true,
+      "allow_tf32": false
+    },
+    "matmul_allow_tf32": false,
+    "float32_matmul_precision": "highest",
+    "minimum_cuda_free_bytes": 12884901888
+  },
+  "fresh_model_replay": {
+    "status": "fresh_full_image_replay_passed",
+    "images_replayed": 1775,
+    "full_image_forward_per_input": true,
+    "descriptor_tail_only_replay": false,
+    "source_commit": "50f2eae06efdac2e5a33f407ca9a27a2295133ac",
+    "weights_bundle_sha256": "3c1959f0092fdbe681e41c96f12c1b6d3762e46f21b37b08d4a7e617d1acdfce",
+    "runtime": {
+      "device": "cuda:0",
+      "python": {
+        "implementation": "CPython",
+        "version": "3.12.3",
+        "executable": "/usr/bin/python3.12"
+      },
+      "platform": "Linux-5.10.134-16.103.al8.x86_64-x86_64-with-glibc2.39",
+      "packages": {
+        "torch": {
+          "version": "2.10.0+cu128",
+          "distribution_version": "2.10.0",
+          "cuda_runtime": "12.8",
+          "cudnn_version": 91002
+        },
+        "numpy": "2.4.3",
+        "Pillow": "12.1.1",
+        "scipy": "1.17.1",
+        "scikit-learn": "1.8.0"
+      },
+      "seed": 20260726,
+      "descriptor_dtype": "float64",
+      "batch_size": 1,
+      "autocast": false,
+      "deterministic_algorithms_enabled": true,
+      "deterministic_algorithms_warn_only": false,
+      "cublas_workspace_config": ":4096:8",
+      "cudnn": {
+        "enabled": true,
+        "benchmark": false,
+        "deterministic": true,
+        "allow_tf32": false
+      },
+      "matmul_allow_tf32": false,
+      "float32_matmul_precision": "highest",
+      "minimum_cuda_free_bytes": 12884901888,
+      "cuda": {
+        "runtime": "12.8",
+        "device_index": 0,
+        "device_name": "NVIDIA L20Z",
+        "total_memory_bytes": 85017624576,
+        "capability": [
+          9,
+          0
+        ]
+      }
+    },
+    "raw_likelihood_abs_tolerance": 1e-09,
+    "released_z_score_abs_tolerance": 1e-12,
+    "ai_score_abs_tolerance": 1e-12,
+    "descriptor_comparison": "numpy.array_equal",
+    "max_raw_likelihood_abs_difference": 0.0,
+    "max_released_z_score_abs_difference": 0.0,
+    "max_ai_score_abs_difference": 0.0,
+    "max_descriptor_abs_difference": 0.0
+  },
+  "method_boundary": {
+    "method": "FSD official v1.2 inference release",
+    "paper_protocol_parity_claimed": false,
+    "valid_for_t1": true,
+    "valid_for_t2": false,
+    "fullframe_t2": "not_applicable",
+    "license": {
+      "spdx": "CC-BY-NC-SA-4.0",
+      "commercial_use": false,
+      "share_alike": true
+    }
+  },
+  "contract_checks": {
+    "exact_formal_whole_image_t1_selection_rebuilt": true,
+    "all_physical_attempts_validated": true,
+    "complete_latest_coverage_required": true,
+    "pair_rank_rejected": true,
+    "t2_joint_dense_claims_rejected": true,
+    "source_weights_runtime_adapter_hashes_validated": true,
+    "current_metrics_runtime_validated_before_recomputation": true,
+    "run_and_canonical_evidence_reverified_after_replay": true,
+    "descriptor_inventory_bytes_sha_array_shape_dtype_finite_validated": true,
+    "score_calibration_direction_threshold_and_tail_replay_validated": true,
+    "shared_balanced250_metrics_only": true
+  },
+  "artifacts": {
+    "manifest_sha256": "236899b44f842891f8bece1badaa7d09928d3b9a84a5e7b227ee212bc2dae136",
+    "results_sha256": "192ac3bd9c8d6fb444223e70f2b2db8d042d1869c6d14b8ab153d4720db1ea41",
+    "expected_inputs_sha256": "6b5128909eeffdbd88e61af02ca1bd191cb5460f94a23b47c87ebd0172e6d12c",
+    "summary_sha256": "35cbc77438a8df1d6e2531b11cb5c1de7ee3c5a28817fc6a5784031b974f9ed0",
+    "descriptor_inventory_sha256": "eb68f8dc0d1939973f778d4d852de9a9ef656030ca6230a294015d6e85a932d2",
+    "metrics_sha256": "9e03cd7694c30937307490b76b1a0675a9ca9826d6d70f41f0c3dd33a80c79da"
+  }
+}
