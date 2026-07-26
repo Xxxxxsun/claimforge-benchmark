@@ -6,7 +6,11 @@ from unittest import mock
 from eval.mllm.inputs import ImageItem
 from eval.mllm.masks import boxes_to_1000, boxes_to_pixels
 from eval.mllm.metrics import _iou
-from eval.mllm.prompts import PROTOCOL_VERSION, PROTOCOL_VERSIONS
+from eval.mllm.prompts import (
+    PROTOCOL_SUITE_VERSION,
+    PROTOCOL_VERSION,
+    PROTOCOL_VERSIONS,
+)
 from eval.mllm.run_mllm import _one_replicate, _protocol_prompt
 from eval.mllm.schema import SchemaError, aggregate, parse
 
@@ -14,6 +18,7 @@ from eval.mllm.schema import SchemaError, aggregate, parse
 class PixelCoordinateSchemaTest(unittest.TestCase):
     def test_protocol_uses_original_pixel_coordinates(self):
         self.assertEqual(PROTOCOL_VERSION, "mllm_protocol_v4_reasoning_pixel_coordinates")
+        self.assertEqual(PROTOCOL_SUITE_VERSION, "mllm_protocol_suite_20260724")
         self.assertEqual(PROTOCOL_VERSIONS["detection"], "mllm_protocol_v3_reasoning_image_coordinates")
         self.assertEqual(PROTOCOL_VERSIONS["localization"], "mllm_protocol_v4_reasoning_pixel_coordinates")
         prompt = _protocol_prompt("localization", (1024, 683))

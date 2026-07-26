@@ -2,6 +2,7 @@
 
 DETECTION_PROTOCOL_VERSION = "mllm_protocol_v3_reasoning_image_coordinates"
 LOCALIZATION_PROTOCOL_VERSION = "mllm_protocol_v4_reasoning_pixel_coordinates"
+PROTOCOL_SUITE_VERSION = "mllm_protocol_suite_20260724"
 PROTOCOL_VERSIONS = {
     "detection": DETECTION_PROTOCOL_VERSION,
     "localization": LOCALIZATION_PROTOCOL_VERSION,

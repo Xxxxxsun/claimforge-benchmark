@@ -1,0 +1,73 @@
+{
+  "api": {
+    "api_base": "https://llm-chat-api.alibaba-inc.com/openai",
+    "model_omitted_extra_body_keys": [
+      "thinking",
+      "thinking_type"
+    ],
+    "provider_extra_body_keys": [
+      "access_key",
+      "app",
+      "quota_id",
+      "user_id"
+    ],
+    "provider_header_keys": [],
+    "timeout_seconds": 120
+  },
+  "condition": "selected_cat232_trash199_partial431_suite0724",
+  "config_fingerprint_sha256": "fa7cc54eb5a40bf74807b9e51aa3cc97ad60bfd6b814688a0846113dea9e7091",
+  "created_at_utc": "2026-07-25T04:25:15.916863+00:00",
+  "image": {
+    "detail": "high",
+    "maxLongSide": 2048,
+    "transport": "base64"
+  },
+  "input": {
+    "images": 431,
+    "include_source_pairs": null,
+    "list": "config/mllm_selected_cat232_trash199_partial431_20260725.local.jsonl",
+    "manifest_sha256": "d2d5adf3b884d99532fa01a065291fee03a38f3076fc961f0741ef60d08f9795",
+    "review_export": null,
+    "review_status": null,
+    "source": "list"
+  },
+  "model": {
+    "concurrency": 15,
+    "id": "claude-opus-4-8",
+    "max_tokens": 600,
+    "request_format": "openai_chat_completions",
+    "slug": "claude_opus_4_8",
+    "temperature": null
+  },
+  "outputs": {
+    "aggregate_jsonl": "results/mllm/claude_opus_4_8/selected_cat232_trash199_partial431_suite0724_20260725.jsonl",
+    "metrics_dir": "results/mllm/claude_opus_4_8/metrics/selected_cat232_trash199_partial431_suite0724_20260725",
+    "raw_jsonl": "results/mllm/claude_opus_4_8/selected_cat232_trash199_partial431_suite0724_20260725.raw.jsonl",
+    "run_manifest": "results/mllm/claude_opus_4_8/selected_cat232_trash199_partial431_suite0724_20260725.run_manifest.json"
+  },
+  "protocol": {
+    "keys": [
+      "detection",
+      "localization"
+    ],
+    "replicates_required": 3,
+    "suite_version": "mllm_protocol_suite_20260724",
+    "version": "mllm_protocol_suite_20260724",
+    "versions": {
+      "detection": "mllm_protocol_v3_reasoning_image_coordinates",
+      "localization": "mllm_protocol_v4_reasoning_pixel_coordinates"
+    }
+  },
+  "retry": {
+    "base_backoff_seconds": [
+      2,
+      4,
+      8,
+      16,
+      32
+    ],
+    "max_retries_per_replicate": 5
+  },
+  "run_id": "selected_cat232_trash199_partial431_suite0724_20260725",
+  "schema_version": "mllm_run_manifest_v1"
+}

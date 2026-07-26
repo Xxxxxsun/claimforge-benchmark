@@ -16,7 +16,13 @@ from .client import RetryableError, VisionClient, retry_delay
 from .config import load_config
 from .inputs import ImageItem, from_jsonl, from_review_export, manifest_hash
 from .masks import boxes_to_1000, boxes_to_pixels, write_union_mask
-from .prompts import PROMPTS, PROTOCOL_VERSIONS, REPAIR_SUFFIX, SYSTEM_PROMPT
+from .prompts import (
+    PROMPTS,
+    PROTOCOL_SUITE_VERSION,
+    PROTOCOL_VERSIONS,
+    REPAIR_SUFFIX,
+    SYSTEM_PROMPT,
+)
 from .results import append_jsonl, completed_aggregate_keys, completed_raw_keys, successful_raw
 from .schema import SchemaError, aggregate, parse
 
@@ -62,6 +68,23 @@ def _protocol_prompt(protocol: str, image_size: tuple[int, int] | None = None) -
 Image coordinate metadata (not an annotation): this image is exactly {width} pixels wide by {height} pixels high.
 Use the top-left corner as (0, 0). Return every bbox_px directly in this original full-image pixel coordinate system as [x1, y1, x2, y2]. Each coordinate must be an integer and must satisfy 0 <= x1 < x2 <= {width} and 0 <= y1 < y2 <= {height}. Do not normalize coordinates, do not scale them to 0-1000, and do not return bbox_1000. If no valid region can be supported by visible evidence, return no_localized_edit with an empty regions array.
 """
+
+
+def _schema_repair_prompt(
+    base_prompt: str,
+    protocol: str,
+    error: SchemaError,
+    image_size: tuple[int, int] | None,
+) -> str:
+    details = f"\n\nYour previous response was invalid: {error}."
+    if protocol == "localization" and image_size is not None:
+        width, height = image_size
+        details += f"""
+Correct the JSON using the original {width} x {height} pixel image coordinate system.
+Every bbox_px must satisfy 0 <= x1 < x2 <= {width} and 0 <= y1 < y2 <= {height}.
+Do not use normalized 0-1000 coordinates. If you cannot support a valid pixel box, return
+decision "no_localized_edit" with an empty regions array."""
+    return base_prompt + details + REPAIR_SUFFIX
 
 
 def _load_signed_url_map(path: Path) -> tuple[dict[str, str], str]:
@@ -113,7 +136,25 @@ def _recordable_image_url(value: str | None) -> str | None:
     return urlunsplit((parsed.scheme, parsed.netloc, parsed.path, "", "")) if parsed.scheme in {"http", "https"} else value
 
 
-def _manifest_payload(args: argparse.Namespace, cfg: dict[str, Any], model: dict[str, Any], items: list[ImageItem], run_id: str, manifest_path: Path, raw_path: Path, output_path: Path, protocol_version: str) -> dict[str, Any]:
+def _protocol_manifest(protocols: list[str]) -> dict[str, Any]:
+    versions = {key: PROTOCOL_VERSIONS[key] for key in protocols}
+    combined = len(protocols) > 1
+    payload: dict[str, Any] = {
+        "version": (
+            PROTOCOL_SUITE_VERSION
+            if combined
+            else versions[protocols[0]]
+        ),
+        "keys": protocols,
+        "versions": versions,
+        "replicates_required": 3,
+    }
+    if combined:
+        payload["suite_version"] = PROTOCOL_SUITE_VERSION
+    return payload
+
+
+def _manifest_payload(args: argparse.Namespace, cfg: dict[str, Any], model: dict[str, Any], items: list[ImageItem], run_id: str, manifest_path: Path, raw_path: Path, output_path: Path, protocols: list[str]) -> dict[str, Any]:
     """Freeze a useful, secret-free description of one model run."""
     provider = model["provider"]
     metadata = {
@@ -122,7 +163,7 @@ def _manifest_payload(args: argparse.Namespace, cfg: dict[str, Any], model: dict
         "created_at_utc": datetime.now(timezone.utc).isoformat(),
         "condition": args.condition,
         "model": {"id": model["id"], "slug": model["slug"], "max_tokens": model["maxTokens"], "temperature": None if model.get("omitTemperature", False) else model["temperature"], "concurrency": model["concurrency"], "request_format": model.get("requestFormat", "openai_chat_completions")},
-        "protocol": {"version": protocol_version, "keys": [args.protocol], "replicates_required": 3},
+        "protocol": _protocol_manifest(protocols),
         "input": {"source": args.source, "review_export": str(args.review_export) if args.review_export else None, "review_status": args.review_status if args.source == "review-export" else None, "include_source_pairs": args.include_source_pairs if args.source == "review-export" else None, "list": str(args.list) if args.list else None, "images": len(items), "manifest_sha256": manifest_hash(items)},
         "api": {"timeout_seconds": cfg["api"]["timeout"], "api_base": provider.get("apiBase"), "provider_header_keys": sorted(provider.get("headers", {}).keys()), "provider_extra_body_keys": sorted(provider.get("extraBody", {}).keys()), "model_omitted_extra_body_keys": sorted(model.get("omitExtraBodyKeys", []))},
         "retry": {"max_retries_per_replicate": cfg["retry"]["maxRetriesPerReplicate"], "base_backoff_seconds": cfg["retry"]["baseBackoffSeconds"]},
@@ -145,12 +186,23 @@ def _existing_or_new_manifest(fresh: dict[str, Any], path: Path) -> dict[str, An
         _write_json(path, fresh)
         return fresh
     existing = json.loads(path.read_text(encoding="utf-8"))
+    existing_protocol = existing.get("protocol", {})
+    fresh_protocol = fresh.get("protocol", {})
+    existing_versions = existing_protocol.get("versions")
+    if not isinstance(existing_versions, dict):
+        existing_versions = {
+            key: existing_protocol.get("version")
+            for key in existing_protocol.get("keys", [])
+            if key in PROTOCOL_VERSIONS
+        }
     checks = (
         ("run_id", existing.get("run_id"), fresh.get("run_id")),
         ("condition", existing.get("condition"), fresh.get("condition")),
         ("model.id", existing.get("model", {}).get("id"), fresh.get("model", {}).get("id")),
         ("model.concurrency", existing.get("model", {}).get("concurrency"), fresh.get("model", {}).get("concurrency")),
-        ("protocol.version", existing.get("protocol", {}).get("version"), fresh.get("protocol", {}).get("version")),
+        ("protocol.version", existing_protocol.get("version"), fresh_protocol.get("version")),
+        ("protocol.keys", existing_protocol.get("keys"), fresh_protocol.get("keys")),
+        ("protocol.versions", existing_versions, fresh_protocol.get("versions")),
         ("input.manifest_sha256", existing.get("input", {}).get("manifest_sha256"), fresh.get("input", {}).get("manifest_sha256")),
     )
     mismatch = [name for name, old, new in checks if old != new]
@@ -183,8 +235,13 @@ def _one_replicate(client: VisionClient, item: ImageItem, protocol: str, replica
             attempts.append({"attempt": attempt + 1, "status": "ok", "latency_ms": latency})
             return {"status": "ok", "parsed": parsed, "raw_response": raw, "attempts": attempts, "latency_ms": latency}
         except SchemaError as exc:
-            attempts.append({"attempt": attempt + 1, "status": "schema_error", "error": str(exc)})
-            prompt = base_prompt + REPAIR_SUFFIX
+            attempts.append({
+                "attempt": attempt + 1,
+                "status": "schema_error",
+                "error": str(exc),
+                "raw_response": raw,
+            })
+            prompt = _schema_repair_prompt(base_prompt, protocol, exc, image_size)
         except RetryableError as exc:
             retry_after = exc.retry_after
             attempts.append({"attempt": attempt + 1, "status": "retryable_error", "error": str(exc)})
@@ -215,7 +272,10 @@ def main() -> None:
     parser.add_argument("--resume", action="store_true", help="accepted for compatibility; successful rows are always resumed")
     parser.add_argument("--model-slug", action="append", help="run only matching model slug(s); can be repeated")
     parser.add_argument("--concurrency", type=int, help="override per-model request concurrency for this run")
+    parser.add_argument("--api-timeout", type=float, help="override the configured per-request timeout in seconds")
+    parser.add_argument("--max-retries-per-replicate", type=int, help="override retries inside each replicate; failures remain recorded in raw JSONL")
     parser.add_argument("--retry-until-complete", action="store_true", help="requeue failed replicates before aggregation/metrics until every unit has three valid replies")
+    parser.add_argument("--max-recovery-waves", type=int, default=0, help="maximum failed-replicate recovery waves per model; 0 keeps retrying until complete")
     parser.add_argument("--recovery-backoff-seconds", type=float, default=10, help="initial delay between failed-replicate recovery waves")
     parser.add_argument("--write-metrics", action="store_true", help="after each model, write separate detection/localization metric tables from the review export")
     parser.add_argument("--image-transport", choices=["base64", "url"], help="override image transport for this invocation")
@@ -230,11 +290,21 @@ def main() -> None:
         raise SystemExit("--write-metrics currently requires --source review-export")
     if args.concurrency is not None and args.concurrency < 1:
         raise SystemExit("--concurrency must be at least 1")
+    if args.api_timeout is not None and args.api_timeout <= 0:
+        raise SystemExit("--api-timeout must be positive")
+    if args.max_retries_per_replicate is not None and args.max_retries_per_replicate < 0:
+        raise SystemExit("--max-retries-per-replicate must be non-negative")
     if args.recovery_backoff_seconds < 0:
         raise SystemExit("--recovery-backoff-seconds must be non-negative")
+    if args.max_recovery_waves < 0:
+        raise SystemExit("--max-recovery-waves must be non-negative")
     selected = set(args.model_slug or [])
     run_id = _safe_run_id(args.run_id)
     cfg, root = load_config(args.config, selected or None), args.repo_root.resolve()
+    if args.api_timeout is not None:
+        cfg["api"]["timeout"] = args.api_timeout
+    if args.max_retries_per_replicate is not None:
+        cfg["retry"]["maxRetriesPerReplicate"] = args.max_retries_per_replicate
     if args.image_transport:
         cfg["image"]["transport"] = args.image_transport
     if args.image_url_prefix:
@@ -256,10 +326,17 @@ def main() -> None:
         cfg["image"]["signedUrlMapEntries"] = len(signed_url_map)
         cfg["image"]["signedUrlMapSha256"] = map_sha256
     protocols = ["detection", "localization"] if args.protocol == "both" else [args.protocol]
-    if len({PROTOCOL_VERSIONS[key] for key in protocols}) != 1:
-        raise SystemExit("detection v3 and localization v4 must be run separately; choose --protocol detection or --protocol localization")
-    active_protocol_version = PROTOCOL_VERSIONS[protocols[0]]
-    print(json.dumps({"run_id": run_id, "items": len(manifest_items), "manifest_sha256": manifest_hash(manifest_items), "protocol_version": active_protocol_version}, ensure_ascii=False))
+    protocol_versions = {key: PROTOCOL_VERSIONS[key] for key in protocols}
+    protocol_suite_version = (
+        PROTOCOL_SUITE_VERSION if len(protocols) > 1 else None
+    )
+    print(json.dumps({
+        "run_id": run_id,
+        "items": len(manifest_items),
+        "manifest_sha256": manifest_hash(manifest_items),
+        "protocol_suite_version": protocol_suite_version,
+        "protocol_versions": protocol_versions,
+    }, ensure_ascii=False))
     skipped_ids = set(args.skip_id)
     for model in cfg["models"]:
         if args.concurrency is not None:
@@ -267,12 +344,19 @@ def main() -> None:
         folder = args.results_root / model["slug"]
         raw_path, output_path = folder / f"{run_id}.raw.jsonl", folder / f"{run_id}.jsonl"
         run_manifest_path = folder / f"{run_id}.run_manifest.json"
-        fresh_manifest = _manifest_payload(args, cfg, model, manifest_items, run_id, run_manifest_path, raw_path, output_path, active_protocol_version)
+        fresh_manifest = _manifest_payload(args, cfg, model, manifest_items, run_id, run_manifest_path, raw_path, output_path, protocols)
         run_manifest = _existing_or_new_manifest(fresh_manifest, run_manifest_path)
-        run_fields = {"run_id": run_id, "run_manifest_path": str(run_manifest_path), "input_manifest_sha256": run_manifest["input"]["manifest_sha256"], "config_fingerprint_sha256": run_manifest["config_fingerprint_sha256"]}
-        done = completed_raw_keys(raw_path, active_protocol_version)
-        prior = successful_raw(raw_path, active_protocol_version)
-        aggregated = completed_aggregate_keys(output_path, active_protocol_version)
+        run_fields = {
+            "run_id": run_id,
+            "run_manifest_path": str(run_manifest_path),
+            "input_manifest_sha256": run_manifest["input"]["manifest_sha256"],
+            "config_fingerprint_sha256": run_manifest["config_fingerprint_sha256"],
+        }
+        if run_manifest["protocol"].get("suite_version"):
+            run_fields["protocol_suite_version"] = run_manifest["protocol"]["suite_version"]
+        done = completed_raw_keys(raw_path, protocol_versions)
+        prior = successful_raw(raw_path, protocol_versions)
+        aggregated = completed_aggregate_keys(output_path, protocol_versions)
         client = VisionClient(model, float(cfg["api"]["timeout"]), cfg["image"])
         units: dict[tuple[str, str], dict[str, Any]] = {}
         pending: list[tuple[tuple[str, str], int, ImageItem, str, str | None, tuple[int, int] | None, dict[str, Any]]] = []
@@ -328,6 +412,8 @@ def main() -> None:
         failed = execute_pending(pending, "initial")
         recovery_wave = 0
         while failed and args.retry_until_complete:
+            if args.max_recovery_waves and recovery_wave >= args.max_recovery_waves:
+                break
             recovery_wave += 1
             delay = min(60.0, args.recovery_backoff_seconds * recovery_wave)
             print(json.dumps({"run_id": run_id, "model_slug": model["slug"], "phase": "recovery", "recovery_wave": recovery_wave, "failed_replicates": len(failed), "backoff_seconds": delay}, ensure_ascii=False), flush=True)
@@ -359,7 +445,7 @@ def main() -> None:
         if args.write_metrics:
             from .metrics import evaluate_review_export
             metrics_dir = folder / "metrics" / run_id
-            summary = evaluate_review_export(output_path, args.review_export, metrics_dir, status=args.review_status, include_source_pairs=args.include_source_pairs, protocol_version=active_protocol_version, run_manifest_path=run_manifest_path)
+            summary = evaluate_review_export(output_path, args.review_export, metrics_dir, status=args.review_status, include_source_pairs=args.include_source_pairs, protocol_version=protocol_versions, run_manifest_path=run_manifest_path, repo_root=root)
             print(json.dumps({"model_slug": model["slug"], "metrics_dir": str(metrics_dir), "metrics": summary}, ensure_ascii=False))
 
 
