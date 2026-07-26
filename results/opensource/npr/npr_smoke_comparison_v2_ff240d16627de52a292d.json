@@ -1,0 +1,136 @@
+{
+  "schema_version": "npr_balanced_smoke_comparison_v2",
+  "status": "deterministic_smoke_comparison_passed",
+  "compared_at": "2026-07-26T20:52:42.775336+00:00",
+  "analysis_runtime": {
+    "device": "cpu",
+    "python": {
+      "implementation": "CPython",
+      "version": "3.12.3",
+      "executable": "/root/.cache/claimforge/venvs/npr-balanced-torch2.8.0/bin/python"
+    },
+    "venv": {
+      "prefix": "/root/.cache/claimforge/venvs/npr-balanced-torch2.8.0",
+      "base_prefix": "/usr",
+      "pyvenv_cfg_path": "/root/.cache/claimforge/venvs/npr-balanced-torch2.8.0/pyvenv.cfg",
+      "pyvenv_cfg_sha256": "35470b7542154bebe1a55dac3c8760e7638711ff9b166285694e5156186acd06",
+      "include_system_site_packages": false
+    },
+    "platform": "Linux-5.10.134-16.103.al8.x86_64-x86_64-with-glibc2.39",
+    "packages": {
+      "torch": {
+        "version": "2.8.0+cu128",
+        "distribution_version": "2.8.0+cu128",
+        "cuda_runtime": "12.8",
+        "cudnn_version": 91002
+      },
+      "torchvision": {
+        "version": "0.23.0+cu128",
+        "distribution_version": "0.23.0+cu128"
+      },
+      "numpy": "2.2.6",
+      "Pillow": "11.1.0",
+      "scikit-learn": "1.8.0",
+      "scipy": "1.17.1",
+      "joblib": "1.5.3",
+      "threadpoolctl": "3.6.0",
+      "setuptools": "75.8.0"
+    },
+    "seed": 100,
+    "preprocess_profile": "author_documented_aigcdetect_native_even_trim_completion",
+    "inference_dtype": "float32",
+    "feature_dtype": "float32",
+    "batch_size": 1,
+    "autocast": false,
+    "grad_enabled": false,
+    "deterministic_algorithms_enabled": true,
+    "deterministic_algorithms_warn_only": false,
+    "cublas_workspace_config": ":4096:8",
+    "cudnn": {
+      "enabled": false,
+      "benchmark": false,
+      "deterministic": true,
+      "allow_tf32": false
+    },
+    "matmul_allow_tf32": false,
+    "float32_matmul_precision": "highest",
+    "minimum_cuda_free_bytes": 8589934592,
+    "external_source_loader": "compile_verified_utf8_source_bytes_no_pyc",
+    "bytecode_writes_disabled": true,
+    "process_environment": {
+      "PYTHONHASHSEED": "100",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPYCACHEPREFIX": "/root/.cache/claimforge/pycache/npr-balanced-torch2.8.0",
+      "python_dont_write_bytecode": true,
+      "sys_pycache_prefix": "/root/.cache/claimforge/pycache/npr-balanced-torch2.8.0",
+      "pycache_prefix_initially_empty": true
+    }
+  },
+  "reference": {
+    "run_id": "npr_aigcdetect_progan4class_author_documented_native_even_trim_balanced250_v1_smoke5x7_a_r2_20260726",
+    "run_manifest_fingerprint": "ccaa014cded9a246c5d1840045c0d5c6e69e2f0783f57b16f8dc6d53e9242cdf",
+    "manifest_sha256": "3296da4aa0d88c39874ffbff786f28fbf1ec21a8f5805241b7856ce48de36c6b",
+    "results_sha256": "1f10ae040be3d4c117d140638d57968c82b3a612c15bf10b547a74c0ba5b64eb",
+    "expected_inputs_sha256": "21e556dd791960afde6cc900d9aba79da61a1a935c6da7b0e0928d3f6b26afa0",
+    "summary_sha256": "91cf4b63781c64d86f47381d3cf2f66c1b9cd4f2de746f80d94707134cdc7389",
+    "feature_inventory_sha256": "2fa3195b206d060f65ae8065f86fbdc5dd32bb023f8f32ce267c3d87f8fd8fee"
+  },
+  "replay": {
+    "run_id": "npr_aigcdetect_progan4class_author_documented_native_even_trim_balanced250_v1_smoke5x7_b_r2_20260726",
+    "run_manifest_fingerprint": "751e2ddc8e37ab6073ee3a5dbe844e711dddff2c3600fea9b5e529c9a96ef163",
+    "manifest_sha256": "6f317a8b26fa9bc3b784ab617baad849928e79915e138d6335f556bcc0f2079a",
+    "results_sha256": "6b6bb81764b4488ca6efd4aaf95f489607acad2a0fd514b6144a596d6d0eeba8",
+    "expected_inputs_sha256": "21e556dd791960afde6cc900d9aba79da61a1a935c6da7b0e0928d3f6b26afa0",
+    "summary_sha256": "33aa0ca60f33ba68f424d4f8b870de4100f4e32c1886cd7d247952795328a5a4",
+    "feature_inventory_sha256": "2fa3195b206d060f65ae8065f86fbdc5dd32bb023f8f32ce267c3d87f8fd8fee"
+  },
+  "selection": {
+    "spec": {
+      "capability": "whole_image_t1",
+      "conditions": null,
+      "per_condition_limit": 5,
+      "sample_id": null,
+      "pair_limit": null
+    },
+    "selected_images": 35,
+    "selected_ids_sha256": "b420bc581386a540b742d917d60d007f0e5522b6cca43fa217797944c40667e5",
+    "counts_by_condition": {
+      "real": 5,
+      "local_mouse": 5,
+      "local_cat": 5,
+      "local_trash_can": 5,
+      "fullframe_mouse": 5,
+      "fullframe_cat": 5,
+      "fullframe_trash_can": 5
+    }
+  },
+  "comparison": {
+    "images_compared": 35,
+    "ignored_row_fields": [
+      "completed_at",
+      "config_fingerprint",
+      "latency_ms",
+      "peak_cuda_memory_bytes",
+      "preprocess_latency_ms",
+      "run_id",
+      "run_manifest_fingerprint"
+    ],
+    "ignored_feature_metadata_fields": [
+      "array_sha256",
+      "file_sha256",
+      "path",
+      "relative_path",
+      "sha256"
+    ],
+    "exact_computational_projection": true,
+    "feature_file_bytes_exact": true,
+    "feature_array_exact": true,
+    "raw_logit_abs_tolerance": 0.0,
+    "probability_abs_tolerance": 0.0,
+    "max_raw_logit_abs_difference": 0.0,
+    "max_probability_abs_difference": 0.0,
+    "max_feature_abs_difference": 0.0
+  },
+  "immutable_computational_runtime_config_exact": true,
+  "evidence_reverified_after_comparison": true
+}

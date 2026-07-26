@@ -1,0 +1,473 @@
+{
+  "schema_version": "npr_balanced_replay_audit_v2",
+  "status": "replay_audit_passed",
+  "run_id": "npr_aigcdetect_progan4class_author_documented_native_even_trim_balanced250_v1_full1775_20260726",
+  "run_manifest_fingerprint": "1e087753cd52db442cf73789f54018c2de28651efe2e9d44448ae6d0c6996b8c",
+  "audited_at": "2026-07-26T22:00:22.548653+00:00",
+  "formal_images": 1775,
+  "physical_result_rows": 1775,
+  "latest_result_rows": 1775,
+  "coverage": {
+    "expected_images": 1775,
+    "physical_attempts": 1775,
+    "result_images": 1775,
+    "valid_images": 1775,
+    "error_images": 0,
+    "missing_images": 0,
+    "superseded_attempts": 0,
+    "coverage_fraction": 1.0,
+    "success_fraction": 1.0,
+    "is_complete": true,
+    "counts_by_condition": {
+      "real": {
+        "expected_images": 275,
+        "result_images": 275,
+        "valid_images": 275,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "local_mouse": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "local_cat": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "local_trash_can": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "fullframe_mouse": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "fullframe_cat": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "fullframe_trash_can": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      }
+    }
+  },
+  "feature_files": 1775,
+  "official_metrics": {
+    "role": "paper_main_result",
+    "score_key": "ai_score",
+    "fixed_threshold": 0.5,
+    "fixed_threshold_operator": ">",
+    "schema_version": "balanced250_t1_summary_v1",
+    "bootstrap": {
+      "iterations": 1000,
+      "seed": 20260726,
+      "primary_unit": "shared_source_content_cluster_poisson_across_labels_and_conditions",
+      "secondary_unit": "shared_source_content_cluster_poisson_across_conditions",
+      "ci": "two_sided_95_percentile"
+    },
+    "sha256": "c76f4f93a344d84b7c45a83f1fda407154f59678f9c79271c7296546028ad7a9"
+  },
+  "raw_logit_diagnostic": {
+    "role": "preregistered_sensitivity_only_non_replacement",
+    "official_probability_result_remains_primary": true,
+    "schema_version": "npr_balanced_raw_logit_diagnostic_v1",
+    "sha256": "ba42a220c8440ec8235f7a27cc2e127ccfe06314cbc9b6119f7bd7f8b9816859",
+    "same_selection_and_bootstrap_proof": {
+      "selected_images": 1775,
+      "selected_ids_sha256": "e4418d86461f889e4a4423f26aab63243e6f63a435a49624881c34979b812e41",
+      "selected_rows_sha256": "6b5128909eeffdbd88e61af02ca1bd191cb5460f94a23b47c87ebd0172e6d12c",
+      "official_dataset_contract_sha256": "88dbdd2d95ad6f992885e0d223d51ba45d523fd987821f3a34c7aed192eba28c",
+      "raw_diagnostic_dataset_contract_sha256": "a7248bfc0880f82c43aafe3dfbcb093cfbec27ad8e7c4cef8e6bbc5e2798de6a",
+      "only_contract_difference": "score_spec",
+      "iterations": 1000,
+      "seed": 20260726,
+      "bootstrap": {
+        "iterations": 1000,
+        "seed": 20260726,
+        "primary_unit": "shared_source_content_cluster_poisson_across_labels_and_conditions",
+        "secondary_unit": "shared_source_content_cluster_poisson_across_conditions",
+        "ci": "two_sided_95_percentile"
+      },
+      "coverage": {
+        "inputs": 1775,
+        "panel": 1750,
+        "source_pairs": 1500,
+        "results": 1775,
+        "input_condition_counts": {
+          "fullframe_cat": 250,
+          "fullframe_mouse": 250,
+          "fullframe_trash_can": 250,
+          "local_cat": 250,
+          "local_mouse": 250,
+          "local_trash_can": 250,
+          "real": 275
+        },
+        "panel_condition_counts": {
+          "real": 250,
+          "local_mouse": 250,
+          "local_cat": 250,
+          "local_trash_can": 250,
+          "fullframe_mouse": 250,
+          "fullframe_cat": 250,
+          "fullframe_trash_can": 250
+        },
+        "source_pair_condition_counts": {
+          "fullframe_cat": 250,
+          "fullframe_mouse": 250,
+          "fullframe_trash_can": 250,
+          "local_cat": 250,
+          "local_mouse": 250,
+          "local_trash_can": 250
+        },
+        "panel_rows_per_condition": 250,
+        "referenced_input_ids": 1775,
+        "missing_result_ids": [],
+        "unexpected_result_ids": [],
+        "duplicate_result_ids": 0,
+        "all_results_successful": true,
+        "is_complete": true,
+        "join_policy": "sample_id_only_for_primary_and_explicit_source_pair_endpoint_ids_only_for_secondary",
+        "task_id_pair_inference": false
+      }
+    }
+  },
+  "analysis_runtime": {
+    "device": "cpu",
+    "python": {
+      "implementation": "CPython",
+      "version": "3.12.3",
+      "executable": "/root/.cache/claimforge/venvs/npr-balanced-torch2.8.0/bin/python"
+    },
+    "venv": {
+      "prefix": "/root/.cache/claimforge/venvs/npr-balanced-torch2.8.0",
+      "base_prefix": "/usr",
+      "pyvenv_cfg_path": "/root/.cache/claimforge/venvs/npr-balanced-torch2.8.0/pyvenv.cfg",
+      "pyvenv_cfg_sha256": "35470b7542154bebe1a55dac3c8760e7638711ff9b166285694e5156186acd06",
+      "include_system_site_packages": false
+    },
+    "platform": "Linux-5.10.134-16.103.al8.x86_64-x86_64-with-glibc2.39",
+    "packages": {
+      "torch": {
+        "version": "2.8.0+cu128",
+        "distribution_version": "2.8.0+cu128",
+        "cuda_runtime": "12.8",
+        "cudnn_version": 91002
+      },
+      "torchvision": {
+        "version": "0.23.0+cu128",
+        "distribution_version": "0.23.0+cu128"
+      },
+      "numpy": "2.2.6",
+      "Pillow": "11.1.0",
+      "scikit-learn": "1.8.0",
+      "scipy": "1.17.1",
+      "joblib": "1.5.3",
+      "threadpoolctl": "3.6.0",
+      "setuptools": "75.8.0"
+    },
+    "seed": 100,
+    "preprocess_profile": "author_documented_aigcdetect_native_even_trim_completion",
+    "inference_dtype": "float32",
+    "feature_dtype": "float32",
+    "batch_size": 1,
+    "autocast": false,
+    "grad_enabled": false,
+    "deterministic_algorithms_enabled": true,
+    "deterministic_algorithms_warn_only": false,
+    "cublas_workspace_config": ":4096:8",
+    "cudnn": {
+      "enabled": false,
+      "benchmark": false,
+      "deterministic": true,
+      "allow_tf32": false
+    },
+    "matmul_allow_tf32": false,
+    "float32_matmul_precision": "highest",
+    "minimum_cuda_free_bytes": 8589934592,
+    "external_source_loader": "compile_verified_utf8_source_bytes_no_pyc",
+    "bytecode_writes_disabled": true,
+    "process_environment": {
+      "PYTHONHASHSEED": "100",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONPYCACHEPREFIX": "/root/.cache/claimforge/pycache/npr-balanced-torch2.8.0",
+      "python_dont_write_bytecode": true,
+      "sys_pycache_prefix": "/root/.cache/claimforge/pycache/npr-balanced-torch2.8.0",
+      "pycache_prefix_initially_empty": true
+    }
+  },
+  "same_device_feature_head_replay": {
+    "status": "same_recorded_device_feature_head_replay_passed",
+    "images_replayed": 1775,
+    "device": "cuda:0",
+    "feature_to_fc1_comparison": "exact_float32_scalar",
+    "sigmoid_comparison": "exact_float32_scalar",
+    "cross_device_sigmoid_gate": false,
+    "runtime": {
+      "device": "cuda:0",
+      "python": {
+        "implementation": "CPython",
+        "version": "3.12.3",
+        "executable": "/root/.cache/claimforge/venvs/npr-balanced-torch2.8.0/bin/python"
+      },
+      "venv": {
+        "prefix": "/root/.cache/claimforge/venvs/npr-balanced-torch2.8.0",
+        "base_prefix": "/usr",
+        "pyvenv_cfg_path": "/root/.cache/claimforge/venvs/npr-balanced-torch2.8.0/pyvenv.cfg",
+        "pyvenv_cfg_sha256": "35470b7542154bebe1a55dac3c8760e7638711ff9b166285694e5156186acd06",
+        "include_system_site_packages": false
+      },
+      "platform": "Linux-5.10.134-16.103.al8.x86_64-x86_64-with-glibc2.39",
+      "packages": {
+        "torch": {
+          "version": "2.8.0+cu128",
+          "distribution_version": "2.8.0+cu128",
+          "cuda_runtime": "12.8",
+          "cudnn_version": 91002
+        },
+        "torchvision": {
+          "version": "0.23.0+cu128",
+          "distribution_version": "0.23.0+cu128"
+        },
+        "numpy": "2.2.6",
+        "Pillow": "11.1.0",
+        "scikit-learn": "1.8.0",
+        "scipy": "1.17.1",
+        "joblib": "1.5.3",
+        "threadpoolctl": "3.6.0",
+        "setuptools": "75.8.0"
+      },
+      "seed": 100,
+      "preprocess_profile": "author_documented_aigcdetect_native_even_trim_completion",
+      "inference_dtype": "float32",
+      "feature_dtype": "float32",
+      "batch_size": 1,
+      "autocast": false,
+      "grad_enabled": false,
+      "deterministic_algorithms_enabled": true,
+      "deterministic_algorithms_warn_only": false,
+      "cublas_workspace_config": ":4096:8",
+      "cudnn": {
+        "enabled": false,
+        "benchmark": false,
+        "deterministic": true,
+        "allow_tf32": false
+      },
+      "matmul_allow_tf32": false,
+      "float32_matmul_precision": "highest",
+      "minimum_cuda_free_bytes": 8589934592,
+      "external_source_loader": "compile_verified_utf8_source_bytes_no_pyc",
+      "bytecode_writes_disabled": true,
+      "process_environment": {
+        "PYTHONHASHSEED": "100",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONPYCACHEPREFIX": "/root/.cache/claimforge/pycache/npr-balanced-torch2.8.0",
+        "python_dont_write_bytecode": true,
+        "sys_pycache_prefix": "/root/.cache/claimforge/pycache/npr-balanced-torch2.8.0",
+        "pycache_prefix_initially_empty": true
+      },
+      "cuda": {
+        "runtime": "12.8",
+        "device_index": 0,
+        "device_name": "NVIDIA L20Z",
+        "total_memory_bytes": 85017624576,
+        "capability": [
+          9,
+          0
+        ]
+      }
+    },
+    "source_commit": "781ced3f7ca2cdc69ec9dd4ef27e8d0b3c07752a",
+    "asset_bundle_sha256": "9c19c48e4a3a42f4628b89445e2a39fe564802efbfb8c93854aeae55dfa81b66"
+  },
+  "fresh_model_replay": {
+    "status": "fresh_full_image_replay_passed",
+    "images_replayed": 1775,
+    "full_image_forward_per_input": true,
+    "feature_tail_only_replay": false,
+    "device": "cuda:0",
+    "source_commit": "781ced3f7ca2cdc69ec9dd4ef27e8d0b3c07752a",
+    "asset_bundle_sha256": "9c19c48e4a3a42f4628b89445e2a39fe564802efbfb8c93854aeae55dfa81b66",
+    "runtime": {
+      "device": "cuda:0",
+      "python": {
+        "implementation": "CPython",
+        "version": "3.12.3",
+        "executable": "/root/.cache/claimforge/venvs/npr-balanced-torch2.8.0/bin/python"
+      },
+      "venv": {
+        "prefix": "/root/.cache/claimforge/venvs/npr-balanced-torch2.8.0",
+        "base_prefix": "/usr",
+        "pyvenv_cfg_path": "/root/.cache/claimforge/venvs/npr-balanced-torch2.8.0/pyvenv.cfg",
+        "pyvenv_cfg_sha256": "35470b7542154bebe1a55dac3c8760e7638711ff9b166285694e5156186acd06",
+        "include_system_site_packages": false
+      },
+      "platform": "Linux-5.10.134-16.103.al8.x86_64-x86_64-with-glibc2.39",
+      "packages": {
+        "torch": {
+          "version": "2.8.0+cu128",
+          "distribution_version": "2.8.0+cu128",
+          "cuda_runtime": "12.8",
+          "cudnn_version": 91002
+        },
+        "torchvision": {
+          "version": "0.23.0+cu128",
+          "distribution_version": "0.23.0+cu128"
+        },
+        "numpy": "2.2.6",
+        "Pillow": "11.1.0",
+        "scikit-learn": "1.8.0",
+        "scipy": "1.17.1",
+        "joblib": "1.5.3",
+        "threadpoolctl": "3.6.0",
+        "setuptools": "75.8.0"
+      },
+      "seed": 100,
+      "preprocess_profile": "author_documented_aigcdetect_native_even_trim_completion",
+      "inference_dtype": "float32",
+      "feature_dtype": "float32",
+      "batch_size": 1,
+      "autocast": false,
+      "grad_enabled": false,
+      "deterministic_algorithms_enabled": true,
+      "deterministic_algorithms_warn_only": false,
+      "cublas_workspace_config": ":4096:8",
+      "cudnn": {
+        "enabled": false,
+        "benchmark": false,
+        "deterministic": true,
+        "allow_tf32": false
+      },
+      "matmul_allow_tf32": false,
+      "float32_matmul_precision": "highest",
+      "minimum_cuda_free_bytes": 8589934592,
+      "external_source_loader": "compile_verified_utf8_source_bytes_no_pyc",
+      "bytecode_writes_disabled": true,
+      "process_environment": {
+        "PYTHONHASHSEED": "100",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONPYCACHEPREFIX": "/root/.cache/claimforge/pycache/npr-balanced-torch2.8.0",
+        "python_dont_write_bytecode": true,
+        "sys_pycache_prefix": "/root/.cache/claimforge/pycache/npr-balanced-torch2.8.0",
+        "pycache_prefix_initially_empty": true
+      },
+      "cuda": {
+        "runtime": "12.8",
+        "device_index": 0,
+        "device_name": "NVIDIA L20Z",
+        "total_memory_bytes": 85017624576,
+        "capability": [
+          9,
+          0
+        ]
+      }
+    },
+    "feature_comparison": "numpy.array_equal",
+    "raw_logit_comparison": "exact_same_device_float32_scalar",
+    "probability_comparison": "exact_same_device_float32_scalar",
+    "cross_device_sigmoid_gate": false,
+    "max_feature_abs_difference": 0.0,
+    "max_raw_logit_abs_difference": 0.0,
+    "max_probability_abs_difference": 0.0
+  },
+  "input_visibility_diagnostic": {
+    "scope": "local_exact_diff_input_pixels_only",
+    "not_model_localization": true,
+    "by_local_condition": {
+      "local_mouse": {
+        "full": 250,
+        "partial": 0,
+        "none": 0
+      },
+      "local_cat": {
+        "full": 239,
+        "partial": 11,
+        "none": 0
+      },
+      "local_trash_can": {
+        "full": 211,
+        "partial": 39,
+        "none": 0
+      }
+    },
+    "pooled": {
+      "full": 700,
+      "partial": 50,
+      "none": 0
+    }
+  },
+  "method_boundary": {
+    "method": "NPR released ProGAN-4class sigmoid detector",
+    "paper_protocol_parity_claimed": false,
+    "preprocess_profile": "author_documented_aigcdetect_native_even_trim_completion",
+    "parity_completion": {
+      "github_live_forward_executes_odd_trim": false,
+      "github_readme_documents_odd_trim": true,
+      "author_hf_space_executes_odd_trim": true,
+      "hf_space_is_executable_reference": false,
+      "hf_space_exclusion_reason": "missing_model_eval",
+      "balanced250_odd_width_images": 81,
+      "balanced250_odd_height_images": 376,
+      "balanced250_both_odd_images": 13,
+      "balanced250_odd_union_images": 444
+    },
+    "valid_for_t1": true,
+    "valid_for_t2": false,
+    "fullframe_t2": "not_applicable",
+    "license": {
+      "github_code": {
+        "license": "not_stated",
+        "osi_open_source_license_established": false
+      },
+      "github_checkpoint": {
+        "license": "not_stated",
+        "commercial_clearance_established": false
+      },
+      "hf_space_metadata": {
+        "license": "Apache-2.0",
+        "scope": "space_repository_only_not_upstream_github_checkpoint"
+      },
+      "overall_commercial_clearance": "not_established"
+    }
+  },
+  "contract_checks": {
+    "exact_formal_whole_image_t1_selection_rebuilt": true,
+    "all_physical_attempts_validated": true,
+    "complete_latest_coverage_required": true,
+    "pair_rank_rejected": true,
+    "t2_joint_dense_claims_rejected": true,
+    "source_hf_checkpoint_runtime_adapter_hashes_validated": true,
+    "run_and_canonical_evidence_reverified_after_replay": true,
+    "feature_inventory_bytes_sha_array_shape_dtype_finite_validated": true,
+    "static_cross_device_sigmoid_gate_used": false,
+    "official_probability_metrics_use_shared_balanced250_only": true,
+    "raw_diagnostic_uses_same_shared_balanced250_release_rows_bootstrap": true
+  },
+  "artifacts": {
+    "manifest_sha256": "8525485f4ddfa8cbe7abb892d018b30f2bd50d85988214c14314cee2ff9c1198",
+    "results_sha256": "d104183618a6b056a80bf3c97fe969a934234bd2c9b4418d280e0dc0d6a94289",
+    "expected_inputs_sha256": "6b5128909eeffdbd88e61af02ca1bd191cb5460f94a23b47c87ebd0172e6d12c",
+    "summary_sha256": "af18ae075f9f80f31a1a3b36a86b66c2a8682b1d0ed0493dfc422b35e67c1142",
+    "feature_inventory_sha256": "6b2961e6e7340caee9cf9761ad4c606228b1e80c8626ce0db40e85c56d27a10c",
+    "official_metrics_sha256": "c76f4f93a344d84b7c45a83f1fda407154f59678f9c79271c7296546028ad7a9",
+    "raw_logit_diagnostic_sha256": "ba42a220c8440ec8235f7a27cc2e127ccfe06314cbc9b6119f7bd7f8b9816859"
+  }
+}
