@@ -1,0 +1,68 @@
+{
+  "schema_version": "psccnet_balanced_smoke_comparison_v2",
+  "status": "exact_reproduction_passed",
+  "method": "PSCC-Net",
+  "model_slug": "psccnet_tcsvt2022_official",
+  "compared_at": "2026-07-27T10:31:55.076598+00:00",
+  "reference": {
+    "run_id": "psccnet_tcsvt2022_official_balanced250_v1_smoke5x7_a_20260727",
+    "run_manifest_fingerprint": "c5a5582e164c56ab27fd095590d50b2cdf224c7d6a0b44a9d808e7f3287d5be6",
+    "evidence_snapshot": {
+      "dataset_manifest_sha256": "b2bbf3eb7a835f9c729cdffe29a40247225125779fe21551270fefe95d667c7f",
+      "manifest_sha256": "054f2014893a6e4536b4076e3bc7fad13c3b8af5fcd1b1d9b6e056c578c32177",
+      "expected_inputs_sha256": "21e556dd791960afde6cc900d9aba79da61a1a935c6da7b0e0928d3f6b26afa0",
+      "results_sha256": "ace160dad958d46f80d421dd6cf372326c6f824c2e1358d6120aead25fbc0156",
+      "runtime_summary_sha256": "898931126de29022a4b27352bda83c4f9941077f859f242de47bf03597992938",
+      "artifact_inventory_sha256": "dab273948971cc25725eaa9a00fe95d49b04b93c16330d631daac3a16d6d033d"
+    }
+  },
+  "replay": {
+    "run_id": "psccnet_tcsvt2022_official_balanced250_v1_smoke5x7_b_20260727",
+    "run_manifest_fingerprint": "cfba057cd6676846c3710ef7d2bc7fbcb67991bacb5bfdf9f91a40dbdcf11ad9",
+    "evidence_snapshot": {
+      "dataset_manifest_sha256": "b2bbf3eb7a835f9c729cdffe29a40247225125779fe21551270fefe95d667c7f",
+      "manifest_sha256": "5be4cebcdc87424723aa5fc6b6000a84a28918f6b6966c2efaeeb9cfafabc471",
+      "expected_inputs_sha256": "21e556dd791960afde6cc900d9aba79da61a1a935c6da7b0e0928d3f6b26afa0",
+      "results_sha256": "fa35b4fa7100a29bc6aae0c7dcfb41696a6349ae00f1c7d6668a19944318b89d",
+      "runtime_summary_sha256": "d23baafabe50dda8c3169416ed69e08525b9057ca7168895636f3e60664bd332",
+      "artifact_inventory_sha256": "32918de445f86721d6d2a9b8c5db135c2e4d41653fe4c0e86d35df31cd7dbaa8"
+    }
+  },
+  "selection": {
+    "selected_images": 35,
+    "per_condition": 5,
+    "selected_ids_sha256": "b420bc581386a540b742d917d60d007f0e5522b6cca43fa217797944c40667e5",
+    "t2_applicable_images": 20,
+    "t2_not_applicable_images": 15
+  },
+  "recorded_runtime_exact": true,
+  "independent_structural_golden": {
+    "status": "independent_cpu_strict_load_passed",
+    "checkpoint_audit_exact": true,
+    "model_audit_exact": true,
+    "components_strictly_loaded": 3,
+    "parameter_count": 3667942,
+    "buffer_elements": 13490,
+    "module_count": 391,
+    "forward_performed": false,
+    "cuda_initialized": false
+  },
+  "comparison": {
+    "images_compared": 35,
+    "t2_applicable_images_compared": 20,
+    "t2_not_applicable_images_compared": 15,
+    "artifact_files_compared_exact": 195,
+    "computational_result_projection_exact": true,
+    "four_progressive_NPY_files_exact_per_image": true,
+    "native_NPY_file_exact_per_image": true,
+    "applicable_threshold_PNG_files_exact": true,
+    "fullframe_masks_absent_in_both_runs": true,
+    "detection_head_logits_probabilities_scores_exact": true,
+    "localization_metrics_exact": true
+  },
+  "analyzer_source": {
+    "path": "eval/opensource/analyze_psccnet_balanced.py",
+    "sha256": "e8f01144759f3dc06f4dd1b644ff2acd18fc5522e02627d0cfe777d1cd414a6c",
+    "bytes": 129546
+  }
+}

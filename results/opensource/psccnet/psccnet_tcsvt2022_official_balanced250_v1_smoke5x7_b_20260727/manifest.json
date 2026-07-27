@@ -1,0 +1,1096 @@
+{
+  "schema_version": "psccnet_balanced_run_manifest_v2",
+  "run_id": "psccnet_tcsvt2022_official_balanced250_v1_smoke5x7_b_20260727",
+  "status": "complete",
+  "started_at": "2026-07-27T08:37:24.696416+00:00",
+  "completed_at": "2026-07-27T08:37:51.148582+00:00",
+  "fingerprint": "cfba057cd6676846c3710ef7d2bc7fbcb67991bacb5bfdf9f91a40dbdcf11ad9",
+  "immutable": {
+    "schema_version": "psccnet_balanced_run_config_v2",
+    "run_id": "psccnet_tcsvt2022_official_balanced250_v1_smoke5x7_b_20260727",
+    "mode": "smoke",
+    "adapter_sources": {
+      ".gitignore": {
+        "path": ".gitignore",
+        "bytes": 311,
+        "sha256": "24adf8db167f8a62162cb751f7311fec740eeb0d225eb6fda3a93352423a14a9"
+      },
+      "eval/__init__.py": {
+        "path": "eval/__init__.py",
+        "bytes": 39,
+        "sha256": "a2bd81a9d6f3abac7a071143ac4f0593fb5ed324b8962e5f08f931848b2573d5"
+      },
+      "eval/opensource/__init__.py": {
+        "path": "eval/opensource/__init__.py",
+        "bytes": 64,
+        "sha256": "3e6e8b6812a56d04ca7d2a855b0bcd458921151ad00432a25219dc7c15ffc1c9"
+      },
+      "eval/opensource/run_psccnet_balanced.py": {
+        "path": "eval/opensource/run_psccnet_balanced.py",
+        "bytes": 100375,
+        "sha256": "0d96b086267d8eb26443455f90d81160e9b31e681609812f10e44eef71219e39"
+      },
+      "eval/opensource/run_psccnet.py": {
+        "path": "eval/opensource/run_psccnet.py",
+        "bytes": 45014,
+        "sha256": "cc3660f972cebd426111efe5c7d32beed8739c50994accafb4657e78ebeb5bff"
+      },
+      "eval/opensource/psccnet_metrics.py": {
+        "path": "eval/opensource/psccnet_metrics.py",
+        "bytes": 31627,
+        "sha256": "ccd7925c0254d9944116e6cfe9b30b012909d1df8ab81711adc5357040004f5a"
+      },
+      "eval/opensource/canonical_release.py": {
+        "path": "eval/opensource/canonical_release.py",
+        "bytes": 58518,
+        "sha256": "6f4261dd2bc5335722aae253d851c363f663aa89cf42913647931d9cc60ac892"
+      },
+      "eval/opensource/balanced_run_contract.py": {
+        "path": "eval/opensource/balanced_run_contract.py",
+        "bytes": 43859,
+        "sha256": "95d9e648840ce648fd75d441d440e33ca2b9ede509aa548f040c4ac1bc4356b6"
+      },
+      "eval/opensource/common.py": {
+        "path": "eval/opensource/common.py",
+        "bytes": 2800,
+        "sha256": "66ee7134e8398bb8121034fb7f9aef007137a09e03426af24e0faae886188c9f"
+      }
+    },
+    "model": {
+      "name": "PSCC-Net",
+      "slug": "psccnet_tcsvt2022_official",
+      "architecture": "HRNet_W18_small_v2_progressive_spatio_channel_correlation_plus_independent_detection_head",
+      "repository": "https://github.com/proteus1991/PSCC-Net",
+      "source_commit": "53e5ff77d8dc5feddda060cd085f9b765761f816",
+      "checkpoint_id": "official_committed_synthetic_pretrained_bundle",
+      "checkpoint_bundle_sha256": "893626e154e5a3c16322e845a0e8c775029f88a5742de6875818c69f66459560",
+      "checkpoint_components": {
+        "feature_extractor": {
+          "path": "checkpoint/HRNet_checkpoint/HRNet.pth",
+          "bytes": 8305545,
+          "sha256": "d3b21edc4930187a6801cc818bd7b999fb5d8078d8f2e2193572e91ea5160096",
+          "state_keys": 444,
+          "state_elements": 2037538,
+          "parameters": 2028572,
+          "buffers": 8966
+        },
+        "localization_head": {
+          "path": "checkpoint/NLCDetection_checkpoint/NLCDetection.pth",
+          "bytes": 2900709,
+          "sha256": "11ea3461253cf059b299ad4b6b89008485f94a2d2b2da83ec28c2282a095b00b",
+          "state_keys": 64,
+          "state_elements": 719824,
+          "parameters": 719824,
+          "buffers": 0
+        },
+        "classification_head": {
+          "path": "checkpoint/DetectionHead_checkpoint/DetectionHead.pth",
+          "bytes": 3739969,
+          "sha256": "a17581e8a3489a360257a266ca9b2db1b7c9b43337fbcc4aeb8d751f593f66f5",
+          "state_keys": 128,
+          "state_elements": 924070,
+          "parameters": 919546,
+          "buffers": 4524
+        }
+      },
+      "initialization_weight": {
+        "path": "models/hrnet_w18_small_v2.pth",
+        "bytes": 16012341,
+        "sha256": "06924c741ea8c076a569d5e164aa628910a72020800e4a4945e8b40b241ce5cb"
+      },
+      "training_manipulations": [
+        "authentic",
+        "splicing",
+        "copy_move",
+        "RFR_Net_object_removal_inpainting"
+      ],
+      "variant": "official_synthetic_pretrained_not_retrained"
+    },
+    "preprocess": {
+      "profile": "official_imageio_native_rgb_float32_divide_255",
+      "decode": "imageio.v2.imread",
+      "channel_order": "RGB",
+      "rgba": "official_float32_white_background_composite",
+      "input_resize": null,
+      "input_crop": null,
+      "input_reencode": false,
+      "scale": "uint8_divide_255",
+      "normalization_mean_std": null,
+      "tensor_layout": "CHW",
+      "tensor_dtype": "float32",
+      "batch_size": 1
+    },
+    "inference": {
+      "feature_extractor": "HRNet_W18_small_v2",
+      "localization_head": "NLCDetection",
+      "classification_head": "DetectionHead",
+      "progressive_output_shapes": [
+        [
+          256,
+          256
+        ],
+        [
+          128,
+          128
+        ],
+        [
+          64,
+          64
+        ],
+        [
+          32,
+          32
+        ]
+      ],
+      "primary_localization_output": "progressive_mask1",
+      "localization_outputs_are_already_sigmoid_probabilities": true,
+      "second_sigmoid_applied": false,
+      "native_restore": "torch_bilinear_probability_align_corners_true",
+      "classification_output": "float32_softmax_two_class_logits_positive_index_1",
+      "test_time_augmentation": false,
+      "ensemble": false,
+      "autocast": false
+    },
+    "score_spec": {
+      "key": "ai_score",
+      "direction": "higher_means_fake",
+      "fixed_threshold": 0.5,
+      "threshold_operator": ">"
+    },
+    "t2_spec": {
+      "valid_conditions": [
+        "real",
+        "local_mouse",
+        "local_cat",
+        "local_trash_can"
+      ],
+      "not_applicable_conditions": [
+        "fullframe_mouse",
+        "fullframe_cat",
+        "fullframe_trash_can"
+      ],
+      "progressive_probability_maps": {
+        "source": "four_released_NLC_sigmoid_outputs",
+        "shapes": [
+          [
+            256,
+            256
+          ],
+          [
+            128,
+            128
+          ],
+          [
+            64,
+            64
+          ],
+          [
+            32,
+            32
+          ]
+        ],
+        "dtype": "float32",
+        "range": [
+          0.0,
+          1.0
+        ],
+        "primary": "stage_1_256x256",
+        "saved_for": "all_successful_inputs"
+      },
+      "native_probability_map": {
+        "source": "stage_1_probability_bilinear_restore_align_corners_true",
+        "shape": "native_height_by_native_width",
+        "dtype": "float32",
+        "range": [
+          0.0,
+          1.0
+        ],
+        "saved_for": "all_successful_inputs",
+        "fullframe_role": "diagnostic_only"
+      },
+      "native_binary_mask": {
+        "threshold": 0.5,
+        "threshold_operator": ">",
+        "encoding": "PNG_L_0_or_255",
+        "saved_for": "successful_T2_applicable_inputs_only"
+      },
+      "ground_truth": {
+        "real": "all_zero_false_positive_area",
+        "local": "exact_diff_local_insertion",
+        "fullframe": "not_applicable",
+        "fullframe_conditioning_box_is_not_ground_truth": true
+      }
+    },
+    "task_scope": {
+      "primary_task": "T1_image_detection_and_T2_localization",
+      "valid_for_t1": true,
+      "valid_for_t2": true,
+      "fullframe_t2_not_applicable": true,
+      "native_dense_output": true,
+      "separate_image_classification_head": true,
+      "native_image_score": "softmax_class_1_of_independent_detection_head"
+    },
+    "dataset_contract": {
+      "schema_version": "opensource_run_dataset_contract_v2",
+      "release": {
+        "schema_version": "claimforge_balanced250_canonical_v1",
+        "release_kind": "balanced250",
+        "dataset_id": "claimforge-balanced250-independent-panel-jpeg-q95-v1",
+        "manifest_path": "outputs/opensource/balanced250_v1/manifest.json",
+        "manifest_sha256": "b2bbf3eb7a835f9c729cdffe29a40247225125779fe21551270fefe95d667c7f",
+        "contract_sha256": "671d1739bebf4370d26b4629ca26b56cc546a817d469ba505cc39bda8b33102c"
+      },
+      "ledgers": {
+        "inputs": {
+          "path": "outputs/opensource/balanced250_v1/inputs.jsonl",
+          "sha256": "6b5128909eeffdbd88e61af02ca1bd191cb5460f94a23b47c87ebd0172e6d12c",
+          "rows": 1775
+        },
+        "panel": {
+          "path": "outputs/opensource/balanced250_v1/panel.jsonl",
+          "sha256": "e01d7985b41cee5262a3f8b6d71420986feae96771b11c46fda98c3e72a0d424",
+          "rows": 1750
+        },
+        "source_pairs": {
+          "path": "outputs/opensource/balanced250_v1/source_pairs.jsonl",
+          "sha256": "391fdcf06eecff4cf1843ddb3688acacf52a293725c501660b7a361173b09b30",
+          "rows": 1500
+        }
+      },
+      "capability": {
+        "name": "local_t1_t2",
+        "conditions": [
+          "real",
+          "local_mouse",
+          "local_cat",
+          "local_trash_can",
+          "fullframe_mouse",
+          "fullframe_cat",
+          "fullframe_trash_can"
+        ],
+        "valid_for_t1": true,
+        "valid_for_t2": true
+      },
+      "selection": {
+        "spec": {
+          "capability": "local_t1_t2",
+          "conditions": null,
+          "per_condition_limit": 5,
+          "sample_id": null,
+          "pair_limit": null
+        },
+        "selected_images": 35,
+        "selected_ids_sha256": "b420bc581386a540b742d917d60d007f0e5522b6cca43fa217797944c40667e5",
+        "counts_by_condition": {
+          "real": 5,
+          "local_mouse": 5,
+          "local_cat": 5,
+          "local_trash_can": 5,
+          "fullframe_mouse": 5,
+          "fullframe_cat": 5,
+          "fullframe_trash_can": 5
+        }
+      },
+      "score_spec": {
+        "key": "ai_score",
+        "direction": "higher_means_fake",
+        "fixed_threshold": 0.5,
+        "threshold_operator": ">"
+      }
+    },
+    "selected_rows_sha256": "21e556dd791960afde6cc900d9aba79da61a1a935c6da7b0e0928d3f6b26afa0",
+    "selected_ids_sha256": "b420bc581386a540b742d917d60d007f0e5522b6cca43fa217797944c40667e5",
+    "source": {
+      "repository": "https://github.com/proteus1991/PSCC-Net",
+      "root": "/root/.cache/claimforge/third_party/PSCC-Net",
+      "commit": "53e5ff77d8dc5feddda060cd085f9b765761f816",
+      "origin": "https://github.com/proteus1991/PSCC-Net.git",
+      "tracked_and_untracked_clean": true,
+      "source_bound_files": {
+        ".gitignore": {
+          "bytes": 1799,
+          "sha256": "79b6f8054f8ef5e9e78c18174bf57caf29b11410166b9268d6923e87520eb88f",
+          "git_tracked": true
+        },
+        "README.md": {
+          "bytes": 5774,
+          "sha256": "a4db54f5b755c505d0df85115acc7ca8c3d22306a46cbbbd5d11d102d5b6d9de",
+          "git_tracked": true
+        },
+        "test.py": {
+          "bytes": 3083,
+          "sha256": "07d9911da874fb8dfe86658b0fb22f8736f23ae60997532c05b3415a3ab07458",
+          "git_tracked": true
+        },
+        "models/NLCDetection.py": {
+          "bytes": 4798,
+          "sha256": "325d4a9402e4fe640ecfb0abd24a9bc4b490bc567fc80d3e93ad64936b9757a6",
+          "git_tracked": true
+        },
+        "models/detection_head.py": {
+          "bytes": 5390,
+          "sha256": "f42116d0dc055f7e7333f57a5e2abee6d3091307fbfc16904a0152d826a07368",
+          "git_tracked": true
+        },
+        "models/seg_hrnet.py": {
+          "bytes": 17547,
+          "sha256": "ccb71be379e591eb84329c34500ecc015a157c92ee73327e392b6187672d78e9",
+          "git_tracked": true
+        },
+        "models/seg_hrnet_config.py": {
+          "bytes": 1710,
+          "sha256": "a933009348e8394a96c0c89d930d18ffb0ec10f693e58f4787a2ed3cb939a7d5",
+          "git_tracked": true
+        },
+        "utils/load_vdata.py": {
+          "bytes": 1650,
+          "sha256": "eecc6bec8920e30367ddcf63f72e396c492750fd65ce6ccd833ada301af893d7",
+          "git_tracked": true
+        },
+        "utils/config.py": {
+          "bytes": 627,
+          "sha256": "24a52c41f3f227256be74fd6dec17bec6907fb4007321dbeae0ed926ee1423ed",
+          "git_tracked": true
+        },
+        "utils/utils.py": {
+          "bytes": 1277,
+          "sha256": "63575d9425ea009bcf7723cc10b30bb4fb9ff700b23892ffe53ca68618983041",
+          "git_tracked": true
+        },
+        "LICENSE": {
+          "bytes": 1069,
+          "sha256": "6644ee3539b171a7ebd39193786e0654456c57df6ba0b6f389fdb9a7b09685c9",
+          "git_tracked": true
+        }
+      },
+      "contract_sha256": "e5599617d7aba22139ee061b95a6d345b3d704067d915af0cdc80a120b2f90c9"
+    },
+    "assets": {
+      "bundle_sha256": "893626e154e5a3c16322e845a0e8c775029f88a5742de6875818c69f66459560",
+      "assets": {
+        "initialization_weight": {
+          "path": "/root/.cache/claimforge/third_party/PSCC-Net/models/hrnet_w18_small_v2.pth",
+          "repository_path": "models/hrnet_w18_small_v2.pth",
+          "bytes": 16012341,
+          "sha256": "06924c741ea8c076a569d5e164aa628910a72020800e4a4945e8b40b241ce5cb",
+          "git_tracked": true,
+          "provider": "official_author_git_repository"
+        },
+        "feature_extractor": {
+          "path": "/root/.cache/claimforge/third_party/PSCC-Net/checkpoint/HRNet_checkpoint/HRNet.pth",
+          "repository_path": "checkpoint/HRNet_checkpoint/HRNet.pth",
+          "bytes": 8305545,
+          "sha256": "d3b21edc4930187a6801cc818bd7b999fb5d8078d8f2e2193572e91ea5160096",
+          "git_tracked": true,
+          "provider": "official_author_git_repository"
+        },
+        "localization_head": {
+          "path": "/root/.cache/claimforge/third_party/PSCC-Net/checkpoint/NLCDetection_checkpoint/NLCDetection.pth",
+          "repository_path": "checkpoint/NLCDetection_checkpoint/NLCDetection.pth",
+          "bytes": 2900709,
+          "sha256": "11ea3461253cf059b299ad4b6b89008485f94a2d2b2da83ec28c2282a095b00b",
+          "git_tracked": true,
+          "provider": "official_author_git_repository"
+        },
+        "classification_head": {
+          "path": "/root/.cache/claimforge/third_party/PSCC-Net/checkpoint/DetectionHead_checkpoint/DetectionHead.pth",
+          "repository_path": "checkpoint/DetectionHead_checkpoint/DetectionHead.pth",
+          "bytes": 3739969,
+          "sha256": "a17581e8a3489a360257a266ca9b2db1b7c9b43337fbcc4aeb8d751f593f66f5",
+          "git_tracked": true,
+          "provider": "official_author_git_repository"
+        }
+      },
+      "contract_sha256": "a13ce45491ca960296c20d1f4e67da3510fcb6f6ad8d53cea9f30f294fd94ff3"
+    },
+    "environment": {
+      "python_executable": "/root/.cache/claimforge/venvs/psccnet/bin/python",
+      "python_prefix": "/root/.cache/claimforge/venvs/psccnet",
+      "python_base_prefix": "/usr",
+      "python_version": "3.12.3",
+      "platform": "Linux-5.10.134-16.103.al8.x86_64-x86_64-with-glibc2.39",
+      "pyvenv_cfg": {
+        "path": "/root/.cache/claimforge/venvs/psccnet/pyvenv.cfg",
+        "bytes": 197,
+        "sha256": "b5e3d281734d6b01868b2a8506f999a366bfccfc1fbaf1450d09c6ec538bd71b",
+        "include_system_site_packages": true
+      },
+      "packages": {
+        "torch": "2.8.0.dev20250627+cu128",
+        "torchvision": "0.23.0.dev20250627+cu128",
+        "numpy": "2.2.6",
+        "Pillow": "11.1.0",
+        "imageio": "2.37.0",
+        "yacs": "0.1.8",
+        "scikit-learn": "1.5.2",
+        "scipy": "1.16.0"
+      },
+      "contract_sha256": "d17976fb6f6ce32dad082d3eb31e27db337280367b1b7f9cfb6d234dc0ff1f18"
+    },
+    "artifact_ignore": {
+      "probe": "outputs/opensource/psccnet/_contract_probe/artifact.npy",
+      "git_check_ignore_evidence": ".gitignore:8:outputs/\toutputs/opensource/psccnet/_contract_probe/artifact.npy",
+      "ignored": true,
+      "contract_sha256": "6476ba973cdbc7b759fc6e9d82e65469dc8c6c376cc583e916c59fa4a0ec41ad"
+    },
+    "checkpoint_audit": {
+      "initialization_weight": {
+        "outer_type": "collections.OrderedDict",
+        "state_dict_tensors": 874,
+        "state_dict_elements": 3956231,
+        "dtype_counts": {
+          "torch.float32": 729,
+          "torch.int64": 145
+        },
+        "ordered_keys_sha256": "554376c2bb3bb3452c98eaa57cfaee662809d9972d2331fb984658e2057d7740",
+        "tensor_schema_sha256": "39775f005431bf795638f2787dce30a516ac9de39ba12828456eeea0b1b354e6",
+        "all_floating_tensors_finite": true,
+        "weights_only": true,
+        "map_location": "cpu",
+        "unsafe_globals": "legacy_pickle_not_scanable",
+        "contract_sha256": "68d3096e68db1550fda0db830b9e1f89486c8f5bfd64df8798079bd6c762dc67"
+      },
+      "task_components": {
+        "feature_extractor": {
+          "outer_type": "collections.OrderedDict",
+          "state_dict_tensors": 444,
+          "state_dict_elements": 2037538,
+          "dtype_counts": {
+            "torch.float32": 370,
+            "torch.int64": 74
+          },
+          "ordered_keys_sha256": "8ebb32a3efb65b46ed575b4c32f50f2452221fd3e957e08433f9a6793110d13e",
+          "tensor_schema_sha256": "1f4d35b3ec8b5db2fcba4d94db654feb44c50d0542ad9902756102cc393f26cc",
+          "all_floating_tensors_finite": true,
+          "weights_only": true,
+          "map_location": "cpu",
+          "unsafe_globals": [],
+          "contract_sha256": "9b23bfaca3608f243181bd019cf2de1eea6e284c5d6b019389b395cb37ee2344"
+        },
+        "localization_head": {
+          "outer_type": "collections.OrderedDict",
+          "state_dict_tensors": 64,
+          "state_dict_elements": 719824,
+          "dtype_counts": {
+            "torch.float32": 64
+          },
+          "ordered_keys_sha256": "9228a0b5fa712c98b5a4490c531f38eaa745cf41beadcf8816ad82e059107326",
+          "tensor_schema_sha256": "45fe765d763d89545e7a8d6cd29cfeabda1081a9aa12a38e3ce8d1fcb73c5a5e",
+          "all_floating_tensors_finite": true,
+          "weights_only": true,
+          "map_location": "cpu",
+          "unsafe_globals": [],
+          "contract_sha256": "3e1b099c0f4c657c574eb5f1342457c90bf3fe0ceeaae3f5c48e41a4b77f2300"
+        },
+        "classification_head": {
+          "outer_type": "collections.OrderedDict",
+          "state_dict_tensors": 128,
+          "state_dict_elements": 924070,
+          "dtype_counts": {
+            "torch.float32": 108,
+            "torch.int64": 20
+          },
+          "ordered_keys_sha256": "b1cc03da04ea14b2f97c2571b6750540bcf1c7afc1fe98ff0b7e15bcf2241e92",
+          "tensor_schema_sha256": "92ae7a2847a01a5c5d7775c683f686be37d80791351c307a074a89664555d97e",
+          "all_floating_tensors_finite": true,
+          "weights_only": true,
+          "map_location": "cpu",
+          "unsafe_globals": [],
+          "contract_sha256": "5ec876430f13ead0f1868dcc2ad0581a99298882e2668dfdcfa1de54b1ac74b1"
+        }
+      },
+      "bundle_sha256": "893626e154e5a3c16322e845a0e8c775029f88a5742de6875818c69f66459560",
+      "contract_sha256": "2fe163ec83b9145d463214bed8e534e57480262d3116f1996a1bc2ca067c4995"
+    },
+    "model_audit": {
+      "construction_device": "cpu",
+      "constructor_initialization_weight_loaded": false,
+      "constructor_initialization_weight_suppression_reason": "legacy_cuda_pickle_is_fully_overwritten_by_complete_strict_task_checkpoint",
+      "complete_task_checkpoint_replaces_constructor_state": true,
+      "components": {
+        "feature_extractor": {
+          "construction_device": "cpu",
+          "strict_state_dict_load": true,
+          "missing_keys": [],
+          "unexpected_keys": [],
+          "state_key_order_matches_checkpoint": true,
+          "eval_mode": true,
+          "parameters": 2028572,
+          "trainable_parameters": 2028572,
+          "buffer_elements": 8966,
+          "module_count": 279
+        },
+        "localization_head": {
+          "construction_device": "cpu",
+          "strict_state_dict_load": true,
+          "missing_keys": [],
+          "unexpected_keys": [],
+          "state_key_order_matches_checkpoint": true,
+          "eval_mode": true,
+          "parameters": 719824,
+          "trainable_parameters": 719824,
+          "buffer_elements": 0,
+          "module_count": 41
+        },
+        "classification_head": {
+          "construction_device": "cpu",
+          "strict_state_dict_load": true,
+          "missing_keys": [],
+          "unexpected_keys": [],
+          "state_key_order_matches_checkpoint": true,
+          "eval_mode": true,
+          "parameters": 919546,
+          "trainable_parameters": 919546,
+          "buffer_elements": 4524,
+          "module_count": 71
+        }
+      },
+      "parameter_count": 3667942,
+      "trainable_parameter_count": 3667942,
+      "buffer_elements": 13490,
+      "module_count": 391,
+      "forward_performed": false,
+      "contract_sha256": "a73715334b46f4179e61749ef31bae3a0d29b09e12435bbab0e87a50e1ae2ed0"
+    },
+    "license": {
+      "project_license": {
+        "spdx": "MIT",
+        "path": "LICENSE",
+        "sha256": "6644ee3539b171a7ebd39193786e0654456c57df6ba0b6f389fdb9a7b09685c9",
+        "commercial_use_permission": true,
+        "redistribution_permission": true
+      },
+      "official_checkpoints": {
+        "distribution": "committed_in_the_same_official_repository",
+        "separate_terms_present": false,
+        "treated_as_project_repository_material": true
+      },
+      "limitations": {
+        "trained_data_rights_not_audited": true,
+        "dependency_compliance_not_legal_advice": true,
+        "benchmark_use_does_not_establish_product_clearance": true
+      }
+    },
+    "resource_expectation": {
+      "observed_mouse_v1_peak_cuda_memory_bytes": 8435241984,
+      "observed_mouse_v1_median_forward_latency_ms": 149.085,
+      "formal_forward_only_projection_minutes": 4.5,
+      "formal_runner_with_artifact_io_projection_minutes": [
+        8,
+        16
+      ],
+      "fresh_replay_projection_minutes": [
+        5,
+        10
+      ],
+      "disk_note": "formal float32 maps are approximately 12.75 GiB before filesystem overhead; the runner additionally requires a 2,000,000,000-byte reserve"
+    },
+    "runtime": {
+      "device": "cuda:0",
+      "seed": 42,
+      "deterministic_algorithms": true,
+      "cudnn_deterministic": true,
+      "cudnn_benchmark": false,
+      "matmul_allow_tf32": false,
+      "cudnn_allow_tf32": false,
+      "cublas_workspace_config": ":4096:8",
+      "precision": "float32",
+      "batch_size": 1,
+      "autocast": false,
+      "torch_version": "2.8.0.dev20250627+cu128",
+      "torch_cuda_version": "12.8",
+      "cuda": {
+        "logical_device_index": 0,
+        "device_name": "NVIDIA L20Z",
+        "total_memory_bytes": 85017624576,
+        "compute_capability": [
+          9,
+          0
+        ]
+      },
+      "contract_sha256": "5681f4d158351881cae163fd84995aab99237390d6fe9efd742845652e673b28"
+    },
+    "cpu_preflight": {
+      "performed_before_accelerator_configuration": true,
+      "report": {
+        "schema_version": "psccnet_balanced_cpu_preflight_v2",
+        "cuda_initialized_before": false,
+        "cuda_initialized_after": false,
+        "environment": {
+          "python_executable": "/root/.cache/claimforge/venvs/psccnet/bin/python",
+          "python_prefix": "/root/.cache/claimforge/venvs/psccnet",
+          "python_base_prefix": "/usr",
+          "python_version": "3.12.3",
+          "platform": "Linux-5.10.134-16.103.al8.x86_64-x86_64-with-glibc2.39",
+          "pyvenv_cfg": {
+            "path": "/root/.cache/claimforge/venvs/psccnet/pyvenv.cfg",
+            "bytes": 197,
+            "sha256": "b5e3d281734d6b01868b2a8506f999a366bfccfc1fbaf1450d09c6ec538bd71b",
+            "include_system_site_packages": true
+          },
+          "packages": {
+            "torch": "2.8.0.dev20250627+cu128",
+            "torchvision": "0.23.0.dev20250627+cu128",
+            "numpy": "2.2.6",
+            "Pillow": "11.1.0",
+            "imageio": "2.37.0",
+            "yacs": "0.1.8",
+            "scikit-learn": "1.5.2",
+            "scipy": "1.16.0"
+          },
+          "contract_sha256": "d17976fb6f6ce32dad082d3eb31e27db337280367b1b7f9cfb6d234dc0ff1f18"
+        },
+        "source": {
+          "repository": "https://github.com/proteus1991/PSCC-Net",
+          "root": "/root/.cache/claimforge/third_party/PSCC-Net",
+          "commit": "53e5ff77d8dc5feddda060cd085f9b765761f816",
+          "origin": "https://github.com/proteus1991/PSCC-Net.git",
+          "tracked_and_untracked_clean": true,
+          "source_bound_files": {
+            ".gitignore": {
+              "bytes": 1799,
+              "sha256": "79b6f8054f8ef5e9e78c18174bf57caf29b11410166b9268d6923e87520eb88f",
+              "git_tracked": true
+            },
+            "README.md": {
+              "bytes": 5774,
+              "sha256": "a4db54f5b755c505d0df85115acc7ca8c3d22306a46cbbbd5d11d102d5b6d9de",
+              "git_tracked": true
+            },
+            "test.py": {
+              "bytes": 3083,
+              "sha256": "07d9911da874fb8dfe86658b0fb22f8736f23ae60997532c05b3415a3ab07458",
+              "git_tracked": true
+            },
+            "models/NLCDetection.py": {
+              "bytes": 4798,
+              "sha256": "325d4a9402e4fe640ecfb0abd24a9bc4b490bc567fc80d3e93ad64936b9757a6",
+              "git_tracked": true
+            },
+            "models/detection_head.py": {
+              "bytes": 5390,
+              "sha256": "f42116d0dc055f7e7333f57a5e2abee6d3091307fbfc16904a0152d826a07368",
+              "git_tracked": true
+            },
+            "models/seg_hrnet.py": {
+              "bytes": 17547,
+              "sha256": "ccb71be379e591eb84329c34500ecc015a157c92ee73327e392b6187672d78e9",
+              "git_tracked": true
+            },
+            "models/seg_hrnet_config.py": {
+              "bytes": 1710,
+              "sha256": "a933009348e8394a96c0c89d930d18ffb0ec10f693e58f4787a2ed3cb939a7d5",
+              "git_tracked": true
+            },
+            "utils/load_vdata.py": {
+              "bytes": 1650,
+              "sha256": "eecc6bec8920e30367ddcf63f72e396c492750fd65ce6ccd833ada301af893d7",
+              "git_tracked": true
+            },
+            "utils/config.py": {
+              "bytes": 627,
+              "sha256": "24a52c41f3f227256be74fd6dec17bec6907fb4007321dbeae0ed926ee1423ed",
+              "git_tracked": true
+            },
+            "utils/utils.py": {
+              "bytes": 1277,
+              "sha256": "63575d9425ea009bcf7723cc10b30bb4fb9ff700b23892ffe53ca68618983041",
+              "git_tracked": true
+            },
+            "LICENSE": {
+              "bytes": 1069,
+              "sha256": "6644ee3539b171a7ebd39193786e0654456c57df6ba0b6f389fdb9a7b09685c9",
+              "git_tracked": true
+            }
+          },
+          "contract_sha256": "e5599617d7aba22139ee061b95a6d345b3d704067d915af0cdc80a120b2f90c9"
+        },
+        "assets": {
+          "bundle_sha256": "893626e154e5a3c16322e845a0e8c775029f88a5742de6875818c69f66459560",
+          "assets": {
+            "initialization_weight": {
+              "path": "/root/.cache/claimforge/third_party/PSCC-Net/models/hrnet_w18_small_v2.pth",
+              "repository_path": "models/hrnet_w18_small_v2.pth",
+              "bytes": 16012341,
+              "sha256": "06924c741ea8c076a569d5e164aa628910a72020800e4a4945e8b40b241ce5cb",
+              "git_tracked": true,
+              "provider": "official_author_git_repository"
+            },
+            "feature_extractor": {
+              "path": "/root/.cache/claimforge/third_party/PSCC-Net/checkpoint/HRNet_checkpoint/HRNet.pth",
+              "repository_path": "checkpoint/HRNet_checkpoint/HRNet.pth",
+              "bytes": 8305545,
+              "sha256": "d3b21edc4930187a6801cc818bd7b999fb5d8078d8f2e2193572e91ea5160096",
+              "git_tracked": true,
+              "provider": "official_author_git_repository"
+            },
+            "localization_head": {
+              "path": "/root/.cache/claimforge/third_party/PSCC-Net/checkpoint/NLCDetection_checkpoint/NLCDetection.pth",
+              "repository_path": "checkpoint/NLCDetection_checkpoint/NLCDetection.pth",
+              "bytes": 2900709,
+              "sha256": "11ea3461253cf059b299ad4b6b89008485f94a2d2b2da83ec28c2282a095b00b",
+              "git_tracked": true,
+              "provider": "official_author_git_repository"
+            },
+            "classification_head": {
+              "path": "/root/.cache/claimforge/third_party/PSCC-Net/checkpoint/DetectionHead_checkpoint/DetectionHead.pth",
+              "repository_path": "checkpoint/DetectionHead_checkpoint/DetectionHead.pth",
+              "bytes": 3739969,
+              "sha256": "a17581e8a3489a360257a266ca9b2db1b7c9b43337fbcc4aeb8d751f593f66f5",
+              "git_tracked": true,
+              "provider": "official_author_git_repository"
+            }
+          },
+          "contract_sha256": "a13ce45491ca960296c20d1f4e67da3510fcb6f6ad8d53cea9f30f294fd94ff3"
+        },
+        "adapter_sources": {
+          ".gitignore": {
+            "path": ".gitignore",
+            "bytes": 311,
+            "sha256": "24adf8db167f8a62162cb751f7311fec740eeb0d225eb6fda3a93352423a14a9"
+          },
+          "eval/__init__.py": {
+            "path": "eval/__init__.py",
+            "bytes": 39,
+            "sha256": "a2bd81a9d6f3abac7a071143ac4f0593fb5ed324b8962e5f08f931848b2573d5"
+          },
+          "eval/opensource/__init__.py": {
+            "path": "eval/opensource/__init__.py",
+            "bytes": 64,
+            "sha256": "3e6e8b6812a56d04ca7d2a855b0bcd458921151ad00432a25219dc7c15ffc1c9"
+          },
+          "eval/opensource/run_psccnet_balanced.py": {
+            "path": "eval/opensource/run_psccnet_balanced.py",
+            "bytes": 100375,
+            "sha256": "0d96b086267d8eb26443455f90d81160e9b31e681609812f10e44eef71219e39"
+          },
+          "eval/opensource/run_psccnet.py": {
+            "path": "eval/opensource/run_psccnet.py",
+            "bytes": 45014,
+            "sha256": "cc3660f972cebd426111efe5c7d32beed8739c50994accafb4657e78ebeb5bff"
+          },
+          "eval/opensource/psccnet_metrics.py": {
+            "path": "eval/opensource/psccnet_metrics.py",
+            "bytes": 31627,
+            "sha256": "ccd7925c0254d9944116e6cfe9b30b012909d1df8ab81711adc5357040004f5a"
+          },
+          "eval/opensource/canonical_release.py": {
+            "path": "eval/opensource/canonical_release.py",
+            "bytes": 58518,
+            "sha256": "6f4261dd2bc5335722aae253d851c363f663aa89cf42913647931d9cc60ac892"
+          },
+          "eval/opensource/balanced_run_contract.py": {
+            "path": "eval/opensource/balanced_run_contract.py",
+            "bytes": 43859,
+            "sha256": "95d9e648840ce648fd75d441d440e33ca2b9ede509aa548f040c4ac1bc4356b6"
+          },
+          "eval/opensource/common.py": {
+            "path": "eval/opensource/common.py",
+            "bytes": 2800,
+            "sha256": "66ee7134e8398bb8121034fb7f9aef007137a09e03426af24e0faae886188c9f"
+          }
+        },
+        "artifact_ignore": {
+          "probe": "outputs/opensource/psccnet/_contract_probe/artifact.npy",
+          "git_check_ignore_evidence": ".gitignore:8:outputs/\toutputs/opensource/psccnet/_contract_probe/artifact.npy",
+          "ignored": true,
+          "contract_sha256": "6476ba973cdbc7b759fc6e9d82e65469dc8c6c376cc583e916c59fa4a0ec41ad"
+        },
+        "checkpoint_audit": {
+          "initialization_weight": {
+            "outer_type": "collections.OrderedDict",
+            "state_dict_tensors": 874,
+            "state_dict_elements": 3956231,
+            "dtype_counts": {
+              "torch.float32": 729,
+              "torch.int64": 145
+            },
+            "ordered_keys_sha256": "554376c2bb3bb3452c98eaa57cfaee662809d9972d2331fb984658e2057d7740",
+            "tensor_schema_sha256": "39775f005431bf795638f2787dce30a516ac9de39ba12828456eeea0b1b354e6",
+            "all_floating_tensors_finite": true,
+            "weights_only": true,
+            "map_location": "cpu",
+            "unsafe_globals": "legacy_pickle_not_scanable",
+            "contract_sha256": "68d3096e68db1550fda0db830b9e1f89486c8f5bfd64df8798079bd6c762dc67"
+          },
+          "task_components": {
+            "feature_extractor": {
+              "outer_type": "collections.OrderedDict",
+              "state_dict_tensors": 444,
+              "state_dict_elements": 2037538,
+              "dtype_counts": {
+                "torch.float32": 370,
+                "torch.int64": 74
+              },
+              "ordered_keys_sha256": "8ebb32a3efb65b46ed575b4c32f50f2452221fd3e957e08433f9a6793110d13e",
+              "tensor_schema_sha256": "1f4d35b3ec8b5db2fcba4d94db654feb44c50d0542ad9902756102cc393f26cc",
+              "all_floating_tensors_finite": true,
+              "weights_only": true,
+              "map_location": "cpu",
+              "unsafe_globals": [],
+              "contract_sha256": "9b23bfaca3608f243181bd019cf2de1eea6e284c5d6b019389b395cb37ee2344"
+            },
+            "localization_head": {
+              "outer_type": "collections.OrderedDict",
+              "state_dict_tensors": 64,
+              "state_dict_elements": 719824,
+              "dtype_counts": {
+                "torch.float32": 64
+              },
+              "ordered_keys_sha256": "9228a0b5fa712c98b5a4490c531f38eaa745cf41beadcf8816ad82e059107326",
+              "tensor_schema_sha256": "45fe765d763d89545e7a8d6cd29cfeabda1081a9aa12a38e3ce8d1fcb73c5a5e",
+              "all_floating_tensors_finite": true,
+              "weights_only": true,
+              "map_location": "cpu",
+              "unsafe_globals": [],
+              "contract_sha256": "3e1b099c0f4c657c574eb5f1342457c90bf3fe0ceeaae3f5c48e41a4b77f2300"
+            },
+            "classification_head": {
+              "outer_type": "collections.OrderedDict",
+              "state_dict_tensors": 128,
+              "state_dict_elements": 924070,
+              "dtype_counts": {
+                "torch.float32": 108,
+                "torch.int64": 20
+              },
+              "ordered_keys_sha256": "b1cc03da04ea14b2f97c2571b6750540bcf1c7afc1fe98ff0b7e15bcf2241e92",
+              "tensor_schema_sha256": "92ae7a2847a01a5c5d7775c683f686be37d80791351c307a074a89664555d97e",
+              "all_floating_tensors_finite": true,
+              "weights_only": true,
+              "map_location": "cpu",
+              "unsafe_globals": [],
+              "contract_sha256": "5ec876430f13ead0f1868dcc2ad0581a99298882e2668dfdcfa1de54b1ac74b1"
+            }
+          },
+          "bundle_sha256": "893626e154e5a3c16322e845a0e8c775029f88a5742de6875818c69f66459560",
+          "contract_sha256": "2fe163ec83b9145d463214bed8e534e57480262d3116f1996a1bc2ca067c4995"
+        },
+        "model_audit": {
+          "construction_device": "cpu",
+          "constructor_initialization_weight_loaded": false,
+          "constructor_initialization_weight_suppression_reason": "legacy_cuda_pickle_is_fully_overwritten_by_complete_strict_task_checkpoint",
+          "complete_task_checkpoint_replaces_constructor_state": true,
+          "components": {
+            "feature_extractor": {
+              "construction_device": "cpu",
+              "strict_state_dict_load": true,
+              "missing_keys": [],
+              "unexpected_keys": [],
+              "state_key_order_matches_checkpoint": true,
+              "eval_mode": true,
+              "parameters": 2028572,
+              "trainable_parameters": 2028572,
+              "buffer_elements": 8966,
+              "module_count": 279
+            },
+            "localization_head": {
+              "construction_device": "cpu",
+              "strict_state_dict_load": true,
+              "missing_keys": [],
+              "unexpected_keys": [],
+              "state_key_order_matches_checkpoint": true,
+              "eval_mode": true,
+              "parameters": 719824,
+              "trainable_parameters": 719824,
+              "buffer_elements": 0,
+              "module_count": 41
+            },
+            "classification_head": {
+              "construction_device": "cpu",
+              "strict_state_dict_load": true,
+              "missing_keys": [],
+              "unexpected_keys": [],
+              "state_key_order_matches_checkpoint": true,
+              "eval_mode": true,
+              "parameters": 919546,
+              "trainable_parameters": 919546,
+              "buffer_elements": 4524,
+              "module_count": 71
+            }
+          },
+          "parameter_count": 3667942,
+          "trainable_parameter_count": 3667942,
+          "buffer_elements": 13490,
+          "module_count": 391,
+          "forward_performed": false,
+          "contract_sha256": "a73715334b46f4179e61749ef31bae3a0d29b09e12435bbab0e87a50e1ae2ed0"
+        },
+        "balanced250_forward_performed": false,
+        "balanced250_score_computed": false,
+        "contract_sha256": "2c0d52d7732aaaf22a183fcc6820d41241ee77dfe05b147de698cf55a9923cda"
+      }
+    },
+    "artifact_contract": {
+      "storage": "local_gitignored_outputs",
+      "progressive_maps": {
+        "format": "NumPy .npy, allow_pickle=False",
+        "directories": [
+          "progressive_mask1",
+          "progressive_mask2",
+          "progressive_mask3",
+          "progressive_mask4"
+        ],
+        "shapes": [
+          [
+            256,
+            256
+          ],
+          [
+            128,
+            128
+          ],
+          [
+            64,
+            64
+          ],
+          [
+            32,
+            32
+          ]
+        ],
+        "dtype": "float32",
+        "inventory": "one_of_each_stage_per_successful_input"
+      },
+      "native_probability_map": {
+        "format": "NumPy .npy, allow_pickle=False",
+        "directory": "score_maps_native",
+        "shape": "native_height_by_native_width",
+        "dtype": "float32",
+        "inventory": "one_per_successful_input"
+      },
+      "native_binary_mask": {
+        "format": "PNG",
+        "directory": "masks_native",
+        "mode": "L",
+        "values": [
+          0,
+          255
+        ],
+        "inventory": "one_per_successful_T2_applicable_input"
+      }
+    },
+    "outputs": {
+      "results_path": "results/opensource/psccnet/psccnet_tcsvt2022_official_balanced250_v1_smoke5x7_b_20260727/results.jsonl",
+      "expected_inputs_path": "results/opensource/psccnet/psccnet_tcsvt2022_official_balanced250_v1_smoke5x7_b_20260727/expected_inputs.jsonl",
+      "summary_path": "results/opensource/psccnet/psccnet_tcsvt2022_official_balanced250_v1_smoke5x7_b_20260727/summary.json",
+      "artifact_root": "outputs/opensource/psccnet/psccnet_tcsvt2022_official_balanced250_v1_smoke5x7_b_20260727",
+      "progressive_mask1_dir": "outputs/opensource/psccnet/psccnet_tcsvt2022_official_balanced250_v1_smoke5x7_b_20260727/progressive_mask1",
+      "progressive_mask2_dir": "outputs/opensource/psccnet/psccnet_tcsvt2022_official_balanced250_v1_smoke5x7_b_20260727/progressive_mask2",
+      "progressive_mask3_dir": "outputs/opensource/psccnet/psccnet_tcsvt2022_official_balanced250_v1_smoke5x7_b_20260727/progressive_mask3",
+      "progressive_mask4_dir": "outputs/opensource/psccnet/psccnet_tcsvt2022_official_balanced250_v1_smoke5x7_b_20260727/progressive_mask4",
+      "score_maps_native_dir": "outputs/opensource/psccnet/psccnet_tcsvt2022_official_balanced250_v1_smoke5x7_b_20260727/score_maps_native",
+      "masks_native_dir": "outputs/opensource/psccnet/psccnet_tcsvt2022_official_balanced250_v1_smoke5x7_b_20260727/masks_native"
+    }
+  },
+  "dataset": {
+    "contract": {
+      "schema_version": "opensource_run_dataset_contract_v2",
+      "release": {
+        "schema_version": "claimforge_balanced250_canonical_v1",
+        "release_kind": "balanced250",
+        "dataset_id": "claimforge-balanced250-independent-panel-jpeg-q95-v1",
+        "manifest_path": "outputs/opensource/balanced250_v1/manifest.json",
+        "manifest_sha256": "b2bbf3eb7a835f9c729cdffe29a40247225125779fe21551270fefe95d667c7f",
+        "contract_sha256": "671d1739bebf4370d26b4629ca26b56cc546a817d469ba505cc39bda8b33102c"
+      },
+      "ledgers": {
+        "inputs": {
+          "path": "outputs/opensource/balanced250_v1/inputs.jsonl",
+          "sha256": "6b5128909eeffdbd88e61af02ca1bd191cb5460f94a23b47c87ebd0172e6d12c",
+          "rows": 1775
+        },
+        "panel": {
+          "path": "outputs/opensource/balanced250_v1/panel.jsonl",
+          "sha256": "e01d7985b41cee5262a3f8b6d71420986feae96771b11c46fda98c3e72a0d424",
+          "rows": 1750
+        },
+        "source_pairs": {
+          "path": "outputs/opensource/balanced250_v1/source_pairs.jsonl",
+          "sha256": "391fdcf06eecff4cf1843ddb3688acacf52a293725c501660b7a361173b09b30",
+          "rows": 1500
+        }
+      },
+      "capability": {
+        "name": "local_t1_t2",
+        "conditions": [
+          "real",
+          "local_mouse",
+          "local_cat",
+          "local_trash_can",
+          "fullframe_mouse",
+          "fullframe_cat",
+          "fullframe_trash_can"
+        ],
+        "valid_for_t1": true,
+        "valid_for_t2": true
+      },
+      "selection": {
+        "spec": {
+          "capability": "local_t1_t2",
+          "conditions": null,
+          "per_condition_limit": 5,
+          "sample_id": null,
+          "pair_limit": null
+        },
+        "selected_images": 35,
+        "selected_ids_sha256": "b420bc581386a540b742d917d60d007f0e5522b6cca43fa217797944c40667e5",
+        "counts_by_condition": {
+          "real": 5,
+          "local_mouse": 5,
+          "local_cat": 5,
+          "local_trash_can": 5,
+          "fullframe_mouse": 5,
+          "fullframe_cat": 5,
+          "fullframe_trash_can": 5
+        }
+      },
+      "score_spec": {
+        "key": "ai_score",
+        "direction": "higher_means_fake",
+        "fixed_threshold": 0.5,
+        "threshold_operator": ">"
+      }
+    },
+    "manifest_path": "outputs/opensource/balanced250_v1/manifest.json",
+    "manifest_sha256": "b2bbf3eb7a835f9c729cdffe29a40247225125779fe21551270fefe95d667c7f",
+    "expected_inputs_path": "results/opensource/psccnet/psccnet_tcsvt2022_official_balanced250_v1_smoke5x7_b_20260727/expected_inputs.jsonl",
+    "expected_inputs_sha256": "21e556dd791960afde6cc900d9aba79da61a1a935c6da7b0e0928d3f6b26afa0",
+    "selected_images": 35,
+    "t2_applicable_images": 20
+  },
+  "outputs": {
+    "results_path": "results/opensource/psccnet/psccnet_tcsvt2022_official_balanced250_v1_smoke5x7_b_20260727/results.jsonl",
+    "expected_inputs_path": "results/opensource/psccnet/psccnet_tcsvt2022_official_balanced250_v1_smoke5x7_b_20260727/expected_inputs.jsonl",
+    "summary_path": "results/opensource/psccnet/psccnet_tcsvt2022_official_balanced250_v1_smoke5x7_b_20260727/summary.json",
+    "artifact_root": "outputs/opensource/psccnet/psccnet_tcsvt2022_official_balanced250_v1_smoke5x7_b_20260727",
+    "progressive_mask1_dir": "outputs/opensource/psccnet/psccnet_tcsvt2022_official_balanced250_v1_smoke5x7_b_20260727/progressive_mask1",
+    "progressive_mask2_dir": "outputs/opensource/psccnet/psccnet_tcsvt2022_official_balanced250_v1_smoke5x7_b_20260727/progressive_mask2",
+    "progressive_mask3_dir": "outputs/opensource/psccnet/psccnet_tcsvt2022_official_balanced250_v1_smoke5x7_b_20260727/progressive_mask3",
+    "progressive_mask4_dir": "outputs/opensource/psccnet/psccnet_tcsvt2022_official_balanced250_v1_smoke5x7_b_20260727/progressive_mask4",
+    "score_maps_native_dir": "outputs/opensource/psccnet/psccnet_tcsvt2022_official_balanced250_v1_smoke5x7_b_20260727/score_maps_native",
+    "masks_native_dir": "outputs/opensource/psccnet/psccnet_tcsvt2022_official_balanced250_v1_smoke5x7_b_20260727/masks_native",
+    "results_sha256": "fa35b4fa7100a29bc6aae0c7dcfb41696a6349ae00f1c7d6668a19944318b89d",
+    "summary_sha256": "d23baafabe50dda8c3169416ed69e08525b9057ca7168895636f3e60664bd332",
+    "artifact_inventory": {
+      "progressive_mask1": 35,
+      "progressive_mask2": 35,
+      "progressive_mask3": 35,
+      "progressive_mask4": 35,
+      "score_maps_native": 35,
+      "masks_native": 20
+    }
+  },
+  "disk_preflight": {
+    "free_bytes_before_inference": 13201749417984,
+    "conservative_pending_bytes_plus_reserve": 2291062292,
+    "fixed_reserve_bytes": 2000000000
+  },
+  "execution": {
+    "new_successes": 35,
+    "resume_skips": 0,
+    "new_errors": 0,
+    "physical_result_rows": 35,
+    "latest_result_rows": 35,
+    "superseded_attempts": 0
+  }
+}
