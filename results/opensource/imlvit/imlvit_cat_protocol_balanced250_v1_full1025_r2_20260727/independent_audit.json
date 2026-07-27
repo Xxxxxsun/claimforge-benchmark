@@ -1,0 +1,492 @@
+{
+  "schema_version": "imlvit_balanced_independent_audit_v3",
+  "status": "passed",
+  "publishable": true,
+  "generated_at": "2026-07-27T12:02:56.014720+00:00",
+  "method": "IML-ViT",
+  "model_slug": "imlvit_cat_protocol_2023_official",
+  "run_id": "imlvit_cat_protocol_balanced250_v1_full1025_r2_20260727",
+  "run_manifest_fingerprint": "5d7e54f183f11379337eb6681026786da522f57642088b1a5ed1b6c63b2928b1",
+  "contract_checks": {
+    "capability": "local_t2_only",
+    "formal_images_t1": 0,
+    "formal_images_t2": 1025,
+    "formal_selected_ids_sha256": "612e08565e38cb219fe5ea94dc8193580e099455e11fa778822488dbe7071717",
+    "formal_selected_rows_sha256": "19ff584a5d073dd03cd31eaf0d22b105d079b2dd606ea535fbbcd39fb692b887",
+    "smoke_images": 20,
+    "smoke_selected_ids_sha256": "3ce822824a5548f12ae0633520a19686048fd175f7add178334ab5c4fe7e78f4",
+    "smoke_selected_rows_sha256": "7ec14339cad5c6e083f6b1fde56a965686d552ca0b9026eea975144ade7d1d6c",
+    "native_t1_head": false,
+    "map_statistic_promoted_to_t1": false,
+    "fullframe_selected_images": 0,
+    "fullframe_t1": "not_applicable",
+    "fullframe_t2": "not_applicable",
+    "official_t2_threshold": 0.5,
+    "official_t2_threshold_operator": ">",
+    "shared_t2_threshold": 0.5,
+    "shared_t2_threshold_operator": ">=",
+    "native_pixels_exactly_0_5": 2,
+    "native_images_with_pixels_exactly_0_5": 2,
+    "operator_equivalence_checked": true,
+    "shared_t2_operator_equivalent_to_official": false,
+    "operator_non_equivalence_observed_on_formal_artifacts": true,
+    "bootstrap_iterations": 1000,
+    "bootstrap_seed": 20260727
+  },
+  "coverage": {
+    "expected_images": 1025,
+    "physical_attempts": 1025,
+    "result_images": 1025,
+    "valid_images": 1025,
+    "error_images": 0,
+    "missing_images": 0,
+    "superseded_attempts": 0,
+    "coverage_fraction": 1.0,
+    "success_fraction": 1.0,
+    "is_complete": true,
+    "counts_by_condition": {
+      "real": {
+        "expected_images": 275,
+        "result_images": 275,
+        "valid_images": 275,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "local_mouse": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "local_cat": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "local_trash_can": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      }
+    }
+  },
+  "attempt_history": {
+    "physical_attempts": 1025,
+    "unique_sample_ids": 1025,
+    "superseded_attempts": 0,
+    "recovered_error_to_ok": 0,
+    "success_is_terminal": true,
+    "append_only": true
+  },
+  "provenance": {
+    "environment": {
+      "python_executable": "/root/.cache/claimforge/venvs/imlvit-07dd2be/bin/python",
+      "venv_root": "/root/.cache/claimforge/venvs/imlvit-07dd2be",
+      "python": "3.12.3",
+      "platform": "Linux-5.10.134-16.103.al8.x86_64-x86_64-with-glibc2.39",
+      "pyvenv_cfg": {
+        "path": "/root/.cache/claimforge/venvs/imlvit-07dd2be/pyvenv.cfg",
+        "bytes": 204,
+        "sha256": "f06e00dd6d89b8a185e71db56644088e103d74312b659c12d3299ce1e10d0e19"
+      },
+      "packages": {
+        "torch": "2.8.0.dev20250627+cu128",
+        "torchvision": "0.23.0.dev20250627+cu128",
+        "timm": "1.0.15",
+        "albumentations": "1.3.0",
+        "opencv-python-headless": "4.10.0.84",
+        "numpy": "1.26.4",
+        "Pillow": "11.1.0",
+        "scikit-learn": "1.5.2"
+      },
+      "python_hash_seed": 0,
+      "python_dont_write_bytecode": true,
+      "python_pycache_prefix": "/root/.cache/claimforge/pycache/imlvit-balanced-v3-empty",
+      "contract_sha256": "4d8967db0cb4ea5a8a2e86d43fc1b0b136e84499509833fc3d8124d754cbee58"
+    },
+    "source": {
+      "repo_url": "https://github.com/SunnyHaze/IML-ViT",
+      "origin": "https://github.com/SunnyHaze/IML-ViT.git",
+      "commit": "07dd2be0f4ea27a5c97c9fa5ffbe236733833eac",
+      "tree": "cfae1470a71de9f146df3c13e994bea41d70624a",
+      "tracked_and_untracked_clean": true,
+      "source_bound_files": {
+        "README.md": {
+          "path": "README.md",
+          "bytes": 12078,
+          "sha256": "a5356aa04266719cb248723e07aca6db6fcc9d122ab2a08c20ce012d53793764"
+        },
+        "Demo.ipynb": {
+          "path": "Demo.ipynb",
+          "bytes": 1042227,
+          "sha256": "98eff570ed0b98ac6f4db99d01ae2b07fb55684efce030f7df334f80cfbac4ba"
+        },
+        "iml_vit_model.py": {
+          "path": "iml_vit_model.py",
+          "bytes": 6438,
+          "sha256": "6d3b4ba1749bbf6b188e68f9657fff961f8a42bce818042fc1ba064fd64b7048"
+        },
+        "modules/decoderhead.py": {
+          "path": "modules/decoderhead.py",
+          "bytes": 5433,
+          "sha256": "a3a1ac5c16a16a17ae65567e6670eb97b92f7cb6c56ef665f8ed80316fa3bd69"
+        },
+        "modules/window_attention_ViT.py": {
+          "path": "modules/window_attention_ViT.py",
+          "bytes": 42533,
+          "sha256": "382eabf15045420c827c5ad4bd1e44fa32b254b3c1139d6040f32df6a6bcdbde"
+        },
+        "utils/iml_transforms.py": {
+          "path": "utils/iml_transforms.py",
+          "bytes": 8496,
+          "sha256": "3abfda4ed3777f93db55dc05922c7f745a3fcb72d952409a195f43e1b33b36f2"
+        },
+        "utils/evaluation.py": {
+          "path": "utils/evaluation.py",
+          "bytes": 1715,
+          "sha256": "ac8ada749ffc4acfaf47d67550be642c96291640a5b130971f25a6857a3962aa"
+        },
+        "LICENSE": {
+          "path": "LICENSE",
+          "bytes": 1068,
+          "sha256": "7bce5d24d372c0abbf618951988ee2dc072e60027c55615f0229bdab0dad73c3"
+        }
+      },
+      "contract_sha256": "99babd6eda5b97bdfc48451c8e1eb873148bdb26d4857295f30e058190dabd25"
+    },
+    "assets": {
+      "checkpoint": {
+        "provider": "official_author_google_drive",
+        "announcement_commit": "5ad22146b1223eac841fa3e0e28c1c4e8948cc95",
+        "release_folder_id": "1Ztyiy2cKJVmyusYMUlwuyPecBefTJCPT",
+        "file_id": "1jlXw97GkyBbY4u5-e_liuhahKSQWCAFu",
+        "original_filename": "iml-vit_checkpoint_trufor_20231104.pth",
+        "release_file_mtime_utc": "2024-03-24T06:52:08+00:00",
+        "bytes": 367195954,
+        "sha256": "9fa9ae88cafeb6eab28c2afd5bef74679416cf0a790b2370fa6a6fb4c122c58c",
+        "container": "collections.OrderedDict_raw_state_dict",
+        "state_keys": 212,
+        "tensor_values": 212,
+        "state_elements": 91778242,
+        "tensor_bytes": 367112972,
+        "state_dtypes": {
+          "torch.float32": 211,
+          "torch.int64": 1
+        },
+        "parameters": 91777729,
+        "buffers": 513,
+        "path": "/root/.cache/claimforge/checkpoints/imlvit-official/iml-vit_checkpoint_trufor_20231104.pth",
+        "safe_weights_only_load": true,
+        "strict_model_load": true,
+        "schema_fallbacks": false,
+        "prefix_rewrites": false
+      },
+      "contract_sha256": "49016eb1a810eda6a1ae7c2fdd03131e6eafda5a2a5202a0e8bef5ec015e0fb0"
+    },
+    "adapter_sources": {
+      ".gitignore": {
+        "path": ".gitignore",
+        "bytes": 311,
+        "sha256": "24adf8db167f8a62162cb751f7311fec740eeb0d225eb6fda3a93352423a14a9"
+      },
+      "eval/__init__.py": {
+        "path": "eval/__init__.py",
+        "bytes": 39,
+        "sha256": "a2bd81a9d6f3abac7a071143ac4f0593fb5ed324b8962e5f08f931848b2573d5"
+      },
+      "eval/opensource/__init__.py": {
+        "path": "eval/opensource/__init__.py",
+        "bytes": 64,
+        "sha256": "3e6e8b6812a56d04ca7d2a855b0bcd458921151ad00432a25219dc7c15ffc1c9"
+      },
+      "eval/opensource/run_imlvit_balanced.py": {
+        "path": "eval/opensource/run_imlvit_balanced.py",
+        "bytes": 83126,
+        "sha256": "41fbbeca51a1945c8ad5f3acf07479284a0b1d2e8b21eaf2d26f49b7a1b49c5c"
+      },
+      "eval/opensource/run_imlvit.py": {
+        "path": "eval/opensource/run_imlvit.py",
+        "bytes": 45299,
+        "sha256": "98d0fdcabf63b29111fb778fdffc8734563e258ca62efef81eb982a3208be60b"
+      },
+      "eval/opensource/imlvit_metrics.py": {
+        "path": "eval/opensource/imlvit_metrics.py",
+        "bytes": 26602,
+        "sha256": "7c37d4afc721028a7ca2eac75ab68eddcc39a45afc4398ea09dcbd2b517141f5"
+      },
+      "eval/opensource/canonical_release.py": {
+        "path": "eval/opensource/canonical_release.py",
+        "bytes": 58518,
+        "sha256": "6f4261dd2bc5335722aae253d851c363f663aa89cf42913647931d9cc60ac892"
+      },
+      "eval/opensource/balanced_run_contract.py": {
+        "path": "eval/opensource/balanced_run_contract.py",
+        "bytes": 43859,
+        "sha256": "95d9e648840ce648fd75d441d440e33ca2b9ede509aa548f040c4ac1bc4356b6"
+      },
+      "eval/opensource/common.py": {
+        "path": "eval/opensource/common.py",
+        "bytes": 2800,
+        "sha256": "66ee7134e8398bb8121034fb7f9aef007137a09e03426af24e0faae886188c9f"
+      }
+    },
+    "artifact_ignore": {
+      "probe": "outputs/opensource/imlvit/.balanced_contract_probe/artifact.npy",
+      "ignored": true,
+      "git_check_ignore_evidence": ".gitignore:8:outputs/\toutputs/opensource/imlvit/.balanced_contract_probe/artifact.npy",
+      "contract_sha256": "03841c934120d78476609306eab3247498d58802e1204aaf134774a8b4ee5b66"
+    },
+    "checkpoint_audit": {
+      "load": "torch.load_weights_only_true",
+      "outer_type": "collections.OrderedDict",
+      "state_keys": 212,
+      "state_elements": 91778242,
+      "tensor_bytes": 367112972,
+      "dtype_counts": {
+        "torch.float32": 211,
+        "torch.int64": 1
+      },
+      "ordered_keys_sha256": "ed14ae3784705dad4bf3940c4e4b734396df2609231f8993f82367faf2b75919",
+      "tensor_schema_sha256": "c113cd13b8b6b61400f1e8e60911f1d1d8d0598651d6b7ef59b3a85e4b61a3bb"
+    },
+    "model_audit": {
+      "strict_load": true,
+      "missing_keys": 0,
+      "unexpected_keys": 0,
+      "parameter_count": 91777729,
+      "buffer_elements": 513,
+      "module_count": 207,
+      "state_keys": 212,
+      "device": "cpu",
+      "eval_mode": true,
+      "forward_performed": false
+    },
+    "runtime": {
+      "device": "cuda:0",
+      "seed": 42,
+      "deterministic_algorithms": true,
+      "cudnn_deterministic": true,
+      "cudnn_benchmark": false,
+      "matmul_allow_tf32": false,
+      "cudnn_allow_tf32": false,
+      "cublas_workspace_config": ":4096:8",
+      "precision": "float32",
+      "batch_size": 1,
+      "autocast": false,
+      "torch_version": "2.8.0.dev20250627+cu128",
+      "torch_cuda_version": "12.8",
+      "cuda": {
+        "logical_device_index": 0,
+        "device_name": "NVIDIA L20Z",
+        "total_memory_bytes": 85017624576,
+        "compute_capability": [
+          9,
+          0
+        ]
+      },
+      "contract_sha256": "5681f4d158351881cae163fd84995aab99237390d6fe9efd742845652e673b28"
+    }
+  },
+  "smoke_reproducibility_gate": {
+    "status": "passed",
+    "path": "results/opensource/imlvit/_reports/imlvit_cat_protocol_balanced250_v1_smoke5x4_a_r2_20260727_vs_imlvit_cat_protocol_balanced250_v1_smoke5x4_b_r2_20260727.smoke_comparison.json",
+    "sha256": "8118866ee1352476bc753838aa2f76798bf7ea1db278cdea8d1131f937c12c70",
+    "comparison": {
+      "status": "passed",
+      "computational_outputs_exact": true,
+      "selected_inputs_exact": true,
+      "images_compared": 20,
+      "result_projections_compared_exact": 20,
+      "artifact_files_compared_byte_exact": 80,
+      "raw_logits_compared_exact": 20,
+      "model_probability_maps_compared_exact": 20,
+      "native_probability_maps_compared_exact": 20,
+      "native_masks_compared_exact": 20,
+      "ignored_nondeterministic_fields": [
+        "completed_at",
+        "latency_ms",
+        "mask_path",
+        "peak_cuda_memory_bytes",
+        "raw_logits_model_path",
+        "run_id",
+        "run_manifest_fingerprint",
+        "score_map_model_path",
+        "score_map_path"
+      ]
+    }
+  },
+  "artifact_audit": {
+    "status": "passed",
+    "images": 1025,
+    "artifact_files": 4100,
+    "artifact_bytes": 15197291446,
+    "preprocessing_replays": 1025,
+    "raw_logit_sigmoid_replays": 1025,
+    "raw_logit_sigmoid_max_abs_difference": 1.1920928955078125e-07,
+    "raw_logit_sigmoid_absolute_tolerance": 2e-07,
+    "native_restore_replays": 1025,
+    "native_restore_max_abs_difference": 1.1920928955078125e-07,
+    "native_restore_absolute_tolerance": 2e-05,
+    "strict_threshold_masks_replayed": 1025,
+    "localization_metrics_replayed": 1025,
+    "native_pixels_exactly_0_5": 2,
+    "native_images_with_pixels_exactly_0_5": 2,
+    "official_t2_threshold_operator": ">",
+    "shared_t2_threshold_operator": ">=",
+    "shared_t2_operator_equivalent_to_official": false,
+    "operator_non_equivalence_observed_on_formal_artifacts": true,
+    "persisted_artifact_hashes_exact": true
+  },
+  "fresh_model_replay": {
+    "schema_version": "imlvit_balanced_fresh_replay_v3",
+    "status": "passed",
+    "publishable": true,
+    "mode": "fresh_full_model_selection_exact_replay",
+    "selected_images_replayed": 1025,
+    "preprocessing_compared_exact": 1025,
+    "raw_logits_compared_bit_exact": 1025,
+    "model_probability_maps_compared_bit_exact": 1025,
+    "native_probability_maps_compared_bit_exact": 1025,
+    "native_masks_compared_exact": 1025,
+    "localization_metrics_compared_exact": 1025,
+    "native_pixels_exactly_0_5": 2,
+    "native_images_with_pixels_exactly_0_5": 2,
+    "official_t2_threshold_operator": ">",
+    "shared_t2_reducer_applied_during_fresh_replay": false,
+    "recorded_device_tolerance": 0.0,
+    "device": "cuda:0",
+    "completed_at": "2026-07-27T11:56:15.036297+00:00"
+  },
+  "fresh_model_metrics_exact": true,
+  "metrics": {
+    "path": "results/opensource/imlvit/imlvit_cat_protocol_balanced250_v1_full1025_r2_20260727/balanced250_metrics.json",
+    "sha256": "ff90b7d273cac6728f241ac6c2a9872e8d5982ebd30e07aaf8061f2dc43f8e39",
+    "schema_version": "imlvit_balanced_metrics_v3",
+    "t2_schema_version": "balanced250_t2_summary_v1",
+    "official_t2_threshold_operator": ">",
+    "shared_t2_threshold_operator": ">=",
+    "shared_t2_operator_equivalent_to_official": false,
+    "native_pixels_exactly_at_threshold": 2,
+    "native_images_with_pixels_exactly_at_threshold": 2
+  },
+  "evidence_snapshot": {
+    "manifest_sha256": "439a4bc258c99b13464ab3488d9c4ee1f66abda061cddc5d99484dd60593c3f5",
+    "expected_inputs_sha256": "a952b6adcbd5af20ce635a5929c7045350b9f8e6729bae8d9cbf1978050f2cca",
+    "results_sha256": "84eadf35603d2faa175d56183ec2211b6a64732bbf1d5ee0b03fe50a3e17d1d2",
+    "runtime_summary_sha256": "fb6d58984bb3eef1e615487ef063bea13e6d2727fe966922c1c28fbcb7eadc45",
+    "artifact_inventory_sha256": "bbb26c465d34245f0acff0ed5f17d1ead980482e074e59d06b83b12fde070e39"
+  },
+  "license": {
+    "project_code": {
+      "spdx": "MIT",
+      "path": "LICENSE",
+      "sha256": "7bce5d24d372c0abbf618951988ee2dc072e60027c55615f0229bdab0dad73c3",
+      "scope": "project_repository_code_only",
+      "commercial_use_permission": true,
+      "redistribution_permission": true
+    },
+    "official_checkpoint": {
+      "provider": "official_author_google_drive",
+      "google_drive_file_id": "1jlXw97GkyBbY4u5-e_liuhahKSQWCAFu",
+      "separate_license_or_terms_found": false,
+      "project_code_license_extended_to_weights": false,
+      "commercial_use_clearance_established": false,
+      "status": "not_separately_stated_by_release"
+    },
+    "limitations": {
+      "trained_data_rights_not_audited": true,
+      "dependency_compliance_not_legal_advice": true,
+      "benchmark_use_does_not_establish_product_clearance": true
+    }
+  },
+  "commercial_use_clearance_established": false,
+  "resource_expectation": {
+    "observed_mouse_v1_peak_cuda_memory_bytes": 2921058304,
+    "observed_mouse_v1_median_forward_latency_ms": 40.11,
+    "observed_mouse_v1_artifact_bytes_for_550_images": 8153834700,
+    "balanced250_artifact_projection_bytes": 15200000000,
+    "formal_runner_projection_minutes": [
+      8,
+      30
+    ],
+    "fresh_replay_projection_minutes": [
+      3,
+      12
+    ],
+    "recommended_free_cuda_memory_bytes": 4000000000
+  },
+  "analyzer": {
+    "path": "eval/opensource/analyze_imlvit_balanced.py",
+    "bytes": 71538,
+    "sha256": "46a981e5e8b53e8fd5185e5aa9a6af51fb0b868ba904b835cdf08182296d8ab7",
+    "python_executable": "/root/.cache/claimforge/venvs/imlvit-07dd2be/bin/python",
+    "numpy": "1.26.4",
+    "source_contract": {
+      ".gitignore": {
+        "path": ".gitignore",
+        "bytes": 311,
+        "sha256": "24adf8db167f8a62162cb751f7311fec740eeb0d225eb6fda3a93352423a14a9"
+      },
+      "eval/__init__.py": {
+        "path": "eval/__init__.py",
+        "bytes": 39,
+        "sha256": "a2bd81a9d6f3abac7a071143ac4f0593fb5ed324b8962e5f08f931848b2573d5"
+      },
+      "eval/opensource/__init__.py": {
+        "path": "eval/opensource/__init__.py",
+        "bytes": 64,
+        "sha256": "3e6e8b6812a56d04ca7d2a855b0bcd458921151ad00432a25219dc7c15ffc1c9"
+      },
+      "eval/opensource/analyze_imlvit_balanced.py": {
+        "path": "eval/opensource/analyze_imlvit_balanced.py",
+        "bytes": 71538,
+        "sha256": "46a981e5e8b53e8fd5185e5aa9a6af51fb0b868ba904b835cdf08182296d8ab7"
+      },
+      "eval/opensource/run_imlvit_balanced.py": {
+        "path": "eval/opensource/run_imlvit_balanced.py",
+        "bytes": 83126,
+        "sha256": "41fbbeca51a1945c8ad5f3acf07479284a0b1d2e8b21eaf2d26f49b7a1b49c5c"
+      },
+      "eval/opensource/analyze_imlvit_run.py": {
+        "path": "eval/opensource/analyze_imlvit_run.py",
+        "bytes": 72859,
+        "sha256": "1453f0188ab8b659dbfa0dd982c81fcb4239c183191a2c6bd2e278c453b8544e"
+      },
+      "eval/opensource/run_imlvit.py": {
+        "path": "eval/opensource/run_imlvit.py",
+        "bytes": 45299,
+        "sha256": "98d0fdcabf63b29111fb778fdffc8734563e258ca62efef81eb982a3208be60b"
+      },
+      "eval/opensource/imlvit_metrics.py": {
+        "path": "eval/opensource/imlvit_metrics.py",
+        "bytes": 26602,
+        "sha256": "7c37d4afc721028a7ca2eac75ab68eddcc39a45afc4398ea09dcbd2b517141f5"
+      },
+      "eval/opensource/canonical_release.py": {
+        "path": "eval/opensource/canonical_release.py",
+        "bytes": 58518,
+        "sha256": "6f4261dd2bc5335722aae253d851c363f663aa89cf42913647931d9cc60ac892"
+      },
+      "eval/opensource/balanced_run_contract.py": {
+        "path": "eval/opensource/balanced_run_contract.py",
+        "bytes": 43859,
+        "sha256": "95d9e648840ce648fd75d441d440e33ca2b9ede509aa548f040c4ac1bc4356b6"
+      },
+      "eval/opensource/balanced250_localization_metrics.py": {
+        "path": "eval/opensource/balanced250_localization_metrics.py",
+        "bytes": 48105,
+        "sha256": "83ac07257078fc41276742fa4b9f2eb936ac51c8ff93bf1253b8c45f2b704b2a"
+      },
+      "eval/opensource/common.py": {
+        "path": "eval/opensource/common.py",
+        "bytes": 2800,
+        "sha256": "66ee7134e8398bb8121034fb7f9aef007137a09e03426af24e0faae886188c9f"
+      }
+    }
+  }
+}
