@@ -4,7 +4,7 @@
 
 **Updated:** 2026-07-27
 
-**Status:** 7/19 methods complete (6/9 whole-image, 1/10 local); next B-Free
+**Status:** 8/19 methods complete (7/9 whole-image, 1/10 local); next Effort
 
 **Scope:** the 19 executable open-source methods already completed on the
 Mouse benchmark: ten local-forensics methods and nine whole-image AIGC
@@ -190,8 +190,10 @@ Completed whole-image methods:
 5. SPAI — [formal report](SPAI_BALANCED250_FULL_RESULTS_2026-07-26.md)
 6. CNNDetection —
    [formal report](CNNDETECTION_BALANCED250_FULL_RESULTS_2026-07-26.md)
+7. B-Free —
+   [formal report](BFREE_BALANCED250_FULL_RESULTS_2026-07-27.md)
 
-Pending whole-image methods, in frozen order: B-Free, Effort, OmniAID.
+Pending whole-image methods, in frozen order: Effort, OmniAID.
 
 All nine are evaluated on all seven panel conditions for T1. LTD remains
 blocked on exact official-weight access and is not counted as executable.
@@ -199,11 +201,11 @@ NFA-ViT remains the analogous blocked local method.
 
 ### Expansion progress ledger
 
-- completed: 7/19;
-- whole-image: 6/9 complete, 3 pending;
+- completed: 8/19;
+- whole-image: 7/9 complete, 2 pending;
 - local-forensics: 1/10 complete, 9 pending;
-- total remaining: 12;
-- next queued method: B-Free.
+- total remaining: 11;
+- next queued method: Effort.
 
 ## 6. Execution and audit order
 
@@ -243,6 +245,10 @@ and the clean-worktree check all pass.
 The exhaustive capability-correct score cache requires 29,975 formal model
 forwards. A full fresh replay requires the same number again, for 59,950
 forwards before smoke tests.
+
+After B-Free, the remaining executable queue requires 15,775 formal forwards
+and 15,775 fresh-replay forwards, or 31,550 total before smoke tests. The
+original 29,975 / 59,950 figures above remain the frozen all-method totals.
 
 ## 7. GPU occupancy
 

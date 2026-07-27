@@ -1,0 +1,434 @@
+{
+  "schema_version": "bfree_balanced_replay_audit_v2",
+  "status": "replay_audit_passed",
+  "run_id": "bfree_dino2reg4_balanced250_v1_full1775_20260727",
+  "run_manifest_fingerprint": "080dfaaed8b453a06b6532faabe61bdd4c03b6eabb38da932871b00e62b24fa8",
+  "audited_at": "2026-07-27T04:57:16.236864+00:00",
+  "formal_images": 1775,
+  "physical_result_rows": 1775,
+  "latest_result_rows": 1775,
+  "coverage": {
+    "expected_images": 1775,
+    "physical_attempts": 1775,
+    "result_images": 1775,
+    "valid_images": 1775,
+    "error_images": 0,
+    "missing_images": 0,
+    "superseded_attempts": 0,
+    "coverage_fraction": 1.0,
+    "success_fraction": 1.0,
+    "is_complete": true,
+    "counts_by_condition": {
+      "real": {
+        "expected_images": 275,
+        "result_images": 275,
+        "valid_images": 275,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "local_mouse": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "local_cat": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "local_trash_can": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "fullframe_mouse": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "fullframe_cat": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "fullframe_trash_can": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      }
+    }
+  },
+  "artifact_files": 1775,
+  "metrics_schema_version": "balanced250_t1_summary_v1",
+  "metrics_bootstrap": {
+    "iterations": 1000,
+    "seed": 20260726,
+    "primary_unit": "shared_source_content_cluster_poisson_across_labels_and_conditions",
+    "secondary_unit": "shared_source_content_cluster_poisson_across_conditions",
+    "ci": "two_sided_95_percentile"
+  },
+  "analysis_runtime": {
+    "python": {
+      "version": "3.12.3",
+      "executable": "/root/.cache/claimforge/venvs/bfree/bin/python"
+    },
+    "numpy": "2.2.6",
+    "scipy": "1.16.0",
+    "scikit-learn": "1.6.1",
+    "analyzer": "eval/opensource/analyze_bfree_balanced.py"
+  },
+  "recorded_runtime_reproduced": {
+    "device": "cuda:0",
+    "python": {
+      "implementation": "CPython",
+      "version": "3.12.3",
+      "executable": "/root/.cache/claimforge/venvs/bfree/bin/python"
+    },
+    "venv": {
+      "prefix": "/root/.cache/claimforge/venvs/bfree",
+      "base_prefix": "/usr",
+      "pyvenv_cfg_path": "/root/.cache/claimforge/venvs/bfree/pyvenv.cfg",
+      "pyvenv_cfg_sha256": "1ee492ad073827f75ebf74bf270e554ee23a28ee44756d616218d4bd6e40c6cc",
+      "include_system_site_packages": true
+    },
+    "platform": "Linux-5.10.134-16.103.al8.x86_64-x86_64-with-glibc2.39",
+    "packages": {
+      "torch": {
+        "version": "2.8.0.dev20250627+cu128",
+        "distribution_version": "2.8.0.dev20250627+cu128",
+        "cuda_runtime": "12.8",
+        "cudnn_version": 91002
+      },
+      "torchvision": {
+        "version": "0.23.0.dev20250627+cu128",
+        "distribution_version": "0.23.0.dev20250627+cu128"
+      },
+      "timm": "1.0.12",
+      "transformers": "4.43.4",
+      "safetensors": "0.5.2",
+      "numpy": "2.2.6",
+      "Pillow": "11.1.0",
+      "PyYAML": "6.0.2",
+      "scikit-learn": "1.6.1",
+      "scipy": "1.16.0",
+      "joblib": "1.4.2",
+      "threadpoolctl": "3.5.0",
+      "setuptools": "79.0.1"
+    },
+    "seed": 20260725,
+    "preprocess_profile": "official_native_rgb_resnet_norm_dinov2_5crop504",
+    "inference_dtype": "float32",
+    "feature_dtype": "float32",
+    "crop_logit_dtype": "float32",
+    "batch_size": 1,
+    "autocast": false,
+    "grad_enabled": false,
+    "deterministic_algorithms_enabled": true,
+    "deterministic_algorithms_warn_only": false,
+    "cublas_workspace_config": ":4096:8",
+    "cudnn": {
+      "enabled": true,
+      "benchmark": false,
+      "deterministic": true,
+      "allow_tf32": false
+    },
+    "matmul_allow_tf32": false,
+    "float32_matmul_precision": "highest",
+    "minimum_cuda_free_bytes": 2147483648,
+    "bytecode_writes_disabled": true,
+    "process_environment": {
+      "PYTHONHASHSEED": "0",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "NO_ALBUMENTATIONS_UPDATE": "1",
+      "PYTHONPYCACHEPREFIX": "/root/.cache/claimforge/pycache/bfree-balanced-v2-empty",
+      "python_dont_write_bytecode": true,
+      "sys_pycache_prefix": "/root/.cache/claimforge/pycache/bfree-balanced-v2-empty",
+      "pycache_prefix_initially_empty": true
+    },
+    "legacy_runtime": {
+      "autocast": false,
+      "cublas_workspace_config": ":4096:8",
+      "cuda_available": true,
+      "cuda_device_name": "NVIDIA L20Z",
+      "cuda_matmul_allow_tf32": false,
+      "cuda_version": "12.8",
+      "cudnn_allow_tf32": false,
+      "cudnn_benchmark": false,
+      "cudnn_deterministic": true,
+      "cudnn_enabled": true,
+      "deterministic_algorithms": true,
+      "device": "cuda:0",
+      "dtype": "float32",
+      "float32_matmul_precision": "highest",
+      "network_allowed": false,
+      "numpy": "2.2.6",
+      "pillow": "11.1.0",
+      "platform": "Linux-5.10.134-16.103.al8.x86_64-x86_64-with-glibc2.39",
+      "python": "3.12.3 (main, Jan 17 2025, 18:03:48) [GCC 13.3.0]",
+      "pyyaml": "6.0.2",
+      "scikit_learn": "1.6.1",
+      "seed": 20260725,
+      "timm": "1.0.12",
+      "torch": "2.8.0.dev20250627+cu128",
+      "torchvision": "0.23.0.dev20250627+cu128",
+      "transformers": "4.43.4"
+    },
+    "cuda": {
+      "runtime": "12.8",
+      "device_index": 0,
+      "device_name": "NVIDIA L20Z",
+      "total_memory_bytes": 85017624576,
+      "capability": [
+        9,
+        0
+      ]
+    }
+  },
+  "independent_source": {
+    "root": "/root/.cache/claimforge/third_party/b-free-c6a9f898",
+    "commit": "c6a9f898782fb466b29af01f21960b67415afb0e",
+    "files": {
+      "LICENSE.txt": "cd00edf99fbfdbb173831bb0a4d5bfc40423c6e5041f62d7afdda220c4be8b27",
+      "README.md": "6633483801daf6574c05afe8d2e892d4f84afb338cde467218899c346366c185",
+      "code/LICENSE.txt": "cd00edf99fbfdbb173831bb0a4d5bfc40423c6e5041f62d7afdda220c4be8b27",
+      "code/README.md": "81386f0127828890f1a8a4126470b9bc311592dbb9ba7f601eb1806adb8cde5f",
+      "code/main_bfree.py": "eea848f57d1415c2c52804ff013a611435cdb38371c297c2de67fb459e4079ce",
+      "code/main_bfree_single.py": "72f43b8999d2b36689dfa77728f2cf51000a1333a62aa2aad65973ef881c24f7",
+      "code/networks/__init__.py": "048638ddd724ebbfbe995c3a735284a0551b8ca5fec74ca6a0ac2a5a4e6dd8cf",
+      "code/networks/wrapper5crops.py": "1f4de65b82b33c3864ab368836bab009a18f9bf0f828335777272645f236d60b",
+      "code/utils/normalization.py": "12a244d489f001ee7f25aae9bbe2b8fe1b1172f365b1ac0b8d632257f6c2354b",
+      "code/utils/dmetrics.py": "fbb4a29d4f7d1d8492a28190f011dc4703a4894b8622d86a2f84ab920f836244",
+      "code/requirements.txt": "8fd3131b5fbe8e16cdcbd0b022dee6f1213a216e989f52dd39005ca31393a168",
+      "code/demo_images/metainfo.csv": "b939eee3b5c8a6a2bf41a687e1be0454aaee7a850a4581d06bbad50fd49496d4",
+      "code/demo_images/results.csv": "81a3c434bfd3ec1aceb667fa82b86f3a55c84c390ab8b97029a4e5de0a1958a3",
+      "code/demo_images/results_metrics.csv": "5f565b8d51606670a5044d5c9928ca6f7966bd336d4f56aca04d2b0fdcb916ea",
+      "code/demo_images/img0000.png": "c7351aee67f37fe5acf1aa7781612b2760b90e0d56010038ec2e48ff9a79360e",
+      "code/demo_images/img0001.png": "34f54d4ee77bea6640b87d2665ff5c3871ee848837776b53ab58fc1ec3cddead",
+      "code/demo_images/img0002.png": "0d54da3b1a23b2a9aa235c7cbddfb5100d9a4d019fc6621e2c1126d910eb5f08",
+      "code/demo_images/img0003.png": "a0947013ca31ac169878892fa6c0efa43e22beb1f069a26028d23604d5f931fa"
+    },
+    "clean_worktree": true
+  },
+  "independent_assets": {
+    "weights_zip": {
+      "path": "/root/.cache/claimforge/third_party/BFREE_dino2reg4.zip",
+      "sha256": "8230fd3f0f3a64a6403acb692ce1663718ed16f36a5a4de4a68c0d273781769f",
+      "md5": "f3f53fa647848b16cf81c913f148a198",
+      "bytes": 321653488,
+      "zip_members_match_extracted_assets": true
+    },
+    "config": {
+      "path": "/root/.cache/claimforge/third_party/BFREE_dino2reg4/config.yaml",
+      "sha256": "1f0cb4988933de06a4c2427b1b5b015baa18cea7bc5223a9f54ca5e077ec8d40",
+      "bytes": 153,
+      "parsed": {
+        "arch": "timm_c5i504_vit_base_patch14_reg4_dinov2.lvd142m",
+        "model_name": "BFREE_dino2reg4",
+        "norm_type": "resnet",
+        "patch_size": null,
+        "weights_file": "model_epoch_best.pth"
+      }
+    },
+    "checkpoint": {
+      "path": "/root/.cache/claimforge/third_party/BFREE_dino2reg4/model_epoch_best.pth",
+      "sha256": "5948ca78f4d94e820c250d24cdf155035b4a85960443800bfe6bb7f06bffe947",
+      "bytes": 346171370,
+      "loaded_with_weights_only": true,
+      "unsafe_globals": [],
+      "top_level_keys": [
+        "model"
+      ],
+      "tensor_count": 177,
+      "state_elements": 86526721,
+      "schema_items_sha256": "e4bb9ddd115309740a70235152b7376e2c8299bb90baf243809f2a5e1665f524"
+    }
+  },
+  "independent_model_load": {
+    "architecture": "timm_c5i504_vit_base_patch14_reg4_dinov2.lvd142m",
+    "timm_architecture": "vit_base_patch14_reg4_dinov2.lvd142m",
+    "strict_load": true,
+    "patch_embed_missing_keys": [],
+    "patch_embed_unexpected_keys": [],
+    "body_missing_keys": [],
+    "body_unexpected_keys": [],
+    "parameter_count": 86526721,
+    "network": {
+      "allowed": false,
+      "attempts": {
+        "urllib_urlopen": 0,
+        "socket_create_connection": 0,
+        "socket_connect": 0
+      },
+      "offline_environment": {
+        "HF_HUB_OFFLINE": "1",
+        "TRANSFORMERS_OFFLINE": "1"
+      }
+    }
+  },
+  "independent_official_golden": {
+    "status": "passed",
+    "official_tolerance": 5e-05,
+    "cases": [
+      {
+        "filename": "img0000.png",
+        "sha256": "c7351aee67f37fe5acf1aa7781612b2760b90e0d56010038ec2e48ff9a79360e",
+        "official_raw_logit": -5.9374785,
+        "observed_raw_logit": -5.937470436096191,
+        "absolute_difference": 8.063903808697148e-06,
+        "within_official_tolerance": true,
+        "two_runs_bit_identical": true,
+        "feature_array_sha256": "07a892ee1740a1b1bad9f215dd947e39c83a2598fd417688828e9133fdcd27fe",
+        "crop_logits": [
+          -5.42866849899292,
+          -5.743739604949951,
+          -6.8011250495910645,
+          -6.2155375480651855,
+          -5.4982805252075195
+        ],
+        "tensor_sha256": "aa250c75b0da43bc9eafacaef948a87094149579337c37249a432ea6bd70412b"
+      },
+      {
+        "filename": "img0001.png",
+        "sha256": "34f54d4ee77bea6640b87d2665ff5c3871ee848837776b53ab58fc1ec3cddead",
+        "official_raw_logit": -4.441922,
+        "observed_raw_logit": -4.441922187805176,
+        "absolute_difference": 1.8780517585526013e-07,
+        "within_official_tolerance": true,
+        "two_runs_bit_identical": true,
+        "feature_array_sha256": "5af7d800ddf178dbeebc23d89fc18f49aa61df61b93731a63b5ef00f5bc3c5ea",
+        "crop_logits": [
+          -4.192203521728516,
+          -5.272200107574463,
+          -6.506054401397705,
+          -3.357485294342041,
+          -2.881667375564575
+        ],
+        "tensor_sha256": "e205b12364b070d29500ba6733e05b0735f2e37049c251ef9a76b890ef8ee91f"
+      },
+      {
+        "filename": "img0002.png",
+        "sha256": "0d54da3b1a23b2a9aa235c7cbddfb5100d9a4d019fc6621e2c1126d910eb5f08",
+        "official_raw_logit": 4.430519,
+        "observed_raw_logit": 4.430531978607178,
+        "absolute_difference": 1.297860717741628e-05,
+        "within_official_tolerance": true,
+        "two_runs_bit_identical": true,
+        "feature_array_sha256": "7e6f0c52f4a3634d6ee67e50594127668b31efc1b6f861dd7c567cbe62aecc75",
+        "crop_logits": [
+          1.6325995922088623,
+          4.725715160369873,
+          6.039744853973389,
+          7.027668476104736,
+          2.7269296646118164
+        ],
+        "tensor_sha256": "b2d25ae0bebc69f0fa1580031dec8f7cd3a5e088bd8449a2c5276c4cc9c332db"
+      },
+      {
+        "filename": "img0003.png",
+        "sha256": "a0947013ca31ac169878892fa6c0efa43e22beb1f069a26028d23604d5f931fa",
+        "official_raw_logit": 3.8499813,
+        "observed_raw_logit": 3.8499915599823,
+        "absolute_difference": 1.0259982299754e-05,
+        "within_official_tolerance": true,
+        "two_runs_bit_identical": true,
+        "feature_array_sha256": "3941a93116b2c9bab0f5eef12740b01347fcd11d07274e5e9a1bbad10de81393",
+        "crop_logits": [
+          1.7067539691925049,
+          5.659043788909912,
+          3.249014377593994,
+          2.6213021278381348,
+          6.013844013214111
+        ],
+        "tensor_sha256": "223319e2821751263cc8819cd42f30825cf86b49f75a882be4ed4fbe1ebc7893"
+      }
+    ],
+    "all_cases_within_official_tolerance": true,
+    "all_cases_two_runs_bit_identical": true
+  },
+  "persisted_artifact_head_replay": {
+    "artifacts_replayed": 1775,
+    "linear_head_replays": 1775,
+    "strict_decisions_replayed": 1775,
+    "maximum_crop_logit_absolute_difference": 0.0,
+    "maximum_raw_logit_absolute_difference": 0.0,
+    "crop_logit_absolute_tolerance": 0.0,
+    "raw_logit_absolute_tolerance": 0.0,
+    "static_cross_device_mean_sanity_absolute_tolerance": 2e-06,
+    "all_passed": true
+  },
+  "fresh_model_replay": {
+    "selected_images_freshly_reopened": 1775,
+    "selected_images_freshly_preprocessed": 1775,
+    "complete_model_forward_passes": 1775,
+    "features_compared": 1775,
+    "crop_logits_compared": 1775,
+    "raw_logits_compared": 1775,
+    "wrap_images": 165,
+    "maximum_feature_absolute_difference": 0.0,
+    "maximum_crop_logit_absolute_difference": 0.0,
+    "maximum_raw_logit_absolute_difference": 0.0,
+    "feature_absolute_tolerance": 0.0,
+    "crop_logit_absolute_tolerance": 1e-06,
+    "raw_logit_absolute_tolerance": 1e-06,
+    "all_passed": true,
+    "scope": {
+      "T1_whole_image_AIGC_detection": true,
+      "T2_localization": false,
+      "joint_score": false
+    }
+  },
+  "method_boundary": {
+    "method": "B-Free official BFREE_dino2reg4",
+    "architecture": "vit_base_patch14_reg4_dinov2.lvd142m",
+    "preprocess_profile": "official_native_rgb_resnet_norm_dinov2_5crop504",
+    "released_checkpoint_evaluated": true,
+    "valid_for_t1": true,
+    "valid_for_t2": false,
+    "fullframe_t2": "not_applicable",
+    "fullframe_data_kind": "conditional_full_frame_edit_not_fully_synthetic",
+    "license": {
+      "code_and_weights": {
+        "license": "GRIP_UNINA_nonprofit_research_only",
+        "license_file_sha256": "cd00edf99fbfdbb173831bb0a4d5bfc40423c6e5041f62d7afdda220c4be8b27",
+        "commercial_use": false
+      },
+      "benchmark_role": "research_evaluation_only"
+    },
+    "commercial_clearance": false
+  },
+  "contract_checks": {
+    "exact_formal_whole_image_selection_rebuilt": true,
+    "all_physical_attempts_validated": true,
+    "complete_latest_coverage_required": true,
+    "pair_rank_rejected": true,
+    "t2_joint_dense_claims_rejected": true,
+    "npz_inventory_bytes_members_hash_shape_dtype_finite_validated": true,
+    "persisted_features_to_five_logits_to_fp32_mean_replayed": true,
+    "persisted_recorded_device_head_replay_absolute_tolerance": 0.0,
+    "static_cpu_mean_is_cross_device_sanity_not_exact_replay": true,
+    "static_cross_device_mean_sanity_absolute_tolerance": 2e-06,
+    "raw_logit_primary_sigmoid_diagnostic_only": true,
+    "shared_balanced250_metrics_only": true,
+    "run_canonical_source_asset_evidence_reverified_after_replay": true
+  },
+  "artifacts": {
+    "manifest_sha256": "2c3b7f7b3ce6e18b07f52a9c594ab4e97a891d231f2cd141816941e936148ed8",
+    "results_sha256": "b6103a6547773eeba5b2c5946aed18382f822914140b15237944a73620c889d7",
+    "expected_inputs_sha256": "6b5128909eeffdbd88e61af02ca1bd191cb5460f94a23b47c87ebd0172e6d12c",
+    "summary_sha256": "0a531f8d97019b446ad98de7e6533ad8b054f7a62bfa79292100657feb49405c",
+    "artifact_inventory_sha256": "5a20f54d4fc693be3c53ca5a9c4bea820c2f23f0cd1b2730644bba45280f1f64",
+    "metrics_sha256": "263bacc825ad5613a5bb3693a0c0fc24da2a98dbd2dc171e16fb2671e0b2bb78"
+  }
+}
