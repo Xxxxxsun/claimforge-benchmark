@@ -7,6 +7,21 @@
 > 当前状态：**BLOCKED — 两个官方入口都未能返回 checkpoint 字节**
 > 本轮执行状态：**没有启动 CUDA、没有生成 Mouse 分数、没有使用第三方镜像**
 
+## 0. 2026-07-27 再复核
+
+2026-07-27 08:42 UTC 再次只检查官方发布入口，阻塞状态未改变：
+
+- 官方 GitHub `main`/`HEAD` 仍为
+  `27a8a7e6acd97c1b50b584f85dcca47c1584614b`，GitHub Releases API
+  仍返回空列表；
+- Google Drive 官方 direct-download 入口仍只返回 1,789-byte HTML
+  权限错误页，而不是 checkpoint；本次动态错误页 SHA-256 为
+  `6c61896aa275ec62964c97e3e0d1f532d2336e4ef2064f1fad30593ae6506431`；
+- 页面仍明确说明 owner 未授予下载权限，只有 owner/editor 可以下载。
+
+因此截至 2026-07-27，仍没有可由匿名官方入口取得并认证的
+`DRCT_sdv1.4.pth`。下面冻结的协议与解除阻塞条件继续有效。
+
 ## 1. 结论
 
 截至 2026-07-25，本次只从官方 README 发布的两个入口重试：
