@@ -4,7 +4,7 @@
 
 **Updated:** 2026-07-27
 
-**Status:** 14/19 methods complete (9/9 whole-image, 5/10 local); next CAT-Net v2
+**Status:** 15/19 methods complete (9/9 whole-image, 6/10 local); next IML-ViT
 
 **Scope:** the 19 executable open-source methods already completed on the
 Mouse benchmark: ten local-forensics methods and nine whole-image AIGC
@@ -161,7 +161,8 @@ Native T1+T2:
 
 Native T2 only:
 
-6. CAT-Net v2
+6. CAT-Net v2 — completed; see
+   [formal report](CATNET_BALANCED250_FULL_RESULTS_2026-07-27.md)
 7. IML-ViT
 8. Mesorch
 9. RelayFormer
@@ -209,11 +210,11 @@ NFA-ViT remains the analogous blocked local method.
 
 ### Expansion progress ledger
 
-- completed: 14/19;
+- completed: 15/19;
 - whole-image: 9/9 complete, 0 pending;
-- local-forensics: 5/10 complete, 5 pending;
-- total remaining: 5;
-- next queued method: CAT-Net v2.
+- local-forensics: 6/10 complete, 4 pending;
+- total remaining: 4;
+- next queued method: IML-ViT.
 
 ## 6. Execution and audit order
 

@@ -1,0 +1,211 @@
+{
+  "schema_version": "catnet_balanced_fresh_replay_v2",
+  "run_id": "catnet_v2_ijcv2022_balanced250_v1_full1025_20260727",
+  "run_manifest_fingerprint": "3651ea38ba02ceb08cc1d71646f02bceb034497a446a354eaf727f0986375702",
+  "status": "pass",
+  "fresh_model_instance": true,
+  "cpu_strict_load_before_recorded_device": {
+    "environment": {
+      "python_executable": "/root/.cache/claimforge/venvs/catnet-b50d391/bin/python",
+      "venv_root": "/root/.cache/claimforge/venvs/catnet-b50d391",
+      "python": "3.12.3",
+      "platform": "Linux-5.10.134-16.103.al8.x86_64-x86_64-with-glibc2.39",
+      "pyvenv_cfg": {
+        "path": "/root/.cache/claimforge/venvs/catnet-b50d391/pyvenv.cfg",
+        "bytes": 205,
+        "sha256": "68d85b45e93fcb149d73ff58c3c717fa79b6e490ec309bc23e710b136678aabc"
+      },
+      "packages": {
+        "torch": "2.8.0.dev20250627+cu128",
+        "torchvision": "0.23.0.dev20250627+cu128",
+        "numpy": "1.26.4",
+        "Pillow": "11.1.0",
+        "jpegio": "0.2.8",
+        "yacs": "0.1.8",
+        "scikit-learn": "1.5.2",
+        "scipy": "1.16.0"
+      },
+      "torch_cuda_version": "12.8",
+      "python_dont_write_bytecode": true,
+      "python_pycache_prefix": "/root/.cache/claimforge/pycache/catnet-balanced-v2-empty",
+      "contract_sha256": "a4edd3ea8f1745d0abf2bb27cdbd79da179f7f4ff3ba5dff5af7a76a5b85c222"
+    },
+    "source": {
+      "repo_url": "https://github.com/mjkwon2021/CAT-Net",
+      "origin": "https://github.com/mjkwon2021/CAT-Net.git",
+      "commit": "b50d391ffc423d3631fd7947714468788c791805",
+      "tree": "ab0302cf11760ba1d07e0b419f20e9add0681112",
+      "tracked_and_untracked_clean": true,
+      "source_bound_files": {
+        "README.md": {
+          "path": "README.md",
+          "bytes": 7499,
+          "sha256": "9018b5cfe4863025d742643c0c53ef231b2d580f0a2fbee7f06d1b4831e009eb"
+        },
+        "LICENSE of HRNet": {
+          "path": "LICENSE of HRNet",
+          "bytes": 1362,
+          "sha256": "f1f33c3bec144f048d1cbff4dcae8d47a28faf263930ce779c61a7f4913bf055"
+        },
+        "experiments/CAT_full.yaml": {
+          "path": "experiments/CAT_full.yaml",
+          "bytes": 2366,
+          "sha256": "81210f5f283504549d4e15a162bda453caea8b1692022d816a46bcc5427ed95d"
+        },
+        "lib/__init__.py": {
+          "path": "lib/__init__.py",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "lib/config/__init__.py": {
+          "path": "lib/config/__init__.py",
+          "bytes": 478,
+          "sha256": "9b0c0ebc3db2f39f4c8b2b4eda311bfeb1b977d5fab2a42bc1ea6f926cae28db"
+        },
+        "lib/config/default.py": {
+          "path": "lib/config/default.py",
+          "bytes": 2598,
+          "sha256": "0ff4fa6e42bb4c72f030858365392d431fe29500dffaa109fdcf2639d4d080f7"
+        },
+        "lib/config/models.py": {
+          "path": "lib/config/models.py",
+          "bytes": 1975,
+          "sha256": "5db1613e604ee89c7cedf46306f67a67e74cdc131287803ffe46ebdaa22a0823"
+        },
+        "lib/models/__init__.py": {
+          "path": "lib/models/__init__.py",
+          "bytes": 439,
+          "sha256": "ecb7b0de1012239797183bef9f40d94b3dc5d9f4bb0764295fb0548fa1c2612b"
+        },
+        "lib/models/network_CAT.py": {
+          "path": "lib/models/network_CAT.py",
+          "bytes": 23160,
+          "sha256": "7177d18a814d6eb55f43eee77aa652f5c9983ecbfc1d392f55a7261339ffc00f"
+        },
+        "lib/models/network_DCT.py": {
+          "path": "lib/models/network_DCT.py",
+          "bytes": 18273,
+          "sha256": "fad8c894e462c311a1cb83e91348875eedbb66019eebc035a943940c9b25f1c3"
+        }
+      },
+      "contract_sha256": "33c4b408f4ab526c9566c3fb34a5e8ea5a82d4565bd5ff803a5afd59bc45224f"
+    },
+    "assets": {
+      "checkpoint": {
+        "path": "/root/.cache/claimforge/checkpoints/catnet-v2/CAT_full_v2.pth.tar",
+        "filename": "CAT_full_v2.pth.tar",
+        "provider": "official_author_google_drive",
+        "drive_file_id": "1tyOKVdx6UMys2OcNpUj9r6scxNIpcoLE",
+        "bytes": 915503873,
+        "sha256": "f82aaafdd1142775231feedcea0bb7027f7370561d9e8d107465454001865989",
+        "epoch": 196,
+        "state_keys": 2926,
+        "safe_weights_only_load": true,
+        "strict_model_load": true
+      },
+      "contract_sha256": "d5534dda08e918507fb7817a48da0f28ba1209ec8fa6d5a64c1436b68cbabb6a"
+    },
+    "strict_load": true,
+    "parameter_count": 114263810,
+    "state_keys": 2926,
+    "forward_performed": false,
+    "cuda_initialized_after": false,
+    "adapter_sources": {
+      ".gitignore": {
+        "path": ".gitignore",
+        "bytes": 311,
+        "sha256": "24adf8db167f8a62162cb751f7311fec740eeb0d225eb6fda3a93352423a14a9"
+      },
+      "eval/__init__.py": {
+        "path": "eval/__init__.py",
+        "bytes": 39,
+        "sha256": "a2bd81a9d6f3abac7a071143ac4f0593fb5ed324b8962e5f08f931848b2573d5"
+      },
+      "eval/opensource/__init__.py": {
+        "path": "eval/opensource/__init__.py",
+        "bytes": 64,
+        "sha256": "3e6e8b6812a56d04ca7d2a855b0bcd458921151ad00432a25219dc7c15ffc1c9"
+      },
+      "eval/opensource/analyze_catnet_balanced.py": {
+        "path": "eval/opensource/analyze_catnet_balanced.py",
+        "bytes": 88206,
+        "sha256": "e9643b56f00de11d9ba9fb5f65d485be58580cacb258c82e07e2f1a8ebce9687"
+      },
+      "eval/opensource/run_catnet_balanced.py": {
+        "path": "eval/opensource/run_catnet_balanced.py",
+        "bytes": 78403,
+        "sha256": "26a28b89c079e72985801df6172f1896d9e27944b07140b557b5a3c20e2fe54d"
+      },
+      "eval/opensource/run_catnet.py": {
+        "path": "eval/opensource/run_catnet.py",
+        "bytes": 36641,
+        "sha256": "ca454e8ec92a86e9fab5d79f614d4777f2254a853498d6ad325afee8e0d9ad60"
+      },
+      "eval/opensource/catnet_metrics.py": {
+        "path": "eval/opensource/catnet_metrics.py",
+        "bytes": 13843,
+        "sha256": "32d22f9999464e1889cbd7d1a5dce7b18a127bd4414fb26598154aae96d8d972"
+      },
+      "eval/opensource/maskclip_metrics.py": {
+        "path": "eval/opensource/maskclip_metrics.py",
+        "bytes": 9619,
+        "sha256": "28affa7312d3ccff4a356bd36443215f2d4f38b875bcd85c5758853892505e97"
+      },
+      "eval/opensource/canonical_release.py": {
+        "path": "eval/opensource/canonical_release.py",
+        "bytes": 58518,
+        "sha256": "6f4261dd2bc5335722aae253d851c363f663aa89cf42913647931d9cc60ac892"
+      },
+      "eval/opensource/balanced_run_contract.py": {
+        "path": "eval/opensource/balanced_run_contract.py",
+        "bytes": 43859,
+        "sha256": "95d9e648840ce648fd75d441d440e33ca2b9ede509aa548f040c4ac1bc4356b6"
+      },
+      "eval/opensource/balanced250_localization_metrics.py": {
+        "path": "eval/opensource/balanced250_localization_metrics.py",
+        "bytes": 48105,
+        "sha256": "83ac07257078fc41276742fa4b9f2eb936ac51c8ff93bf1253b8c45f2b704b2a"
+      },
+      "eval/opensource/common.py": {
+        "path": "eval/opensource/common.py",
+        "bytes": 2800,
+        "sha256": "66ee7134e8398bb8121034fb7f9aef007137a09e03426af24e0faae886188c9f"
+      }
+    }
+  },
+  "recorded_runtime": {
+    "device": "cuda:0",
+    "seed": 42,
+    "deterministic_algorithms": true,
+    "cudnn_deterministic": true,
+    "cudnn_benchmark": false,
+    "matmul_allow_tf32": false,
+    "cudnn_allow_tf32": false,
+    "cublas_workspace_config": ":4096:8",
+    "precision": "float32",
+    "batch_size": 1,
+    "autocast": false,
+    "torch_version": "2.8.0.dev20250627+cu128",
+    "torch_cuda_version": "12.8",
+    "cuda": {
+      "logical_device_index": 0,
+      "device_name": "NVIDIA L20Z",
+      "total_memory_bytes": 85017624576,
+      "compute_capability": [
+        9,
+        0
+      ]
+    },
+    "contract_sha256": "5681f4d158351881cae163fd84995aab99237390d6fe9efd742845652e673b28"
+  },
+  "images_replayed": 1025,
+  "raw_logits_bit_exact": true,
+  "native_score_maps_bit_exact": true,
+  "native_masks_bit_exact": true,
+  "jpeg_qtable_and_dct_evidence_exact": true,
+  "localization_metrics_exact": true,
+  "t1_outputs_compared": 0,
+  "map_statistic_promoted_to_t1": false,
+  "maximum_replay_peak_cuda_memory_bytes": 5940603904,
+  "generated_at": "2026-07-27T10:53:13.551022+00:00"
+}

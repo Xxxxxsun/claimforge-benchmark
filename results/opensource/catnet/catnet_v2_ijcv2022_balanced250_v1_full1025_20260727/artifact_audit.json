@@ -1,0 +1,118 @@
+{
+  "schema_version": "catnet_balanced_artifact_audit_v2",
+  "run_id": "catnet_v2_ijcv2022_balanced250_v1_full1025_20260727",
+  "run_manifest_fingerprint": "3651ea38ba02ceb08cc1d71646f02bceb034497a446a354eaf727f0986375702",
+  "status": "ok",
+  "selected_images": 1025,
+  "condition_counts": {
+    "local_cat": 250,
+    "local_mouse": 250,
+    "local_trash_can": 250,
+    "real": 275
+  },
+  "t1_results": 0,
+  "t2_results": 1025,
+  "fullframe_results": 0,
+  "checked_files": 4850,
+  "artifact_inventory": {
+    "successful_images": 1025,
+    "files": 3075,
+    "files_by_directory": {
+      "raw_logits_quarter": 1025,
+      "score_maps_native": 1025,
+      "masks_native": 1025
+    },
+    "bytes_by_directory": {
+      "raw_logits_quarter": 826033728,
+      "score_maps_native": 6595316160,
+      "masks_native": 2643672
+    },
+    "total_bytes": 7423993560,
+    "exact_inventory": true,
+    "inventory_sha256": "ad0ae60103bd17de9e3e06d01e8dee0fb8e273587a5561a88934d0831fd767ff"
+  },
+  "artifact_rows_sha256": "db1ab2b989d751e9cd5daa251ec35d283907011e05603268df4c34e8ec8b217b",
+  "independent_logits_to_native_replays": 1025,
+  "independent_logits_to_native_max_abs_difference": 1.7881393432617188e-07,
+  "independent_logits_to_native_abs_tolerance": 2.384185791015625e-07,
+  "checks": [
+    "canonical JPEG SHA-256, RGB/JPEG geometry, and 4:4:4 sampling",
+    "independent luminance qtable and quantized Y-DCT hashes",
+    "finite float32 quarter logits with exact ceil-8-derived shape",
+    "finite float32 native score maps bounded by [0,1]",
+    "pure NumPy bilinear-logits then float32-softmax channel-1 native restoration",
+    "binary PNG masks bit-exactly equal score_map >= 0.5",
+    "exact-difference GT hashes and independently replayed T2 metrics",
+    "all-and-only 3 artifacts for every selected applicable input",
+    "no full-frame row, artifact, T1 score, or map-derived decision"
+  ],
+  "sources": {
+    "manifest_sha256": "54b5dd7245166933a38aed77d747e4d4531d2ac20dd107f0056c15979ae13197",
+    "expected_inputs_sha256": "a952b6adcbd5af20ce635a5929c7045350b9f8e6729bae8d9cbf1978050f2cca",
+    "results_sha256": "089bdf8689cd8d7302c75013af36148b26d2503d10f7e5b8507ecc2a1a80bda6",
+    "summary_sha256": "c0d88990e902d9c47f40057129eaf79c90a007923f1e963801f4a3071432cd01",
+    "analyzer_sources": {
+      ".gitignore": {
+        "path": ".gitignore",
+        "bytes": 311,
+        "sha256": "24adf8db167f8a62162cb751f7311fec740eeb0d225eb6fda3a93352423a14a9"
+      },
+      "eval/__init__.py": {
+        "path": "eval/__init__.py",
+        "bytes": 39,
+        "sha256": "a2bd81a9d6f3abac7a071143ac4f0593fb5ed324b8962e5f08f931848b2573d5"
+      },
+      "eval/opensource/__init__.py": {
+        "path": "eval/opensource/__init__.py",
+        "bytes": 64,
+        "sha256": "3e6e8b6812a56d04ca7d2a855b0bcd458921151ad00432a25219dc7c15ffc1c9"
+      },
+      "eval/opensource/analyze_catnet_balanced.py": {
+        "path": "eval/opensource/analyze_catnet_balanced.py",
+        "bytes": 88206,
+        "sha256": "e9643b56f00de11d9ba9fb5f65d485be58580cacb258c82e07e2f1a8ebce9687"
+      },
+      "eval/opensource/run_catnet_balanced.py": {
+        "path": "eval/opensource/run_catnet_balanced.py",
+        "bytes": 78403,
+        "sha256": "26a28b89c079e72985801df6172f1896d9e27944b07140b557b5a3c20e2fe54d"
+      },
+      "eval/opensource/run_catnet.py": {
+        "path": "eval/opensource/run_catnet.py",
+        "bytes": 36641,
+        "sha256": "ca454e8ec92a86e9fab5d79f614d4777f2254a853498d6ad325afee8e0d9ad60"
+      },
+      "eval/opensource/catnet_metrics.py": {
+        "path": "eval/opensource/catnet_metrics.py",
+        "bytes": 13843,
+        "sha256": "32d22f9999464e1889cbd7d1a5dce7b18a127bd4414fb26598154aae96d8d972"
+      },
+      "eval/opensource/maskclip_metrics.py": {
+        "path": "eval/opensource/maskclip_metrics.py",
+        "bytes": 9619,
+        "sha256": "28affa7312d3ccff4a356bd36443215f2d4f38b875bcd85c5758853892505e97"
+      },
+      "eval/opensource/canonical_release.py": {
+        "path": "eval/opensource/canonical_release.py",
+        "bytes": 58518,
+        "sha256": "6f4261dd2bc5335722aae253d851c363f663aa89cf42913647931d9cc60ac892"
+      },
+      "eval/opensource/balanced_run_contract.py": {
+        "path": "eval/opensource/balanced_run_contract.py",
+        "bytes": 43859,
+        "sha256": "95d9e648840ce648fd75d441d440e33ca2b9ede509aa548f040c4ac1bc4356b6"
+      },
+      "eval/opensource/balanced250_localization_metrics.py": {
+        "path": "eval/opensource/balanced250_localization_metrics.py",
+        "bytes": 48105,
+        "sha256": "83ac07257078fc41276742fa4b9f2eb936ac51c8ff93bf1253b8c45f2b704b2a"
+      },
+      "eval/opensource/common.py": {
+        "path": "eval/opensource/common.py",
+        "bytes": 2800,
+        "sha256": "66ee7134e8398bb8121034fb7f9aef007137a09e03426af24e0faae886188c9f"
+      }
+    }
+  },
+  "generated_at": "2026-07-27T10:34:40.887227+00:00"
+}

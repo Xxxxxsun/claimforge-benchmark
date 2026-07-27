@@ -1,0 +1,63 @@
+{
+  "schema_version": "catnet_balanced_smoke_comparison_v2",
+  "smoke_a_run_id": "catnet_v2_ijcv2022_balanced250_v1_smoke5x4_a_20260727",
+  "smoke_b_run_id": "catnet_v2_ijcv2022_balanced250_v1_smoke5x4_b_20260727",
+  "status": "pass",
+  "selection": {
+    "images": 20,
+    "counts_by_condition": {
+      "real": 5,
+      "local_mouse": 5,
+      "local_cat": 5,
+      "local_trash_can": 5
+    },
+    "fullframe_images": 0,
+    "selection_sha256": "3ce822824a5548f12ae0633520a19686048fd175f7add178334ab5c4fe7e78f4"
+  },
+  "comparison": {
+    "images_compared": 20,
+    "fields_compared_per_image": 20,
+    "mismatches": 0,
+    "bit_exact": true
+  },
+  "physical_artifact_audits_passed": 2,
+  "artifact_files_audited": 120,
+  "artifact_files_compared_byte_exact": 60,
+  "t1_fields_compared": 0,
+  "map_statistic_promoted_to_t1": false,
+  "generated_at": "2026-07-27T10:34:59.506271+00:00",
+  "formal_gate": {
+    "status": "pass",
+    "smoke_ab": {
+      "schema_version": "catnet_balanced_smoke_comparison_v2",
+      "smoke_a_run_id": "catnet_v2_ijcv2022_balanced250_v1_smoke5x4_a_20260727",
+      "smoke_b_run_id": "catnet_v2_ijcv2022_balanced250_v1_smoke5x4_b_20260727",
+      "status": "pass",
+      "selection": {
+        "images": 20,
+        "counts_by_condition": {
+          "real": 5,
+          "local_mouse": 5,
+          "local_cat": 5,
+          "local_trash_can": 5
+        },
+        "fullframe_images": 0,
+        "selection_sha256": "3ce822824a5548f12ae0633520a19686048fd175f7add178334ab5c4fe7e78f4"
+      },
+      "comparison": {
+        "images_compared": 20,
+        "fields_compared_per_image": 20,
+        "mismatches": 0,
+        "bit_exact": true
+      },
+      "physical_artifact_audits_passed": 2,
+      "artifact_files_audited": 120,
+      "artifact_files_compared_byte_exact": 60,
+      "t1_fields_compared": 0,
+      "map_statistic_promoted_to_t1": false,
+      "generated_at": "2026-07-27T10:35:16.866868+00:00"
+    },
+    "formal_overlap_images_per_smoke": 20,
+    "formal_overlap_bit_exact": true
+  }
+}
