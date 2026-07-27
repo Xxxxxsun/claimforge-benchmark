@@ -1,0 +1,77 @@
+{
+  "schema_version": "mvssnet_balanced_smoke_comparison_v2",
+  "status": "exact_reproduction_passed",
+  "method": "MVSS-Net (CASIAv2)",
+  "model_slug": "mvssnet_casiav2_iccv2021",
+  "compared_at": "2026-07-27T08:38:59.850434+00:00",
+  "reference": {
+    "run_id": "mvssnet_casiav2_iccv2021_balanced250_v1_smoke5x7_a_20260727",
+    "run_manifest_fingerprint": "8010eb96ba65f73d10f8bea40190f39b52f002fc147db54ac20252177c864bda",
+    "stateful_history": {
+      "policy": "exact_selected_prefix_with_zero_or_more_errors_before_each_ok",
+      "physical_attempts": 35,
+      "successful_prefix": 35,
+      "errors": 0,
+      "recovered_error_to_ok": 0
+    },
+    "evidence_snapshot": {
+      "manifest_sha256": "e4c77fe5a5809a0592c4028d239d8f8c190372477a3d2e321e0b05f8110075f8",
+      "expected_inputs_sha256": "21e556dd791960afde6cc900d9aba79da61a1a935c6da7b0e0928d3f6b26afa0",
+      "results_sha256": "f84e6b01d46dc827acbe397b79d8f5bec5ba4bba2f7cb0e1938c9d1aa48d439c",
+      "runtime_summary_sha256": "72cf11f857c08c306073a455e3577c05a89eea6640e77385c61996088103a44b",
+      "dataset_manifest_sha256": "b2bbf3eb7a835f9c729cdffe29a40247225125779fe21551270fefe95d667c7f",
+      "artifact_inventory_sha256": "0bd2063b4ca1d5e18294690c349da6adf0cf0bfacee3783eabaea09c8d6463b8"
+    }
+  },
+  "replay": {
+    "run_id": "mvssnet_casiav2_iccv2021_balanced250_v1_smoke5x7_b_20260727",
+    "run_manifest_fingerprint": "507e203514fe95ad7082523b5315106a1a861fe1b809355808095f287f7ff0b2",
+    "stateful_history": {
+      "policy": "exact_selected_prefix_with_zero_or_more_errors_before_each_ok",
+      "physical_attempts": 35,
+      "successful_prefix": 35,
+      "errors": 0,
+      "recovered_error_to_ok": 0
+    },
+    "evidence_snapshot": {
+      "manifest_sha256": "f21eb8e5e939be4c3c8df3cfbe3994640273566a1601fb43553f73b69aed2dae",
+      "expected_inputs_sha256": "21e556dd791960afde6cc900d9aba79da61a1a935c6da7b0e0928d3f6b26afa0",
+      "results_sha256": "7b046a78ce82a728712490c6ed8d4d3fa67ab4d97b09293e867a540f0d23bfb1",
+      "runtime_summary_sha256": "0ddf6f838c49437b575a0fc65ee6500bb38ddc4133eefd3109597f9a4d4ebcd5",
+      "dataset_manifest_sha256": "b2bbf3eb7a835f9c729cdffe29a40247225125779fe21551270fefe95d667c7f",
+      "artifact_inventory_sha256": "a69a086ad1eb00227b1df7bbb5ddf530169a43b53eb980e51601b9987faba3b5"
+    }
+  },
+  "selection": {
+    "selected_images": 35,
+    "per_condition": 5,
+    "selected_ids_sha256": "b420bc581386a540b742d917d60d007f0e5522b6cca43fa217797944c40667e5",
+    "t2_applicable_images": 20,
+    "t2_not_applicable_images": 15
+  },
+  "recorded_runtime_exact": true,
+  "comparison": {
+    "images_compared": 35,
+    "t2_applicable_images_compared": 20,
+    "t2_not_applicable_images_compared": 15,
+    "computational_result_projection_exact": true,
+    "raw_logits_file_bytes_exact": true,
+    "model_score_map_file_bytes_exact": true,
+    "native_score_map_png_file_bytes_exact": true,
+    "applicable_threshold_png_file_bytes_exact": true,
+    "fullframe_masks_absent_in_both_runs": true,
+    "t1_scores_exact": true,
+    "strict_localization_summaries_exact": true,
+    "stateful_selected_order_exact": true
+  },
+  "numerical_golden_boundary": {
+    "author_published_numerical_golden": null,
+    "smoke_A_B_is_executable_reproduction_gate": true,
+    "no_author_golden_claim_fabricated": true
+  },
+  "analyzer_source": {
+    "path": "eval/opensource/analyze_mvssnet_balanced.py",
+    "sha256": "5af8ef726f1f75951cd8adfc49e29fce08e7683b92d5dae887c4076f2889b695",
+    "bytes": 118244
+  }
+}

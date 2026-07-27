@@ -1,0 +1,292 @@
+{
+  "schema_version": "mvssnet_balanced_replay_audit_v2",
+  "status": "replay_and_smoke_audit_passed",
+  "method": "MVSS-Net (CASIAv2)",
+  "model_slug": "mvssnet_casiav2_iccv2021",
+  "run_id": "mvssnet_casiav2_iccv2021_balanced250_v1_full1775_20260727",
+  "run_manifest_fingerprint": "8a28c8fff5f18bda8d00bcbb40dc0f0b93784c67be40d8a1362a029801356cb6",
+  "audited_at": "2026-07-27T08:53:05.477691+00:00",
+  "selection": {
+    "formal_images_t1": 1775,
+    "formal_images_t2": 1025,
+    "condition_counts": {
+      "real": 275,
+      "local_mouse": 250,
+      "local_cat": 250,
+      "local_trash_can": 250,
+      "fullframe_mouse": 250,
+      "fullframe_cat": 250,
+      "fullframe_trash_can": 250
+    },
+    "selected_rows_sha256": "6b5128909eeffdbd88e61af02ca1bd191cb5460f94a23b47c87ebd0172e6d12c",
+    "selected_ids_sha256": "e4418d86461f889e4a4423f26aab63243e6f63a435a49624881c34979b812e41",
+    "fullframe_t2_not_applicable_images": 750
+  },
+  "coverage": {
+    "expected_images": 1775,
+    "physical_attempts": 1775,
+    "result_images": 1775,
+    "valid_images": 1775,
+    "error_images": 0,
+    "missing_images": 0,
+    "superseded_attempts": 0,
+    "coverage_fraction": 1.0,
+    "success_fraction": 1.0,
+    "is_complete": true,
+    "counts_by_condition": {
+      "real": {
+        "expected_images": 275,
+        "result_images": 275,
+        "valid_images": 275,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "local_mouse": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "local_cat": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "local_trash_can": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "fullframe_mouse": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "fullframe_cat": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "fullframe_trash_can": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      }
+    }
+  },
+  "stateful_history": {
+    "policy": "exact_selected_prefix_with_zero_or_more_errors_before_each_ok",
+    "physical_attempts": 1775,
+    "successful_prefix": 1775,
+    "errors": 0,
+    "recovered_error_to_ok": 0
+  },
+  "evidence_snapshot": {
+    "manifest_sha256": "86a77afdc647c8b251e34b10140742f779de8f4758cc29940e3b08eb37a4e5d9",
+    "expected_inputs_sha256": "6b5128909eeffdbd88e61af02ca1bd191cb5460f94a23b47c87ebd0172e6d12c",
+    "results_sha256": "e5d169b9ffaa3912358eb0e2c7e024369f2f246322ecf758384d839183df2740",
+    "runtime_summary_sha256": "c7aaea6bfcea03ca15f7d2dbb882b880b305547e3ba1dde702a59e532f8bfd72",
+    "dataset_manifest_sha256": "b2bbf3eb7a835f9c729cdffe29a40247225125779fe21551270fefe95d667c7f",
+    "artifact_inventory_sha256": "3fdfb58f29f0df671e3a136f93093f4a57c545885c844716feabb160ecff7f4b"
+  },
+  "independent_provenance": {
+    "source_exact_and_clean": true,
+    "source_commit": "cc2aed77a823723015f95e4a6a3e344f3ddb7ccc",
+    "source_bound_files": 10,
+    "checkpoint_sha256": "080bc6c3aae59f748b547dbf090786fe9d31a6e50749daaa40871e298d6a7e50",
+    "checkpoint_bytes": 588270735,
+    "mouse_reference_files": 5,
+    "analysis_environment_exact": true,
+    "source_and_checkpoint_unchanged_after_replay": true
+  },
+  "independent_structural_golden": {
+    "status": "independent_cpu_structural_golden_passed",
+    "kind": "checkpoint_schema_and_strict_model_load_no_forward",
+    "author_published_numerical_golden": null,
+    "author_published_numerical_golden_available": false,
+    "reason": "official MVSS-Net release provides checkpoint/inference code but no frozen numerical output fixture for this checkpoint",
+    "construction_device": "cpu",
+    "model_forwards": 0,
+    "cuda_initialized_before": false,
+    "cuda_initialized_after": false,
+    "checkpoint_audit_sha256": "e128446dfaec60d06d48f1841bfcae7bdfa11a5a861a1cb8396a3fa19c8e5ff8",
+    "model_audit_sha256": "ba9cb85444292a9183d99abb89b1acf9469ab4634e0e05ffe7794d51e2c15a46",
+    "executable_numeric_gates": [
+      "frozen_smoke_A_B_exact_reproduction",
+      "formal_full_stateful_sequence_exact_fresh_replay"
+    ]
+  },
+  "smoke_A_B": {
+    "status": "exact_reproduction_passed",
+    "schema_version": "mvssnet_balanced_smoke_comparison_v2",
+    "comparison": {
+      "images_compared": 35,
+      "t2_applicable_images_compared": 20,
+      "t2_not_applicable_images_compared": 15,
+      "computational_result_projection_exact": true,
+      "raw_logits_file_bytes_exact": true,
+      "model_score_map_file_bytes_exact": true,
+      "native_score_map_png_file_bytes_exact": true,
+      "applicable_threshold_png_file_bytes_exact": true,
+      "fullframe_masks_absent_in_both_runs": true,
+      "t1_scores_exact": true,
+      "strict_localization_summaries_exact": true,
+      "stateful_selected_order_exact": true
+    },
+    "output_path": "results/opensource/mvssnet/_reports/mvssnet_casiav2_iccv2021_balanced250_v1_smoke5x7_a_20260727__vs__mvssnet_casiav2_iccv2021_balanced250_v1_smoke5x7_b_20260727_comparison.json",
+    "output_sha256": "90ba89b69d8f482c3ed2a92ee66d480deffad74816cd48a7b96d1352530516bd"
+  },
+  "recorded_runtime": {
+    "device": "cuda:0",
+    "device_type": "cuda",
+    "gpu_name": "NVIDIA L20Z",
+    "gpu_compute_capability": [
+      9,
+      0
+    ],
+    "gpu_total_memory_bytes": 85017624576,
+    "torch_version": "2.8.0.dev20250627+cu128",
+    "torch_cuda_version": "12.8",
+    "precision": "float32",
+    "batch_size": 1,
+    "autocast": false,
+    "apex": false,
+    "seed": 42,
+    "deterministic_algorithms": true,
+    "cudnn_deterministic": true,
+    "cudnn_benchmark": false,
+    "matmul_tf32": false,
+    "cudnn_tf32": false,
+    "cublas_workspace_config": ":4096:8",
+    "contract_sha256": "66217f63e580086ea907f5e155e4ef2bebf3ee4a492690b72e83891cf7de6147"
+  },
+  "recorded_runtime_reproduced": {
+    "device": "cuda:0",
+    "device_type": "cuda",
+    "gpu_name": "NVIDIA L20Z",
+    "gpu_compute_capability": [
+      9,
+      0
+    ],
+    "gpu_total_memory_bytes": 85017624576,
+    "torch_version": "2.8.0.dev20250627+cu128",
+    "torch_cuda_version": "12.8",
+    "precision": "float32",
+    "batch_size": 1,
+    "autocast": false,
+    "apex": false,
+    "seed": 42,
+    "deterministic_algorithms": true,
+    "cudnn_deterministic": true,
+    "cudnn_benchmark": false,
+    "matmul_tf32": false,
+    "cudnn_tf32": false,
+    "cublas_workspace_config": ":4096:8",
+    "contract_sha256": "66217f63e580086ea907f5e155e4ef2bebf3ee4a492690b72e83891cf7de6147"
+  },
+  "artifact_audit": {
+    "raw_logits_float32_verified": 1775,
+    "model_probability_maps_float32_verified": 1775,
+    "official_native_uint8_maps_verified": 1775,
+    "native_threshold_png_masks_verified": 1025,
+    "fullframe_masks_absent": 750,
+    "all_paths_canonical": true,
+    "all_file_hashes_exact": true,
+    "all_array_hashes_exact": true,
+    "all_shapes_and_dtypes_exact": true,
+    "all_values_finite": true,
+    "model_maps_in_unit_interval": true,
+    "logit_to_sigmoid_static_sanity_exact_within_recorded_tolerance": true,
+    "official_quantize_before_resize_postprocess_exact": true,
+    "applicable_png_exact_native_score_strict_gt_0_5": true,
+    "model_and_native_strict_localization_recomputed": 1025,
+    "fullframe_localization_metrics_absent": true
+  },
+  "metrics": {
+    "schema_version": "mvssnet_balanced250_summary_v2",
+    "t1_schema_version": "balanced250_t1_summary_v1",
+    "t2_schema_version": "balanced250_t2_summary_v1",
+    "bootstrap_iterations": 1000,
+    "bootstrap_seed": 20260726,
+    "shared_balanced250_metrics_only": true,
+    "metrics_sha256": "57068b9f37b1895b8486f7ced92648372237b566db395fb652d6629b2662f321",
+    "shared_t2_ge_equivalent_to_official_gt_on_uint8_divide_255": true
+  },
+  "fresh_model_replay": {
+    "status": "fresh_full_stateful_model_replay_exact",
+    "fresh_model_instances": 1,
+    "selected_images_freshly_reopened": 1775,
+    "selected_images_freshly_preprocessed": 1775,
+    "model_forwards_in_selected_order": 1775,
+    "bayar_prefix_replayed_from_checkpoint": 1775,
+    "raw_logits_compared_exact": 1775,
+    "model_score_maps_compared_exact": 1775,
+    "native_score_maps_rederived_exact": 1775,
+    "t1_score_payloads_compared_exact": 1775,
+    "applicable_masks_rederived_exact": 1025,
+    "fullframe_masks_not_created": 750,
+    "maximum_raw_logits_abs_diff": 0.0,
+    "maximum_model_score_map_abs_diff": 0.0,
+    "maximum_native_score_map_abs_diff": 0.0,
+    "maximum_static_cpu_sigmoid_abs_diff": 8.940696716308594e-08
+  },
+  "fresh_model_metrics_exact": true,
+  "fresh_model_metrics_equivalence_proof": {
+    "t1_inputs": "all_1775_score_payloads_exact",
+    "t2_inputs": "all_1025_applicable_native_score_maps_exact",
+    "stateful_model_instances": 1,
+    "ordered_forwards": 1775,
+    "metric_reducer_rerun_on_identical_inputs": false
+  },
+  "scientific_boundaries": {
+    "t1_uses_all_1775_images": true,
+    "t2_uses_only_real_and_local_1025_images": true,
+    "fullframe_t2_is_not_applicable": true,
+    "fullframe_diagnostic_maps_are_not_t2_results": true,
+    "primary_t1_is_model_512_global_max_not_native_png_max": true,
+    "official_bgr_normalization_order_preserved": true,
+    "bayar_kernel_state_requires_ordered_prefix_replay": true,
+    "apex_O1_not_used": true,
+    "float32_deterministic_runtime_required": true,
+    "author_published_numeric_golden_available": false,
+    "no_numeric_golden_was_fabricated": true,
+    "fresh_full_stateful_model_replay_is_default": true,
+    "frozen_A_B_smoke_comparison_is_default": true
+  },
+  "license": {
+    "classification": "source_available_research_release_no_grant_found",
+    "commercial_use_cleared": false,
+    "redistribution_cleared": false,
+    "no_license_file_or_separate_checkpoint_terms_found": true,
+    "benchmark_execution_does_not_establish_permission": true
+  },
+  "release_eligibility": {
+    "scientific_artifact_audit_passed": true,
+    "full_reproduction_gates_passed": true,
+    "commercial_release_cleared": false,
+    "blocking_reason": "no explicit source/checkpoint commercial or redistribution grant was found"
+  },
+  "analyzer_source": {
+    "path": "eval/opensource/analyze_mvssnet_balanced.py",
+    "bytes": 118244,
+    "sha256": "5af8ef726f1f75951cd8adfc49e29fce08e7683b92d5dae887c4076f2889b695"
+  },
+  "artifacts": {
+    "metrics_path": "results/opensource/mvssnet/mvssnet_casiav2_iccv2021_balanced250_v1_full1775_20260727/balanced250_metrics.json",
+    "metrics_sha256": "57068b9f37b1895b8486f7ced92648372237b566db395fb652d6629b2662f321",
+    "audit_path": "results/opensource/mvssnet/mvssnet_casiav2_iccv2021_balanced250_v1_full1775_20260727/independent_audit.json",
+    "smoke_comparison_path": "results/opensource/mvssnet/_reports/mvssnet_casiav2_iccv2021_balanced250_v1_smoke5x7_a_20260727__vs__mvssnet_casiav2_iccv2021_balanced250_v1_smoke5x7_b_20260727_comparison.json",
+    "smoke_comparison_sha256": "90ba89b69d8f482c3ed2a92ee66d480deffad74816cd48a7b96d1352530516bd"
+  }
+}
