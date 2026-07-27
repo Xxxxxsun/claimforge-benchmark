@@ -1,0 +1,2027 @@
+{
+  "schema_version": "omniaid_balanced_run_manifest_v2",
+  "run_id": "omniaid_dino_v2_mirage_auto_balanced250_v1_smoke5x7_b_20260727",
+  "status": "complete",
+  "started_at": "2026-07-27T07:10:14.963496+00:00",
+  "completed_at": "2026-07-27T07:10:26.076663+00:00",
+  "fingerprint": "e190f11a22a2bc5d391b5f7a74ea059ffdf4595a33b9d1e8508c24c556df45e0",
+  "immutable": {
+    "schema_version": "omniaid_balanced_run_config_v2",
+    "run_id": "omniaid_dino_v2_mirage_auto_balanced250_v1_smoke5x7_b_20260727",
+    "mode": "smoke",
+    "adapter_sources": {
+      ".gitignore": {
+        "path": ".gitignore",
+        "bytes": 311,
+        "sha256": "24adf8db167f8a62162cb751f7311fec740eeb0d225eb6fda3a93352423a14a9"
+      },
+      "eval/__init__.py": {
+        "path": "eval/__init__.py",
+        "bytes": 39,
+        "sha256": "a2bd81a9d6f3abac7a071143ac4f0593fb5ed324b8962e5f08f931848b2573d5"
+      },
+      "eval/opensource/__init__.py": {
+        "path": "eval/opensource/__init__.py",
+        "bytes": 64,
+        "sha256": "3e6e8b6812a56d04ca7d2a855b0bcd458921151ad00432a25219dc7c15ffc1c9"
+      },
+      "eval/opensource/run_omniaid_balanced.py": {
+        "path": "eval/opensource/run_omniaid_balanced.py",
+        "bytes": 112756,
+        "sha256": "b6b7e02e2e8f5dc8ccc8e90e41dfc7de78f2e0a26ed9e7941143a23df843b016"
+      },
+      "eval/opensource/analyze_omniaid_balanced.py": {
+        "path": "eval/opensource/analyze_omniaid_balanced.py",
+        "bytes": 126139,
+        "sha256": "457784137bccf47f1eb89db441c8f8c8100c49e663e55dab20eed474c63db709"
+      },
+      "eval/opensource/run_omniaid.py": {
+        "path": "eval/opensource/run_omniaid.py",
+        "bytes": 78065,
+        "sha256": "9470e71403582517914462f968e44533281c8ca2aa5b8614b20819b17870af1c"
+      },
+      "eval/opensource/analyze_omniaid_run.py": {
+        "path": "eval/opensource/analyze_omniaid_run.py",
+        "bytes": 68618,
+        "sha256": "4b3e7e8a1dfaaa0ff4b357a3264ccab7a409df1c507b74ec725510ad0ed589b3"
+      },
+      "eval/opensource/omniaid_metrics.py": {
+        "path": "eval/opensource/omniaid_metrics.py",
+        "bytes": 10409,
+        "sha256": "899fa7d512f661ed1f4d9ac7677cc857317513509db4461083bd61426fc3c2c4"
+      },
+      "eval/opensource/ufd_metrics.py": {
+        "path": "eval/opensource/ufd_metrics.py",
+        "bytes": 36675,
+        "sha256": "2ac33d7eafe2b33913f671cfa8304233421609bf5eac05186ef4556f729d7347"
+      },
+      "eval/opensource/canonical_release.py": {
+        "path": "eval/opensource/canonical_release.py",
+        "bytes": 58518,
+        "sha256": "6f4261dd2bc5335722aae253d851c363f663aa89cf42913647931d9cc60ac892"
+      },
+      "eval/opensource/balanced_run_contract.py": {
+        "path": "eval/opensource/balanced_run_contract.py",
+        "bytes": 43859,
+        "sha256": "95d9e648840ce648fd75d441d440e33ca2b9ede509aa548f040c4ac1bc4356b6"
+      },
+      "eval/opensource/balanced250_metrics.py": {
+        "path": "eval/opensource/balanced250_metrics.py",
+        "bytes": 60607,
+        "sha256": "f3932099bb63b766f063a66684e1d45f6e12601337d73859591d79297dbbed1c"
+      },
+      "eval/opensource/common.py": {
+        "path": "eval/opensource/common.py",
+        "bytes": 2800,
+        "sha256": "66ee7134e8398bb8121034fb7f9aef007137a09e03426af24e0faae886188c9f"
+      }
+    },
+    "model": {
+      "name": "OmniAID",
+      "slug": "omniaid_dino_v2_mirage_auto_router",
+      "architecture": "DINOv3 ViT-L/16 feature extractor + rank-1 six-expert SVD-MoE DINOv3 ViT-L/16 + 2-class head",
+      "repository": "https://github.com/yunncheng/OmniAID",
+      "source_commit": "40749406fbcd8893c11a160edf4a72a2d4dc7056",
+      "space": "https://huggingface.co/spaces/Yunncheng/OmniAID-Demo",
+      "space_commit": "cf99ed518af8b7256854d01994d6e41165553bb3",
+      "model_repository": "https://huggingface.co/Yunncheng/OmniAID",
+      "model_revision": "279cae7398ac6636f46fc4668f755f11210b36bf",
+      "paper": "https://arxiv.org/html/2511.08423",
+      "checkpoint": {
+        "id": "official_omniaid_dino_v2_mirage_train",
+        "training_release": "Mirage-Train_plus_DDA-COCO",
+        "filename": "checkpoint_omniaid_dino_v2.pth",
+        "hf_revision": "279cae7398ac6636f46fc4668f755f11210b36bf",
+        "official_url": "https://huggingface.co/Yunncheng/OmniAID/blob/279cae7398ac6636f46fc4668f755f11210b36bf/ckpt/checkpoint_omniaid_dino_v2.pth",
+        "bytes": 3238483725,
+        "sha256": "8135cf83a7acbd3d88e457062f7ad693b1f2e27ffc8d5ae7ec73fcb5de806ea9",
+        "format": "torch_zip_training_checkpoint",
+        "top_level_keys": [
+          "model",
+          "optimizer",
+          "epoch",
+          "scaler",
+          "args"
+        ],
+        "epoch": 0,
+        "unsafe_globals_allowlisted": [
+          "argparse.Namespace"
+        ],
+        "tensor_count": 2852,
+        "state_elements": 808835239,
+        "dtype": "float32",
+        "ordered_key_sha256": "d894e539c44bfd3b036413db0e5c91d7de75552df5af2153ca4a83bc40e7d788",
+        "schema_sha256": "1b5a03a08369fa7dc5034b1b9aa8a4757295386afd3c91f093ef41b6e2c9b67d"
+      },
+      "omniaid_config": {
+        "filename": "config_omniaid_dino_v2.json",
+        "bytes": 696,
+        "sha256": "d97ded19543ca9459a86eddd4c0f08a8476dcd013a50f3bf81c4649f67536719",
+        "official_url": "https://huggingface.co/Yunncheng/OmniAID/blob/279cae7398ac6636f46fc4668f755f11210b36bf/config/config_omniaid_dino_v2.json"
+      },
+      "dinov3_base": {
+        "model_id": "facebook/dinov3-vitl16-pretrain-lvd1689m",
+        "revision": "ea8dc2863c51be0a264bab82070e3e8836b02d51",
+        "config_bytes": 745,
+        "weights_bytes": 1212559808,
+        "weights_sha256": "dcb2e45127cccbf1601e5f42fef165eea275c8e5213197e8dcf3f48822718179",
+        "access": "gated_not_downloaded_complete_weights_embedded_in_omniaid_checkpoint",
+        "license": "custom_dinov3_license",
+        "architecture_contract": {
+          "hidden_size": 1024,
+          "intermediate_size": 4096,
+          "num_hidden_layers": 24,
+          "num_attention_heads": 16,
+          "image_size": 224,
+          "patch_size": 16,
+          "hidden_act": "gelu",
+          "layer_norm_eps": 1e-05,
+          "attention_dropout": 0.0,
+          "drop_path_rate": 0.0,
+          "num_register_tokens": 4,
+          "layerscale_value": 1e-05,
+          "use_gated_mlp": false,
+          "query_bias": true,
+          "key_bias": false,
+          "value_bias": true,
+          "proj_bias": true,
+          "mlp_bias": true,
+          "rope_theta": 100.0,
+          "rope_rescale_coords": 2.0,
+          "rope_normalize_coords": "separate"
+        }
+      },
+      "license": {
+        "release_record": {
+          "repository_readme_badge": "MIT",
+          "hf_model_card_metadata": "mit",
+          "hf_space_metadata": "mit",
+          "tracked_license_file_present": false,
+          "code_license_text_verified": false,
+          "checkpoint_card_license_metadata": "mit",
+          "dinov3_base_license": "custom_dinov3_license",
+          "commercial_use_cleared": false,
+          "benchmark_role": "research_evaluation_only",
+          "note": "The repositories/cards display MIT metadata but the pinned GitHub tree has no tracked license text, and the embedded DINOv3-derived weights remain subject to Meta's custom DINOv3 license. This audit does not establish commercial-use clearance."
+        },
+        "commercial_clearance": false,
+        "research_evaluation_only": true,
+        "checkpoint_redistributed_by_benchmark": false
+      }
+    },
+    "preprocess": {
+      "profile_id": "official_omniaid_space_dino_v2_auto_router_448_v1",
+      "decoder": "Pillow.Image.open.convert_RGB",
+      "exif_transpose": false,
+      "icc_conversion": false,
+      "resize": {
+        "size": [
+          448,
+          448
+        ],
+        "implementation": "torchvision.transforms.Resize_list_hw",
+        "interpolation": "PIL_BILINEAR_default",
+        "antialias": true,
+        "preserve_aspect_ratio": false
+      },
+      "crop": null,
+      "tensor": "torchvision_ToTensor_uint8_div_255_float32",
+      "normalization_mean": [
+        0.485,
+        0.456,
+        0.406
+      ],
+      "normalization_std": [
+        0.229,
+        0.224,
+        0.225
+      ],
+      "router_mode": "Auto (Router)",
+      "manual_weights": null,
+      "batch_size": 1,
+      "autocast": false,
+      "dtype": "float32"
+    },
+    "score_spec": {
+      "key": "ai_score",
+      "direction": "higher_means_fake",
+      "fixed_threshold": 0.5,
+      "threshold_operator": ">"
+    },
+    "task_scope": {
+      "primary_task": "T1_whole_image_AIGC_detection",
+      "valid_for_t1": true,
+      "valid_for_t2": false,
+      "localization_output": null,
+      "native_dense_output": false
+    },
+    "dataset_contract": {
+      "schema_version": "opensource_run_dataset_contract_v2",
+      "release": {
+        "schema_version": "claimforge_balanced250_canonical_v1",
+        "release_kind": "balanced250",
+        "dataset_id": "claimforge-balanced250-independent-panel-jpeg-q95-v1",
+        "manifest_path": "outputs/opensource/balanced250_v1/manifest.json",
+        "manifest_sha256": "b2bbf3eb7a835f9c729cdffe29a40247225125779fe21551270fefe95d667c7f",
+        "contract_sha256": "671d1739bebf4370d26b4629ca26b56cc546a817d469ba505cc39bda8b33102c"
+      },
+      "ledgers": {
+        "inputs": {
+          "path": "outputs/opensource/balanced250_v1/inputs.jsonl",
+          "sha256": "6b5128909eeffdbd88e61af02ca1bd191cb5460f94a23b47c87ebd0172e6d12c",
+          "rows": 1775
+        },
+        "panel": {
+          "path": "outputs/opensource/balanced250_v1/panel.jsonl",
+          "sha256": "e01d7985b41cee5262a3f8b6d71420986feae96771b11c46fda98c3e72a0d424",
+          "rows": 1750
+        },
+        "source_pairs": {
+          "path": "outputs/opensource/balanced250_v1/source_pairs.jsonl",
+          "sha256": "391fdcf06eecff4cf1843ddb3688acacf52a293725c501660b7a361173b09b30",
+          "rows": 1500
+        }
+      },
+      "capability": {
+        "name": "whole_image_t1",
+        "conditions": [
+          "real",
+          "local_mouse",
+          "local_cat",
+          "local_trash_can",
+          "fullframe_mouse",
+          "fullframe_cat",
+          "fullframe_trash_can"
+        ],
+        "valid_for_t1": true,
+        "valid_for_t2": false
+      },
+      "selection": {
+        "spec": {
+          "capability": "whole_image_t1",
+          "conditions": null,
+          "per_condition_limit": 5,
+          "sample_id": null,
+          "pair_limit": null
+        },
+        "selected_images": 35,
+        "selected_ids_sha256": "b420bc581386a540b742d917d60d007f0e5522b6cca43fa217797944c40667e5",
+        "counts_by_condition": {
+          "real": 5,
+          "local_mouse": 5,
+          "local_cat": 5,
+          "local_trash_can": 5,
+          "fullframe_mouse": 5,
+          "fullframe_cat": 5,
+          "fullframe_trash_can": 5
+        }
+      },
+      "score_spec": {
+        "key": "ai_score",
+        "direction": "higher_means_fake",
+        "fixed_threshold": 0.5,
+        "threshold_operator": ">"
+      }
+    },
+    "selected_rows_sha256": "21e556dd791960afde6cc900d9aba79da61a1a935c6da7b0e0928d3f6b26afa0",
+    "selected_ids_sha256": "b420bc581386a540b742d917d60d007f0e5522b6cca43fa217797944c40667e5",
+    "visibility_census": {
+      "full": 15,
+      "not_applicable": 20
+    },
+    "source": {
+      "github": {
+        "repository": "https://github.com/yunncheng/OmniAID",
+        "path": "/root/.cache/claimforge/third_party/omniaid-40749406",
+        "commit": "40749406fbcd8893c11a160edf4a72a2d4dc7056",
+        "tracked_dirty": false,
+        "tracked_license_files": [],
+        "files": {
+          "README.md": {
+            "bytes": 10749,
+            "sha256": "cbf0aee17e5da907019703361c444becffaf76e7ecae96f20cec6b4ccba4e6b7"
+          },
+          "requirements.txt": {
+            "bytes": 366,
+            "sha256": "f531378e8f4868c71e673e9ec6d83186e6b04ae62f7f89207c6706c46da7ddb8"
+          },
+          "config/config_omniaid_dino.json": {
+            "bytes": 551,
+            "sha256": "b5423615e3a8e35794bb6ee6f3603e333b366d5729a58a6d87a2f689e2b72504"
+          },
+          "models/OmniAID_DINO.py": {
+            "bytes": 32576,
+            "sha256": "e6ac608693f11ba51a833bedaa9f9e503cd03c0ffc64198e71496b951632ead1"
+          },
+          "reward/omniaid-dino.py": {
+            "bytes": 13666,
+            "sha256": "000ff8d6e794f3a9242c4565d094b569e3e671566ce76e4cf010bcd1a3efa7f6"
+          },
+          "reward/clean_test.py": {
+            "bytes": 5868,
+            "sha256": "e7ca2bc02485ce15c680bd8af296c654b9bd4f5147669f95bf960dbb61fffa24"
+          }
+        }
+      },
+      "space": {
+        "repository": "https://huggingface.co/spaces/Yunncheng/OmniAID-Demo",
+        "path": "/root/.cache/claimforge/third_party/omniaid-space-cf99ed51",
+        "commit": "cf99ed518af8b7256854d01994d6e41165553bb3",
+        "tracked_dirty": false,
+        "tracked_license_files": [],
+        "files": {
+          "README.md": {
+            "bytes": 3083,
+            "sha256": "344d460d746ac6531ba2ac80b69edca66f94d75f916e92f6db4b8dc0c1fb324e"
+          },
+          "app.py": {
+            "bytes": 12554,
+            "sha256": "4c1ac7b4eb1850beb97cd4db02105b4034052e3e8a5a96e8c278305561b5f8f2"
+          },
+          "requirements.txt": {
+            "bytes": 366,
+            "sha256": "f531378e8f4868c71e673e9ec6d83186e6b04ae62f7f89207c6706c46da7ddb8"
+          },
+          "config/config_omniaid_dino_v2.json": {
+            "bytes": 696,
+            "sha256": "d97ded19543ca9459a86eddd4c0f08a8476dcd013a50f3bf81c4649f67536719"
+          },
+          "model/omniaid-dino.py": {
+            "bytes": 14751,
+            "sha256": "046d5cf55238a20ec969a4b471aaefbfcf57eeac9f599932dd4e46ef7c63b8fe"
+          },
+          "examples/fake_0.jpg": {
+            "bytes": 27727,
+            "sha256": "c480d5f88a967b78aca6f696725b410d40bcb3cd3305ae2461e0c7da2416e2fb"
+          },
+          "examples/fake_1.jpg": {
+            "bytes": 98116,
+            "sha256": "40ab2f2e08fc6a79ffbbb5cf95a5b3184ac5786034bd362e898796d10e24aa8e"
+          },
+          "examples/real_0.jpg": {
+            "bytes": 31763,
+            "sha256": "7c0037c10f0abce429eb87c05b8e788629c6ae9660f0a8372527dcfec324546c"
+          },
+          "examples/real_1.jpg": {
+            "bytes": 14617,
+            "sha256": "0e758c21eefd95dc138502a62d3392d00d3991ebdd36030c3098f9af8f36ab89"
+          }
+        }
+      },
+      "inference_source": "space/model/omniaid-dino.py automatic-router forward"
+    },
+    "assets": {
+      "checkpoint": {
+        "id": "official_omniaid_dino_v2_mirage_train",
+        "training_release": "Mirage-Train_plus_DDA-COCO",
+        "filename": "checkpoint_omniaid_dino_v2.pth",
+        "hf_revision": "279cae7398ac6636f46fc4668f755f11210b36bf",
+        "official_url": "https://huggingface.co/Yunncheng/OmniAID/blob/279cae7398ac6636f46fc4668f755f11210b36bf/ckpt/checkpoint_omniaid_dino_v2.pth",
+        "bytes": 3238483725,
+        "sha256": "8135cf83a7acbd3d88e457062f7ad693b1f2e27ffc8d5ae7ec73fcb5de806ea9",
+        "format": "torch_zip_training_checkpoint",
+        "top_level_keys": [
+          "model",
+          "optimizer",
+          "epoch",
+          "scaler",
+          "args"
+        ],
+        "epoch": 0,
+        "unsafe_globals_allowlisted": [
+          "argparse.Namespace"
+        ],
+        "tensor_count": 2852,
+        "state_elements": 808835239,
+        "dtype": "float32",
+        "ordered_key_sha256": "d894e539c44bfd3b036413db0e5c91d7de75552df5af2153ca4a83bc40e7d788",
+        "schema_sha256": "1b5a03a08369fa7dc5034b1b9aa8a4757295386afd3c91f093ef41b6e2c9b67d",
+        "path": "/root/.cache/claimforge/models/omniaid/checkpoint_omniaid_dino_v2.pth",
+        "serialization_safety": {
+          "weights_only": true,
+          "mmap": true,
+          "unsafe_globals_observed": [
+            "argparse.Namespace"
+          ],
+          "allowlist": [
+            "argparse.Namespace"
+          ],
+          "arbitrary_code_execution_enabled": false
+        },
+        "top_level_type": "dict",
+        "schema_verified": true,
+        "training_args_contract": {
+          "img_size": 448,
+          "model": "OmniAID_DINO",
+          "is_hybrid": true,
+          "training_mode": "stage2_router_training",
+          "data_path": "/mnt/shared-storage-user/ailab-bigdatasddh/datasets/Deepfake/Mirage/Mirage-Train,/mnt/shared-storage-user/ailab-bigdatasddh/datasets/Deepfake/Dual_Data_Alignment/DDA-COCO_TrainSet"
+        }
+      },
+      "omniaid_config": {
+        "filename": "config_omniaid_dino_v2.json",
+        "bytes": 696,
+        "sha256": "d97ded19543ca9459a86eddd4c0f08a8476dcd013a50f3bf81c4649f67536719",
+        "official_url": "https://huggingface.co/Yunncheng/OmniAID/blob/279cae7398ac6636f46fc4668f755f11210b36bf/config/config_omniaid_dino_v2.json",
+        "path": "/root/.cache/claimforge/models/omniaid/config_omniaid_dino_v2.json",
+        "moe_contract": {
+          "DINOV3_path": "facebook/dinov3-vitl16-pretrain-lvd1689m",
+          "num_experts": 6,
+          "rank_per_expert": 1,
+          "moe_router_hidden_dim": 256,
+          "moe_top_k": 2,
+          "gradient_checkpointing_enable": false
+        }
+      },
+      "dinov3_base": {
+        "model_id": "facebook/dinov3-vitl16-pretrain-lvd1689m",
+        "revision": "ea8dc2863c51be0a264bab82070e3e8836b02d51",
+        "config_bytes": 745,
+        "weights_bytes": 1212559808,
+        "weights_sha256": "dcb2e45127cccbf1601e5f42fef165eea275c8e5213197e8dcf3f48822718179",
+        "access": "gated_not_downloaded_complete_weights_embedded_in_omniaid_checkpoint",
+        "license": "custom_dinov3_license",
+        "architecture_contract": {
+          "hidden_size": 1024,
+          "intermediate_size": 4096,
+          "num_hidden_layers": 24,
+          "num_attention_heads": 16,
+          "image_size": 224,
+          "patch_size": 16,
+          "hidden_act": "gelu",
+          "layer_norm_eps": 1e-05,
+          "attention_dropout": 0.0,
+          "drop_path_rate": 0.0,
+          "num_register_tokens": 4,
+          "layerscale_value": 1e-05,
+          "use_gated_mlp": false,
+          "query_bias": true,
+          "key_bias": false,
+          "value_bias": true,
+          "proj_bias": true,
+          "mlp_bias": true,
+          "rope_theta": 100.0,
+          "rope_rescale_coords": 2.0,
+          "rope_normalize_coords": "separate"
+        }
+      }
+    },
+    "runtime": {
+      "device": "cuda:0",
+      "python": {
+        "implementation": "CPython",
+        "version": "3.12.3",
+        "executable": "/root/.cache/claimforge/venvs/omniaid/bin/python"
+      },
+      "venv": {
+        "prefix": "/root/.cache/claimforge/venvs/omniaid",
+        "base_prefix": "/usr",
+        "pyvenv_cfg_path": "/root/.cache/claimforge/venvs/omniaid/pyvenv.cfg",
+        "pyvenv_cfg_sha256": "5666a60cb8fef584ccb503bb9c5d6f6df51d86dfe759304236c29814d5107231",
+        "include_system_site_packages": true
+      },
+      "startup_isolation": {
+        "PYTHONHASHSEED": "0",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "NO_ALBUMENTATIONS_UPDATE": "1",
+        "PYTHONPYCACHEPREFIX": "/root/.cache/claimforge/pycache/omniaid-balanced-v2-empty",
+        "python_dont_write_bytecode": true,
+        "sys_pycache_prefix": "/root/.cache/claimforge/pycache/omniaid-balanced-v2-empty",
+        "pycache_prefix_initially_empty": true
+      },
+      "platform": "Linux-5.10.134-16.103.al8.x86_64-x86_64-with-glibc2.39",
+      "versions": {
+        "python": "3.12.3",
+        "torch": "2.8.0.dev20250627+cu128",
+        "torch_distribution": "2.8.0.dev20250627+cu128",
+        "torchvision": "0.23.0.dev20250627+cu128",
+        "torchvision_distribution": "0.23.0.dev20250627+cu128",
+        "transformers": "4.57.3",
+        "numpy": "2.2.6",
+        "Pillow": "12.0.0",
+        "huggingface-hub": "0.36.0",
+        "tokenizers": "0.22.2",
+        "safetensors": "0.5.2",
+        "setuptools": "79.0.1"
+      },
+      "module_files": {
+        "torch": {
+          "path": "/usr/local/lib/python3.12/dist-packages/torch/__init__.py",
+          "sha256": "abc68f909360770fb0dd0fc263b43ae65906bd66d1eab99cdcf5c5abf23c0e0d"
+        },
+        "torchvision": {
+          "path": "/usr/local/lib/python3.12/dist-packages/torchvision/__init__.py",
+          "sha256": "ee2c9f4110cf1203db48c42601607329ac1f19709fa91c152f8d95eb53437a73"
+        },
+        "transformers": {
+          "path": "/root/.cache/claimforge/venvs/omniaid/lib/python3.12/site-packages/transformers/__init__.py",
+          "sha256": "7eb0743ed843f24c1d4e8b8daf4b18249cb81403b4571a70c00be0a4c0a67bd4"
+        },
+        "numpy": {
+          "path": "/usr/local/lib/python3.12/dist-packages/numpy/__init__.py",
+          "sha256": "6ae17b070c0f70a8e3cad89a510a256942e5a1f37ea5feb120cec167ed2a6236"
+        },
+        "PIL": {
+          "path": "/root/.cache/claimforge/venvs/omniaid/lib/python3.12/site-packages/PIL/__init__.py",
+          "sha256": "43828e12947b4bf5ec8f7d1fbceb2f47de311295f8294b15794c1a54fd5f53cd"
+        },
+        "huggingface_hub": {
+          "path": "/root/.cache/claimforge/venvs/omniaid/lib/python3.12/site-packages/huggingface_hub/__init__.py",
+          "sha256": "017af8861f5bde565c6ce9f231457f63a2579f643588c09560f9ead4560f84e4"
+        },
+        "transformers.models.dinov3_vit.configuration_dinov3_vit": {
+          "path": "/root/.cache/claimforge/venvs/omniaid/lib/python3.12/site-packages/transformers/models/dinov3_vit/configuration_dinov3_vit.py",
+          "sha256": "1ac7cb889e2314e8cadf9b0bed43d42cfb05dce6d730f719be4380c8a10a8a46"
+        },
+        "transformers.models.dinov3_vit.modeling_dinov3_vit": {
+          "path": "/root/.cache/claimforge/venvs/omniaid/lib/python3.12/site-packages/transformers/models/dinov3_vit/modeling_dinov3_vit.py",
+          "sha256": "79f9cc140c1eca19d992285cecfe57faf0f1c470e6f2b296bf01f7fd94473705"
+        },
+        "transformers.models.dinov3_vit.modular_dinov3_vit": {
+          "path": "/root/.cache/claimforge/venvs/omniaid/lib/python3.12/site-packages/transformers/models/dinov3_vit/modular_dinov3_vit.py",
+          "sha256": "c2e7a9ed2faf064fe111c0f980af5a881144f65563d5ffe41b903bccba07dadb"
+        }
+      },
+      "seed": 20260725,
+      "preprocess_profile": "official_omniaid_space_dino_v2_auto_router_448_v1",
+      "dtype": "float32",
+      "batch_size": 1,
+      "autocast": false,
+      "cpu_threads": 16,
+      "deterministic_algorithms_enabled": true,
+      "deterministic_algorithms_warn_only": false,
+      "cublas_workspace_config": ":4096:8",
+      "cudnn": {
+        "enabled": true,
+        "benchmark": false,
+        "deterministic": true,
+        "allow_tf32": false
+      },
+      "matmul_allow_tf32": false,
+      "float32_matmul_precision": "highest",
+      "minimum_cuda_free_bytes": 6442450944,
+      "cuda": {
+        "runtime": "12.8",
+        "device_index": 0,
+        "device_name": "NVIDIA L20Z",
+        "total_memory_bytes": 85017624576,
+        "capability": [
+          9,
+          0
+        ]
+      }
+    },
+    "cpu_preflight": {
+      "performed_before_dataset_manifest_load": true,
+      "performed_before_accelerator_configuration": true,
+      "report": {
+        "schema_version": "omniaid_balanced_cpu_preflight_v1",
+        "status": "passed",
+        "source": {
+          "github": {
+            "repository": "https://github.com/yunncheng/OmniAID",
+            "path": "/root/.cache/claimforge/third_party/omniaid-40749406",
+            "commit": "40749406fbcd8893c11a160edf4a72a2d4dc7056",
+            "tracked_dirty": false,
+            "tracked_license_files": [],
+            "files": {
+              "README.md": {
+                "bytes": 10749,
+                "sha256": "cbf0aee17e5da907019703361c444becffaf76e7ecae96f20cec6b4ccba4e6b7"
+              },
+              "requirements.txt": {
+                "bytes": 366,
+                "sha256": "f531378e8f4868c71e673e9ec6d83186e6b04ae62f7f89207c6706c46da7ddb8"
+              },
+              "config/config_omniaid_dino.json": {
+                "bytes": 551,
+                "sha256": "b5423615e3a8e35794bb6ee6f3603e333b366d5729a58a6d87a2f689e2b72504"
+              },
+              "models/OmniAID_DINO.py": {
+                "bytes": 32576,
+                "sha256": "e6ac608693f11ba51a833bedaa9f9e503cd03c0ffc64198e71496b951632ead1"
+              },
+              "reward/omniaid-dino.py": {
+                "bytes": 13666,
+                "sha256": "000ff8d6e794f3a9242c4565d094b569e3e671566ce76e4cf010bcd1a3efa7f6"
+              },
+              "reward/clean_test.py": {
+                "bytes": 5868,
+                "sha256": "e7ca2bc02485ce15c680bd8af296c654b9bd4f5147669f95bf960dbb61fffa24"
+              }
+            }
+          },
+          "space": {
+            "repository": "https://huggingface.co/spaces/Yunncheng/OmniAID-Demo",
+            "path": "/root/.cache/claimforge/third_party/omniaid-space-cf99ed51",
+            "commit": "cf99ed518af8b7256854d01994d6e41165553bb3",
+            "tracked_dirty": false,
+            "tracked_license_files": [],
+            "files": {
+              "README.md": {
+                "bytes": 3083,
+                "sha256": "344d460d746ac6531ba2ac80b69edca66f94d75f916e92f6db4b8dc0c1fb324e"
+              },
+              "app.py": {
+                "bytes": 12554,
+                "sha256": "4c1ac7b4eb1850beb97cd4db02105b4034052e3e8a5a96e8c278305561b5f8f2"
+              },
+              "requirements.txt": {
+                "bytes": 366,
+                "sha256": "f531378e8f4868c71e673e9ec6d83186e6b04ae62f7f89207c6706c46da7ddb8"
+              },
+              "config/config_omniaid_dino_v2.json": {
+                "bytes": 696,
+                "sha256": "d97ded19543ca9459a86eddd4c0f08a8476dcd013a50f3bf81c4649f67536719"
+              },
+              "model/omniaid-dino.py": {
+                "bytes": 14751,
+                "sha256": "046d5cf55238a20ec969a4b471aaefbfcf57eeac9f599932dd4e46ef7c63b8fe"
+              },
+              "examples/fake_0.jpg": {
+                "bytes": 27727,
+                "sha256": "c480d5f88a967b78aca6f696725b410d40bcb3cd3305ae2461e0c7da2416e2fb"
+              },
+              "examples/fake_1.jpg": {
+                "bytes": 98116,
+                "sha256": "40ab2f2e08fc6a79ffbbb5cf95a5b3184ac5786034bd362e898796d10e24aa8e"
+              },
+              "examples/real_0.jpg": {
+                "bytes": 31763,
+                "sha256": "7c0037c10f0abce429eb87c05b8e788629c6ae9660f0a8372527dcfec324546c"
+              },
+              "examples/real_1.jpg": {
+                "bytes": 14617,
+                "sha256": "0e758c21eefd95dc138502a62d3392d00d3991ebdd36030c3098f9af8f36ab89"
+              }
+            }
+          },
+          "inference_source": "space/model/omniaid-dino.py automatic-router forward"
+        },
+        "assets": {
+          "checkpoint": {
+            "id": "official_omniaid_dino_v2_mirage_train",
+            "training_release": "Mirage-Train_plus_DDA-COCO",
+            "filename": "checkpoint_omniaid_dino_v2.pth",
+            "hf_revision": "279cae7398ac6636f46fc4668f755f11210b36bf",
+            "official_url": "https://huggingface.co/Yunncheng/OmniAID/blob/279cae7398ac6636f46fc4668f755f11210b36bf/ckpt/checkpoint_omniaid_dino_v2.pth",
+            "bytes": 3238483725,
+            "sha256": "8135cf83a7acbd3d88e457062f7ad693b1f2e27ffc8d5ae7ec73fcb5de806ea9",
+            "format": "torch_zip_training_checkpoint",
+            "top_level_keys": [
+              "model",
+              "optimizer",
+              "epoch",
+              "scaler",
+              "args"
+            ],
+            "epoch": 0,
+            "unsafe_globals_allowlisted": [
+              "argparse.Namespace"
+            ],
+            "tensor_count": 2852,
+            "state_elements": 808835239,
+            "dtype": "float32",
+            "ordered_key_sha256": "d894e539c44bfd3b036413db0e5c91d7de75552df5af2153ca4a83bc40e7d788",
+            "schema_sha256": "1b5a03a08369fa7dc5034b1b9aa8a4757295386afd3c91f093ef41b6e2c9b67d",
+            "path": "/root/.cache/claimforge/models/omniaid/checkpoint_omniaid_dino_v2.pth",
+            "serialization_safety": {
+              "weights_only": true,
+              "mmap": true,
+              "unsafe_globals_observed": [
+                "argparse.Namespace"
+              ],
+              "allowlist": [
+                "argparse.Namespace"
+              ],
+              "arbitrary_code_execution_enabled": false
+            },
+            "top_level_type": "dict",
+            "schema_verified": true,
+            "training_args_contract": {
+              "img_size": 448,
+              "model": "OmniAID_DINO",
+              "is_hybrid": true,
+              "training_mode": "stage2_router_training",
+              "data_path": "/mnt/shared-storage-user/ailab-bigdatasddh/datasets/Deepfake/Mirage/Mirage-Train,/mnt/shared-storage-user/ailab-bigdatasddh/datasets/Deepfake/Dual_Data_Alignment/DDA-COCO_TrainSet"
+            }
+          },
+          "omniaid_config": {
+            "filename": "config_omniaid_dino_v2.json",
+            "bytes": 696,
+            "sha256": "d97ded19543ca9459a86eddd4c0f08a8476dcd013a50f3bf81c4649f67536719",
+            "official_url": "https://huggingface.co/Yunncheng/OmniAID/blob/279cae7398ac6636f46fc4668f755f11210b36bf/config/config_omniaid_dino_v2.json",
+            "path": "/root/.cache/claimforge/models/omniaid/config_omniaid_dino_v2.json",
+            "moe_contract": {
+              "DINOV3_path": "facebook/dinov3-vitl16-pretrain-lvd1689m",
+              "num_experts": 6,
+              "rank_per_expert": 1,
+              "moe_router_hidden_dim": 256,
+              "moe_top_k": 2,
+              "gradient_checkpointing_enable": false
+            }
+          },
+          "dinov3_base": {
+            "model_id": "facebook/dinov3-vitl16-pretrain-lvd1689m",
+            "revision": "ea8dc2863c51be0a264bab82070e3e8836b02d51",
+            "config_bytes": 745,
+            "weights_bytes": 1212559808,
+            "weights_sha256": "dcb2e45127cccbf1601e5f42fef165eea275c8e5213197e8dcf3f48822718179",
+            "access": "gated_not_downloaded_complete_weights_embedded_in_omniaid_checkpoint",
+            "license": "custom_dinov3_license",
+            "architecture_contract": {
+              "hidden_size": 1024,
+              "intermediate_size": 4096,
+              "num_hidden_layers": 24,
+              "num_attention_heads": 16,
+              "image_size": 224,
+              "patch_size": 16,
+              "hidden_act": "gelu",
+              "layer_norm_eps": 1e-05,
+              "attention_dropout": 0.0,
+              "drop_path_rate": 0.0,
+              "num_register_tokens": 4,
+              "layerscale_value": 1e-05,
+              "use_gated_mlp": false,
+              "query_bias": true,
+              "key_bias": false,
+              "value_bias": true,
+              "proj_bias": true,
+              "mlp_bias": true,
+              "rope_theta": 100.0,
+              "rope_rescale_coords": 2.0,
+              "rope_normalize_coords": "separate"
+            }
+          }
+        },
+        "model_load": {
+          "constructor": "official_space_inference_class_shape_only_dinov3_base_on_meta",
+          "official_forward_formula": "weight_main plus top2 semantic rank1 experts plus always-on artifact rank1 expert",
+          "strict_load": true,
+          "missing_keys": [],
+          "unexpected_keys": [],
+          "state_entries": 2852,
+          "state_elements": 808835239,
+          "svd_modules": 96,
+          "svd_module_names": [
+            "layer.0.attention.q_proj",
+            "layer.0.attention.k_proj",
+            "layer.0.attention.v_proj",
+            "layer.0.attention.o_proj",
+            "layer.1.attention.q_proj",
+            "layer.1.attention.k_proj",
+            "layer.1.attention.v_proj",
+            "layer.1.attention.o_proj",
+            "layer.2.attention.q_proj",
+            "layer.2.attention.k_proj",
+            "layer.2.attention.v_proj",
+            "layer.2.attention.o_proj",
+            "layer.3.attention.q_proj",
+            "layer.3.attention.k_proj",
+            "layer.3.attention.v_proj",
+            "layer.3.attention.o_proj",
+            "layer.4.attention.q_proj",
+            "layer.4.attention.k_proj",
+            "layer.4.attention.v_proj",
+            "layer.4.attention.o_proj",
+            "layer.5.attention.q_proj",
+            "layer.5.attention.k_proj",
+            "layer.5.attention.v_proj",
+            "layer.5.attention.o_proj",
+            "layer.6.attention.q_proj",
+            "layer.6.attention.k_proj",
+            "layer.6.attention.v_proj",
+            "layer.6.attention.o_proj",
+            "layer.7.attention.q_proj",
+            "layer.7.attention.k_proj",
+            "layer.7.attention.v_proj",
+            "layer.7.attention.o_proj",
+            "layer.8.attention.q_proj",
+            "layer.8.attention.k_proj",
+            "layer.8.attention.v_proj",
+            "layer.8.attention.o_proj",
+            "layer.9.attention.q_proj",
+            "layer.9.attention.k_proj",
+            "layer.9.attention.v_proj",
+            "layer.9.attention.o_proj",
+            "layer.10.attention.q_proj",
+            "layer.10.attention.k_proj",
+            "layer.10.attention.v_proj",
+            "layer.10.attention.o_proj",
+            "layer.11.attention.q_proj",
+            "layer.11.attention.k_proj",
+            "layer.11.attention.v_proj",
+            "layer.11.attention.o_proj",
+            "layer.12.attention.q_proj",
+            "layer.12.attention.k_proj",
+            "layer.12.attention.v_proj",
+            "layer.12.attention.o_proj",
+            "layer.13.attention.q_proj",
+            "layer.13.attention.k_proj",
+            "layer.13.attention.v_proj",
+            "layer.13.attention.o_proj",
+            "layer.14.attention.q_proj",
+            "layer.14.attention.k_proj",
+            "layer.14.attention.v_proj",
+            "layer.14.attention.o_proj",
+            "layer.15.attention.q_proj",
+            "layer.15.attention.k_proj",
+            "layer.15.attention.v_proj",
+            "layer.15.attention.o_proj",
+            "layer.16.attention.q_proj",
+            "layer.16.attention.k_proj",
+            "layer.16.attention.v_proj",
+            "layer.16.attention.o_proj",
+            "layer.17.attention.q_proj",
+            "layer.17.attention.k_proj",
+            "layer.17.attention.v_proj",
+            "layer.17.attention.o_proj",
+            "layer.18.attention.q_proj",
+            "layer.18.attention.k_proj",
+            "layer.18.attention.v_proj",
+            "layer.18.attention.o_proj",
+            "layer.19.attention.q_proj",
+            "layer.19.attention.k_proj",
+            "layer.19.attention.v_proj",
+            "layer.19.attention.o_proj",
+            "layer.20.attention.q_proj",
+            "layer.20.attention.k_proj",
+            "layer.20.attention.v_proj",
+            "layer.20.attention.o_proj",
+            "layer.21.attention.q_proj",
+            "layer.21.attention.k_proj",
+            "layer.21.attention.v_proj",
+            "layer.21.attention.o_proj",
+            "layer.22.attention.q_proj",
+            "layer.22.attention.k_proj",
+            "layer.22.attention.v_proj",
+            "layer.22.attention.o_proj",
+            "layer.23.attention.q_proj",
+            "layer.23.attention.k_proj",
+            "layer.23.attention.v_proj",
+            "layer.23.attention.o_proj"
+          ],
+          "main_rank": 1023,
+          "rank_per_expert": 1,
+          "experts": 6,
+          "semantic_experts": 5,
+          "semantic_top_k": 2,
+          "artifact_expert_index": 5,
+          "artifact_expert_always_on": true,
+          "feature_dimension": 1024,
+          "head_weight_shape": [
+            2,
+            1024
+          ],
+          "head_bias_shape": [
+            2
+          ],
+          "nonpersistent_rope_buffers_materialized": [
+            "feature_extractor.rope_embeddings.inv_freq",
+            "rope_embeddings.inv_freq"
+          ],
+          "rope_inv_freq_shape": [
+            16
+          ],
+          "base_weights_downloaded": false,
+          "checkpoint_contains_complete_feature_extractor_and_moe_state": true,
+          "parameter_count": 507041863,
+          "eval_mode": true
+        },
+        "runtime": {
+          "device": "cpu",
+          "python": {
+            "implementation": "CPython",
+            "version": "3.12.3",
+            "executable": "/root/.cache/claimforge/venvs/omniaid/bin/python"
+          },
+          "venv": {
+            "prefix": "/root/.cache/claimforge/venvs/omniaid",
+            "base_prefix": "/usr",
+            "pyvenv_cfg_path": "/root/.cache/claimforge/venvs/omniaid/pyvenv.cfg",
+            "pyvenv_cfg_sha256": "5666a60cb8fef584ccb503bb9c5d6f6df51d86dfe759304236c29814d5107231",
+            "include_system_site_packages": true
+          },
+          "startup_isolation": {
+            "PYTHONHASHSEED": "0",
+            "PYTHONDONTWRITEBYTECODE": "1",
+            "NO_ALBUMENTATIONS_UPDATE": "1",
+            "PYTHONPYCACHEPREFIX": "/root/.cache/claimforge/pycache/omniaid-balanced-v2-empty",
+            "python_dont_write_bytecode": true,
+            "sys_pycache_prefix": "/root/.cache/claimforge/pycache/omniaid-balanced-v2-empty",
+            "pycache_prefix_initially_empty": true
+          },
+          "platform": "Linux-5.10.134-16.103.al8.x86_64-x86_64-with-glibc2.39",
+          "versions": {
+            "python": "3.12.3",
+            "torch": "2.8.0.dev20250627+cu128",
+            "torch_distribution": "2.8.0.dev20250627+cu128",
+            "torchvision": "0.23.0.dev20250627+cu128",
+            "torchvision_distribution": "0.23.0.dev20250627+cu128",
+            "transformers": "4.57.3",
+            "numpy": "2.2.6",
+            "Pillow": "12.0.0",
+            "huggingface-hub": "0.36.0",
+            "tokenizers": "0.22.2",
+            "safetensors": "0.5.2",
+            "setuptools": "79.0.1"
+          },
+          "module_files": {
+            "torch": {
+              "path": "/usr/local/lib/python3.12/dist-packages/torch/__init__.py",
+              "sha256": "abc68f909360770fb0dd0fc263b43ae65906bd66d1eab99cdcf5c5abf23c0e0d"
+            },
+            "torchvision": {
+              "path": "/usr/local/lib/python3.12/dist-packages/torchvision/__init__.py",
+              "sha256": "ee2c9f4110cf1203db48c42601607329ac1f19709fa91c152f8d95eb53437a73"
+            },
+            "transformers": {
+              "path": "/root/.cache/claimforge/venvs/omniaid/lib/python3.12/site-packages/transformers/__init__.py",
+              "sha256": "7eb0743ed843f24c1d4e8b8daf4b18249cb81403b4571a70c00be0a4c0a67bd4"
+            },
+            "numpy": {
+              "path": "/usr/local/lib/python3.12/dist-packages/numpy/__init__.py",
+              "sha256": "6ae17b070c0f70a8e3cad89a510a256942e5a1f37ea5feb120cec167ed2a6236"
+            },
+            "PIL": {
+              "path": "/root/.cache/claimforge/venvs/omniaid/lib/python3.12/site-packages/PIL/__init__.py",
+              "sha256": "43828e12947b4bf5ec8f7d1fbceb2f47de311295f8294b15794c1a54fd5f53cd"
+            },
+            "huggingface_hub": {
+              "path": "/root/.cache/claimforge/venvs/omniaid/lib/python3.12/site-packages/huggingface_hub/__init__.py",
+              "sha256": "017af8861f5bde565c6ce9f231457f63a2579f643588c09560f9ead4560f84e4"
+            },
+            "transformers.models.dinov3_vit.configuration_dinov3_vit": {
+              "path": "/root/.cache/claimforge/venvs/omniaid/lib/python3.12/site-packages/transformers/models/dinov3_vit/configuration_dinov3_vit.py",
+              "sha256": "1ac7cb889e2314e8cadf9b0bed43d42cfb05dce6d730f719be4380c8a10a8a46"
+            },
+            "transformers.models.dinov3_vit.modeling_dinov3_vit": {
+              "path": "/root/.cache/claimforge/venvs/omniaid/lib/python3.12/site-packages/transformers/models/dinov3_vit/modeling_dinov3_vit.py",
+              "sha256": "79f9cc140c1eca19d992285cecfe57faf0f1c470e6f2b296bf01f7fd94473705"
+            },
+            "transformers.models.dinov3_vit.modular_dinov3_vit": {
+              "path": "/root/.cache/claimforge/venvs/omniaid/lib/python3.12/site-packages/transformers/models/dinov3_vit/modular_dinov3_vit.py",
+              "sha256": "c2e7a9ed2faf064fe111c0f980af5a881144f65563d5ffe41b903bccba07dadb"
+            }
+          },
+          "seed": 20260725,
+          "preprocess_profile": "official_omniaid_space_dino_v2_auto_router_448_v1",
+          "dtype": "float32",
+          "batch_size": 1,
+          "autocast": false,
+          "cpu_threads": 16,
+          "deterministic_algorithms_enabled": true,
+          "deterministic_algorithms_warn_only": false,
+          "cublas_workspace_config": ":4096:8",
+          "cudnn": {
+            "enabled": true,
+            "benchmark": false,
+            "deterministic": true,
+            "allow_tf32": false
+          },
+          "matmul_allow_tf32": false,
+          "float32_matmul_precision": "highest",
+          "minimum_cuda_free_bytes": 6442450944
+        },
+        "official_golden": {
+          "status": "passed",
+          "kind": "official_space_examples_plus_observed_official_service_oracle_not_author_published_numeric_golden",
+          "device_family": "cpu",
+          "runtime_abs_tolerance": 1e-05,
+          "official_service_abs_tolerance": 5e-05,
+          "official_service_observed_at": "2026-07-25",
+          "cases": [
+            {
+              "path": "examples/real_0.jpg",
+              "input_sha256": "7c0037c10f0abce429eb87c05b8e788629c6ae9660f0a8372527dcfec324546c",
+              "preprocess": {
+                "decode": "PIL.Image.open_then_convert_RGB",
+                "exif_transpose": false,
+                "native_shape_hwc": [
+                  751,
+                  500,
+                  3
+                ],
+                "native_width": 500,
+                "native_height": 751,
+                "decoded_rgb_sha256": "221962ba61644669c7980b79f8241aaf29241aa3e95e731bf366f72a0ea640e4",
+                "resize": {
+                  "output_wh": [
+                    448,
+                    448
+                  ],
+                  "implementation": "torchvision.transforms.Resize_list_hw",
+                  "interpolation": "PIL_BILINEAR_default",
+                  "antialias": true,
+                  "preserve_aspect_ratio": false,
+                  "crop": null,
+                  "face_alignment": false
+                },
+                "resized_rgb_sha256": "fbcc74ff94685616c29363ad2d47b249365f66a2ec57921c0798312d1ca79bff",
+                "to_tensor": "torchvision.transforms.ToTensor_uint8_divide_255_CHW",
+                "normalization_mean": [
+                  0.485,
+                  0.456,
+                  0.406
+                ],
+                "normalization_std": [
+                  0.229,
+                  0.224,
+                  0.225
+                ],
+                "tensor_shape": [
+                  3,
+                  448,
+                  448
+                ],
+                "tensor_dtype": "float32",
+                "tensor_sha256": "f1c62f1ebc1e1e5c9808a3bec62b7f5151f3ddb701039f7f7d53a9d59d0c335a"
+              },
+              "logits": [
+                0.8654325008392334,
+                -0.2874450087547302
+              ],
+              "fake_probability": 0.23996387422084808,
+              "final_expert_gates": [
+                0.4042757749557495,
+                0.0,
+                0.5957242846488953,
+                0.0,
+                0.0,
+                1.0
+              ],
+              "array_sha256": {
+                "pooler_output": "8d28cc368e1c21880b45f0361acbb46d869e98095cdd1f8c9656f8a875f30287",
+                "class_logits": "eee78c88cde70e714daff29dc181ef7a8379ca3a6b443eee9ee71400aeff27cd",
+                "routing_feature": "788a4110e727299fb75fda470df9c94f8c33f35ebc9f1058f9a2b903cb7e6638",
+                "semantic_top_k_indices": "b1535c7783ea8829b6b0cf67704539798b4d16c39bf0bfe09494c5d9f12eee30",
+                "semantic_top_k_gates": "3ca5b742005ab9229059a447910488a44120f3e38dd6f268f685874671a79851",
+                "final_gates": "7eba339327493dee0106b10c49c151f56e965c036fa8b890778186c22638dfed"
+              },
+              "repeat_all_arrays_exact": true,
+              "observed_official_service_probability": 0.23996350169181824,
+              "official_service_probability_abs_diff": 3.725290298461914e-07,
+              "frozen_runtime_logit_max_abs_diff": null,
+              "frozen_runtime_probability_abs_diff": null,
+              "frozen_runtime_gate_max_abs_diff": null
+            },
+            {
+              "path": "examples/real_1.jpg",
+              "input_sha256": "0e758c21eefd95dc138502a62d3392d00d3991ebdd36030c3098f9af8f36ab89",
+              "preprocess": {
+                "decode": "PIL.Image.open_then_convert_RGB",
+                "exif_transpose": false,
+                "native_shape_hwc": [
+                  625,
+                  500,
+                  3
+                ],
+                "native_width": 500,
+                "native_height": 625,
+                "decoded_rgb_sha256": "374ce4cd0946c68454ae7b35b7516650f5623e4d4fd8924662c47b960af6ee94",
+                "resize": {
+                  "output_wh": [
+                    448,
+                    448
+                  ],
+                  "implementation": "torchvision.transforms.Resize_list_hw",
+                  "interpolation": "PIL_BILINEAR_default",
+                  "antialias": true,
+                  "preserve_aspect_ratio": false,
+                  "crop": null,
+                  "face_alignment": false
+                },
+                "resized_rgb_sha256": "ef5c696c56f284ae0e78633eac38d65d37433191cfecf9c0800d1b6fb6e284f1",
+                "to_tensor": "torchvision.transforms.ToTensor_uint8_divide_255_CHW",
+                "normalization_mean": [
+                  0.485,
+                  0.456,
+                  0.406
+                ],
+                "normalization_std": [
+                  0.229,
+                  0.224,
+                  0.225
+                ],
+                "tensor_shape": [
+                  3,
+                  448,
+                  448
+                ],
+                "tensor_dtype": "float32",
+                "tensor_sha256": "59615b03c329825bb351dda4ba34e413b723c10d68d4ba8ddcc74b4b92b6719f"
+              },
+              "logits": [
+                1.2692692279815674,
+                -1.1997711658477783
+              ],
+              "fake_probability": 0.07805726677179337,
+              "final_expert_gates": [
+                0.8894946575164795,
+                0.0,
+                0.0,
+                0.1105053648352623,
+                0.0,
+                1.0
+              ],
+              "array_sha256": {
+                "pooler_output": "044bfa4837e254973fb5df4da5de28cd4f58dd5b103afbfd6c72e2229d384dbc",
+                "class_logits": "cf336c2140362f8263d5a40ce1d002d9fde268cf3ec44fcabf442a27e4f10691",
+                "routing_feature": "b5f70dc5c3df4296126d53008eb8363498cb876643bfe764d409e9bdc6f8f6c9",
+                "semantic_top_k_indices": "96fb5e4a2704b410bbf097c41e40ff8118ef0bc819ccf4344f31f694d12d536a",
+                "semantic_top_k_gates": "c0ce3d9ea75a0d446cbd340882ae467f1bfb4338e2254508de6761c312a7afaf",
+                "final_gates": "307b066a3f5e14a131133d4b3cabeb5f9677127ae6a1dd75f01170080613c8ac"
+              },
+              "repeat_all_arrays_exact": true,
+              "observed_official_service_probability": 0.07805733382701874,
+              "official_service_probability_abs_diff": 6.705522537231445e-08,
+              "frozen_runtime_logit_max_abs_diff": null,
+              "frozen_runtime_probability_abs_diff": null,
+              "frozen_runtime_gate_max_abs_diff": null
+            },
+            {
+              "path": "examples/fake_0.jpg",
+              "input_sha256": "c480d5f88a967b78aca6f696725b410d40bcb3cd3305ae2461e0c7da2416e2fb",
+              "preprocess": {
+                "decode": "PIL.Image.open_then_convert_RGB",
+                "exif_transpose": false,
+                "native_shape_hwc": [
+                  675,
+                  450,
+                  3
+                ],
+                "native_width": 450,
+                "native_height": 675,
+                "decoded_rgb_sha256": "936649362cd3d1bccfb66c09f384aa0d5db33ad15a2689f3e168ae581bda60e4",
+                "resize": {
+                  "output_wh": [
+                    448,
+                    448
+                  ],
+                  "implementation": "torchvision.transforms.Resize_list_hw",
+                  "interpolation": "PIL_BILINEAR_default",
+                  "antialias": true,
+                  "preserve_aspect_ratio": false,
+                  "crop": null,
+                  "face_alignment": false
+                },
+                "resized_rgb_sha256": "918c09de4f3a06ee8ad83cb3b0118c07edeeb08809b02b4ceba8901b4422331c",
+                "to_tensor": "torchvision.transforms.ToTensor_uint8_divide_255_CHW",
+                "normalization_mean": [
+                  0.485,
+                  0.456,
+                  0.406
+                ],
+                "normalization_std": [
+                  0.229,
+                  0.224,
+                  0.225
+                ],
+                "tensor_shape": [
+                  3,
+                  448,
+                  448
+                ],
+                "tensor_dtype": "float32",
+                "tensor_sha256": "3b03a20b37597a902a0101966289e7f47ea239a6df7b54b0fba954b7cbcdcd77"
+              },
+              "logits": [
+                -1.0232189893722534,
+                0.7692219614982605
+              ],
+              "fake_probability": 0.8572262525558472,
+              "final_expert_gates": [
+                0.910078227519989,
+                0.0,
+                0.089921735227108,
+                0.0,
+                0.0,
+                1.0
+              ],
+              "array_sha256": {
+                "pooler_output": "acb487ff96400831cdc8b0aa00daef9de0bfb255d44aa62fc6da21607cfe2875",
+                "class_logits": "28a72afea570336d50c13779f8d89e74a92ea2e8eb097b5ac3b690ff981947bf",
+                "routing_feature": "dd24a22f696e9e4b8507892b8b1ce6b30618483098e9cca687705c1a9b8e3b81",
+                "semantic_top_k_indices": "c571327cb01ac1de6972713cbf6cc1fc3c2cab8b581ee0bc3fe6d8b56963fd5b",
+                "semantic_top_k_gates": "6a1dade3593d0f19934337db921ae6391279ae9944162f2ef9786357c62240bc",
+                "final_gates": "9eab9136a2363c71d213a8d59a699f46a0ada8ccd8285cb43c25f855d1ecaafb"
+              },
+              "repeat_all_arrays_exact": true,
+              "observed_official_service_probability": 0.8572260141372681,
+              "official_service_probability_abs_diff": 2.384185791015625e-07,
+              "frozen_runtime_logit_max_abs_diff": null,
+              "frozen_runtime_probability_abs_diff": null,
+              "frozen_runtime_gate_max_abs_diff": null
+            },
+            {
+              "path": "examples/fake_1.jpg",
+              "input_sha256": "40ab2f2e08fc6a79ffbbb5cf95a5b3184ac5786034bd362e898796d10e24aa8e",
+              "preprocess": {
+                "decode": "PIL.Image.open_then_convert_RGB",
+                "exif_transpose": false,
+                "native_shape_hwc": [
+                  764,
+                  764,
+                  3
+                ],
+                "native_width": 764,
+                "native_height": 764,
+                "decoded_rgb_sha256": "2e954d4a6345bc2349d486afbb98fdda407c943c7d24ba2fd4e4a30f473f5844",
+                "resize": {
+                  "output_wh": [
+                    448,
+                    448
+                  ],
+                  "implementation": "torchvision.transforms.Resize_list_hw",
+                  "interpolation": "PIL_BILINEAR_default",
+                  "antialias": true,
+                  "preserve_aspect_ratio": false,
+                  "crop": null,
+                  "face_alignment": false
+                },
+                "resized_rgb_sha256": "073b8c9b15e7c4b679ba18f98fd86be0fc3f06cd47dd1035d293e99a537cec8b",
+                "to_tensor": "torchvision.transforms.ToTensor_uint8_divide_255_CHW",
+                "normalization_mean": [
+                  0.485,
+                  0.456,
+                  0.406
+                ],
+                "normalization_std": [
+                  0.229,
+                  0.224,
+                  0.225
+                ],
+                "tensor_shape": [
+                  3,
+                  448,
+                  448
+                ],
+                "tensor_dtype": "float32",
+                "tensor_sha256": "ecf965977e557699fc7416ee96dbd52c753013c1c4cd1548036f8820d9fa4e18"
+              },
+              "logits": [
+                -0.39048415422439575,
+                0.05472393333911896
+              ],
+              "fake_probability": 0.6094993352890015,
+              "final_expert_gates": [
+                0.0,
+                0.0,
+                0.061757173389196396,
+                0.9382428526878357,
+                0.0,
+                1.0
+              ],
+              "array_sha256": {
+                "pooler_output": "429d05da1c9a98eedd3a0d6b060a00e91921bbeecf0dec151283af8e74ce9f8c",
+                "class_logits": "0f136a95a6c1c2afa88f11ec1063a4861ba58e1990d8c9755784d59b2661ce64",
+                "routing_feature": "2b8e6aded6c218ccfc2fdc4e07ad175f87f80dc9d3f07b5594ff03acd56086be",
+                "semantic_top_k_indices": "b38c612d3a2f2d9bd6f0e638bd328e6c24d1ae6d3867ffbd6c69a98d19b3b292",
+                "semantic_top_k_gates": "8ea995e3ecd17a44dd2cfa8a9f812ebc0263daaf590082ff8cbb041e76540d87",
+                "final_gates": "fb1e593c44797b4e76a05e35640893cf1a9c4c955e2a20c5cf20e7e6f9cc8be4"
+              },
+              "repeat_all_arrays_exact": true,
+              "observed_official_service_probability": 0.6094988584518433,
+              "official_service_probability_abs_diff": 4.76837158203125e-07,
+              "frozen_runtime_logit_max_abs_diff": null,
+              "frozen_runtime_probability_abs_diff": null,
+              "frozen_runtime_gate_max_abs_diff": null
+            }
+          ],
+          "mouse_model_scores_computed": 0
+        },
+        "balanced_golden": {
+          "sample_id": "2c80d38ac19c2d3b76950996",
+          "input_path": "outputs/opensource/balanced250_v1/images/2c80d38ac19c2d3b76950996.jpg",
+          "image_sha256": "12607f3cdada1480038f3d506146cdc1fa0c1c50034afda5e3a5f175433e716b",
+          "input_width": 1800,
+          "input_height": 1350,
+          "preprocess": {
+            "decode": "PIL.Image.open_then_convert_RGB",
+            "exif_transpose": false,
+            "native_shape_hwc": [
+              1350,
+              1800,
+              3
+            ],
+            "native_width": 1800,
+            "native_height": 1350,
+            "decoded_rgb_sha256": "5a4747a6e3a8313f8c9ec3dde2504bb53184666276d7e54dc5fab53ca0e7194b",
+            "resize": {
+              "output_wh": [
+                448,
+                448
+              ],
+              "implementation": "torchvision.transforms.Resize_list_hw",
+              "interpolation": "PIL_BILINEAR_default",
+              "antialias": true,
+              "preserve_aspect_ratio": false,
+              "crop": null,
+              "face_alignment": false
+            },
+            "resized_rgb_sha256": "32e2459e254b9181930ae93c2587959630807d99040bdde18f1273c0b43b0419",
+            "to_tensor": "torchvision.transforms.ToTensor_uint8_divide_255_CHW",
+            "normalization_mean": [
+              0.485,
+              0.456,
+              0.406
+            ],
+            "normalization_std": [
+              0.229,
+              0.224,
+              0.225
+            ],
+            "tensor_shape": [
+              3,
+              448,
+              448
+            ],
+            "tensor_dtype": "float32",
+            "tensor_sha256": "a8f204ec4f42f41c43c272ac5dab3799a0b5c80fece394955779de91bd6ced6e"
+          },
+          "artifact": {
+            "artifact_bytes": 9848,
+            "artifact_sha256": "43d43823ba66031847427d1a127a84bbb7afb5fa1a78c5ee07fdcdebccad443f",
+            "array_sha256": {
+              "pooler_output": "fd014afddd6c62f524e4b8db2ec377e53661aa0699664ab2aa142f342ae02a54",
+              "class_logits": "e73c405b6284e9a2cacdb73bc7e129af37197f682cb9115b8518b6bb4c5b62dd",
+              "routing_feature": "e28ea53999015dcfb0f50af0c56432b2f07a9999b37d9591efd2cc26ddd18416",
+              "semantic_top_k_indices": "b38c612d3a2f2d9bd6f0e638bd328e6c24d1ae6d3867ffbd6c69a98d19b3b292",
+              "semantic_top_k_gates": "a0ac08baaf1dfa047a3e99c770f85c7df01621ee659bac2dc7572b9b2888c9b1",
+              "final_gates": "d232fa8f75b2dff1819ce374ff27301dbb33407e7e4e4faeabe257f347aa8a38"
+            }
+          },
+          "class_logits": [
+            1.6302306652069092,
+            -1.0535809993743896
+          ],
+          "raw_logit_margin": -2.683811664581299,
+          "probability": 0.06393537670373917,
+          "ai_score": 0.06393537670373917,
+          "classification_decision": false,
+          "semantic_top_k_indices": [
+            3,
+            2
+          ],
+          "semantic_top_k_gates": [
+            0.6834401488304138,
+            0.3165598511695862
+          ],
+          "final_expert_gates": [
+            0.0,
+            0.0,
+            0.3165598511695862,
+            0.6834401488304138,
+            0.0,
+            1.0
+          ],
+          "manual_replay": {
+            "head_logits_exact": true,
+            "softmax_dtype": "float32",
+            "fake_class_index": 1,
+            "router_scatter_exact": true
+          },
+          "peak_cuda_memory_bytes": 0,
+          "repeat_artifact_sha256": "43d43823ba66031847427d1a127a84bbb7afb5fa1a78c5ee07fdcdebccad443f",
+          "repeat_array_sha256": {
+            "pooler_output": "fd014afddd6c62f524e4b8db2ec377e53661aa0699664ab2aa142f342ae02a54",
+            "class_logits": "e73c405b6284e9a2cacdb73bc7e129af37197f682cb9115b8518b6bb4c5b62dd",
+            "routing_feature": "e28ea53999015dcfb0f50af0c56432b2f07a9999b37d9591efd2cc26ddd18416",
+            "semantic_top_k_indices": "b38c612d3a2f2d9bd6f0e638bd328e6c24d1ae6d3867ffbd6c69a98d19b3b292",
+            "semantic_top_k_gates": "a0ac08baaf1dfa047a3e99c770f85c7df01621ee659bac2dc7572b9b2888c9b1",
+            "final_gates": "d232fa8f75b2dff1819ce374ff27301dbb33407e7e4e4faeabe257f347aa8a38"
+          },
+          "repeat_probability": 0.06393537670373917,
+          "repeat_byte_exact": true
+        },
+        "cuda_used": false,
+        "cuda_tensor_operations": false,
+        "cuda_initialized_before_cpu_model_load": false,
+        "cuda_initialized_after_cpu_forwards": false,
+        "dataset_manifest_loaded": false
+      }
+    },
+    "execution_model_load": {
+      "constructor": "official_space_inference_class_shape_only_dinov3_base_on_meta",
+      "official_forward_formula": "weight_main plus top2 semantic rank1 experts plus always-on artifact rank1 expert",
+      "strict_load": true,
+      "missing_keys": [],
+      "unexpected_keys": [],
+      "state_entries": 2852,
+      "state_elements": 808835239,
+      "svd_modules": 96,
+      "svd_module_names": [
+        "layer.0.attention.q_proj",
+        "layer.0.attention.k_proj",
+        "layer.0.attention.v_proj",
+        "layer.0.attention.o_proj",
+        "layer.1.attention.q_proj",
+        "layer.1.attention.k_proj",
+        "layer.1.attention.v_proj",
+        "layer.1.attention.o_proj",
+        "layer.2.attention.q_proj",
+        "layer.2.attention.k_proj",
+        "layer.2.attention.v_proj",
+        "layer.2.attention.o_proj",
+        "layer.3.attention.q_proj",
+        "layer.3.attention.k_proj",
+        "layer.3.attention.v_proj",
+        "layer.3.attention.o_proj",
+        "layer.4.attention.q_proj",
+        "layer.4.attention.k_proj",
+        "layer.4.attention.v_proj",
+        "layer.4.attention.o_proj",
+        "layer.5.attention.q_proj",
+        "layer.5.attention.k_proj",
+        "layer.5.attention.v_proj",
+        "layer.5.attention.o_proj",
+        "layer.6.attention.q_proj",
+        "layer.6.attention.k_proj",
+        "layer.6.attention.v_proj",
+        "layer.6.attention.o_proj",
+        "layer.7.attention.q_proj",
+        "layer.7.attention.k_proj",
+        "layer.7.attention.v_proj",
+        "layer.7.attention.o_proj",
+        "layer.8.attention.q_proj",
+        "layer.8.attention.k_proj",
+        "layer.8.attention.v_proj",
+        "layer.8.attention.o_proj",
+        "layer.9.attention.q_proj",
+        "layer.9.attention.k_proj",
+        "layer.9.attention.v_proj",
+        "layer.9.attention.o_proj",
+        "layer.10.attention.q_proj",
+        "layer.10.attention.k_proj",
+        "layer.10.attention.v_proj",
+        "layer.10.attention.o_proj",
+        "layer.11.attention.q_proj",
+        "layer.11.attention.k_proj",
+        "layer.11.attention.v_proj",
+        "layer.11.attention.o_proj",
+        "layer.12.attention.q_proj",
+        "layer.12.attention.k_proj",
+        "layer.12.attention.v_proj",
+        "layer.12.attention.o_proj",
+        "layer.13.attention.q_proj",
+        "layer.13.attention.k_proj",
+        "layer.13.attention.v_proj",
+        "layer.13.attention.o_proj",
+        "layer.14.attention.q_proj",
+        "layer.14.attention.k_proj",
+        "layer.14.attention.v_proj",
+        "layer.14.attention.o_proj",
+        "layer.15.attention.q_proj",
+        "layer.15.attention.k_proj",
+        "layer.15.attention.v_proj",
+        "layer.15.attention.o_proj",
+        "layer.16.attention.q_proj",
+        "layer.16.attention.k_proj",
+        "layer.16.attention.v_proj",
+        "layer.16.attention.o_proj",
+        "layer.17.attention.q_proj",
+        "layer.17.attention.k_proj",
+        "layer.17.attention.v_proj",
+        "layer.17.attention.o_proj",
+        "layer.18.attention.q_proj",
+        "layer.18.attention.k_proj",
+        "layer.18.attention.v_proj",
+        "layer.18.attention.o_proj",
+        "layer.19.attention.q_proj",
+        "layer.19.attention.k_proj",
+        "layer.19.attention.v_proj",
+        "layer.19.attention.o_proj",
+        "layer.20.attention.q_proj",
+        "layer.20.attention.k_proj",
+        "layer.20.attention.v_proj",
+        "layer.20.attention.o_proj",
+        "layer.21.attention.q_proj",
+        "layer.21.attention.k_proj",
+        "layer.21.attention.v_proj",
+        "layer.21.attention.o_proj",
+        "layer.22.attention.q_proj",
+        "layer.22.attention.k_proj",
+        "layer.22.attention.v_proj",
+        "layer.22.attention.o_proj",
+        "layer.23.attention.q_proj",
+        "layer.23.attention.k_proj",
+        "layer.23.attention.v_proj",
+        "layer.23.attention.o_proj"
+      ],
+      "main_rank": 1023,
+      "rank_per_expert": 1,
+      "experts": 6,
+      "semantic_experts": 5,
+      "semantic_top_k": 2,
+      "artifact_expert_index": 5,
+      "artifact_expert_always_on": true,
+      "feature_dimension": 1024,
+      "head_weight_shape": [
+        2,
+        1024
+      ],
+      "head_bias_shape": [
+        2
+      ],
+      "nonpersistent_rope_buffers_materialized": [
+        "feature_extractor.rope_embeddings.inv_freq",
+        "rope_embeddings.inv_freq"
+      ],
+      "rope_inv_freq_shape": [
+        16
+      ],
+      "base_weights_downloaded": false,
+      "checkpoint_contains_complete_feature_extractor_and_moe_state": true,
+      "parameter_count": 507041863,
+      "eval_mode": true
+    },
+    "execution_official_golden": {
+      "status": "passed",
+      "kind": "official_space_examples_plus_observed_official_service_oracle_not_author_published_numeric_golden",
+      "device_family": "cuda",
+      "runtime_abs_tolerance": 1e-05,
+      "official_service_abs_tolerance": 5e-05,
+      "official_service_observed_at": "2026-07-25",
+      "cases": [
+        {
+          "path": "examples/real_0.jpg",
+          "input_sha256": "7c0037c10f0abce429eb87c05b8e788629c6ae9660f0a8372527dcfec324546c",
+          "preprocess": {
+            "decode": "PIL.Image.open_then_convert_RGB",
+            "exif_transpose": false,
+            "native_shape_hwc": [
+              751,
+              500,
+              3
+            ],
+            "native_width": 500,
+            "native_height": 751,
+            "decoded_rgb_sha256": "221962ba61644669c7980b79f8241aaf29241aa3e95e731bf366f72a0ea640e4",
+            "resize": {
+              "output_wh": [
+                448,
+                448
+              ],
+              "implementation": "torchvision.transforms.Resize_list_hw",
+              "interpolation": "PIL_BILINEAR_default",
+              "antialias": true,
+              "preserve_aspect_ratio": false,
+              "crop": null,
+              "face_alignment": false
+            },
+            "resized_rgb_sha256": "fbcc74ff94685616c29363ad2d47b249365f66a2ec57921c0798312d1ca79bff",
+            "to_tensor": "torchvision.transforms.ToTensor_uint8_divide_255_CHW",
+            "normalization_mean": [
+              0.485,
+              0.456,
+              0.406
+            ],
+            "normalization_std": [
+              0.229,
+              0.224,
+              0.225
+            ],
+            "tensor_shape": [
+              3,
+              448,
+              448
+            ],
+            "tensor_dtype": "float32",
+            "tensor_sha256": "f1c62f1ebc1e1e5c9808a3bec62b7f5151f3ddb701039f7f7d53a9d59d0c335a"
+          },
+          "logits": [
+            0.8654401302337646,
+            -0.28745144605636597
+          ],
+          "fake_probability": 0.23996131122112274,
+          "final_expert_gates": [
+            0.404275506734848,
+            0.0,
+            0.5957244634628296,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "array_sha256": {
+            "pooler_output": "3696b3fc16dc817ab1944e74b521343a16bdd33efca1e29f8748b88f6ad2bac2",
+            "class_logits": "e8d2ee6642a2f765de71d3fd8540a1e6e586ab685dc9cf356656ed218bca8dfb",
+            "routing_feature": "e932386cb9bc3ad786187eec571ed1c98e7bbf6ab2784665230e55220e124159",
+            "semantic_top_k_indices": "b1535c7783ea8829b6b0cf67704539798b4d16c39bf0bfe09494c5d9f12eee30",
+            "semantic_top_k_gates": "50b16ddcde89c1e58618e23538462e57381af9cce2460c86f11b93b973152c53",
+            "final_gates": "99a506cf618df86e01c352d839ac03edb1c727ba0aa93ea2b8565c3b35619947"
+          },
+          "repeat_all_arrays_exact": true,
+          "observed_official_service_probability": 0.23996350169181824,
+          "official_service_probability_abs_diff": 2.1904706954956055e-06,
+          "frozen_runtime_logit_max_abs_diff": 0.0,
+          "frozen_runtime_probability_abs_diff": 0.0,
+          "frozen_runtime_gate_max_abs_diff": 0.0
+        },
+        {
+          "path": "examples/real_1.jpg",
+          "input_sha256": "0e758c21eefd95dc138502a62d3392d00d3991ebdd36030c3098f9af8f36ab89",
+          "preprocess": {
+            "decode": "PIL.Image.open_then_convert_RGB",
+            "exif_transpose": false,
+            "native_shape_hwc": [
+              625,
+              500,
+              3
+            ],
+            "native_width": 500,
+            "native_height": 625,
+            "decoded_rgb_sha256": "374ce4cd0946c68454ae7b35b7516650f5623e4d4fd8924662c47b960af6ee94",
+            "resize": {
+              "output_wh": [
+                448,
+                448
+              ],
+              "implementation": "torchvision.transforms.Resize_list_hw",
+              "interpolation": "PIL_BILINEAR_default",
+              "antialias": true,
+              "preserve_aspect_ratio": false,
+              "crop": null,
+              "face_alignment": false
+            },
+            "resized_rgb_sha256": "ef5c696c56f284ae0e78633eac38d65d37433191cfecf9c0800d1b6fb6e284f1",
+            "to_tensor": "torchvision.transforms.ToTensor_uint8_divide_255_CHW",
+            "normalization_mean": [
+              0.485,
+              0.456,
+              0.406
+            ],
+            "normalization_std": [
+              0.229,
+              0.224,
+              0.225
+            ],
+            "tensor_shape": [
+              3,
+              448,
+              448
+            ],
+            "tensor_dtype": "float32",
+            "tensor_sha256": "59615b03c329825bb351dda4ba34e413b723c10d68d4ba8ddcc74b4b92b6719f"
+          },
+          "logits": [
+            1.2692718505859375,
+            -1.1997699737548828
+          ],
+          "fake_probability": 0.0780571699142456,
+          "final_expert_gates": [
+            0.8894949555397034,
+            0.0,
+            0.0,
+            0.11050505936145782,
+            0.0,
+            1.0
+          ],
+          "array_sha256": {
+            "pooler_output": "2d5da1ecb5171df774645c7488d88b5cc07f1dace58f481d18a99d7e33db66f2",
+            "class_logits": "b5cca3225727a36b8d588824707d323e84cb70051d83ba40e7b86f8854ddf149",
+            "routing_feature": "72b85286b6758da29e472622e3a9e2f1739f4bb2e4d611b4b9f4d32bd4d0659e",
+            "semantic_top_k_indices": "96fb5e4a2704b410bbf097c41e40ff8118ef0bc819ccf4344f31f694d12d536a",
+            "semantic_top_k_gates": "a6110e684c7500b14bbcd3671193c88d6689d82b22b8780b4e5259d69b140a22",
+            "final_gates": "970cfa50cd4d19580baf1eea6f0791c95446809e58b9fcee137ccb660718a712"
+          },
+          "repeat_all_arrays_exact": true,
+          "observed_official_service_probability": 0.07805733382701874,
+          "official_service_probability_abs_diff": 1.6391277313232422e-07,
+          "frozen_runtime_logit_max_abs_diff": 0.0,
+          "frozen_runtime_probability_abs_diff": 0.0,
+          "frozen_runtime_gate_max_abs_diff": 0.0
+        },
+        {
+          "path": "examples/fake_0.jpg",
+          "input_sha256": "c480d5f88a967b78aca6f696725b410d40bcb3cd3305ae2461e0c7da2416e2fb",
+          "preprocess": {
+            "decode": "PIL.Image.open_then_convert_RGB",
+            "exif_transpose": false,
+            "native_shape_hwc": [
+              675,
+              450,
+              3
+            ],
+            "native_width": 450,
+            "native_height": 675,
+            "decoded_rgb_sha256": "936649362cd3d1bccfb66c09f384aa0d5db33ad15a2689f3e168ae581bda60e4",
+            "resize": {
+              "output_wh": [
+                448,
+                448
+              ],
+              "implementation": "torchvision.transforms.Resize_list_hw",
+              "interpolation": "PIL_BILINEAR_default",
+              "antialias": true,
+              "preserve_aspect_ratio": false,
+              "crop": null,
+              "face_alignment": false
+            },
+            "resized_rgb_sha256": "918c09de4f3a06ee8ad83cb3b0118c07edeeb08809b02b4ceba8901b4422331c",
+            "to_tensor": "torchvision.transforms.ToTensor_uint8_divide_255_CHW",
+            "normalization_mean": [
+              0.485,
+              0.456,
+              0.406
+            ],
+            "normalization_std": [
+              0.229,
+              0.224,
+              0.225
+            ],
+            "tensor_shape": [
+              3,
+              448,
+              448
+            ],
+            "tensor_dtype": "float32",
+            "tensor_sha256": "3b03a20b37597a902a0101966289e7f47ea239a6df7b54b0fba954b7cbcdcd77"
+          },
+          "logits": [
+            -1.02321195602417,
+            0.7692152261734009
+          ],
+          "fake_probability": 0.8572245836257935,
+          "final_expert_gates": [
+            0.9100778698921204,
+            0.0,
+            0.08992215991020203,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "array_sha256": {
+            "pooler_output": "02cfa6bbba6fa2067c44b1acab3df40e6fee10a432b71b24db0f2e55c7061efc",
+            "class_logits": "7af57b8952149f6669a0afdc6f2ec569fab2e7e6af2e2a9e2e93171021605a64",
+            "routing_feature": "53776245c03efe37d5f42361e38996917d544e74ab28d259cefd769ed8f6f9d3",
+            "semantic_top_k_indices": "c571327cb01ac1de6972713cbf6cc1fc3c2cab8b581ee0bc3fe6d8b56963fd5b",
+            "semantic_top_k_gates": "79e4e7349f8d492d50d9852da5cce07629c11c2bf0f9a1dedc43b31197dba4eb",
+            "final_gates": "5f86a23f9b72905c0c39c4ed38354a27f2fcba737755f0c46169ac5c83beb396"
+          },
+          "repeat_all_arrays_exact": true,
+          "observed_official_service_probability": 0.8572260141372681,
+          "official_service_probability_abs_diff": 1.430511474609375e-06,
+          "frozen_runtime_logit_max_abs_diff": 0.0,
+          "frozen_runtime_probability_abs_diff": 0.0,
+          "frozen_runtime_gate_max_abs_diff": 0.0
+        },
+        {
+          "path": "examples/fake_1.jpg",
+          "input_sha256": "40ab2f2e08fc6a79ffbbb5cf95a5b3184ac5786034bd362e898796d10e24aa8e",
+          "preprocess": {
+            "decode": "PIL.Image.open_then_convert_RGB",
+            "exif_transpose": false,
+            "native_shape_hwc": [
+              764,
+              764,
+              3
+            ],
+            "native_width": 764,
+            "native_height": 764,
+            "decoded_rgb_sha256": "2e954d4a6345bc2349d486afbb98fdda407c943c7d24ba2fd4e4a30f473f5844",
+            "resize": {
+              "output_wh": [
+                448,
+                448
+              ],
+              "implementation": "torchvision.transforms.Resize_list_hw",
+              "interpolation": "PIL_BILINEAR_default",
+              "antialias": true,
+              "preserve_aspect_ratio": false,
+              "crop": null,
+              "face_alignment": false
+            },
+            "resized_rgb_sha256": "073b8c9b15e7c4b679ba18f98fd86be0fc3f06cd47dd1035d293e99a537cec8b",
+            "to_tensor": "torchvision.transforms.ToTensor_uint8_divide_255_CHW",
+            "normalization_mean": [
+              0.485,
+              0.456,
+              0.406
+            ],
+            "normalization_std": [
+              0.229,
+              0.224,
+              0.225
+            ],
+            "tensor_shape": [
+              3,
+              448,
+              448
+            ],
+            "tensor_dtype": "float32",
+            "tensor_sha256": "ecf965977e557699fc7416ee96dbd52c753013c1c4cd1548036f8820d9fa4e18"
+          },
+          "logits": [
+            -0.39048659801483154,
+            0.05472652614116669
+          ],
+          "fake_probability": 0.609500527381897,
+          "final_expert_gates": [
+            0.0,
+            0.0,
+            0.06175694987177849,
+            0.9382430911064148,
+            0.0,
+            1.0
+          ],
+          "array_sha256": {
+            "pooler_output": "54feb51bbfafefc74c2a28195c393c0043fc1357351c10a0ba35d3b4dc1a3cfa",
+            "class_logits": "6c69e2a9133bdb60e52d8fe51a0c0f963c34cd1f561a2c29bde5a62bc08d60ed",
+            "routing_feature": "4e2bba167c6d5bf463e83482efcdb9f1fa2b68eee7094657564bcded90c4aa55",
+            "semantic_top_k_indices": "b38c612d3a2f2d9bd6f0e638bd328e6c24d1ae6d3867ffbd6c69a98d19b3b292",
+            "semantic_top_k_gates": "4713f8fd2a1925bd1131ef81d0ba0e896af1494e34bce5629c886f135850e1da",
+            "final_gates": "49bcf4ce7a4cddac8dabe4c50591c1c0053130a2219e5267c7fcdf4a938e8b4d"
+          },
+          "repeat_all_arrays_exact": true,
+          "observed_official_service_probability": 0.6094988584518433,
+          "official_service_probability_abs_diff": 1.6689300537109375e-06,
+          "frozen_runtime_logit_max_abs_diff": 0.0,
+          "frozen_runtime_probability_abs_diff": 0.0,
+          "frozen_runtime_gate_max_abs_diff": 0.0
+        }
+      ],
+      "mouse_model_scores_computed": 0
+    },
+    "artifact_contract": {
+      "format": "NumPy NPZ, allow_pickle=False, ZIP_STORED",
+      "keys": [
+        "pooler_output",
+        "class_logits",
+        "routing_feature",
+        "semantic_top_k_indices",
+        "semantic_top_k_gates",
+        "final_gates"
+      ],
+      "file_bytes": 9848,
+      "zip_members": {
+        "pooler_output.npy": 4224,
+        "class_logits.npy": 136,
+        "routing_feature.npy": 4224,
+        "semantic_top_k_indices.npy": 144,
+        "semantic_top_k_gates.npy": 136,
+        "final_gates.npy": 152
+      },
+      "arrays": {
+        "pooler_output": {
+          "shape": [
+            1024
+          ],
+          "dtype": "float32",
+          "nbytes": 4096
+        },
+        "class_logits": {
+          "shape": [
+            2
+          ],
+          "dtype": "float32",
+          "nbytes": 8
+        },
+        "routing_feature": {
+          "shape": [
+            1024
+          ],
+          "dtype": "float32",
+          "nbytes": 4096
+        },
+        "semantic_top_k_indices": {
+          "shape": [
+            2
+          ],
+          "dtype": "int64",
+          "nbytes": 16
+        },
+        "semantic_top_k_gates": {
+          "shape": [
+            2
+          ],
+          "dtype": "float32",
+          "nbytes": 8
+        },
+        "final_gates": {
+          "shape": [
+            6
+          ],
+          "dtype": "float32",
+          "nbytes": 24
+        }
+      },
+      "finite_float_arrays": true,
+      "head_softmax_router_scatter_replay": true,
+      "visibility": "local_only_gitignored_output"
+    },
+    "artifact_policy": {
+      "storage": "local_only",
+      "gitignored": true,
+      "artifact_root": "outputs/opensource/omniaid/omniaid_dino_v2_mirage_auto_balanced250_v1_smoke5x7_b_20260727",
+      "artifact_subdirectory": "artifacts",
+      "artifact_extension": ".npz",
+      "gitignore_path": ".gitignore",
+      "gitignore_sha256": "24adf8db167f8a62162cb751f7311fec740eeb0d225eb6fda3a93352423a14a9",
+      "checkpoint_redistributed": false
+    },
+    "outputs": {
+      "run_dir": "results/opensource/omniaid/omniaid_dino_v2_mirage_auto_balanced250_v1_smoke5x7_b_20260727",
+      "results_path": "results/opensource/omniaid/omniaid_dino_v2_mirage_auto_balanced250_v1_smoke5x7_b_20260727/results.jsonl",
+      "expected_inputs_path": "results/opensource/omniaid/omniaid_dino_v2_mirage_auto_balanced250_v1_smoke5x7_b_20260727/expected_inputs.jsonl",
+      "summary_path": "results/opensource/omniaid/omniaid_dino_v2_mirage_auto_balanced250_v1_smoke5x7_b_20260727/summary.json",
+      "artifact_root": "outputs/opensource/omniaid/omniaid_dino_v2_mirage_auto_balanced250_v1_smoke5x7_b_20260727",
+      "artifact_dir": "outputs/opensource/omniaid/omniaid_dino_v2_mirage_auto_balanced250_v1_smoke5x7_b_20260727/artifacts"
+    }
+  },
+  "dataset": {
+    "contract": {
+      "schema_version": "opensource_run_dataset_contract_v2",
+      "release": {
+        "schema_version": "claimforge_balanced250_canonical_v1",
+        "release_kind": "balanced250",
+        "dataset_id": "claimforge-balanced250-independent-panel-jpeg-q95-v1",
+        "manifest_path": "outputs/opensource/balanced250_v1/manifest.json",
+        "manifest_sha256": "b2bbf3eb7a835f9c729cdffe29a40247225125779fe21551270fefe95d667c7f",
+        "contract_sha256": "671d1739bebf4370d26b4629ca26b56cc546a817d469ba505cc39bda8b33102c"
+      },
+      "ledgers": {
+        "inputs": {
+          "path": "outputs/opensource/balanced250_v1/inputs.jsonl",
+          "sha256": "6b5128909eeffdbd88e61af02ca1bd191cb5460f94a23b47c87ebd0172e6d12c",
+          "rows": 1775
+        },
+        "panel": {
+          "path": "outputs/opensource/balanced250_v1/panel.jsonl",
+          "sha256": "e01d7985b41cee5262a3f8b6d71420986feae96771b11c46fda98c3e72a0d424",
+          "rows": 1750
+        },
+        "source_pairs": {
+          "path": "outputs/opensource/balanced250_v1/source_pairs.jsonl",
+          "sha256": "391fdcf06eecff4cf1843ddb3688acacf52a293725c501660b7a361173b09b30",
+          "rows": 1500
+        }
+      },
+      "capability": {
+        "name": "whole_image_t1",
+        "conditions": [
+          "real",
+          "local_mouse",
+          "local_cat",
+          "local_trash_can",
+          "fullframe_mouse",
+          "fullframe_cat",
+          "fullframe_trash_can"
+        ],
+        "valid_for_t1": true,
+        "valid_for_t2": false
+      },
+      "selection": {
+        "spec": {
+          "capability": "whole_image_t1",
+          "conditions": null,
+          "per_condition_limit": 5,
+          "sample_id": null,
+          "pair_limit": null
+        },
+        "selected_images": 35,
+        "selected_ids_sha256": "b420bc581386a540b742d917d60d007f0e5522b6cca43fa217797944c40667e5",
+        "counts_by_condition": {
+          "real": 5,
+          "local_mouse": 5,
+          "local_cat": 5,
+          "local_trash_can": 5,
+          "fullframe_mouse": 5,
+          "fullframe_cat": 5,
+          "fullframe_trash_can": 5
+        }
+      },
+      "score_spec": {
+        "key": "ai_score",
+        "direction": "higher_means_fake",
+        "fixed_threshold": 0.5,
+        "threshold_operator": ">"
+      }
+    },
+    "manifest_path": "outputs/opensource/balanced250_v1/manifest.json",
+    "manifest_sha256": "b2bbf3eb7a835f9c729cdffe29a40247225125779fe21551270fefe95d667c7f",
+    "expected_inputs_path": "results/opensource/omniaid/omniaid_dino_v2_mirage_auto_balanced250_v1_smoke5x7_b_20260727/expected_inputs.jsonl",
+    "expected_inputs_sha256": "21e556dd791960afde6cc900d9aba79da61a1a935c6da7b0e0928d3f6b26afa0",
+    "selected_images": 35
+  },
+  "outputs": {
+    "run_dir": "results/opensource/omniaid/omniaid_dino_v2_mirage_auto_balanced250_v1_smoke5x7_b_20260727",
+    "results_path": "results/opensource/omniaid/omniaid_dino_v2_mirage_auto_balanced250_v1_smoke5x7_b_20260727/results.jsonl",
+    "expected_inputs_path": "results/opensource/omniaid/omniaid_dino_v2_mirage_auto_balanced250_v1_smoke5x7_b_20260727/expected_inputs.jsonl",
+    "summary_path": "results/opensource/omniaid/omniaid_dino_v2_mirage_auto_balanced250_v1_smoke5x7_b_20260727/summary.json",
+    "artifact_root": "outputs/opensource/omniaid/omniaid_dino_v2_mirage_auto_balanced250_v1_smoke5x7_b_20260727",
+    "artifact_dir": "outputs/opensource/omniaid/omniaid_dino_v2_mirage_auto_balanced250_v1_smoke5x7_b_20260727/artifacts",
+    "expected_inputs_sha256": "21e556dd791960afde6cc900d9aba79da61a1a935c6da7b0e0928d3f6b26afa0",
+    "results_sha256": "8a34688d26daf07618e08c20fd4671cd0083c76e8716fd181d04a95ba968b82d",
+    "summary_sha256": "a779b8f94235973f53ee1fcbfe011538657750e9a3430429b3bcadeb9193c4db",
+    "artifact_files": 35
+  },
+  "execution": {
+    "new_successes": 35,
+    "resume_skips": 0,
+    "new_errors": 0,
+    "prior_physical_result_rows": 0,
+    "physical_result_rows": 35,
+    "latest_result_rows": 35,
+    "superseded_attempts": 0
+  }
+}

@@ -4,7 +4,7 @@
 
 **Updated:** 2026-07-27
 
-**Status:** 9/19 methods complete (8/9 whole-image, 1/10 local); next OmniAID
+**Status:** 10/19 methods complete (9/9 whole-image, 1/10 local); next TruFor
 
 **Scope:** the 19 executable open-source methods already completed on the
 Mouse benchmark: ten local-forensics methods and nine whole-image AIGC
@@ -194,8 +194,10 @@ Completed whole-image methods:
    [formal report](BFREE_BALANCED250_FULL_RESULTS_2026-07-27.md)
 8. Effort —
    [formal report](EFFORT_BALANCED250_FULL_RESULTS_2026-07-27.md)
+9. OmniAID —
+   [formal report](OMNIAID_BALANCED250_FULL_RESULTS_2026-07-27.md)
 
-Pending whole-image method, in frozen order: OmniAID.
+All nine executable whole-image methods are complete.
 
 All nine are evaluated on all seven panel conditions for T1. LTD remains
 blocked on exact official-weight access and is not counted as executable.
@@ -203,11 +205,11 @@ NFA-ViT remains the analogous blocked local method.
 
 ### Expansion progress ledger
 
-- completed: 9/19;
-- whole-image: 8/9 complete, 1 pending;
+- completed: 10/19;
+- whole-image: 9/9 complete, 0 pending;
 - local-forensics: 1/10 complete, 9 pending;
-- total remaining: 10;
-- next queued method: OmniAID.
+- total remaining: 9;
+- next queued method: TruFor.
 
 ## 6. Execution and audit order
 
@@ -250,9 +252,11 @@ The exhaustive capability-correct score cache requires 29,975 formal model
 forwards. A full fresh replay requires the same number again, for 59,950
 forwards before smoke tests.
 
-After Effort, the remaining executable queue requires 14,000 formal forwards
-and 14,000 fresh-replay forwards, or 28,000 total before smoke tests. The
-original 29,975 / 59,950 figures above remain the frozen all-method totals.
+After OmniAID, the remaining executable queue requires 12,225 formal forwards
+and 12,225 fresh-replay forwards, or 24,450 total before smoke tests. This is
+four native-T1 local methods at 1,775 inputs each plus five T2-only methods at
+1,025 applicable inputs each. The original 29,975 / 59,950 figures above
+remain the frozen all-method totals.
 
 ## 7. GPU occupancy
 
