@@ -1,0 +1,211 @@
+{
+  "schema_version": "hifi_ifdl_balanced_runtime_summary_v2",
+  "summary_kind": "runtime_coverage_and_artifact_inventory_only",
+  "scientific_metrics": null,
+  "scientific_metrics_owner": "analyze_hifi_ifdl_balanced.py",
+  "run_id": "hifi_ifdl_general750001_balanced250_v1_smoke5x7_b_r2_20260727",
+  "run_manifest_fingerprint": "c0f7dc6a9cc8a90b42f5a4ca48e7afaaf38ff824773eb4b8a17003755a297ce7",
+  "status": "complete",
+  "mode": "smoke",
+  "model": "HiFi-Net",
+  "model_slug": "hifi_ifdl_general_750001_official",
+  "score_spec": {
+    "key": "ai_score",
+    "direction": "higher_means_fake",
+    "fixed_threshold": 0.5,
+    "threshold_operator": ">"
+  },
+  "t2_spec": {
+    "valid_conditions": [
+      "real",
+      "local_mouse",
+      "local_cat",
+      "local_trash_can"
+    ],
+    "not_applicable_conditions": [
+      "fullframe_mouse",
+      "fullframe_cat",
+      "fullframe_trash_can"
+    ],
+    "model_score_map": {
+      "source": "torch.nn.PairwiseDistance_p2_eps1e-6_between_18d_embedding_and_released_authentic_center",
+      "shape": [
+        256,
+        256
+      ],
+      "dtype": "float32",
+      "range": "nonnegative_unbounded",
+      "probability": false
+    },
+    "native_score_map": {
+      "source": "bilinear_restore_raw_distance_align_corners_false",
+      "shape": "native_height_by_native_width",
+      "dtype": "float32",
+      "range": "nonnegative_unbounded",
+      "saved_for": "successful_T2_applicable_inputs_only"
+    },
+    "native_binary_mask": {
+      "threshold": 2.3,
+      "threshold_operator": ">=",
+      "encoding": "PNG_L_0_or_255",
+      "saved_for": "successful_T2_applicable_inputs_only"
+    },
+    "ground_truth": {
+      "real": "all_zero_false_positive_area",
+      "local": "exact_diff_local_insertion",
+      "fullframe": "not_applicable",
+      "fullframe_conditioning_box_is_not_ground_truth": true
+    },
+    "fullframe_dense_output": {
+      "role": "transient_diagnostic_only",
+      "saved": false,
+      "scored": false,
+      "promoted_to_image_score": false
+    }
+  },
+  "dataset_contract": {
+    "schema_version": "opensource_run_dataset_contract_v2",
+    "release": {
+      "schema_version": "claimforge_balanced250_canonical_v1",
+      "release_kind": "balanced250",
+      "dataset_id": "claimforge-balanced250-independent-panel-jpeg-q95-v1",
+      "manifest_path": "outputs/opensource/balanced250_v1/manifest.json",
+      "manifest_sha256": "b2bbf3eb7a835f9c729cdffe29a40247225125779fe21551270fefe95d667c7f",
+      "contract_sha256": "671d1739bebf4370d26b4629ca26b56cc546a817d469ba505cc39bda8b33102c"
+    },
+    "ledgers": {
+      "inputs": {
+        "path": "outputs/opensource/balanced250_v1/inputs.jsonl",
+        "sha256": "6b5128909eeffdbd88e61af02ca1bd191cb5460f94a23b47c87ebd0172e6d12c",
+        "rows": 1775
+      },
+      "panel": {
+        "path": "outputs/opensource/balanced250_v1/panel.jsonl",
+        "sha256": "e01d7985b41cee5262a3f8b6d71420986feae96771b11c46fda98c3e72a0d424",
+        "rows": 1750
+      },
+      "source_pairs": {
+        "path": "outputs/opensource/balanced250_v1/source_pairs.jsonl",
+        "sha256": "391fdcf06eecff4cf1843ddb3688acacf52a293725c501660b7a361173b09b30",
+        "rows": 1500
+      }
+    },
+    "capability": {
+      "name": "local_t1_t2",
+      "conditions": [
+        "real",
+        "local_mouse",
+        "local_cat",
+        "local_trash_can",
+        "fullframe_mouse",
+        "fullframe_cat",
+        "fullframe_trash_can"
+      ],
+      "valid_for_t1": true,
+      "valid_for_t2": true
+    },
+    "selection": {
+      "spec": {
+        "capability": "local_t1_t2",
+        "conditions": null,
+        "per_condition_limit": 5,
+        "sample_id": null,
+        "pair_limit": null
+      },
+      "selected_images": 35,
+      "selected_ids_sha256": "b420bc581386a540b742d917d60d007f0e5522b6cca43fa217797944c40667e5",
+      "counts_by_condition": {
+        "real": 5,
+        "local_mouse": 5,
+        "local_cat": 5,
+        "local_trash_can": 5,
+        "fullframe_mouse": 5,
+        "fullframe_cat": 5,
+        "fullframe_trash_can": 5
+      }
+    },
+    "score_spec": {
+      "key": "ai_score",
+      "direction": "higher_means_fake",
+      "fixed_threshold": 0.5,
+      "threshold_operator": ">"
+    }
+  },
+  "coverage": {
+    "expected_images": 35,
+    "physical_attempts": 35,
+    "result_images": 35,
+    "valid_images": 35,
+    "error_images": 0,
+    "missing_images": 0,
+    "superseded_attempts": 0,
+    "coverage_fraction": 1.0,
+    "success_fraction": 1.0,
+    "is_complete": true,
+    "counts_by_condition": {
+      "real": {
+        "expected_images": 5,
+        "result_images": 5,
+        "valid_images": 5,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "local_mouse": {
+        "expected_images": 5,
+        "result_images": 5,
+        "valid_images": 5,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "local_cat": {
+        "expected_images": 5,
+        "result_images": 5,
+        "valid_images": 5,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "local_trash_can": {
+        "expected_images": 5,
+        "result_images": 5,
+        "valid_images": 5,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "fullframe_mouse": {
+        "expected_images": 5,
+        "result_images": 5,
+        "valid_images": 5,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "fullframe_cat": {
+        "expected_images": 5,
+        "result_images": 5,
+        "valid_images": 5,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "fullframe_trash_can": {
+        "expected_images": 5,
+        "result_images": 5,
+        "valid_images": 5,
+        "error_images": 0,
+        "missing_images": 0
+      }
+    }
+  },
+  "attempt_history": {
+    "policy": "zero_or_more_errors_then_at_most_one_terminal_success_per_id",
+    "physical_attempts": 35,
+    "ids_with_attempts": 35,
+    "errors": 0,
+    "recovered_error_to_ok": 0
+  },
+  "artifact_inventory": {
+    "embeddings_model_256": 20,
+    "distance_maps_model_256": 20,
+    "distance_maps_native": 20,
+    "masks_native": 20
+  },
+  "generated_at": "2026-07-27T09:09:09.207073+00:00"
+}

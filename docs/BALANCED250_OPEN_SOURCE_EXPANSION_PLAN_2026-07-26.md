@@ -4,7 +4,7 @@
 
 **Updated:** 2026-07-27
 
-**Status:** 13/19 methods complete (9/9 whole-image, 4/10 local); next HiFi-IFDL
+**Status:** 14/19 methods complete (9/9 whole-image, 5/10 local); next CAT-Net v2
 
 **Scope:** the 19 executable open-source methods already completed on the
 Mouse benchmark: ten local-forensics methods and nine whole-image AIGC
@@ -154,9 +154,10 @@ Native T1+T2:
    [formal report](TRUFOR_BALANCED250_FULL_RESULTS_2026-07-27.md)
 3. MVSS-Net — completed and pushed; see
    [formal report](MVSSNET_BALANCED250_FULL_RESULTS_2026-07-27.md)
-4. PSCC-Net — completed; see
+4. PSCC-Net — completed and pushed; see
    [formal report](PSCCNET_BALANCED250_FULL_RESULTS_2026-07-27.md)
-5. HiFi-IFDL
+5. HiFi-IFDL — completed; see
+   [formal report](HIFI_IFDL_BALANCED250_FULL_RESULTS_2026-07-27.md)
 
 Native T2 only:
 
@@ -208,11 +209,11 @@ NFA-ViT remains the analogous blocked local method.
 
 ### Expansion progress ledger
 
-- completed: 13/19;
+- completed: 14/19;
 - whole-image: 9/9 complete, 0 pending;
-- local-forensics: 4/10 complete, 6 pending;
-- total remaining: 6;
-- next queued method: HiFi-IFDL.
+- local-forensics: 5/10 complete, 5 pending;
+- total remaining: 5;
+- next queued method: CAT-Net v2.
 
 ## 6. Execution and audit order
 

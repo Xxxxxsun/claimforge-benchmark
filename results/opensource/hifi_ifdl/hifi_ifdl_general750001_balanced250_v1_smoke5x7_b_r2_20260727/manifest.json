@@ -1,0 +1,1213 @@
+{
+  "schema_version": "hifi_ifdl_balanced_run_manifest_v2",
+  "run_id": "hifi_ifdl_general750001_balanced250_v1_smoke5x7_b_r2_20260727",
+  "status": "complete",
+  "started_at": "2026-07-27T09:08:53.720908+00:00",
+  "completed_at": "2026-07-27T09:09:09.207738+00:00",
+  "fingerprint": "c0f7dc6a9cc8a90b42f5a4ca48e7afaaf38ff824773eb4b8a17003755a297ce7",
+  "immutable": {
+    "schema_version": "hifi_ifdl_balanced_run_config_v2",
+    "run_id": "hifi_ifdl_general750001_balanced250_v1_smoke5x7_b_r2_20260727",
+    "mode": "smoke",
+    "adapter_sources": {
+      ".gitignore": {
+        "path": ".gitignore",
+        "bytes": 311,
+        "sha256": "24adf8db167f8a62162cb751f7311fec740eeb0d225eb6fda3a93352423a14a9"
+      },
+      "eval/__init__.py": {
+        "path": "eval/__init__.py",
+        "bytes": 39,
+        "sha256": "a2bd81a9d6f3abac7a071143ac4f0593fb5ed324b8962e5f08f931848b2573d5"
+      },
+      "eval/opensource/__init__.py": {
+        "path": "eval/opensource/__init__.py",
+        "bytes": 64,
+        "sha256": "3e6e8b6812a56d04ca7d2a855b0bcd458921151ad00432a25219dc7c15ffc1c9"
+      },
+      "eval/opensource/run_hifi_ifdl_balanced.py": {
+        "path": "eval/opensource/run_hifi_ifdl_balanced.py",
+        "bytes": 120430,
+        "sha256": "2e66c50f38ca38980abbf00ad293a5b0947b86fbe11c743258746a987312337b"
+      },
+      "eval/opensource/run_hifi_ifdl.py": {
+        "path": "eval/opensource/run_hifi_ifdl.py",
+        "bytes": 61030,
+        "sha256": "1eca5d96cb9fb13f82a5d885a48bb78266d07d2ef3ed214239504ab61dea6544"
+      },
+      "eval/opensource/hifi_ifdl_metrics.py": {
+        "path": "eval/opensource/hifi_ifdl_metrics.py",
+        "bytes": 45893,
+        "sha256": "27a1352600c2fb7c97d52143de27643a25cc30bef8bfb279748a76fa515ca32b"
+      },
+      "eval/opensource/canonical_release.py": {
+        "path": "eval/opensource/canonical_release.py",
+        "bytes": 58518,
+        "sha256": "6f4261dd2bc5335722aae253d851c363f663aa89cf42913647931d9cc60ac892"
+      },
+      "eval/opensource/balanced_run_contract.py": {
+        "path": "eval/opensource/balanced_run_contract.py",
+        "bytes": 43859,
+        "sha256": "95d9e648840ce648fd75d441d440e33ca2b9ede509aa548f040c4ac1bc4356b6"
+      },
+      "eval/opensource/common.py": {
+        "path": "eval/opensource/common.py",
+        "bytes": 2800,
+        "sha256": "66ee7134e8398bb8121034fb7f9aef007137a09e03426af24e0faae886188c9f"
+      }
+    },
+    "model": {
+      "name": "HiFi-Net",
+      "slug": "hifi_ifdl_general_750001_official",
+      "architecture": "HRNet_W18_small_v2_plus_nonlocal_partial_convolution_localizer_and_hierarchical_3_5_7_14_class_heads",
+      "repository": "https://github.com/CHELSEA234/HiFi_IFDL",
+      "source_commit": "0ca70d651087bb09959dec583947031c47d30209",
+      "source_tree": "f5dbb144329a048c2c03f102d441c3ef37a89a3f",
+      "checkpoint_id": "official_general_release_identifier_750001",
+      "checkpoint_bundle_sha256": "62d0b9f5e501f85558cfbdd5f797dc4e2553ce74729168921257408d735681f9",
+      "checkpoint_release": {
+        "provider": "official_author_google_drive",
+        "folder_id": "1v07aJ2hKmSmboceVwOhPvjebFMJFHyhm",
+        "released_identifier": "750001",
+        "identifier_note": "official released identifier only; this adapter does not label it as an epoch because the paper, release, and optimizer-step wording do not establish that equivalence"
+      },
+      "checkpoint_components": {
+        "feature_extractor": {
+          "original_path": "HRNet/750001.pth",
+          "file_id": "1BSg39gzlUM_odiiuV5NIJoc8f90JCCqf",
+          "bytes": 81112652,
+          "sha256": "be21278afb4e657bdafdf581d8d8bc6bc09f3b4507b10502ce98f1ae7ef1c5c1",
+          "top_level_keys": [
+            "model",
+            "optimizer"
+          ],
+          "model_container": "collections.OrderedDict",
+          "state_keys": 699,
+          "state_elements": 6379824,
+          "tensor_bytes": 25519760,
+          "state_dtypes": {
+            "torch.float32": 583,
+            "torch.int64": 116
+          },
+          "parameters": 6361208,
+          "buffers": 18616
+        },
+        "hierarchical_localizer_classifier": {
+          "original_path": "NLCDetection/750001.pth",
+          "file_id": "1hELPa0bIyLrnr0a06vmr6GWNNinWB0nf",
+          "bytes": 57487769,
+          "sha256": "7615fcb054e7cbd0b25d647d72655a690424232668abbc911551648e84b5f8fc",
+          "top_level_keys": [
+            "model",
+            "optimizer"
+          ],
+          "model_container": "collections.OrderedDict",
+          "state_keys": 66,
+          "state_elements": 529260,
+          "tensor_bytes": 2117056,
+          "state_dtypes": {
+            "torch.float32": 62,
+            "torch.int64": 4
+          },
+          "parameters": 529112,
+          "buffers": 148
+        }
+      },
+      "center_radius": {
+        "path": "center/radius_center.pth",
+        "bytes": 543,
+        "sha256": "e41e09256e65bcff9ba43e72f08701bf4d3904ccdb749f2d32a008af92c2483b",
+        "top_level_keys": [
+          "center",
+          "radius"
+        ],
+        "center_shape": [
+          18
+        ],
+        "center_dtype": "torch.float32",
+        "radius_shape": [],
+        "radius_dtype": "torch.float32",
+        "radius_value": 1.2404824495315552
+      },
+      "initialization_weight": {
+        "path": "models/hrnet_w18_small_v2.pth",
+        "bytes": 16012341,
+        "sha256": "06924c741ea8c076a569d5e164aa628910a72020800e4a4945e8b40b241ce5cb",
+        "loaded": false,
+        "reason": "the released general HRNet model state strictly covers every parameter and buffer; loading initialization first is unnecessary"
+      },
+      "fine_class_names": [
+        "authentic",
+        "splice",
+        "inpainting",
+        "copy_move",
+        "faceshifter",
+        "stgan",
+        "star2",
+        "hisd",
+        "stylegan2",
+        "stylegan3",
+        "ddpm",
+        "ddim",
+        "d_latent",
+        "glide"
+      ],
+      "variant": "official_general_detection_and_localization_750001_not_retrained"
+    },
+    "preprocess": {
+      "profile": "official_imageio_rgb_stretch256_bicubic_float32_divide255",
+      "decode": "imageio.v2.imread",
+      "channel_order": "RGB",
+      "decoded_dtype": "uint8",
+      "geometry": "direct_stretch_to_256x256",
+      "resize": "Pillow_bicubic",
+      "aspect_ratio_preserved": false,
+      "input_crop": null,
+      "input_reencode": false,
+      "scale": "uint8_divide_255_float32",
+      "normalization_mean_std": null,
+      "tensor_layout": "CHW",
+      "tensor_dtype": "float32",
+      "batch_size": 1
+    },
+    "inference": {
+      "feature_extractor": "HighResolutionNet",
+      "head": "NLCDetection",
+      "classification_output": "one_minus_float32_softmax_fine14_authentic_index_0",
+      "official_classification_decision": "argmax_fine14_index_not_equal_to_0",
+      "localization_output": "PairwiseDistance_p2_eps1e-6_to_released_center",
+      "native_restore": "torch_bilinear_raw_distance_align_corners_false",
+      "threshold_after_native_restore": true,
+      "auxiliary_sigmoid_mask_is_primary": false,
+      "test_time_augmentation": false,
+      "ensemble": false,
+      "autocast": false,
+      "forward_passes_per_image": 1,
+      "static_cpu_softmax_sanity": {
+        "classes": 14,
+        "reference": "numpy_float32_exp_sum_div_from_fine14_logits",
+        "comparison": "recorded_device_torch_softmax_float32",
+        "simplex_sum_absolute_tolerance": 2.384185791015625e-07,
+        "cross_device_absolute_tolerance": 9.5367431640625e-07,
+        "roundoff_basis": "float32 unit roundoff u=eps/2; 14u is approximately 7eps; next binary integer bound is 8eps",
+        "scope": "static_cross_device_sanity_only",
+        "recorded_device_smoke_and_fresh_replay_tolerance": 0.0,
+        "affects_score_decision_or_artifacts": false
+      }
+    },
+    "score_spec": {
+      "key": "ai_score",
+      "direction": "higher_means_fake",
+      "fixed_threshold": 0.5,
+      "threshold_operator": ">"
+    },
+    "t2_spec": {
+      "valid_conditions": [
+        "real",
+        "local_mouse",
+        "local_cat",
+        "local_trash_can"
+      ],
+      "not_applicable_conditions": [
+        "fullframe_mouse",
+        "fullframe_cat",
+        "fullframe_trash_can"
+      ],
+      "model_score_map": {
+        "source": "torch.nn.PairwiseDistance_p2_eps1e-6_between_18d_embedding_and_released_authentic_center",
+        "shape": [
+          256,
+          256
+        ],
+        "dtype": "float32",
+        "range": "nonnegative_unbounded",
+        "probability": false
+      },
+      "native_score_map": {
+        "source": "bilinear_restore_raw_distance_align_corners_false",
+        "shape": "native_height_by_native_width",
+        "dtype": "float32",
+        "range": "nonnegative_unbounded",
+        "saved_for": "successful_T2_applicable_inputs_only"
+      },
+      "native_binary_mask": {
+        "threshold": 2.3,
+        "threshold_operator": ">=",
+        "encoding": "PNG_L_0_or_255",
+        "saved_for": "successful_T2_applicable_inputs_only"
+      },
+      "ground_truth": {
+        "real": "all_zero_false_positive_area",
+        "local": "exact_diff_local_insertion",
+        "fullframe": "not_applicable",
+        "fullframe_conditioning_box_is_not_ground_truth": true
+      },
+      "fullframe_dense_output": {
+        "role": "transient_diagnostic_only",
+        "saved": false,
+        "scored": false,
+        "promoted_to_image_score": false
+      }
+    },
+    "task_scope": {
+      "primary_task": "T1_image_detection_and_T2_localization",
+      "valid_for_t1": true,
+      "valid_for_t2": true,
+      "fullframe_t2_not_applicable": true,
+      "native_dense_output": true,
+      "separate_image_classification_head": true,
+      "native_image_score": "one_minus_softmax_probability_of_authentic_class_in_fine_14class_head",
+      "map_statistic_promoted_to_t1": false
+    },
+    "dataset_contract": {
+      "schema_version": "opensource_run_dataset_contract_v2",
+      "release": {
+        "schema_version": "claimforge_balanced250_canonical_v1",
+        "release_kind": "balanced250",
+        "dataset_id": "claimforge-balanced250-independent-panel-jpeg-q95-v1",
+        "manifest_path": "outputs/opensource/balanced250_v1/manifest.json",
+        "manifest_sha256": "b2bbf3eb7a835f9c729cdffe29a40247225125779fe21551270fefe95d667c7f",
+        "contract_sha256": "671d1739bebf4370d26b4629ca26b56cc546a817d469ba505cc39bda8b33102c"
+      },
+      "ledgers": {
+        "inputs": {
+          "path": "outputs/opensource/balanced250_v1/inputs.jsonl",
+          "sha256": "6b5128909eeffdbd88e61af02ca1bd191cb5460f94a23b47c87ebd0172e6d12c",
+          "rows": 1775
+        },
+        "panel": {
+          "path": "outputs/opensource/balanced250_v1/panel.jsonl",
+          "sha256": "e01d7985b41cee5262a3f8b6d71420986feae96771b11c46fda98c3e72a0d424",
+          "rows": 1750
+        },
+        "source_pairs": {
+          "path": "outputs/opensource/balanced250_v1/source_pairs.jsonl",
+          "sha256": "391fdcf06eecff4cf1843ddb3688acacf52a293725c501660b7a361173b09b30",
+          "rows": 1500
+        }
+      },
+      "capability": {
+        "name": "local_t1_t2",
+        "conditions": [
+          "real",
+          "local_mouse",
+          "local_cat",
+          "local_trash_can",
+          "fullframe_mouse",
+          "fullframe_cat",
+          "fullframe_trash_can"
+        ],
+        "valid_for_t1": true,
+        "valid_for_t2": true
+      },
+      "selection": {
+        "spec": {
+          "capability": "local_t1_t2",
+          "conditions": null,
+          "per_condition_limit": 5,
+          "sample_id": null,
+          "pair_limit": null
+        },
+        "selected_images": 35,
+        "selected_ids_sha256": "b420bc581386a540b742d917d60d007f0e5522b6cca43fa217797944c40667e5",
+        "counts_by_condition": {
+          "real": 5,
+          "local_mouse": 5,
+          "local_cat": 5,
+          "local_trash_can": 5,
+          "fullframe_mouse": 5,
+          "fullframe_cat": 5,
+          "fullframe_trash_can": 5
+        }
+      },
+      "score_spec": {
+        "key": "ai_score",
+        "direction": "higher_means_fake",
+        "fixed_threshold": 0.5,
+        "threshold_operator": ">"
+      }
+    },
+    "selected_rows_sha256": "21e556dd791960afde6cc900d9aba79da61a1a935c6da7b0e0928d3f6b26afa0",
+    "selected_ids_sha256": "b420bc581386a540b742d917d60d007f0e5522b6cca43fa217797944c40667e5",
+    "source": {
+      "repository": "https://github.com/CHELSEA234/HiFi_IFDL",
+      "root": "/root/.cache/claimforge/third_party/HiFi_IFDL",
+      "commit": "0ca70d651087bb09959dec583947031c47d30209",
+      "tree": "f5dbb144329a048c2c03f102d441c3ef37a89a3f",
+      "origin": "https://github.com/CHELSEA234/HiFi_IFDL.git",
+      "tracked_and_non_cache_untracked_clean": true,
+      "untracked_bytecode_caches_ignored": 6,
+      "bytecode_cache_execution": false,
+      "loader": "verified_source_with_empty_external_pycache_prefix",
+      "source_bound_files": {
+        "README.md": {
+          "bytes": 7265,
+          "sha256": "62fa6fa400f72797cb93c9104fe3781064f04c95fc3b72711e79690d536b6135",
+          "git_tracked": true
+        },
+        "LICENSE": {
+          "bytes": 1065,
+          "sha256": "b01d7140e1f323024b0db35e0db18ba7cd3fd3380abbec57aec55e6141864e2f",
+          "git_tracked": true
+        },
+        "HiFi_Net.py": {
+          "bytes": 4774,
+          "sha256": "353212467d2658284c91bd7ffb036599fea62bfe16f3c9855c082c42a0f0c088",
+          "git_tracked": true
+        },
+        "models/NLCDetection_api.py": {
+          "bytes": 11914,
+          "sha256": "9af51775587b6d48e8d6c4e49844ab2b679856440fcadf51702683252c2ae441",
+          "git_tracked": true
+        },
+        "models/NLCDetection_pconv.py": {
+          "bytes": 12017,
+          "sha256": "4e5f1cc3a71ec35c791ac2aceb76841f6564103364934ba80062059d6eb17333",
+          "git_tracked": true
+        },
+        "models/seg_hrnet.py": {
+          "bytes": 22858,
+          "sha256": "f6cf64c1febbb7e9cb383332987928b6eb4acaa3f81068411d5de90bc86c1d9a",
+          "git_tracked": true
+        },
+        "models/seg_hrnet_config.py": {
+          "bytes": 1752,
+          "sha256": "5ad6992a5ecc56a612245aa1bdfd5a4f8336be907c48cc6f86979f04235e4013",
+          "git_tracked": true
+        },
+        "models/LaPlacianMs.py": {
+          "bytes": 2370,
+          "sha256": "32d37e3a98919dcbe5e80d433f254b58ed6818e092dad4ef07417caba7d185cc",
+          "git_tracked": true
+        },
+        "models/GaussianSmoothing.py": {
+          "bytes": 2768,
+          "sha256": "bb6dedd7c955ddedea72d8e2f14258eb073e785520a6886516365f8b42312cef",
+          "git_tracked": true
+        },
+        "utils/custom_loss.py": {
+          "bytes": 6491,
+          "sha256": "8973bc2930ff17e833f0d288f369e1acdec5d2720548f1a9a98627b3f322882b",
+          "git_tracked": true
+        },
+        "utils/utils.py": {
+          "bytes": 12308,
+          "sha256": "0c46a3bcf008f6cb6157cd9511237a0efef2e463ab8463edd6c0e09021c63ff2",
+          "git_tracked": true
+        },
+        "utils/load_data.py": {
+          "bytes": 13687,
+          "sha256": "be1a704ffd3b81fc5b832c7cae09cc82e08e908268f8df739b03851f18a263f9",
+          "git_tracked": true
+        }
+      },
+      "contract_sha256": "63a57e3ca97123ff3b6a9c444c789f3feff65810ed1dbd56b833d1f4e7ae4947"
+    },
+    "assets": {
+      "released_identifier": "750001",
+      "bundle_sha256": "62d0b9f5e501f85558cfbdd5f797dc4e2553ce74729168921257408d735681f9",
+      "assets": {
+        "initialization_weight": {
+          "path": "/root/.cache/claimforge/third_party/HiFi_IFDL/models/hrnet_w18_small_v2.pth",
+          "bytes": 16012341,
+          "sha256": "06924c741ea8c076a569d5e164aa628910a72020800e4a4945e8b40b241ce5cb",
+          "provider": "official_author_git_repository"
+        },
+        "feature_extractor": {
+          "path": "/root/.cache/claimforge/checkpoints/hifi-ifdl-general/HRNet/750001.pth",
+          "bytes": 81112652,
+          "sha256": "be21278afb4e657bdafdf581d8d8bc6bc09f3b4507b10502ce98f1ae7ef1c5c1",
+          "provider": "official_author_google_drive"
+        },
+        "hierarchical_localizer_classifier": {
+          "path": "/root/.cache/claimforge/checkpoints/hifi-ifdl-general/NLCDetection/750001.pth",
+          "bytes": 57487769,
+          "sha256": "7615fcb054e7cbd0b25d647d72655a690424232668abbc911551648e84b5f8fc",
+          "provider": "official_author_google_drive"
+        },
+        "center_radius": {
+          "path": "/root/.cache/claimforge/third_party/HiFi_IFDL/center/radius_center.pth",
+          "bytes": 543,
+          "sha256": "e41e09256e65bcff9ba43e72f08701bf4d3904ccdb749f2d32a008af92c2483b",
+          "provider": "official_author_git_repository"
+        }
+      },
+      "contract_sha256": "b0b7b481e4eef673b2f458540f0e7eaaae5823f881525e437547830a244a3480"
+    },
+    "environment": {
+      "python_executable": "/root/.cache/claimforge/venvs/hifi-ifdl-0ca70d6/bin/python",
+      "python_prefix": "/root/.cache/claimforge/venvs/hifi-ifdl-0ca70d6",
+      "python_base_prefix": "/usr",
+      "python_version": "3.12.3",
+      "platform": "Linux-5.10.134-16.103.al8.x86_64-x86_64-with-glibc2.39",
+      "pyvenv_cfg": {
+        "path": "/root/.cache/claimforge/venvs/hifi-ifdl-0ca70d6/pyvenv.cfg",
+        "bytes": 207,
+        "sha256": "d39bed10d9ddf2b3da444ff8a53eb83adb6b4d93a8b7f169224eee65cea0d8bd",
+        "include_system_site_packages": true
+      },
+      "packages": {
+        "torch": "2.8.0.dev20250627+cu128",
+        "torchvision": "0.23.0.dev20250627+cu128",
+        "numpy": "2.2.6",
+        "Pillow": "11.1.0",
+        "imageio": "2.37.0",
+        "yacs": "0.1.8",
+        "scikit-learn": "1.5.2",
+        "scipy": "1.16.0"
+      },
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "sys_dont_write_bytecode": true,
+      "PYTHONPYCACHEPREFIX": "/root/.cache/claimforge/pycache/hifi-ifdl-balanced-v2-empty",
+      "sys_pycache_prefix": "/root/.cache/claimforge/pycache/hifi-ifdl-balanced-v2-empty",
+      "pycache_prefix_initially_empty": true,
+      "contract_sha256": "20b848d72c908ccb9a8e880a0489f75dc49afddd1df427abdb82b00fcf8e4f8d"
+    },
+    "artifact_ignore": {
+      "probe": "outputs/opensource/hifi_ifdl/_contract_probe/embeddings_model_256/sample.npy",
+      "git_check_ignore_evidence": ".gitignore:8:outputs/\toutputs/opensource/hifi_ifdl/_contract_probe/embeddings_model_256/sample.npy",
+      "ignored": true,
+      "contract_sha256": "e129a5f8131bc237e61c06cffc5204f56fed1f1df6bbd0222b9042139616f549"
+    },
+    "checkpoint_audit": {
+      "task_components": {
+        "feature_extractor": {
+          "outer_type": "builtins.dict",
+          "top_level_keys": [
+            "model",
+            "optimizer"
+          ],
+          "state_container": "collections.OrderedDict",
+          "state_dict_tensors": 699,
+          "state_dict_elements": 6379824,
+          "dtype_counts": {
+            "torch.float32": 583,
+            "torch.int64": 116
+          },
+          "ordered_keys_sha256": "227d8a3bc85aa24104ad30ac4ccc256ca7b9ded504f7123e359adf449270dcb8",
+          "tensor_schema_sha256": "2b654516946debffd6dfddcc14a8fdae858bbf8680e1f8dc9092f79e7e6b02b6",
+          "all_floating_tensors_finite": true,
+          "weights_only": true,
+          "map_location": "cpu",
+          "unsafe_globals": [],
+          "optimizer": {
+            "container": "builtins.dict",
+            "keys": [
+              "state",
+              "param_groups"
+            ],
+            "state_entries": 393,
+            "param_groups": 1,
+            "registered_parameter_ids": 402,
+            "loaded_into_model": false,
+            "retained_for_provenance_only": true
+          },
+          "contract_sha256": "51513128525a9831eab006b89ab47ba5e2f6a518c1d84fff8fd05b054140ca58"
+        },
+        "hierarchical_localizer_classifier": {
+          "outer_type": "builtins.dict",
+          "top_level_keys": [
+            "model",
+            "optimizer"
+          ],
+          "state_container": "collections.OrderedDict",
+          "state_dict_tensors": 66,
+          "state_dict_elements": 529260,
+          "dtype_counts": {
+            "torch.float32": 62,
+            "torch.int64": 4
+          },
+          "ordered_keys_sha256": "15671527ed17eefeae640437da3900c6e79e7bb90b32b3414dfbef79656d176b",
+          "tensor_schema_sha256": "3bfa849976307ecc1dcf0b4e9f62baf0860d7609d707c2c3d06bc39b2481a41e",
+          "all_floating_tensors_finite": true,
+          "weights_only": true,
+          "map_location": "cpu",
+          "unsafe_globals": [],
+          "optimizer": {
+            "container": "builtins.dict",
+            "keys": [
+              "state",
+              "param_groups"
+            ],
+            "state_entries": 393,
+            "param_groups": 1,
+            "registered_parameter_ids": 402,
+            "loaded_into_model": false,
+            "retained_for_provenance_only": true
+          },
+          "contract_sha256": "5bc57e11a9d5bf94eae66bffba1d1039116b43054386b93e455a8e774afa7514"
+        }
+      },
+      "initialization_weight": {
+        "outer_type": "collections.OrderedDict",
+        "state_keys": 874,
+        "state_elements": 3956231,
+        "dtype_counts": {
+          "torch.float32": 729,
+          "torch.int64": 145
+        },
+        "ordered_keys_sha256": "554376c2bb3bb3452c98eaa57cfaee662809d9972d2331fb984658e2057d7740",
+        "tensor_schema_sha256": "39775f005431bf795638f2787dce30a516ac9de39ba12828456eeea0b1b354e6",
+        "all_floating_tensors_finite": true,
+        "map_location": "cpu",
+        "weights_only": true,
+        "unsafe_global_scanner": {
+          "status": "unsupported_legacy_serialization",
+          "error_type": "ValueError",
+          "weights_only_load_succeeded": true
+        },
+        "loaded_into_balanced_model": false,
+        "reason": "the complete released general HRNet task checkpoint strictly replaces every parameter and buffer",
+        "contract_sha256": "c0c5a900a6cd02b278c1cd7320d1b69ee23622b0a3f51f0a3f25d5c94f40a392"
+      },
+      "center_radius": {
+        "outer_type": "builtins.dict",
+        "top_level_keys": [
+          "center",
+          "radius"
+        ],
+        "center": {
+          "shape": [
+            18
+          ],
+          "dtype": "torch.float32",
+          "tensor_sha256": "ff38144416f5ae87e3cbf698f2207c7c1a74587b48cba3d18592486f29d30779",
+          "loaded_for_inference": true
+        },
+        "radius": {
+          "shape": [],
+          "dtype": "torch.float32",
+          "value": 1.2404824495315552,
+          "tensor_sha256": "4f727fb7e289540762ed7bcd686ed1c63a95f38c186a522e0942c7ca2971a14d",
+          "loaded_for_provenance_validation_only": true
+        },
+        "map_location": "cpu",
+        "weights_only": true,
+        "unsafe_global_scanner": {
+          "status": "unsupported_legacy_serialization",
+          "error_type": "ValueError",
+          "weights_only_load_succeeded": true
+        },
+        "contract_sha256": "eaed53621857d4a2a03cc017ea37a44b0f4c5b108d6cb0476d36daa57ad21424"
+      },
+      "bundle_sha256": "62d0b9f5e501f85558cfbdd5f797dc4e2553ce74729168921257408d735681f9",
+      "contract_sha256": "4336e46d8a4d10724948efcbf01c1077ef36eabda4ad6d8b35895460e9457618"
+    },
+    "model_audit": {
+      "construction_device": "cpu",
+      "components": {
+        "feature_extractor": {
+          "construction_device": "cpu",
+          "strict_state_dict_load": true,
+          "missing_keys": [],
+          "unexpected_keys": [],
+          "state_key_order_matches_checkpoint": true,
+          "eval_mode": true,
+          "parameters": 6361208,
+          "trainable_parameters": 6361208,
+          "buffer_elements": 18616,
+          "module_count": 437
+        },
+        "hierarchical_localizer_classifier": {
+          "construction_device": "cpu",
+          "strict_state_dict_load": true,
+          "missing_keys": [],
+          "unexpected_keys": [],
+          "state_key_order_matches_checkpoint": true,
+          "eval_mode": true,
+          "parameters": 529112,
+          "trainable_parameters": 528923,
+          "buffer_elements": 148,
+          "module_count": 68
+        }
+      },
+      "parameter_count": 6890320,
+      "trainable_parameter_count": 6890131,
+      "buffer_elements": 18764,
+      "module_count": 505,
+      "forward_performed": false,
+      "constructor_cuda_calls_neutralized": "two_unused_unregistered_split_tensors_only",
+      "state_prefix_rewrite": false,
+      "cpu_module_envelope_for_DataParallel_prefix": true,
+      "contract_sha256": "6739f8cc4e472ac854bf205ed3e10e4bdfea73fced0701272d4a47c0c0c8712a"
+    },
+    "license": {
+      "project_code": {
+        "spdx": "MIT",
+        "path": "LICENSE",
+        "sha256": "b01d7140e1f323024b0db35e0db18ba7cd3fd3380abbec57aec55e6141864e2f",
+        "commercial_use_permission": true,
+        "redistribution_permission": true
+      },
+      "official_checkpoint_bundle": {
+        "provider": "official_author_google_drive",
+        "separate_license_or_terms_found": false,
+        "project_code_license_extended_to_weights": false,
+        "commercial_use_clearance_established": false,
+        "status": "not_separately_stated_by_release"
+      },
+      "limitations": {
+        "trained_data_rights_not_audited": true,
+        "dependency_compliance_not_legal_advice": true,
+        "benchmark_use_does_not_establish_product_clearance": true
+      }
+    },
+    "resource_expectation": {
+      "observed_mouse_v1_peak_cuda_memory_bytes": 341163008,
+      "observed_mouse_v1_median_forward_latency_ms": 10.44,
+      "observed_mouse_v1_artifact_bytes_for_550_images": 6278551521,
+      "balanced250_t2_raw_artifact_projection_bytes": 11704252960,
+      "formal_runner_projection_minutes": [
+        5,
+        15
+      ],
+      "fresh_replay_projection_minutes": [
+        2,
+        8
+      ],
+      "disk_note": "the formal runner saves raw dense artifacts only for 1,025 T2-applicable inputs and requires an additional 2,000,000,000-byte free-space reserve"
+    },
+    "runtime": {
+      "device": "cuda:0",
+      "seed": 42,
+      "deterministic_algorithms": true,
+      "cudnn_deterministic": true,
+      "cudnn_benchmark": false,
+      "matmul_allow_tf32": false,
+      "cudnn_allow_tf32": false,
+      "cublas_workspace_config": ":4096:8",
+      "precision": "float32",
+      "batch_size": 1,
+      "autocast": false,
+      "torch_version": "2.8.0.dev20250627+cu128",
+      "torch_cuda_version": "12.8",
+      "cuda": {
+        "logical_device_index": 0,
+        "device_name": "NVIDIA L20Z",
+        "total_memory_bytes": 85017624576,
+        "compute_capability": [
+          9,
+          0
+        ]
+      },
+      "contract_sha256": "5681f4d158351881cae163fd84995aab99237390d6fe9efd742845652e673b28"
+    },
+    "cpu_preflight": {
+      "performed_before_accelerator_configuration": true,
+      "report": {
+        "schema_version": "hifi_ifdl_balanced_cpu_preflight_v2",
+        "cuda_initialized_before": false,
+        "cuda_initialized_after": false,
+        "environment": {
+          "python_executable": "/root/.cache/claimforge/venvs/hifi-ifdl-0ca70d6/bin/python",
+          "python_prefix": "/root/.cache/claimforge/venvs/hifi-ifdl-0ca70d6",
+          "python_base_prefix": "/usr",
+          "python_version": "3.12.3",
+          "platform": "Linux-5.10.134-16.103.al8.x86_64-x86_64-with-glibc2.39",
+          "pyvenv_cfg": {
+            "path": "/root/.cache/claimforge/venvs/hifi-ifdl-0ca70d6/pyvenv.cfg",
+            "bytes": 207,
+            "sha256": "d39bed10d9ddf2b3da444ff8a53eb83adb6b4d93a8b7f169224eee65cea0d8bd",
+            "include_system_site_packages": true
+          },
+          "packages": {
+            "torch": "2.8.0.dev20250627+cu128",
+            "torchvision": "0.23.0.dev20250627+cu128",
+            "numpy": "2.2.6",
+            "Pillow": "11.1.0",
+            "imageio": "2.37.0",
+            "yacs": "0.1.8",
+            "scikit-learn": "1.5.2",
+            "scipy": "1.16.0"
+          },
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "sys_dont_write_bytecode": true,
+          "PYTHONPYCACHEPREFIX": "/root/.cache/claimforge/pycache/hifi-ifdl-balanced-v2-empty",
+          "sys_pycache_prefix": "/root/.cache/claimforge/pycache/hifi-ifdl-balanced-v2-empty",
+          "pycache_prefix_initially_empty": true,
+          "contract_sha256": "20b848d72c908ccb9a8e880a0489f75dc49afddd1df427abdb82b00fcf8e4f8d"
+        },
+        "source": {
+          "repository": "https://github.com/CHELSEA234/HiFi_IFDL",
+          "root": "/root/.cache/claimforge/third_party/HiFi_IFDL",
+          "commit": "0ca70d651087bb09959dec583947031c47d30209",
+          "tree": "f5dbb144329a048c2c03f102d441c3ef37a89a3f",
+          "origin": "https://github.com/CHELSEA234/HiFi_IFDL.git",
+          "tracked_and_non_cache_untracked_clean": true,
+          "untracked_bytecode_caches_ignored": 6,
+          "bytecode_cache_execution": false,
+          "loader": "verified_source_with_empty_external_pycache_prefix",
+          "source_bound_files": {
+            "README.md": {
+              "bytes": 7265,
+              "sha256": "62fa6fa400f72797cb93c9104fe3781064f04c95fc3b72711e79690d536b6135",
+              "git_tracked": true
+            },
+            "LICENSE": {
+              "bytes": 1065,
+              "sha256": "b01d7140e1f323024b0db35e0db18ba7cd3fd3380abbec57aec55e6141864e2f",
+              "git_tracked": true
+            },
+            "HiFi_Net.py": {
+              "bytes": 4774,
+              "sha256": "353212467d2658284c91bd7ffb036599fea62bfe16f3c9855c082c42a0f0c088",
+              "git_tracked": true
+            },
+            "models/NLCDetection_api.py": {
+              "bytes": 11914,
+              "sha256": "9af51775587b6d48e8d6c4e49844ab2b679856440fcadf51702683252c2ae441",
+              "git_tracked": true
+            },
+            "models/NLCDetection_pconv.py": {
+              "bytes": 12017,
+              "sha256": "4e5f1cc3a71ec35c791ac2aceb76841f6564103364934ba80062059d6eb17333",
+              "git_tracked": true
+            },
+            "models/seg_hrnet.py": {
+              "bytes": 22858,
+              "sha256": "f6cf64c1febbb7e9cb383332987928b6eb4acaa3f81068411d5de90bc86c1d9a",
+              "git_tracked": true
+            },
+            "models/seg_hrnet_config.py": {
+              "bytes": 1752,
+              "sha256": "5ad6992a5ecc56a612245aa1bdfd5a4f8336be907c48cc6f86979f04235e4013",
+              "git_tracked": true
+            },
+            "models/LaPlacianMs.py": {
+              "bytes": 2370,
+              "sha256": "32d37e3a98919dcbe5e80d433f254b58ed6818e092dad4ef07417caba7d185cc",
+              "git_tracked": true
+            },
+            "models/GaussianSmoothing.py": {
+              "bytes": 2768,
+              "sha256": "bb6dedd7c955ddedea72d8e2f14258eb073e785520a6886516365f8b42312cef",
+              "git_tracked": true
+            },
+            "utils/custom_loss.py": {
+              "bytes": 6491,
+              "sha256": "8973bc2930ff17e833f0d288f369e1acdec5d2720548f1a9a98627b3f322882b",
+              "git_tracked": true
+            },
+            "utils/utils.py": {
+              "bytes": 12308,
+              "sha256": "0c46a3bcf008f6cb6157cd9511237a0efef2e463ab8463edd6c0e09021c63ff2",
+              "git_tracked": true
+            },
+            "utils/load_data.py": {
+              "bytes": 13687,
+              "sha256": "be1a704ffd3b81fc5b832c7cae09cc82e08e908268f8df739b03851f18a263f9",
+              "git_tracked": true
+            }
+          },
+          "contract_sha256": "63a57e3ca97123ff3b6a9c444c789f3feff65810ed1dbd56b833d1f4e7ae4947"
+        },
+        "assets": {
+          "released_identifier": "750001",
+          "bundle_sha256": "62d0b9f5e501f85558cfbdd5f797dc4e2553ce74729168921257408d735681f9",
+          "assets": {
+            "initialization_weight": {
+              "path": "/root/.cache/claimforge/third_party/HiFi_IFDL/models/hrnet_w18_small_v2.pth",
+              "bytes": 16012341,
+              "sha256": "06924c741ea8c076a569d5e164aa628910a72020800e4a4945e8b40b241ce5cb",
+              "provider": "official_author_git_repository"
+            },
+            "feature_extractor": {
+              "path": "/root/.cache/claimforge/checkpoints/hifi-ifdl-general/HRNet/750001.pth",
+              "bytes": 81112652,
+              "sha256": "be21278afb4e657bdafdf581d8d8bc6bc09f3b4507b10502ce98f1ae7ef1c5c1",
+              "provider": "official_author_google_drive"
+            },
+            "hierarchical_localizer_classifier": {
+              "path": "/root/.cache/claimforge/checkpoints/hifi-ifdl-general/NLCDetection/750001.pth",
+              "bytes": 57487769,
+              "sha256": "7615fcb054e7cbd0b25d647d72655a690424232668abbc911551648e84b5f8fc",
+              "provider": "official_author_google_drive"
+            },
+            "center_radius": {
+              "path": "/root/.cache/claimforge/third_party/HiFi_IFDL/center/radius_center.pth",
+              "bytes": 543,
+              "sha256": "e41e09256e65bcff9ba43e72f08701bf4d3904ccdb749f2d32a008af92c2483b",
+              "provider": "official_author_git_repository"
+            }
+          },
+          "contract_sha256": "b0b7b481e4eef673b2f458540f0e7eaaae5823f881525e437547830a244a3480"
+        },
+        "adapter_sources": {
+          ".gitignore": {
+            "path": ".gitignore",
+            "bytes": 311,
+            "sha256": "24adf8db167f8a62162cb751f7311fec740eeb0d225eb6fda3a93352423a14a9"
+          },
+          "eval/__init__.py": {
+            "path": "eval/__init__.py",
+            "bytes": 39,
+            "sha256": "a2bd81a9d6f3abac7a071143ac4f0593fb5ed324b8962e5f08f931848b2573d5"
+          },
+          "eval/opensource/__init__.py": {
+            "path": "eval/opensource/__init__.py",
+            "bytes": 64,
+            "sha256": "3e6e8b6812a56d04ca7d2a855b0bcd458921151ad00432a25219dc7c15ffc1c9"
+          },
+          "eval/opensource/run_hifi_ifdl_balanced.py": {
+            "path": "eval/opensource/run_hifi_ifdl_balanced.py",
+            "bytes": 120430,
+            "sha256": "2e66c50f38ca38980abbf00ad293a5b0947b86fbe11c743258746a987312337b"
+          },
+          "eval/opensource/run_hifi_ifdl.py": {
+            "path": "eval/opensource/run_hifi_ifdl.py",
+            "bytes": 61030,
+            "sha256": "1eca5d96cb9fb13f82a5d885a48bb78266d07d2ef3ed214239504ab61dea6544"
+          },
+          "eval/opensource/hifi_ifdl_metrics.py": {
+            "path": "eval/opensource/hifi_ifdl_metrics.py",
+            "bytes": 45893,
+            "sha256": "27a1352600c2fb7c97d52143de27643a25cc30bef8bfb279748a76fa515ca32b"
+          },
+          "eval/opensource/canonical_release.py": {
+            "path": "eval/opensource/canonical_release.py",
+            "bytes": 58518,
+            "sha256": "6f4261dd2bc5335722aae253d851c363f663aa89cf42913647931d9cc60ac892"
+          },
+          "eval/opensource/balanced_run_contract.py": {
+            "path": "eval/opensource/balanced_run_contract.py",
+            "bytes": 43859,
+            "sha256": "95d9e648840ce648fd75d441d440e33ca2b9ede509aa548f040c4ac1bc4356b6"
+          },
+          "eval/opensource/common.py": {
+            "path": "eval/opensource/common.py",
+            "bytes": 2800,
+            "sha256": "66ee7134e8398bb8121034fb7f9aef007137a09e03426af24e0faae886188c9f"
+          }
+        },
+        "artifact_ignore": {
+          "probe": "outputs/opensource/hifi_ifdl/_contract_probe/embeddings_model_256/sample.npy",
+          "git_check_ignore_evidence": ".gitignore:8:outputs/\toutputs/opensource/hifi_ifdl/_contract_probe/embeddings_model_256/sample.npy",
+          "ignored": true,
+          "contract_sha256": "e129a5f8131bc237e61c06cffc5204f56fed1f1df6bbd0222b9042139616f549"
+        },
+        "checkpoint_audit": {
+          "task_components": {
+            "feature_extractor": {
+              "outer_type": "builtins.dict",
+              "top_level_keys": [
+                "model",
+                "optimizer"
+              ],
+              "state_container": "collections.OrderedDict",
+              "state_dict_tensors": 699,
+              "state_dict_elements": 6379824,
+              "dtype_counts": {
+                "torch.float32": 583,
+                "torch.int64": 116
+              },
+              "ordered_keys_sha256": "227d8a3bc85aa24104ad30ac4ccc256ca7b9ded504f7123e359adf449270dcb8",
+              "tensor_schema_sha256": "2b654516946debffd6dfddcc14a8fdae858bbf8680e1f8dc9092f79e7e6b02b6",
+              "all_floating_tensors_finite": true,
+              "weights_only": true,
+              "map_location": "cpu",
+              "unsafe_globals": [],
+              "optimizer": {
+                "container": "builtins.dict",
+                "keys": [
+                  "state",
+                  "param_groups"
+                ],
+                "state_entries": 393,
+                "param_groups": 1,
+                "registered_parameter_ids": 402,
+                "loaded_into_model": false,
+                "retained_for_provenance_only": true
+              },
+              "contract_sha256": "51513128525a9831eab006b89ab47ba5e2f6a518c1d84fff8fd05b054140ca58"
+            },
+            "hierarchical_localizer_classifier": {
+              "outer_type": "builtins.dict",
+              "top_level_keys": [
+                "model",
+                "optimizer"
+              ],
+              "state_container": "collections.OrderedDict",
+              "state_dict_tensors": 66,
+              "state_dict_elements": 529260,
+              "dtype_counts": {
+                "torch.float32": 62,
+                "torch.int64": 4
+              },
+              "ordered_keys_sha256": "15671527ed17eefeae640437da3900c6e79e7bb90b32b3414dfbef79656d176b",
+              "tensor_schema_sha256": "3bfa849976307ecc1dcf0b4e9f62baf0860d7609d707c2c3d06bc39b2481a41e",
+              "all_floating_tensors_finite": true,
+              "weights_only": true,
+              "map_location": "cpu",
+              "unsafe_globals": [],
+              "optimizer": {
+                "container": "builtins.dict",
+                "keys": [
+                  "state",
+                  "param_groups"
+                ],
+                "state_entries": 393,
+                "param_groups": 1,
+                "registered_parameter_ids": 402,
+                "loaded_into_model": false,
+                "retained_for_provenance_only": true
+              },
+              "contract_sha256": "5bc57e11a9d5bf94eae66bffba1d1039116b43054386b93e455a8e774afa7514"
+            }
+          },
+          "initialization_weight": {
+            "outer_type": "collections.OrderedDict",
+            "state_keys": 874,
+            "state_elements": 3956231,
+            "dtype_counts": {
+              "torch.float32": 729,
+              "torch.int64": 145
+            },
+            "ordered_keys_sha256": "554376c2bb3bb3452c98eaa57cfaee662809d9972d2331fb984658e2057d7740",
+            "tensor_schema_sha256": "39775f005431bf795638f2787dce30a516ac9de39ba12828456eeea0b1b354e6",
+            "all_floating_tensors_finite": true,
+            "map_location": "cpu",
+            "weights_only": true,
+            "unsafe_global_scanner": {
+              "status": "unsupported_legacy_serialization",
+              "error_type": "ValueError",
+              "weights_only_load_succeeded": true
+            },
+            "loaded_into_balanced_model": false,
+            "reason": "the complete released general HRNet task checkpoint strictly replaces every parameter and buffer",
+            "contract_sha256": "c0c5a900a6cd02b278c1cd7320d1b69ee23622b0a3f51f0a3f25d5c94f40a392"
+          },
+          "center_radius": {
+            "outer_type": "builtins.dict",
+            "top_level_keys": [
+              "center",
+              "radius"
+            ],
+            "center": {
+              "shape": [
+                18
+              ],
+              "dtype": "torch.float32",
+              "tensor_sha256": "ff38144416f5ae87e3cbf698f2207c7c1a74587b48cba3d18592486f29d30779",
+              "loaded_for_inference": true
+            },
+            "radius": {
+              "shape": [],
+              "dtype": "torch.float32",
+              "value": 1.2404824495315552,
+              "tensor_sha256": "4f727fb7e289540762ed7bcd686ed1c63a95f38c186a522e0942c7ca2971a14d",
+              "loaded_for_provenance_validation_only": true
+            },
+            "map_location": "cpu",
+            "weights_only": true,
+            "unsafe_global_scanner": {
+              "status": "unsupported_legacy_serialization",
+              "error_type": "ValueError",
+              "weights_only_load_succeeded": true
+            },
+            "contract_sha256": "eaed53621857d4a2a03cc017ea37a44b0f4c5b108d6cb0476d36daa57ad21424"
+          },
+          "bundle_sha256": "62d0b9f5e501f85558cfbdd5f797dc4e2553ce74729168921257408d735681f9",
+          "contract_sha256": "4336e46d8a4d10724948efcbf01c1077ef36eabda4ad6d8b35895460e9457618"
+        },
+        "model_audit": {
+          "construction_device": "cpu",
+          "components": {
+            "feature_extractor": {
+              "construction_device": "cpu",
+              "strict_state_dict_load": true,
+              "missing_keys": [],
+              "unexpected_keys": [],
+              "state_key_order_matches_checkpoint": true,
+              "eval_mode": true,
+              "parameters": 6361208,
+              "trainable_parameters": 6361208,
+              "buffer_elements": 18616,
+              "module_count": 437
+            },
+            "hierarchical_localizer_classifier": {
+              "construction_device": "cpu",
+              "strict_state_dict_load": true,
+              "missing_keys": [],
+              "unexpected_keys": [],
+              "state_key_order_matches_checkpoint": true,
+              "eval_mode": true,
+              "parameters": 529112,
+              "trainable_parameters": 528923,
+              "buffer_elements": 148,
+              "module_count": 68
+            }
+          },
+          "parameter_count": 6890320,
+          "trainable_parameter_count": 6890131,
+          "buffer_elements": 18764,
+          "module_count": 505,
+          "forward_performed": false,
+          "constructor_cuda_calls_neutralized": "two_unused_unregistered_split_tensors_only",
+          "state_prefix_rewrite": false,
+          "cpu_module_envelope_for_DataParallel_prefix": true,
+          "contract_sha256": "6739f8cc4e472ac854bf205ed3e10e4bdfea73fced0701272d4a47c0c0c8712a"
+        },
+        "balanced250_forward_performed": false,
+        "balanced250_score_computed": false,
+        "contract_sha256": "e8a5228e5029ce81298854595f3d33828c6d5069e679a1cb76cbd3df7de45777"
+      }
+    },
+    "artifact_contract": {
+      "storage": "local_gitignored_outputs",
+      "scope": "successful_T2_applicable_inputs_only",
+      "fullframe_artifacts": "none_T2_not_applicable",
+      "embedding_model_256": {
+        "format": "NumPy .npy, allow_pickle=False",
+        "directory": "embeddings_model_256",
+        "shape": [
+          18,
+          256,
+          256
+        ],
+        "dtype": "float32"
+      },
+      "distance_map_model_256": {
+        "format": "NumPy .npy, allow_pickle=False",
+        "directory": "distance_maps_model_256",
+        "shape": [
+          256,
+          256
+        ],
+        "dtype": "float32"
+      },
+      "distance_map_native": {
+        "format": "NumPy .npy, allow_pickle=False",
+        "directory": "distance_maps_native",
+        "shape": "native_height_by_native_width",
+        "dtype": "float32"
+      },
+      "native_binary_mask": {
+        "format": "PNG",
+        "directory": "masks_native",
+        "mode": "L",
+        "values": [
+          0,
+          255
+        ]
+      }
+    },
+    "outputs": {
+      "results_path": "results/opensource/hifi_ifdl/hifi_ifdl_general750001_balanced250_v1_smoke5x7_b_r2_20260727/results.jsonl",
+      "expected_inputs_path": "results/opensource/hifi_ifdl/hifi_ifdl_general750001_balanced250_v1_smoke5x7_b_r2_20260727/expected_inputs.jsonl",
+      "summary_path": "results/opensource/hifi_ifdl/hifi_ifdl_general750001_balanced250_v1_smoke5x7_b_r2_20260727/summary.json",
+      "artifact_root": "outputs/opensource/hifi_ifdl/hifi_ifdl_general750001_balanced250_v1_smoke5x7_b_r2_20260727",
+      "embeddings_model_256_dir": "outputs/opensource/hifi_ifdl/hifi_ifdl_general750001_balanced250_v1_smoke5x7_b_r2_20260727/embeddings_model_256",
+      "distance_maps_model_256_dir": "outputs/opensource/hifi_ifdl/hifi_ifdl_general750001_balanced250_v1_smoke5x7_b_r2_20260727/distance_maps_model_256",
+      "distance_maps_native_dir": "outputs/opensource/hifi_ifdl/hifi_ifdl_general750001_balanced250_v1_smoke5x7_b_r2_20260727/distance_maps_native",
+      "masks_native_dir": "outputs/opensource/hifi_ifdl/hifi_ifdl_general750001_balanced250_v1_smoke5x7_b_r2_20260727/masks_native"
+    }
+  },
+  "dataset": {
+    "contract": {
+      "schema_version": "opensource_run_dataset_contract_v2",
+      "release": {
+        "schema_version": "claimforge_balanced250_canonical_v1",
+        "release_kind": "balanced250",
+        "dataset_id": "claimforge-balanced250-independent-panel-jpeg-q95-v1",
+        "manifest_path": "outputs/opensource/balanced250_v1/manifest.json",
+        "manifest_sha256": "b2bbf3eb7a835f9c729cdffe29a40247225125779fe21551270fefe95d667c7f",
+        "contract_sha256": "671d1739bebf4370d26b4629ca26b56cc546a817d469ba505cc39bda8b33102c"
+      },
+      "ledgers": {
+        "inputs": {
+          "path": "outputs/opensource/balanced250_v1/inputs.jsonl",
+          "sha256": "6b5128909eeffdbd88e61af02ca1bd191cb5460f94a23b47c87ebd0172e6d12c",
+          "rows": 1775
+        },
+        "panel": {
+          "path": "outputs/opensource/balanced250_v1/panel.jsonl",
+          "sha256": "e01d7985b41cee5262a3f8b6d71420986feae96771b11c46fda98c3e72a0d424",
+          "rows": 1750
+        },
+        "source_pairs": {
+          "path": "outputs/opensource/balanced250_v1/source_pairs.jsonl",
+          "sha256": "391fdcf06eecff4cf1843ddb3688acacf52a293725c501660b7a361173b09b30",
+          "rows": 1500
+        }
+      },
+      "capability": {
+        "name": "local_t1_t2",
+        "conditions": [
+          "real",
+          "local_mouse",
+          "local_cat",
+          "local_trash_can",
+          "fullframe_mouse",
+          "fullframe_cat",
+          "fullframe_trash_can"
+        ],
+        "valid_for_t1": true,
+        "valid_for_t2": true
+      },
+      "selection": {
+        "spec": {
+          "capability": "local_t1_t2",
+          "conditions": null,
+          "per_condition_limit": 5,
+          "sample_id": null,
+          "pair_limit": null
+        },
+        "selected_images": 35,
+        "selected_ids_sha256": "b420bc581386a540b742d917d60d007f0e5522b6cca43fa217797944c40667e5",
+        "counts_by_condition": {
+          "real": 5,
+          "local_mouse": 5,
+          "local_cat": 5,
+          "local_trash_can": 5,
+          "fullframe_mouse": 5,
+          "fullframe_cat": 5,
+          "fullframe_trash_can": 5
+        }
+      },
+      "score_spec": {
+        "key": "ai_score",
+        "direction": "higher_means_fake",
+        "fixed_threshold": 0.5,
+        "threshold_operator": ">"
+      }
+    },
+    "manifest_path": "outputs/opensource/balanced250_v1/manifest.json",
+    "manifest_sha256": "b2bbf3eb7a835f9c729cdffe29a40247225125779fe21551270fefe95d667c7f",
+    "expected_inputs_path": "results/opensource/hifi_ifdl/hifi_ifdl_general750001_balanced250_v1_smoke5x7_b_r2_20260727/expected_inputs.jsonl",
+    "expected_inputs_sha256": "21e556dd791960afde6cc900d9aba79da61a1a935c6da7b0e0928d3f6b26afa0",
+    "selected_images": 35,
+    "t1_applicable_images": 35,
+    "t2_applicable_images": 20
+  },
+  "outputs": {
+    "results_path": "results/opensource/hifi_ifdl/hifi_ifdl_general750001_balanced250_v1_smoke5x7_b_r2_20260727/results.jsonl",
+    "expected_inputs_path": "results/opensource/hifi_ifdl/hifi_ifdl_general750001_balanced250_v1_smoke5x7_b_r2_20260727/expected_inputs.jsonl",
+    "summary_path": "results/opensource/hifi_ifdl/hifi_ifdl_general750001_balanced250_v1_smoke5x7_b_r2_20260727/summary.json",
+    "artifact_root": "outputs/opensource/hifi_ifdl/hifi_ifdl_general750001_balanced250_v1_smoke5x7_b_r2_20260727",
+    "embeddings_model_256_dir": "outputs/opensource/hifi_ifdl/hifi_ifdl_general750001_balanced250_v1_smoke5x7_b_r2_20260727/embeddings_model_256",
+    "distance_maps_model_256_dir": "outputs/opensource/hifi_ifdl/hifi_ifdl_general750001_balanced250_v1_smoke5x7_b_r2_20260727/distance_maps_model_256",
+    "distance_maps_native_dir": "outputs/opensource/hifi_ifdl/hifi_ifdl_general750001_balanced250_v1_smoke5x7_b_r2_20260727/distance_maps_native",
+    "masks_native_dir": "outputs/opensource/hifi_ifdl/hifi_ifdl_general750001_balanced250_v1_smoke5x7_b_r2_20260727/masks_native",
+    "results_sha256": "9bcbc712102a3a687d218c59b2b425cc9f5fa7710f7c28fc97e267a57aee9eec",
+    "summary_sha256": "5e8b849b0457a942ee9a660cc2684cd97cd57309488b67cadd69388b2321beb4",
+    "artifact_inventory": {
+      "embeddings_model_256": 20,
+      "distance_maps_model_256": 20,
+      "distance_maps_native": 20,
+      "masks_native": 20
+    }
+  },
+  "disk_preflight": {
+    "free_bytes_before_inference": 13176450633728,
+    "conservative_pending_bytes_plus_reserve": 2275084180,
+    "fixed_reserve_bytes": 2000000000
+  },
+  "execution": {
+    "new_successes": 35,
+    "resume_skips": 0,
+    "new_errors": 0,
+    "physical_result_rows": 35,
+    "latest_result_rows": 35,
+    "superseded_attempts": 0
+  }
+}
