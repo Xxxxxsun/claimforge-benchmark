@@ -3,6 +3,10 @@ from __future__ import annotations
 import numpy as np
 from PIL import Image
 
+from eval.our_defense.aggregate_a3d_results import (
+    _fixed_operating_point,
+    _roc_operating_point,
+)
 from eval.our_defense.run_trufor_a3d import (
     _calibration_threshold,
     _fused_map,
@@ -104,3 +108,24 @@ def test_generated_full_summary_uses_fixed_threshold() -> None:
     assert summary["images"] == 2
     assert summary["fused"]["positive_images"] == 1
     assert summary["fused"]["positive_rate"] == 0.5
+
+
+def test_aggregate_operating_points_use_fused_scores() -> None:
+    pairs = [
+        {
+            "real": {"full_score": real, "a3d_score": real},
+            "forged": {"full_score": forged, "a3d_score": forged},
+        }
+        for real, forged in ((0.1, 0.9), (0.2, 0.8), (0.3, 0.7))
+    ]
+    roc_point = _roc_operating_point(
+        pairs,
+        "a3d_fused_score",
+        max_fpr=0.01,
+    )
+    assert roc_point["actual_fpr"] == 0.0
+    assert roc_point["tpr"] == 1.0
+
+    fixed = _fixed_operating_point(pairs, threshold=0.65)
+    assert fixed["fpr"] == 0.0
+    assert fixed["tpr"] == 1.0

@@ -13,12 +13,18 @@ edits while adding local evidence for small edits. The local-only score is
 still emitted as a diagnostic.
 
 On the 275-pair canonical mouse set, the frozen TruFor baseline and A3D use the
-same checkpoint. A3D improves image AUROC from 0.8180 to 0.8798 and
-TPR@5%FPR from 0.4436 to 0.6727. Its primary localization rule improves macro
-pixel F1 from 0.5001 to 0.5599.
+same checkpoint. Current fused A3D improves image AUROC from 0.8180 to 0.8796
+and TPR@5%FPR from 0.4436 to 0.6655. Local-only is a slightly stronger mouse
+detection ablation (0.8798 / 0.6727), but is less stable on trash-can. The
+stable localization output remains the full-image map; local top-1 improves
+mouse macro pixel F1 from 0.5001 to 0.5599 only as a diagnostic.
 
 This is a strong native-input pilot, not a JPEG-robust solution. After JPEG
-quality-90 recompression, A3D AUROC falls to 0.6166 and pixel F1 to about 0.20.
+quality-90 recompression, fused A3D AUROC falls to 0.6101 (local-only 0.6166)
+and pixel F1 remains about 0.20.
+
+The complete method, implementation audit, all metrics, and conclusions are in
+`docs/A3D_ADAPTIVE_DEFENSE_FULL_REPORT_2026-07-27.md`.
 
 ## Cross-object result: cat and trash-can
 
@@ -55,9 +61,12 @@ claim. Freeze it before evaluating the next object category.
 ## Generated-full candidate result
 
 The manifest-only runner `run_a3d_generated_full.py` applies the same frozen
-full/local equal-logit detector to every image under `generated_full_images/`
-without requiring a real counterpart or localization mask. The verified
-2026-07-26 run covers all 807 images: 275 mouse, 272 cat, and 260 trash-can.
+full/local equal-logit detector to every image in the three final
+`generated_full_images/*` manifests without requiring a real counterpart or
+localization mask. The verified 2026-07-26 run covers all 807 final-manifest
+images: 275 mouse, 272 cat, and 260 trash-can. The current recursive tree also
+contains 86 QC retry/backup intermediates that are not part of those final
+manifests and are not included in this result.
 
 At the fixed mouse-reference threshold `0.6353510120379108`, equal-logit fusion
 detects 114/807 (14.13%) generated-full images. The local-only branch detects
@@ -90,32 +99,39 @@ scores.
 
 ## Main results
 
-Q1 was used to freeze the crop aggregation rule. Q2-Q5 is the size-held-out
-validation scope.
+Q1 was used to develop the crop proposal/local-only rule. Equal-logit fusion
+was later selected after aggregate cat/trash inspection and is therefore a
+post-selection rule that requires a future unseen category for a strict blind
+claim.
 
-| Scope | Pairs | Full AUROC | A3D AUROC | Full TPR@5% | A3D TPR@5% | Full pixel F1 | A3D pixel F1 |
+| Scope | Pairs | Full AUROC | Local AUROC | Fused AUROC | Full TPR@5% | Local TPR@5% | Fused TPR@5% |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| All | 275 | 0.8180 | 0.8798 | 0.4436 | 0.6727 | 0.5001 | 0.5599 |
-| Q1 development | 55 | 0.7226 | 0.8600 | 0.2182 | 0.6000 | 0.3468 | 0.4860 |
-| Q2-Q5 holdout | 220 | 0.8537 | 0.8855 | 0.5182 | 0.6955 | 0.5384 | 0.5783 |
+| All | 275 | 0.8180 | 0.8798 | 0.8796 | 0.4436 | 0.6727 | 0.6655 |
+| Q1 smallest | 55 | 0.7226 | 0.8600 | 0.8387 | 0.2182 | 0.6000 | 0.4545 |
+| Q2-Q5 larger | 220 | 0.8537 | 0.8855 | 0.8946 | 0.5182 | 0.6955 | 0.7500 |
 
-Paired bootstrap with 2,000 resamples gives the following A3D-minus-full 95%
-confidence intervals:
+Paired bootstrap with 2,000 resamples gives the following fused-minus-full
+detection 95% confidence intervals:
 
-| Scope | AUROC | TPR@5%FPR | Pixel AP | Pixel F1 |
-|---|---:|---:|---:|---:|
-| All | [0.0404, 0.0837] | [0.1491, 0.3236] | [0.1003, 0.1449] | [0.0392, 0.0835] |
-| Q2-Q5 holdout | [0.0095, 0.0563] | [0.1045, 0.2818] | [0.0850, 0.1312] | [0.0199, 0.0628] |
+| Scope | AUROC | AP | TPR@5%FPR |
+|---|---:|---:|---:|
+| All | [0.0448, 0.0788] | [0.0462, 0.0784] | [0.1345, 0.3236] |
+| Q2-Q5 larger | [0.0238, 0.0606] | [0.0286, 0.0636] | [0.1227, 0.3136] |
+
+For the mouse-only top-1 crop-map diagnostic, local-minus-full 95% intervals
+are [0.1003, 0.1449] pixel AP and [0.0392, 0.0835] pixel F1. This localization
+rule does not generalize to larger cat/trash edits, so it is not the primary
+map.
 
 The improvement is concentrated where the benchmark is hardest:
 
-| Edit-size quintile | Median edit fraction | Full AUROC | A3D AUROC | Full pixel F1 | A3D pixel F1 | Four-proposal hit rate |
-|---|---:|---:|---:|---:|---:|---:|
-| Q1 | 0.05347% | 0.7226 | 0.8600 | 0.3468 | 0.4860 | 0.9091 |
-| Q2 | 0.07780% | 0.8155 | 0.8762 | 0.4774 | 0.5502 | 0.9091 |
-| Q3 | 0.11264% | 0.8575 | 0.8855 | 0.5196 | 0.5770 | 0.9818 |
-| Q4 | 0.16293% | 0.8489 | 0.8504 | 0.5306 | 0.5680 | 1.0000 |
-| Q5 | 0.37441% | 0.9412 | 0.9383 | 0.6260 | 0.6181 | 1.0000 |
+| Edit-size quintile | Median edit fraction | Full AUROC | Local AUROC | Fused AUROC | Full pixel F1 | Top-1 pixel F1 | Four-proposal hit rate |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Q1 | 0.05347% | 0.7226 | 0.8600 | 0.8387 | 0.3468 | 0.4860 | 0.9091 |
+| Q2 | 0.07780% | 0.8155 | 0.8762 | 0.8889 | 0.4774 | 0.5502 | 0.9091 |
+| Q3 | 0.11264% | 0.8575 | 0.8855 | 0.8926 | 0.5196 | 0.5770 | 0.9818 |
+| Q4 | 0.16293% | 0.8489 | 0.8504 | 0.8648 | 0.5306 | 0.5680 | 1.0000 |
+| Q5 | 0.37441% | 0.9412 | 0.9383 | 0.9438 | 0.6260 | 0.6181 | 1.0000 |
 
 Q5 is already near saturation and does not benefit from zooming. A production
 defense should retain both the global and local outputs instead of claiming
@@ -129,12 +145,12 @@ per image in this environment. The exhaustive diagnostic scan takes about
 
 The canonical set has a deterministic task-ID hash split with 80 calibration
 pairs and 195 test pairs. A threshold set just above the empirical 95th
-percentile of calibration-real A3D scores gives:
+percentile of calibration-real fused scores is `0.6353510120379108` and gives:
 
-- test FPR: 3.08%
-- test TPR: 66.67%
-- test AUROC: 0.8816
-- test TPR@5%FPR: 70.26%
+- test FPR: 5.64%
+- test TPR: 72.31%
+- test AUROC: 0.8737
+- test TPR@5%FPR: 66.67%
 
 The threshold is not adapted on individual test inputs.
 
@@ -143,13 +159,14 @@ The threshold is not adapted on individual test inputs.
 The same images were recompressed in memory at JPEG quality 90 before all
 inference. This changes the threat condition but preserves image geometry.
 
-| Scope | Full AUROC | A3D AUROC | Full TPR@5% | A3D TPR@5% | Full pixel F1 | A3D pixel F1 |
+| Scope | Full AUROC | Local AUROC | Fused AUROC | Full TPR@5% | Local TPR@5% | Fused TPR@5% |
 |---|---:|---:|---:|---:|---:|---:|
-| All | 0.5662 | 0.6166 | 0.1164 | 0.1745 | 0.2036 | 0.2055 |
-| Q2-Q5 holdout | 0.5795 | 0.6221 | 0.1318 | 0.2045 | 0.2315 | 0.2219 |
+| All | 0.5662 | 0.6166 | 0.6101 | 0.1164 | 0.1745 | 0.1782 |
+| Q2-Q5 larger | 0.5795 | 0.6221 | 0.6187 | 0.1318 | 0.2045 | 0.2000 |
 
-A3D still improves detection ranking relative to full-image TruFor, but the
-absolute detector is weak and localization gains are not statistically stable.
+Fused A3D still improves detection ranking relative to full-image TruFor, but
+the absolute detector is weak and localization gains are not statistically
+stable.
 Two failures occur:
 
 - proposal failure: JPEG suppresses the full-pass evidence at the edit;
@@ -187,7 +204,7 @@ CUDA_VISIBLE_DEVICES=0 \
   -m eval.our_defense.run_trufor_a3d \
   --run-id claim_a3d_deployable_all_20260725 \
   --scope all \
-  --output-dir outputs/experiments/claim_a3d/a3d_all \
+  --output-dir results/our_defense/mouse_a3d_20260725/clean \
   --device cuda:0
 ```
 
@@ -223,11 +240,11 @@ Generate paired-bootstrap and slice analysis:
 ```bash
 /root/.cache/claimforge/venvs/trufor-ae54475/bin/python \
   -m eval.our_defense.analyze_trufor_a3d \
-  outputs/experiments/claim_a3d/a3d_all/claim_a3d_deployable_all_20260725.jsonl \
-  --output-json outputs/experiments/claim_a3d/a3d_all/claim_a3d_deployable_all_20260725.analysis.json \
-  --output-markdown outputs/experiments/claim_a3d/a3d_all/claim_a3d_deployable_all_20260725.analysis.md \
+  results/our_defense/mouse_a3d_20260725/clean/claim_a3d_deployable_all_20260725.jsonl \
+  --output-json results/our_defense/mouse_a3d_20260725/clean/claim_a3d_deployable_all_20260725.analysis.json \
+  --output-markdown results/our_defense/mouse_a3d_20260725/clean/claim_a3d_deployable_all_20260725.analysis.md \
   --bootstrap-replicates 2000 \
-  --calibration-results outputs/experiments/claim_a3d/a3d_all/claim_a3d_deployable_all_20260725.jsonl
+  --calibration-results results/our_defense/mouse_a3d_20260725/clean/claim_a3d_deployable_all_20260725.jsonl
 ```
 
 ## Artifacts
@@ -241,9 +258,11 @@ Generate paired-bootstrap and slice analysis:
 - `eval/our_defense/run_trufor_a3d.py`: deployable four-crop A3D runner.
 - `eval/our_defense/analyze_trufor_a3d.py`: slice, failure, and paired-bootstrap
   analysis.
-- `outputs/experiments/claim_a3d/a3d_all/`: clean JSONL, summary, and analysis.
-- `outputs/experiments/claim_a3d/a3d_all_jpeg90/`: JPEG-90 counterparts.
+- `results/our_defense/mouse_a3d_20260725/`: durable clean, JPEG-90, and Q1
+  diagnostics.
+- `results/our_defense/a3d_aggregate_20260727/`: unified metrics and checksums.
+- `docs/A3D_ADAPTIVE_DEFENSE_FULL_REPORT_2026-07-27.md`: complete report.
 
-The `outputs/` tree is intentionally ignored by Git but remains available in
-this checkout. Final reports and prediction JSONL files are materialized under
+The `outputs/` tree remains a scratch area. All report-critical per-image
+predictions, summaries, analyses, and checksums are now materialized under
 `results/our_defense/`.

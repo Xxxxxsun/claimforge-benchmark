@@ -12,8 +12,15 @@ the three `generated_full_images/*` generation manifests:
 | Trash-can | 260 | 260 | 0 |
 | **All** | **807** | **807** | **0** |
 
-The manifest-derived IDs exactly match the 807 image files on disk. Duplicate
-manifest retry records are reduced to their latest successful output.
+The manifest-derived IDs exactly match the 807 direct image files in those
+three final-manifest directories. Duplicate manifest retry records are reduced
+to their latest successful output.
+
+The current recursive `generated_full_images/` tree has 893 images in seven
+directories. The additional 86 are mouse QC retry/pilot or wrong-ID backup
+intermediates and are not members of the three final manifests, so they are
+excluded from this result. The full inventory is recorded in
+`results/our_defense/a3d_aggregate_20260727/aggregate_metrics.json`.
 
 ## Protocol
 

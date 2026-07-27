@@ -3,9 +3,9 @@
 
 A3D performs one full-image pass, ranks a deterministic grid using only the
 full-pass forensic evidence, and spends a fixed budget on the four strongest
-native-resolution crops.  The image score is the maximum crop score.  The
-highest-scoring crop supplies the primary localization map; top-two and all-four
-fusion are retained as ablations.
+native-resolution crops.  The primary image score is the equal-weight mean of
+the full-image and maximum-crop logits.  The full-image map is the stable
+localization output; crop-map variants are retained as diagnostics.
 
 No weights or thresholds are updated per test image.  Ground truth is used
 only for evaluation after all proposals and predictions have been produced.
