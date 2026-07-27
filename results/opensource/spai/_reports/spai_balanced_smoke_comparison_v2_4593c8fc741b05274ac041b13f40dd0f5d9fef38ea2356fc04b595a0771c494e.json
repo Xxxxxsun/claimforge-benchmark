@@ -1,0 +1,666 @@
+{
+  "schema_version": "spai_balanced_smoke_comparison_v2",
+  "status": "deterministic_spai_smoke_comparison_passed",
+  "compared_at": "2026-07-27T01:26:14.820784+00:00",
+  "analysis_runtime": {
+    "schema_version": "spai_balanced_analysis_runtime_v1",
+    "inference_runtime": {
+      "device": "cpu",
+      "python": {
+        "implementation": "CPython",
+        "version": "3.12.3",
+        "executable": "/root/.cache/claimforge/venvs/spai/bin/python"
+      },
+      "venv": {
+        "prefix": "/root/.cache/claimforge/venvs/spai",
+        "base_prefix": "/usr",
+        "pyvenv_cfg_path": "/root/.cache/claimforge/venvs/spai/pyvenv.cfg",
+        "pyvenv_cfg_sha256": "506c01d6bc866a7500bde63a24b3f0c1fb3013df41051ad9a8bf7c42c85eb091",
+        "include_system_site_packages": true
+      },
+      "platform": "Linux-5.10.134-16.103.al8.x86_64-x86_64-with-glibc2.39",
+      "versions": {
+        "python": "3.12.3",
+        "torch": "2.8.0.dev20250627+cu128",
+        "torchvision": "0.23.0.dev20250627+cu128",
+        "timm": "0.4.12",
+        "numpy": "1.26.4",
+        "Pillow": "11.1.0",
+        "yacs": "0.1.8",
+        "einops": "0.8.1",
+        "opencv-python-headless": "4.10.0.84",
+        "albumentations": "1.4.14",
+        "setuptools": "79.0.1"
+      },
+      "module_files": {
+        "torch": {
+          "path": "/usr/local/lib/python3.12/dist-packages/torch/__init__.py",
+          "sha256": "abc68f909360770fb0dd0fc263b43ae65906bd66d1eab99cdcf5c5abf23c0e0d"
+        },
+        "torchvision": {
+          "path": "/usr/local/lib/python3.12/dist-packages/torchvision/__init__.py",
+          "sha256": "ee2c9f4110cf1203db48c42601607329ac1f19709fa91c152f8d95eb53437a73"
+        },
+        "timm": {
+          "path": "/root/.cache/claimforge/venvs/spai/lib/python3.12/site-packages/timm/__init__.py",
+          "sha256": "f664ef352d89e92a0c681ad812fe9772673d106332b6e1709098146025d202b8"
+        },
+        "numpy": {
+          "path": "/root/.cache/claimforge/venvs/spai/lib/python3.12/site-packages/numpy/__init__.py",
+          "sha256": "22cd1535fa14d74ef6f457cca149ffdc80875f460be313b8f895273f78bc402e"
+        },
+        "PIL": {
+          "path": "/usr/local/lib/python3.12/dist-packages/PIL/__init__.py",
+          "sha256": "7c95303c6848f3f99c07c8cd583fa1530ecc88c2725a0a955ff9c5b73223d59b"
+        },
+        "yacs": {
+          "path": "/root/.cache/claimforge/venvs/spai/lib/python3.12/site-packages/yacs/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "einops": {
+          "path": "/usr/local/lib/python3.12/dist-packages/einops/__init__.py",
+          "sha256": "acacaf13ae1b60c38c5c01b811f30c4951b1805674c79d5db7cda946cc389471"
+        },
+        "cv2": {
+          "path": "/root/.cache/claimforge/venvs/spai/lib/python3.12/site-packages/cv2/__init__.py",
+          "sha256": "936bd94c5a5debf0212fc751af79d3a163652f3e850259df2159db6aa3ed8ad8"
+        },
+        "albumentations": {
+          "path": "/root/.cache/claimforge/venvs/spai/lib/python3.12/site-packages/albumentations/__init__.py",
+          "sha256": "881857517838ba0e9a8fc90f4ccf224863c5e019685bfac8914fa6608df9a8cf"
+        }
+      },
+      "seed": 0,
+      "preprocess_profile": "official_pillow_rgb_native_float32_0_1",
+      "inference_dtype": "float32",
+      "batch_size": 1,
+      "autocast": false,
+      "grad_enabled": false,
+      "deterministic_algorithms_enabled": true,
+      "deterministic_algorithms_warn_only": false,
+      "cublas_workspace_config": ":4096:8",
+      "cudnn": {
+        "enabled": true,
+        "benchmark": false,
+        "deterministic": true,
+        "allow_tf32": false
+      },
+      "matmul_allow_tf32": false,
+      "float32_matmul_precision": "highest",
+      "minimum_cuda_free_bytes": 12884901888,
+      "bytecode_writes_disabled": true,
+      "process_environment": {
+        "PYTHONHASHSEED": "0",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONPYCACHEPREFIX": "/root/.cache/claimforge/pycache/spai-balanced-v2-empty",
+        "python_dont_write_bytecode": true,
+        "sys_pycache_prefix": "/root/.cache/claimforge/pycache/spai-balanced-v2-empty",
+        "pycache_prefix_initially_empty": true
+      },
+      "network_allowed": false
+    },
+    "analysis_packages": {
+      "scipy": "1.16.0",
+      "scikit-learn": "1.5.2"
+    }
+  },
+  "reference": {
+    "run_id": "spai_any_resolution_spectral_balanced250_v1_smoke5x7_a_20260726",
+    "run_manifest_fingerprint": "27f01d39a174429ed20e18b2900b77e1056217d1bb11b43d4a50d96ae44b751f",
+    "manifest_sha256": "167a0c91bfca5c741295e632a787f6e968ce0067d3a448f103231d641909ef11",
+    "results_sha256": "8d4dfc76073290032cb9a1a53860a451dc4fdbbc729742c776b42dd438ca4905",
+    "expected_inputs_sha256": "21e556dd791960afde6cc900d9aba79da61a1a935c6da7b0e0928d3f6b26afa0",
+    "summary_sha256": "47be9da792728373e5fb5b279984bf58b16e4eff5ba8041840d2fee4039fbac9",
+    "artifact_inventory_sha256": "95f4e8ee42c2c753580cd9263e22a479ba5ef65172084163ced28f5d93b38ac6"
+  },
+  "replay": {
+    "run_id": "spai_any_resolution_spectral_balanced250_v1_smoke5x7_b_20260726",
+    "run_manifest_fingerprint": "1dd4bd6f1bb90fb1359daf2ddee180a950ebd1dab25ede799aa70551240dcd08",
+    "manifest_sha256": "c27cc8676efe789c48b89f55698a421e96d127adb262965aa5a3e099d83fc5b5",
+    "results_sha256": "1423acb22801aa06abccfc40aeb03347a05aa7f5d86fa16c7637e8a2607f3aab",
+    "expected_inputs_sha256": "21e556dd791960afde6cc900d9aba79da61a1a935c6da7b0e0928d3f6b26afa0",
+    "summary_sha256": "05fbe721ea5c1a5351d5e821ce292610fdb67e41971f5aad93ee71a6e7f6982d",
+    "artifact_inventory_sha256": "73e2431d33d6ade728593d3184aaa639e1200a7410ad83c43ca6a1c27552db2c"
+  },
+  "selection": {
+    "spec": {
+      "capability": "whole_image_t1",
+      "conditions": null,
+      "per_condition_limit": 5,
+      "sample_id": null,
+      "pair_limit": null
+    },
+    "selected_images": 35,
+    "selected_ids_sha256": "b420bc581386a540b742d917d60d007f0e5522b6cca43fa217797944c40667e5",
+    "counts_by_condition": {
+      "real": 5,
+      "local_mouse": 5,
+      "local_cat": 5,
+      "local_trash_can": 5,
+      "fullframe_mouse": 5,
+      "fullframe_cat": 5,
+      "fullframe_trash_can": 5
+    }
+  },
+  "reference_persisted_patch_feature_replay": {
+    "status": "persisted_spai_artifact_replay_passed",
+    "images_replayed": 35,
+    "patch_sca_norm_complete_mlp_replays": 35,
+    "normalized_feature_complete_mlp_replays": 35,
+    "attention_role": "classifier_diagnostic_not_T2_or_localization",
+    "checkpoint_sha256": "24159f27d7c8c2cd0cb6c4019189eb89ad0874a0d9d15f8dc9afd39ca9648a55",
+    "checkpoint_schema_sha256": "ffe751246ec65936d5583a1db62bf617697484e6185f1bfad7c678f1dad36ef8",
+    "source_commit": "8ff7b3b6779b4fcb43cf313471d9cb1c62d129a4",
+    "checkpoint_safety": {
+      "weights_only": true,
+      "pickle_executed": false,
+      "safe_global_allowlist": [
+        "yacs.config.CfgNode"
+      ],
+      "loader": "torch.load(map_location=cpu, weights_only=True)",
+      "runtime": {
+        "device": "cuda:0",
+        "python": {
+          "implementation": "CPython",
+          "version": "3.12.3",
+          "executable": "/root/.cache/claimforge/venvs/spai/bin/python"
+        },
+        "venv": {
+          "prefix": "/root/.cache/claimforge/venvs/spai",
+          "base_prefix": "/usr",
+          "pyvenv_cfg_path": "/root/.cache/claimforge/venvs/spai/pyvenv.cfg",
+          "pyvenv_cfg_sha256": "506c01d6bc866a7500bde63a24b3f0c1fb3013df41051ad9a8bf7c42c85eb091",
+          "include_system_site_packages": true
+        },
+        "platform": "Linux-5.10.134-16.103.al8.x86_64-x86_64-with-glibc2.39",
+        "versions": {
+          "python": "3.12.3",
+          "torch": "2.8.0.dev20250627+cu128",
+          "torchvision": "0.23.0.dev20250627+cu128",
+          "timm": "0.4.12",
+          "numpy": "1.26.4",
+          "Pillow": "11.1.0",
+          "yacs": "0.1.8",
+          "einops": "0.8.1",
+          "opencv-python-headless": "4.10.0.84",
+          "albumentations": "1.4.14",
+          "setuptools": "79.0.1"
+        },
+        "module_files": {
+          "torch": {
+            "path": "/usr/local/lib/python3.12/dist-packages/torch/__init__.py",
+            "sha256": "abc68f909360770fb0dd0fc263b43ae65906bd66d1eab99cdcf5c5abf23c0e0d"
+          },
+          "torchvision": {
+            "path": "/usr/local/lib/python3.12/dist-packages/torchvision/__init__.py",
+            "sha256": "ee2c9f4110cf1203db48c42601607329ac1f19709fa91c152f8d95eb53437a73"
+          },
+          "timm": {
+            "path": "/root/.cache/claimforge/venvs/spai/lib/python3.12/site-packages/timm/__init__.py",
+            "sha256": "f664ef352d89e92a0c681ad812fe9772673d106332b6e1709098146025d202b8"
+          },
+          "numpy": {
+            "path": "/root/.cache/claimforge/venvs/spai/lib/python3.12/site-packages/numpy/__init__.py",
+            "sha256": "22cd1535fa14d74ef6f457cca149ffdc80875f460be313b8f895273f78bc402e"
+          },
+          "PIL": {
+            "path": "/usr/local/lib/python3.12/dist-packages/PIL/__init__.py",
+            "sha256": "7c95303c6848f3f99c07c8cd583fa1530ecc88c2725a0a955ff9c5b73223d59b"
+          },
+          "yacs": {
+            "path": "/root/.cache/claimforge/venvs/spai/lib/python3.12/site-packages/yacs/__init__.py",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "einops": {
+            "path": "/usr/local/lib/python3.12/dist-packages/einops/__init__.py",
+            "sha256": "acacaf13ae1b60c38c5c01b811f30c4951b1805674c79d5db7cda946cc389471"
+          },
+          "cv2": {
+            "path": "/root/.cache/claimforge/venvs/spai/lib/python3.12/site-packages/cv2/__init__.py",
+            "sha256": "936bd94c5a5debf0212fc751af79d3a163652f3e850259df2159db6aa3ed8ad8"
+          },
+          "albumentations": {
+            "path": "/root/.cache/claimforge/venvs/spai/lib/python3.12/site-packages/albumentations/__init__.py",
+            "sha256": "881857517838ba0e9a8fc90f4ccf224863c5e019685bfac8914fa6608df9a8cf"
+          }
+        },
+        "seed": 0,
+        "preprocess_profile": "official_pillow_rgb_native_float32_0_1",
+        "inference_dtype": "float32",
+        "batch_size": 1,
+        "autocast": false,
+        "grad_enabled": false,
+        "deterministic_algorithms_enabled": true,
+        "deterministic_algorithms_warn_only": false,
+        "cublas_workspace_config": ":4096:8",
+        "cudnn": {
+          "enabled": true,
+          "benchmark": false,
+          "deterministic": true,
+          "allow_tf32": false
+        },
+        "matmul_allow_tf32": false,
+        "float32_matmul_precision": "highest",
+        "minimum_cuda_free_bytes": 12884901888,
+        "bytecode_writes_disabled": true,
+        "process_environment": {
+          "PYTHONHASHSEED": "0",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONPYCACHEPREFIX": "/root/.cache/claimforge/pycache/spai-balanced-v2-empty",
+          "python_dont_write_bytecode": true,
+          "sys_pycache_prefix": "/root/.cache/claimforge/pycache/spai-balanced-v2-empty",
+          "pycache_prefix_initially_empty": true
+        },
+        "network_allowed": false,
+        "cuda": {
+          "runtime": "12.8",
+          "device_index": 0,
+          "device_name": "NVIDIA L20Z",
+          "total_memory_bytes": 85017624576,
+          "capability": [
+            9,
+            0
+          ]
+        }
+      }
+    },
+    "runtime": {
+      "device": "cuda:0",
+      "python": {
+        "implementation": "CPython",
+        "version": "3.12.3",
+        "executable": "/root/.cache/claimforge/venvs/spai/bin/python"
+      },
+      "venv": {
+        "prefix": "/root/.cache/claimforge/venvs/spai",
+        "base_prefix": "/usr",
+        "pyvenv_cfg_path": "/root/.cache/claimforge/venvs/spai/pyvenv.cfg",
+        "pyvenv_cfg_sha256": "506c01d6bc866a7500bde63a24b3f0c1fb3013df41051ad9a8bf7c42c85eb091",
+        "include_system_site_packages": true
+      },
+      "platform": "Linux-5.10.134-16.103.al8.x86_64-x86_64-with-glibc2.39",
+      "versions": {
+        "python": "3.12.3",
+        "torch": "2.8.0.dev20250627+cu128",
+        "torchvision": "0.23.0.dev20250627+cu128",
+        "timm": "0.4.12",
+        "numpy": "1.26.4",
+        "Pillow": "11.1.0",
+        "yacs": "0.1.8",
+        "einops": "0.8.1",
+        "opencv-python-headless": "4.10.0.84",
+        "albumentations": "1.4.14",
+        "setuptools": "79.0.1"
+      },
+      "module_files": {
+        "torch": {
+          "path": "/usr/local/lib/python3.12/dist-packages/torch/__init__.py",
+          "sha256": "abc68f909360770fb0dd0fc263b43ae65906bd66d1eab99cdcf5c5abf23c0e0d"
+        },
+        "torchvision": {
+          "path": "/usr/local/lib/python3.12/dist-packages/torchvision/__init__.py",
+          "sha256": "ee2c9f4110cf1203db48c42601607329ac1f19709fa91c152f8d95eb53437a73"
+        },
+        "timm": {
+          "path": "/root/.cache/claimforge/venvs/spai/lib/python3.12/site-packages/timm/__init__.py",
+          "sha256": "f664ef352d89e92a0c681ad812fe9772673d106332b6e1709098146025d202b8"
+        },
+        "numpy": {
+          "path": "/root/.cache/claimforge/venvs/spai/lib/python3.12/site-packages/numpy/__init__.py",
+          "sha256": "22cd1535fa14d74ef6f457cca149ffdc80875f460be313b8f895273f78bc402e"
+        },
+        "PIL": {
+          "path": "/usr/local/lib/python3.12/dist-packages/PIL/__init__.py",
+          "sha256": "7c95303c6848f3f99c07c8cd583fa1530ecc88c2725a0a955ff9c5b73223d59b"
+        },
+        "yacs": {
+          "path": "/root/.cache/claimforge/venvs/spai/lib/python3.12/site-packages/yacs/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "einops": {
+          "path": "/usr/local/lib/python3.12/dist-packages/einops/__init__.py",
+          "sha256": "acacaf13ae1b60c38c5c01b811f30c4951b1805674c79d5db7cda946cc389471"
+        },
+        "cv2": {
+          "path": "/root/.cache/claimforge/venvs/spai/lib/python3.12/site-packages/cv2/__init__.py",
+          "sha256": "936bd94c5a5debf0212fc751af79d3a163652f3e850259df2159db6aa3ed8ad8"
+        },
+        "albumentations": {
+          "path": "/root/.cache/claimforge/venvs/spai/lib/python3.12/site-packages/albumentations/__init__.py",
+          "sha256": "881857517838ba0e9a8fc90f4ccf224863c5e019685bfac8914fa6608df9a8cf"
+        }
+      },
+      "seed": 0,
+      "preprocess_profile": "official_pillow_rgb_native_float32_0_1",
+      "inference_dtype": "float32",
+      "batch_size": 1,
+      "autocast": false,
+      "grad_enabled": false,
+      "deterministic_algorithms_enabled": true,
+      "deterministic_algorithms_warn_only": false,
+      "cublas_workspace_config": ":4096:8",
+      "cudnn": {
+        "enabled": true,
+        "benchmark": false,
+        "deterministic": true,
+        "allow_tf32": false
+      },
+      "matmul_allow_tf32": false,
+      "float32_matmul_precision": "highest",
+      "minimum_cuda_free_bytes": 12884901888,
+      "bytecode_writes_disabled": true,
+      "process_environment": {
+        "PYTHONHASHSEED": "0",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONPYCACHEPREFIX": "/root/.cache/claimforge/pycache/spai-balanced-v2-empty",
+        "python_dont_write_bytecode": true,
+        "sys_pycache_prefix": "/root/.cache/claimforge/pycache/spai-balanced-v2-empty",
+        "pycache_prefix_initially_empty": true
+      },
+      "network_allowed": false,
+      "cuda": {
+        "runtime": "12.8",
+        "device_index": 0,
+        "device_name": "NVIDIA L20Z",
+        "total_memory_bytes": 85017624576,
+        "capability": [
+          9,
+          0
+        ]
+      }
+    },
+    "maximum_absolute_differences": {
+      "sca_feature": 0.0,
+      "sca_attention": 0.0,
+      "sca_raw_logit": 0.0,
+      "feature_mlp_raw_logit": 0.0,
+      "sca_probability": 0.0,
+      "feature_mlp_probability": 0.0
+    },
+    "tolerances": {
+      "feature": 1e-05,
+      "attention": 1e-06,
+      "raw_logit": 1e-05,
+      "probability": 1e-07
+    }
+  },
+  "replay_persisted_patch_feature_replay": {
+    "status": "persisted_spai_artifact_replay_passed",
+    "images_replayed": 35,
+    "patch_sca_norm_complete_mlp_replays": 35,
+    "normalized_feature_complete_mlp_replays": 35,
+    "attention_role": "classifier_diagnostic_not_T2_or_localization",
+    "checkpoint_sha256": "24159f27d7c8c2cd0cb6c4019189eb89ad0874a0d9d15f8dc9afd39ca9648a55",
+    "checkpoint_schema_sha256": "ffe751246ec65936d5583a1db62bf617697484e6185f1bfad7c678f1dad36ef8",
+    "source_commit": "8ff7b3b6779b4fcb43cf313471d9cb1c62d129a4",
+    "checkpoint_safety": {
+      "weights_only": true,
+      "pickle_executed": false,
+      "safe_global_allowlist": [
+        "yacs.config.CfgNode"
+      ],
+      "loader": "torch.load(map_location=cpu, weights_only=True)",
+      "runtime": {
+        "device": "cuda:0",
+        "python": {
+          "implementation": "CPython",
+          "version": "3.12.3",
+          "executable": "/root/.cache/claimforge/venvs/spai/bin/python"
+        },
+        "venv": {
+          "prefix": "/root/.cache/claimforge/venvs/spai",
+          "base_prefix": "/usr",
+          "pyvenv_cfg_path": "/root/.cache/claimforge/venvs/spai/pyvenv.cfg",
+          "pyvenv_cfg_sha256": "506c01d6bc866a7500bde63a24b3f0c1fb3013df41051ad9a8bf7c42c85eb091",
+          "include_system_site_packages": true
+        },
+        "platform": "Linux-5.10.134-16.103.al8.x86_64-x86_64-with-glibc2.39",
+        "versions": {
+          "python": "3.12.3",
+          "torch": "2.8.0.dev20250627+cu128",
+          "torchvision": "0.23.0.dev20250627+cu128",
+          "timm": "0.4.12",
+          "numpy": "1.26.4",
+          "Pillow": "11.1.0",
+          "yacs": "0.1.8",
+          "einops": "0.8.1",
+          "opencv-python-headless": "4.10.0.84",
+          "albumentations": "1.4.14",
+          "setuptools": "79.0.1"
+        },
+        "module_files": {
+          "torch": {
+            "path": "/usr/local/lib/python3.12/dist-packages/torch/__init__.py",
+            "sha256": "abc68f909360770fb0dd0fc263b43ae65906bd66d1eab99cdcf5c5abf23c0e0d"
+          },
+          "torchvision": {
+            "path": "/usr/local/lib/python3.12/dist-packages/torchvision/__init__.py",
+            "sha256": "ee2c9f4110cf1203db48c42601607329ac1f19709fa91c152f8d95eb53437a73"
+          },
+          "timm": {
+            "path": "/root/.cache/claimforge/venvs/spai/lib/python3.12/site-packages/timm/__init__.py",
+            "sha256": "f664ef352d89e92a0c681ad812fe9772673d106332b6e1709098146025d202b8"
+          },
+          "numpy": {
+            "path": "/root/.cache/claimforge/venvs/spai/lib/python3.12/site-packages/numpy/__init__.py",
+            "sha256": "22cd1535fa14d74ef6f457cca149ffdc80875f460be313b8f895273f78bc402e"
+          },
+          "PIL": {
+            "path": "/usr/local/lib/python3.12/dist-packages/PIL/__init__.py",
+            "sha256": "7c95303c6848f3f99c07c8cd583fa1530ecc88c2725a0a955ff9c5b73223d59b"
+          },
+          "yacs": {
+            "path": "/root/.cache/claimforge/venvs/spai/lib/python3.12/site-packages/yacs/__init__.py",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "einops": {
+            "path": "/usr/local/lib/python3.12/dist-packages/einops/__init__.py",
+            "sha256": "acacaf13ae1b60c38c5c01b811f30c4951b1805674c79d5db7cda946cc389471"
+          },
+          "cv2": {
+            "path": "/root/.cache/claimforge/venvs/spai/lib/python3.12/site-packages/cv2/__init__.py",
+            "sha256": "936bd94c5a5debf0212fc751af79d3a163652f3e850259df2159db6aa3ed8ad8"
+          },
+          "albumentations": {
+            "path": "/root/.cache/claimforge/venvs/spai/lib/python3.12/site-packages/albumentations/__init__.py",
+            "sha256": "881857517838ba0e9a8fc90f4ccf224863c5e019685bfac8914fa6608df9a8cf"
+          }
+        },
+        "seed": 0,
+        "preprocess_profile": "official_pillow_rgb_native_float32_0_1",
+        "inference_dtype": "float32",
+        "batch_size": 1,
+        "autocast": false,
+        "grad_enabled": false,
+        "deterministic_algorithms_enabled": true,
+        "deterministic_algorithms_warn_only": false,
+        "cublas_workspace_config": ":4096:8",
+        "cudnn": {
+          "enabled": true,
+          "benchmark": false,
+          "deterministic": true,
+          "allow_tf32": false
+        },
+        "matmul_allow_tf32": false,
+        "float32_matmul_precision": "highest",
+        "minimum_cuda_free_bytes": 12884901888,
+        "bytecode_writes_disabled": true,
+        "process_environment": {
+          "PYTHONHASHSEED": "0",
+          "PYTHONDONTWRITEBYTECODE": "1",
+          "PYTHONPYCACHEPREFIX": "/root/.cache/claimforge/pycache/spai-balanced-v2-empty",
+          "python_dont_write_bytecode": true,
+          "sys_pycache_prefix": "/root/.cache/claimforge/pycache/spai-balanced-v2-empty",
+          "pycache_prefix_initially_empty": true
+        },
+        "network_allowed": false,
+        "cuda": {
+          "runtime": "12.8",
+          "device_index": 0,
+          "device_name": "NVIDIA L20Z",
+          "total_memory_bytes": 85017624576,
+          "capability": [
+            9,
+            0
+          ]
+        }
+      }
+    },
+    "runtime": {
+      "device": "cuda:0",
+      "python": {
+        "implementation": "CPython",
+        "version": "3.12.3",
+        "executable": "/root/.cache/claimforge/venvs/spai/bin/python"
+      },
+      "venv": {
+        "prefix": "/root/.cache/claimforge/venvs/spai",
+        "base_prefix": "/usr",
+        "pyvenv_cfg_path": "/root/.cache/claimforge/venvs/spai/pyvenv.cfg",
+        "pyvenv_cfg_sha256": "506c01d6bc866a7500bde63a24b3f0c1fb3013df41051ad9a8bf7c42c85eb091",
+        "include_system_site_packages": true
+      },
+      "platform": "Linux-5.10.134-16.103.al8.x86_64-x86_64-with-glibc2.39",
+      "versions": {
+        "python": "3.12.3",
+        "torch": "2.8.0.dev20250627+cu128",
+        "torchvision": "0.23.0.dev20250627+cu128",
+        "timm": "0.4.12",
+        "numpy": "1.26.4",
+        "Pillow": "11.1.0",
+        "yacs": "0.1.8",
+        "einops": "0.8.1",
+        "opencv-python-headless": "4.10.0.84",
+        "albumentations": "1.4.14",
+        "setuptools": "79.0.1"
+      },
+      "module_files": {
+        "torch": {
+          "path": "/usr/local/lib/python3.12/dist-packages/torch/__init__.py",
+          "sha256": "abc68f909360770fb0dd0fc263b43ae65906bd66d1eab99cdcf5c5abf23c0e0d"
+        },
+        "torchvision": {
+          "path": "/usr/local/lib/python3.12/dist-packages/torchvision/__init__.py",
+          "sha256": "ee2c9f4110cf1203db48c42601607329ac1f19709fa91c152f8d95eb53437a73"
+        },
+        "timm": {
+          "path": "/root/.cache/claimforge/venvs/spai/lib/python3.12/site-packages/timm/__init__.py",
+          "sha256": "f664ef352d89e92a0c681ad812fe9772673d106332b6e1709098146025d202b8"
+        },
+        "numpy": {
+          "path": "/root/.cache/claimforge/venvs/spai/lib/python3.12/site-packages/numpy/__init__.py",
+          "sha256": "22cd1535fa14d74ef6f457cca149ffdc80875f460be313b8f895273f78bc402e"
+        },
+        "PIL": {
+          "path": "/usr/local/lib/python3.12/dist-packages/PIL/__init__.py",
+          "sha256": "7c95303c6848f3f99c07c8cd583fa1530ecc88c2725a0a955ff9c5b73223d59b"
+        },
+        "yacs": {
+          "path": "/root/.cache/claimforge/venvs/spai/lib/python3.12/site-packages/yacs/__init__.py",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "einops": {
+          "path": "/usr/local/lib/python3.12/dist-packages/einops/__init__.py",
+          "sha256": "acacaf13ae1b60c38c5c01b811f30c4951b1805674c79d5db7cda946cc389471"
+        },
+        "cv2": {
+          "path": "/root/.cache/claimforge/venvs/spai/lib/python3.12/site-packages/cv2/__init__.py",
+          "sha256": "936bd94c5a5debf0212fc751af79d3a163652f3e850259df2159db6aa3ed8ad8"
+        },
+        "albumentations": {
+          "path": "/root/.cache/claimforge/venvs/spai/lib/python3.12/site-packages/albumentations/__init__.py",
+          "sha256": "881857517838ba0e9a8fc90f4ccf224863c5e019685bfac8914fa6608df9a8cf"
+        }
+      },
+      "seed": 0,
+      "preprocess_profile": "official_pillow_rgb_native_float32_0_1",
+      "inference_dtype": "float32",
+      "batch_size": 1,
+      "autocast": false,
+      "grad_enabled": false,
+      "deterministic_algorithms_enabled": true,
+      "deterministic_algorithms_warn_only": false,
+      "cublas_workspace_config": ":4096:8",
+      "cudnn": {
+        "enabled": true,
+        "benchmark": false,
+        "deterministic": true,
+        "allow_tf32": false
+      },
+      "matmul_allow_tf32": false,
+      "float32_matmul_precision": "highest",
+      "minimum_cuda_free_bytes": 12884901888,
+      "bytecode_writes_disabled": true,
+      "process_environment": {
+        "PYTHONHASHSEED": "0",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONPYCACHEPREFIX": "/root/.cache/claimforge/pycache/spai-balanced-v2-empty",
+        "python_dont_write_bytecode": true,
+        "sys_pycache_prefix": "/root/.cache/claimforge/pycache/spai-balanced-v2-empty",
+        "pycache_prefix_initially_empty": true
+      },
+      "network_allowed": false,
+      "cuda": {
+        "runtime": "12.8",
+        "device_index": 0,
+        "device_name": "NVIDIA L20Z",
+        "total_memory_bytes": 85017624576,
+        "capability": [
+          9,
+          0
+        ]
+      }
+    },
+    "maximum_absolute_differences": {
+      "sca_feature": 0.0,
+      "sca_attention": 0.0,
+      "sca_raw_logit": 0.0,
+      "feature_mlp_raw_logit": 0.0,
+      "sca_probability": 0.0,
+      "feature_mlp_probability": 0.0
+    },
+    "tolerances": {
+      "feature": 1e-05,
+      "attention": 1e-06,
+      "raw_logit": 1e-05,
+      "probability": 1e-07
+    }
+  },
+  "comparison": {
+    "images_compared": 35,
+    "ignored_row_fields": [
+      "completed_at",
+      "config_fingerprint",
+      "latency_ms",
+      "peak_cuda_memory_bytes",
+      "preprocess_latency_ms",
+      "run_id",
+      "run_manifest_fingerprint"
+    ],
+    "ignored_artifact_metadata_fields": [
+      "array_sha256",
+      "relative_path",
+      "sha256"
+    ],
+    "exact_computational_projection": true,
+    "independent_artifact_paths": true,
+    "patch_feature_file_bytes_and_arrays_exact": true,
+    "feature_file_bytes_and_arrays_exact": true,
+    "attention_file_bytes_and_arrays_exact": true,
+    "attention_role": "classifier_diagnostic_not_T2_or_localization",
+    "maximum_absolute_differences": {
+      "raw_logit": 0.0,
+      "probability": 0.0,
+      "patch_features": 0.0,
+      "feature": 0.0,
+      "attention": 0.0
+    }
+  },
+  "immutable_computational_runtime_config_exact": true,
+  "evidence_reverified_after_comparison": true,
+  "method_boundary": {
+    "valid_for_t1": true,
+    "valid_for_t2": false,
+    "attention_is_diagnostic_not_t2": true
+  }
+}

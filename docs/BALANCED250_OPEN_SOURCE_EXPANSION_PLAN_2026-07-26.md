@@ -1,18 +1,23 @@
 # Balanced250 open-source expansion plan
 
-**Frozen:** 2026-07-26  
-**Status:** canonical data release complete; detector expansion pending  
+**Frozen:** 2026-07-26
+
+**Updated:** 2026-07-27
+
+**Status:** 7/19 methods complete (6/9 whole-image, 1/10 local); next B-Free
+
 **Scope:** the 19 executable open-source methods already completed on the
 Mouse benchmark: ten local-forensics methods and nine whole-image AIGC
 detectors.
 
 ## 1. Why this expansion is required
 
-All existing formal full runs use
+At the time this plan was frozen, all existing formal full runs used
 `outputs/opensource/mouse_canonical_v1/manifest.json`: 275 matched real/mouse
-pairs and 550 canonical JPEG inputs. There are currently no formal detector
-results on the final Cat set, final Trash-can set, or any of the three
-full-frame conditional-edit sets.
+pairs and 550 canonical JPEG inputs. There were no formal detector results on
+the final Cat set, final Trash-can set, or any of the three full-frame
+conditional-edit sets. The expansion is now underway on the frozen
+Balanced250 release; completed methods are marked below.
 
 The expansion must not reuse the Mouse-specific schema name for non-Mouse
 conditions. It must also preserve the distinction between:
@@ -143,7 +148,8 @@ invented all-image mask.
 
 Native T1+T2:
 
-1. OpenSDI / MaskCLIP
+1. OpenSDI / MaskCLIP — completed and pushed; see
+   [formal report](MASKCLIP_BALANCED250_FULL_RESULTS_2026-07-26.md)
 2. TruFor
 3. MVSS-Net
 4. PSCC-Net
@@ -173,9 +179,31 @@ map statistic to an image score.
 8. OmniAID
 9. CNNDetection
 
+Completed whole-image methods:
+
+1. FSD — [formal report](FSD_BALANCED250_FULL_RESULTS_2026-07-26.md)
+2. UniversalFakeDetect —
+   [formal report](UNIVERSALFAKEDETECT_BALANCED250_FULL_RESULTS_2026-07-26.md)
+3. NPR — [formal report](NPR_BALANCED250_FULL_RESULTS_2026-07-26.md)
+4. Community Forensics —
+   [formal report](COMMUNITY_FORENSICS_BALANCED250_FULL_RESULTS_2026-07-26.md)
+5. SPAI — [formal report](SPAI_BALANCED250_FULL_RESULTS_2026-07-26.md)
+6. CNNDetection —
+   [formal report](CNNDETECTION_BALANCED250_FULL_RESULTS_2026-07-26.md)
+
+Pending whole-image methods, in frozen order: B-Free, Effort, OmniAID.
+
 All nine are evaluated on all seven panel conditions for T1. LTD remains
 blocked on exact official-weight access and is not counted as executable.
 NFA-ViT remains the analogous blocked local method.
+
+### Expansion progress ledger
+
+- completed: 7/19;
+- whole-image: 6/9 complete, 3 pending;
+- local-forensics: 1/10 complete, 9 pending;
+- total remaining: 12;
+- next queued method: B-Free.
 
 ## 6. Execution and audit order
 
