@@ -1,0 +1,105 @@
+{
+  "schema_version": "claimforge_localizer_balanced_summary_v1",
+  "run_id": "mesorch_epoch98_balanced250_v1_smoke5x4_b_r2_20260727",
+  "run_manifest_fingerprint": "fc40da43b305b722292c7013d481f210c6541d06b2078aded26cab028e4904b3",
+  "status": "complete",
+  "mode": "smoke",
+  "model": "Mesorch",
+  "model_slug": "mesorch_full_epoch98_official",
+  "checkpoint_sha256": "6d8fcd7ce7616d819bec6a9ed461b27187101e67247f8b2d2483fdc1f25f685a",
+  "valid_for_t1": false,
+  "valid_for_t2": true,
+  "scientific_metrics": null,
+  "scientific_metrics_owner": "analyze_localizer_balanced.py",
+  "dataset_contract": {
+    "schema_version": "opensource_run_dataset_contract_v2",
+    "release": {
+      "schema_version": "claimforge_balanced250_canonical_v1",
+      "release_kind": "balanced250",
+      "dataset_id": "claimforge-balanced250-independent-panel-jpeg-q95-v1",
+      "manifest_path": "outputs/opensource/balanced250_v1/manifest.json",
+      "manifest_sha256": "5685071fb752cded8ddf8841b8fb80547c9f5d046d180f3ad7dd9faa728cc15e",
+      "contract_sha256": "671d1739bebf4370d26b4629ca26b56cc546a817d469ba505cc39bda8b33102c"
+    },
+    "ledgers": {
+      "inputs": {
+        "path": "outputs/opensource/balanced250_v1/inputs.jsonl",
+        "sha256": "6b5128909eeffdbd88e61af02ca1bd191cb5460f94a23b47c87ebd0172e6d12c",
+        "rows": 1775
+      },
+      "panel": {
+        "path": "outputs/opensource/balanced250_v1/panel.jsonl",
+        "sha256": "e01d7985b41cee5262a3f8b6d71420986feae96771b11c46fda98c3e72a0d424",
+        "rows": 1750
+      },
+      "source_pairs": {
+        "path": "outputs/opensource/balanced250_v1/source_pairs.jsonl",
+        "sha256": "391fdcf06eecff4cf1843ddb3688acacf52a293725c501660b7a361173b09b30",
+        "rows": 1500
+      }
+    },
+    "capability": {
+      "name": "local_t2_only",
+      "conditions": [
+        "real",
+        "local_mouse",
+        "local_cat",
+        "local_trash_can"
+      ],
+      "valid_for_t1": false,
+      "valid_for_t2": true
+    },
+    "selection": {
+      "spec": {
+        "capability": "local_t2_only",
+        "conditions": null,
+        "per_condition_limit": 5,
+        "sample_id": null,
+        "pair_limit": null
+      },
+      "selected_images": 20,
+      "selected_ids_sha256": "3ce822824a5548f12ae0633520a19686048fd175f7add178334ab5c4fe7e78f4",
+      "counts_by_condition": {
+        "real": 5,
+        "local_mouse": 5,
+        "local_cat": 5,
+        "local_trash_can": 5
+      }
+    },
+    "score_spec": null
+  },
+  "coverage": {
+    "expected_images": 20,
+    "valid_images": 20,
+    "error_images": 0,
+    "missing_images": 0,
+    "counts_by_condition": {
+      "local_cat": 5,
+      "local_mouse": 5,
+      "local_trash_can": 5,
+      "real": 5
+    }
+  },
+  "attempt_history": {
+    "physical_rows": 20,
+    "latest_rows": 20,
+    "superseded_rows": 0,
+    "new_successes": 20,
+    "new_errors": 0,
+    "resume_skips": 0
+  },
+  "latency_ms": {
+    "count": 20,
+    "mean": 150.2059959806502,
+    "median": 40.807466953992844,
+    "min": 28.31694856286049,
+    "max": 2271.9450164586306
+  },
+  "artifact_inventory": {
+    "files": 80,
+    "bytes": 162637951,
+    "arrays_per_success": 3,
+    "masks_per_success": 1
+  },
+  "generated_at": "2026-07-27T14:28:29.610405+00:00"
+}

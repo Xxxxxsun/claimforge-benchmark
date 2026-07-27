@@ -4,7 +4,7 @@
 
 **Updated:** 2026-07-27
 
-**Status:** 16/19 methods complete (9/9 whole-image, 7/10 local); next Mesorch
+**Status:** 19/19 executable methods complete (9/9 whole-image, 10/10 local)
 
 **Scope:** the 19 executable open-source methods already completed on the
 Mouse benchmark: ten local-forensics methods and nine whole-image AIGC
@@ -117,6 +117,14 @@ validator independently re-decodes every raw input, reproduces every JPEG
 byte-for-byte, recomputes every local mask, and rejects JPEG COM, EXIF, ICC,
 or other non-JFIF metadata.
 
+The final three localizer runs used a clean rebuild of the same deterministic
+release. Its generated `manifest.json` SHA-256 is
+`5685071fb752cded8ddf8841b8fb80547c9f5d046d180f3ad7dd9faa728cc15e`;
+the manifest timestamp differs from the original materialization, while the
+deterministic contract and the three ledger hashes in the table above remain
+exact. Every final run records both the rebuilt manifest hash and frozen
+contract hash.
+
 ## 4. Evaluation design
 
 The primary T1 comparisons are unpaired:
@@ -165,9 +173,12 @@ Native T2 only:
    [formal report](CATNET_BALANCED250_FULL_RESULTS_2026-07-27.md)
 7. IML-ViT — completed; see
    [formal report](IMLVIT_BALANCED250_FULL_RESULTS_2026-07-27.md)
-8. Mesorch
-9. RelayFormer
-10. DINOv3-IML
+8. Mesorch — completed; see
+   [formal report](MESORCH_BALANCED250_FULL_RESULTS_2026-07-27.md)
+9. RelayFormer — completed; see
+   [formal report](RELAYFORMER_BALANCED250_FULL_RESULTS_2026-07-27.md)
+10. DINOv3-IML — completed; see
+   [formal report](DINOV3_IML_BALANCED250_FULL_RESULTS_2026-07-27.md)
 
 All ten are evaluated on the three local conditions. The five native-T1
 methods also enter the full-frame T1 table. T2-only methods must not promote a
@@ -211,11 +222,11 @@ NFA-ViT remains the analogous blocked local method.
 
 ### Expansion progress ledger
 
-- completed: 16/19;
+- completed: 19/19;
 - whole-image: 9/9 complete, 0 pending;
-- local-forensics: 7/10 complete, 3 pending;
-- total remaining: 3;
-- next queued method: Mesorch.
+- local-forensics: 10/10 complete, 0 pending;
+- total remaining: 0;
+- expansion status: complete.
 
 ## 6. Execution and audit order
 
