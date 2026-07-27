@@ -19,9 +19,14 @@ All inputs in this report are forged images. Therefore, the rates below are posi
 |---|---:|---:|---:|
 | Qwen 3.7 Plus | 1,002 | 1,001 | 1 |
 | GPT-5.6 Luna | 1,002 | 999 | 3 |
-| Claude Opus 4.8 | 1,002 | 984 | 18 |
+| Claude Opus 4.8 | 1,002 | 1,002 | 0 |
 
-Claude's incomplete units correspond to nine images whose base64 payloads exceed its 5 MB provider limit. Each affected image has one incomplete detection unit and one incomplete localization unit.
+Claude initially had 18 incomplete units from nine images whose base64 payloads
+exceeded the original provider's 5 MB limit. On 2026-07-27, those nine images
+were recovered through an Anthropic-native supplement run. All 54 independent
+replicates completed successfully, producing nine valid detection units and nine
+valid localization units. The supplement results replace only the corresponding
+incomplete rows in the combined collection.
 
 ## Detection: `edited` decisions
 
@@ -29,7 +34,7 @@ Claude's incomplete units correspond to nine images whose base64 payloads exceed
 |---|---:|---:|
 | Qwen 3.7 Plus | 15 / 251 (5.98%) | 5 / 250 (2.00%) |
 | GPT-5.6 Luna | 39 / 249 (15.66%) | 4 / 250 (1.60%) |
-| Claude Opus 4.8 | 173 / 247 (70.04%) | 14 / 245 (5.71%) |
+| Claude Opus 4.8 | 173 / 251 (68.92%) | 14 / 250 (5.60%) |
 
 For Claude, 172 of the 173 detected cat images explicitly mention a cat, kitten, feline, or tabby in all three independent reasoning records. The remaining detected cat image (`cat_restaurant_088_slot_001`) was flagged because of suspicious graffiti rather than the cat.
 
@@ -39,7 +44,7 @@ For Claude, 172 of the 173 detected cat images explicitly mention a cat, kitten,
 |---|---:|---:|
 | Qwen 3.7 Plus | 16 / 250 (6.40%) | 2 / 250 (0.80%) |
 | GPT-5.6 Luna | 30 / 250 (12.00%) | 4 / 250 (1.60%) |
-| Claude Opus 4.8 | 187 / 247 (75.71%) | 16 / 245 (6.53%) |
+| Claude Opus 4.8 | 187 / 251 (74.50%) | 16 / 250 (6.40%) |
 
 This table measures whether the model returned `localized_edit`. It does not yet measure whether the predicted box overlaps the ground-truth mask or reaches an IoU threshold.
 
@@ -48,6 +53,12 @@ This table measures whether the model returned `localized_edit`. It does not yet
 - `results/mllm/qwen3_7_plus/final_cat251_trash250_total501_suite0724_20260725.jsonl`
 - `results/mllm/gpt/final_cat251_trash250_total501_suite0724_20260725.jsonl`
 - `results/mllm/claude_opus_4_8/final_cat251_trash250_total501_suite0724_20260725.jsonl`
+
+Claude oversize-image supplement artifacts:
+
+- `results/mllm/claude_opus_4_8/final501_oversize9_anthropic_native_suite0724_20260727.raw.jsonl`
+- `results/mllm/claude_opus_4_8/final501_oversize9_anthropic_native_suite0724_20260727.jsonl`
+- `results/mllm/claude_opus_4_8/final501_oversize9_anthropic_native_suite0724_20260727.run_manifest.json`
 
 Each combined row retains its original `run_id` and adds:
 
