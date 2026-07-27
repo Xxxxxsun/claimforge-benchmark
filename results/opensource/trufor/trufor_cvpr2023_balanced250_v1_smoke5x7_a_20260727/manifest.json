@@ -1,0 +1,894 @@
+{
+  "schema_version": "trufor_balanced_run_manifest_v2",
+  "run_id": "trufor_cvpr2023_balanced250_v1_smoke5x7_a_20260727",
+  "status": "complete",
+  "started_at": "2026-07-27T06:57:52.284556+00:00",
+  "completed_at": "2026-07-27T06:58:48.150271+00:00",
+  "fingerprint": "a233694cfcb074437e6cf27caaa98acc6b3166e9f770884b4fd71a19338ec618",
+  "immutable": {
+    "schema_version": "trufor_balanced_run_config_v2",
+    "run_id": "trufor_cvpr2023_balanced250_v1_smoke5x7_a_20260727",
+    "mode": "smoke",
+    "adapter_sources": {
+      "eval/__init__.py": {
+        "path": "eval/__init__.py",
+        "bytes": 39,
+        "sha256": "a2bd81a9d6f3abac7a071143ac4f0593fb5ed324b8962e5f08f931848b2573d5"
+      },
+      "eval/opensource/__init__.py": {
+        "path": "eval/opensource/__init__.py",
+        "bytes": 64,
+        "sha256": "3e6e8b6812a56d04ca7d2a855b0bcd458921151ad00432a25219dc7c15ffc1c9"
+      },
+      "eval/opensource/run_trufor_balanced.py": {
+        "path": "eval/opensource/run_trufor_balanced.py",
+        "bytes": 101556,
+        "sha256": "d9520b89665de6cd789cdc9bda6201bf1ac2cb2fad5c56668cac7f62d04d8303"
+      },
+      "eval/opensource/run_trufor.py": {
+        "path": "eval/opensource/run_trufor.py",
+        "bytes": 30986,
+        "sha256": "f27b7c0cd33e864e4f2e25aff9b8351c98819dc50e03b8e511e6beb8e347b278"
+      },
+      "eval/opensource/trufor_metrics.py": {
+        "path": "eval/opensource/trufor_metrics.py",
+        "bytes": 5398,
+        "sha256": "81000c7eed7fd276b33fb5e7f5bc13d2a1ebc82d2ceb757222a82b835d4288c7"
+      },
+      "eval/opensource/maskclip_metrics.py": {
+        "path": "eval/opensource/maskclip_metrics.py",
+        "bytes": 9619,
+        "sha256": "28affa7312d3ccff4a356bd36443215f2d4f38b875bcd85c5758853892505e97"
+      },
+      "eval/opensource/balanced250_localization_metrics.py": {
+        "path": "eval/opensource/balanced250_localization_metrics.py",
+        "bytes": 48105,
+        "sha256": "83ac07257078fc41276742fa4b9f2eb936ac51c8ff93bf1253b8c45f2b704b2a"
+      },
+      "eval/opensource/balanced250_metrics.py": {
+        "path": "eval/opensource/balanced250_metrics.py",
+        "bytes": 60607,
+        "sha256": "f3932099bb63b766f063a66684e1d45f6e12601337d73859591d79297dbbed1c"
+      },
+      "eval/opensource/canonical_release.py": {
+        "path": "eval/opensource/canonical_release.py",
+        "bytes": 58518,
+        "sha256": "6f4261dd2bc5335722aae253d851c363f663aa89cf42913647931d9cc60ac892"
+      },
+      "eval/opensource/balanced_run_contract.py": {
+        "path": "eval/opensource/balanced_run_contract.py",
+        "bytes": 43859,
+        "sha256": "95d9e648840ce648fd75d441d440e33ca2b9ede509aa548f040c4ac1bc4356b6"
+      },
+      "eval/opensource/common.py": {
+        "path": "eval/opensource/common.py",
+        "bytes": 2800,
+        "sha256": "66ee7134e8398bb8121034fb7f9aef007137a09e03426af24e0faae886188c9f"
+      }
+    },
+    "model": {
+      "name": "TruFor",
+      "slug": "trufor_cvpr2023",
+      "architecture": "RGB_NoiseprintPP_CMX_SegFormerB2_localization_confidence_detection",
+      "repository": "https://github.com/grip-unina/TruFor",
+      "source_commit": "ae54475df6f41a491d7615100feb19263dec13f7",
+      "checkpoint_id": "trufor_ph3_epoch81",
+      "checkpoint_sha256": "ac1d90e329a72e0d66e8665e123a19e94bfae3209c3ef8a4f9ca3b91578c7844",
+      "checkpoint_bytes": 281496429,
+      "positive_class_index": 1
+    },
+    "preprocess": {
+      "profile": "official_trufor_native_rgb_float32_divide_256",
+      "decode": "PIL_convert_RGB",
+      "tensor_layout": "CHW",
+      "tensor_dtype": "float32",
+      "input_scale_divisor": 256.0,
+      "input_resize": null,
+      "input_crop": null,
+      "network_map_upsample": "bilinear_align_corners_false_to_native_input_size",
+      "batch_size": 1,
+      "autocast": false
+    },
+    "score_spec": {
+      "key": "ai_score",
+      "direction": "higher_means_fake",
+      "fixed_threshold": 0.5,
+      "threshold_operator": ">="
+    },
+    "t2_spec": {
+      "valid_conditions": [
+        "real",
+        "local_mouse",
+        "local_cat",
+        "local_trash_can"
+      ],
+      "not_applicable_conditions": [
+        "fullframe_mouse",
+        "fullframe_cat",
+        "fullframe_trash_can"
+      ],
+      "native_probability_map": {
+        "source": "softmax_localization_logits_channel_1",
+        "shape": "native_height_by_native_width",
+        "dtype": "float32",
+        "range": [
+          0.0,
+          1.0
+        ],
+        "saved_for": "all_successful_inputs",
+        "fullframe_role": "diagnostic_only"
+      },
+      "native_reliability_map": {
+        "source": "sigmoid_TCP_confidence_logit",
+        "shape": "native_height_by_native_width",
+        "dtype": "float32",
+        "range": [
+          0.0,
+          1.0
+        ],
+        "saved_for": "all_successful_inputs",
+        "used_for_primary_metrics": false,
+        "must_not_be_multiplied_into_probability_map": true
+      },
+      "native_binary_mask": {
+        "threshold": 0.5,
+        "threshold_operator": ">=",
+        "encoding": "PNG_L_0_or_255",
+        "saved_for": "t2_applicable_inputs_only"
+      },
+      "ground_truth": {
+        "real": "all_zero_false_positive_area_only",
+        "local": "exact_diff",
+        "fullframe": "not_applicable",
+        "fullframe_conditioning_box_is_not_ground_truth": true
+      }
+    },
+    "task_scope": {
+      "primary_task": "T1_whole_image_AIGC_detection_and_T2_localization",
+      "valid_for_t1": true,
+      "valid_for_t2": true,
+      "fullframe_t2_not_applicable": true,
+      "native_dense_output": true
+    },
+    "dataset_contract": {
+      "schema_version": "opensource_run_dataset_contract_v2",
+      "release": {
+        "schema_version": "claimforge_balanced250_canonical_v1",
+        "release_kind": "balanced250",
+        "dataset_id": "claimforge-balanced250-independent-panel-jpeg-q95-v1",
+        "manifest_path": "outputs/opensource/balanced250_v1/manifest.json",
+        "manifest_sha256": "b2bbf3eb7a835f9c729cdffe29a40247225125779fe21551270fefe95d667c7f",
+        "contract_sha256": "671d1739bebf4370d26b4629ca26b56cc546a817d469ba505cc39bda8b33102c"
+      },
+      "ledgers": {
+        "inputs": {
+          "path": "outputs/opensource/balanced250_v1/inputs.jsonl",
+          "sha256": "6b5128909eeffdbd88e61af02ca1bd191cb5460f94a23b47c87ebd0172e6d12c",
+          "rows": 1775
+        },
+        "panel": {
+          "path": "outputs/opensource/balanced250_v1/panel.jsonl",
+          "sha256": "e01d7985b41cee5262a3f8b6d71420986feae96771b11c46fda98c3e72a0d424",
+          "rows": 1750
+        },
+        "source_pairs": {
+          "path": "outputs/opensource/balanced250_v1/source_pairs.jsonl",
+          "sha256": "391fdcf06eecff4cf1843ddb3688acacf52a293725c501660b7a361173b09b30",
+          "rows": 1500
+        }
+      },
+      "capability": {
+        "name": "local_t1_t2",
+        "conditions": [
+          "real",
+          "local_mouse",
+          "local_cat",
+          "local_trash_can",
+          "fullframe_mouse",
+          "fullframe_cat",
+          "fullframe_trash_can"
+        ],
+        "valid_for_t1": true,
+        "valid_for_t2": true
+      },
+      "selection": {
+        "spec": {
+          "capability": "local_t1_t2",
+          "conditions": null,
+          "per_condition_limit": 5,
+          "sample_id": null,
+          "pair_limit": null
+        },
+        "selected_images": 35,
+        "selected_ids_sha256": "b420bc581386a540b742d917d60d007f0e5522b6cca43fa217797944c40667e5",
+        "counts_by_condition": {
+          "real": 5,
+          "local_mouse": 5,
+          "local_cat": 5,
+          "local_trash_can": 5,
+          "fullframe_mouse": 5,
+          "fullframe_cat": 5,
+          "fullframe_trash_can": 5
+        }
+      },
+      "score_spec": {
+        "key": "ai_score",
+        "direction": "higher_means_fake",
+        "fixed_threshold": 0.5,
+        "threshold_operator": ">="
+      }
+    },
+    "selected_rows_sha256": "21e556dd791960afde6cc900d9aba79da61a1a935c6da7b0e0928d3f6b26afa0",
+    "selected_ids_sha256": "b420bc581386a540b742d917d60d007f0e5522b6cca43fa217797944c40667e5",
+    "source": {
+      "repository": "https://github.com/grip-unina/TruFor",
+      "root": "/root/.cache/claimforge/third_party/TruFor/TruFor_train_test",
+      "git_root": "/root/.cache/claimforge/third_party/TruFor",
+      "commit": "ae54475df6f41a491d7615100feb19263dec13f7",
+      "tracked_and_untracked_clean": true,
+      "source_bound_files": {
+        "__init__.py": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "git_tracked": true
+        },
+        "lib/__init__.py": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "git_tracked": true
+        },
+        "lib/config/__init__.py": {
+          "bytes": 69,
+          "sha256": "81a4b734c2f951313dc863aa859e7cbce05460fe0f26ebcab2d175ebe3e4e65e",
+          "git_tracked": true
+        },
+        "lib/config/default.py": {
+          "bytes": 3317,
+          "sha256": "885d9c09fea7686ca347c05cc3a7cdf85d45e7494f058068fd9b7e3af6f3ff75",
+          "git_tracked": true
+        },
+        "lib/utils.py": {
+          "bytes": 10375,
+          "sha256": "6f2dcecb50d457f3116e30878c969d9f68e51f028f61cfe92bd606a121796b8e",
+          "git_tracked": true
+        },
+        "lib/models/__init__.py": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "git_tracked": true
+        },
+        "lib/models/DnCNN.py": {
+          "bytes": 5442,
+          "sha256": "3736b7c625d03b85accea77c26a41ea2da956dae07d70182532e7df9b74ae882",
+          "git_tracked": true
+        },
+        "lib/models/cmx/__init__.py": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "git_tracked": true
+        },
+        "lib/models/cmx/builder_np_conf.py": {
+          "bytes": 10608,
+          "sha256": "b31b02a96417b424228f0301ac653a44d257e522c3ddede414d3c95209d80ded",
+          "git_tracked": true
+        },
+        "lib/models/cmx/init_func.py": {
+          "bytes": 2273,
+          "sha256": "20dad47877caaf5ee485d49b6618c5c3de68261ef0090c586eb409e605f976a4",
+          "git_tracked": true
+        },
+        "lib/models/cmx/net_utils.py": {
+          "bytes": 8089,
+          "sha256": "171239507b49f00026ca46db88cbb101f8c24f47dd7a93b1b5a7f919deb8ed21",
+          "git_tracked": true
+        },
+        "lib/models/cmx/layer_utils.py": {
+          "bytes": 1388,
+          "sha256": "4d75874f1c793b6db0893f734853cd074d8efa1cafc3c33519360c8357005a2e",
+          "git_tracked": true
+        },
+        "lib/models/cmx/encoders/dual_segformer.py": {
+          "bytes": 24910,
+          "sha256": "faf1d8483a559d25d151c58fbf171e52b504c88ba4c05235d15dc96467a7ac60",
+          "git_tracked": true
+        },
+        "lib/models/cmx/decoders/MLPDecoder.py": {
+          "bytes": 3060,
+          "sha256": "172efeeb155591f9857f888263c513b9f8d03bb41c4ebf64a74eb15e8b250a91",
+          "git_tracked": true
+        },
+        "lib/config/trufor_ph3.yaml": {
+          "bytes": 1124,
+          "sha256": "a87108eb0df40d9bab6a303eb91419564b7c106d5105bbd5d8ecaec1567b5b8b",
+          "git_tracked": true
+        },
+        "LICENSE.txt": {
+          "bytes": 1837,
+          "sha256": "07201e07e3d2c1ac55480037a87734fcccacbb0cd0e25a31e3b89ac7ffadf8b4",
+          "git_tracked": true
+        },
+        "LICENSE_CMX.txt": {
+          "bytes": 1086,
+          "sha256": "687ff4d0ea13200541df7359799a08c2db626094ecacbb8a3fe63ffad177f2a1",
+          "git_tracked": true
+        }
+      }
+    },
+    "assets": {
+      "archive": {
+        "path": "/root/.cache/claimforge/checkpoints/trufor/TruFor_weights.zip",
+        "filename": "TruFor_weights.zip",
+        "bytes": 260878690,
+        "sha256": "953f1f7eda0dd2c5ece322ae9c185ba1079c1265aa5fdf319ef5a20604d206d8",
+        "url": "https://www.grip.unina.it/download/prog/TruFor/TruFor_weights.zip",
+        "published_md5": "7bee48f3476c75616c3c5721ab256ff8",
+        "members": [
+          "weights/",
+          "weights/trufor.pth.tar"
+        ],
+        "inner_checkpoint_uncompressed_bytes": 281496429
+      },
+      "checkpoint": {
+        "path": "/root/.cache/claimforge/checkpoints/trufor/weights/trufor.pth.tar",
+        "filename": "trufor.pth.tar",
+        "bytes": 281496429,
+        "sha256": "ac1d90e329a72e0d66e8665e123a19e94bfae3209c3ef8a4f9ca3b91578c7844",
+        "id": "trufor_ph3_epoch81",
+        "epoch": 81,
+        "weights_only": true,
+        "strict_model_load": true
+      },
+      "configuration": {
+        "path": "/root/.cache/claimforge/third_party/TruFor/TruFor_train_test/lib/config/trufor_ph3.yaml",
+        "bytes": 1124,
+        "sha256": "a87108eb0df40d9bab6a303eb91419564b7c106d5105bbd5d8ecaec1567b5b8b",
+        "constructor_pretrained": null,
+        "noiseprint_weights": null,
+        "constructor_external_weight_files_used": false
+      },
+      "licenses": {
+        "overall": {
+          "identifier": "TruFor_custom_informational_nonprofit_only",
+          "path": "LICENSE.txt",
+          "sha256": "07201e07e3d2c1ac55480037a87734fcccacbb0cd0e25a31e3b89ac7ffadf8b4",
+          "informational_and_nonprofit_only": true,
+          "unauthorized_industrial_or_profit_use_prohibited": true,
+          "commercial_use_requires_separate_authorization": true,
+          "notice_and_attribution_required": true,
+          "absolute_path": "/root/.cache/claimforge/third_party/TruFor/TruFor_train_test/LICENSE.txt",
+          "bytes": 1837
+        },
+        "cmx_component": {
+          "identifier": "MIT",
+          "path": "LICENSE_CMX.txt",
+          "sha256": "687ff4d0ea13200541df7359799a08c2db626094ecacbb8a3fe63ffad177f2a1",
+          "does_not_override_overall_trufor_restriction": true,
+          "absolute_path": "/root/.cache/claimforge/third_party/TruFor/TruFor_train_test/LICENSE_CMX.txt",
+          "bytes": 1086
+        }
+      }
+    },
+    "environment": {
+      "python_executable": "/root/.cache/claimforge/venvs/trufor-ae54475/bin/python",
+      "python_prefix": "/root/.cache/claimforge/venvs/trufor-ae54475",
+      "python_base_prefix": "/usr",
+      "python_version": "3.12.3",
+      "platform": "Linux-5.10.134-16.103.al8.x86_64-x86_64-with-glibc2.39",
+      "pyvenv_cfg": {
+        "path": "/root/.cache/claimforge/venvs/trufor-ae54475/pyvenv.cfg",
+        "bytes": 205,
+        "sha256": "031b3a83d9970ae0167b24ae8ece3e31007082e16db51b061be6df9df2276d6c",
+        "include_system_site_packages": true
+      },
+      "packages": {
+        "torch": "2.8.0.dev20250627+cu128",
+        "torchvision": "0.23.0.dev20250627+cu128",
+        "timm": "0.5.4",
+        "numpy": "1.26.4",
+        "Pillow": "11.1.0",
+        "scikit-learn": "1.5.2",
+        "scipy": "1.16.0",
+        "yacs": "0.1.8",
+        "PyYAML": "6.0.2",
+        "matplotlib": "3.10.0",
+        "setuptools": "79.0.1"
+      }
+    },
+    "checkpoint_audit": {
+      "outer_type": "builtins.dict",
+      "outer_keys": [
+        "epoch",
+        "best_value",
+        "best_key",
+        "state_dict",
+        "optimizer"
+      ],
+      "epoch": 81,
+      "best_key": "loss",
+      "best_value": 0.14553078470670194,
+      "state_dict_type": "collections.OrderedDict",
+      "state_dict_tensors": 952,
+      "state_dict_elements": 68705510,
+      "dtype_counts": {
+        "torch.float32": 927,
+        "torch.int64": 25
+      },
+      "ordered_keys_sha256": "7bf9cb83a052ca0b70c3c7957111a732e83e4592e4ca563bcf21605a065e6d84",
+      "tensor_schema_sha256": "8a9ebd68344360a8117337c0d2e65b7b8ef82a0040503b1a7ac3cdf7a784f9cd",
+      "all_floating_tensors_finite": true,
+      "static_unsafe_globals": [
+        "numpy.core.multiarray.scalar",
+        "numpy.dtype"
+      ],
+      "safe_globals_allowlist": [
+        "numpy.core.multiarray.scalar",
+        "numpy.dtype",
+        "numpy.dtype[float64]_class"
+      ],
+      "weights_only": true,
+      "map_location": "cpu"
+    },
+    "model_audit": {
+      "construction_device": "cpu",
+      "strict_state_dict_load": true,
+      "missing_keys": [],
+      "unexpected_keys": [],
+      "eval_mode": true,
+      "parameters": 68697421,
+      "trainable_parameters": 1578242,
+      "buffers": 8089,
+      "modules": 872,
+      "constructor_external_weight_files_used": false,
+      "model_forwards": 0
+    },
+    "license": {
+      "overall": {
+        "identifier": "TruFor_custom_informational_nonprofit_only",
+        "path": "LICENSE.txt",
+        "sha256": "07201e07e3d2c1ac55480037a87734fcccacbb0cd0e25a31e3b89ac7ffadf8b4",
+        "informational_and_nonprofit_only": true,
+        "unauthorized_industrial_or_profit_use_prohibited": true,
+        "commercial_use_requires_separate_authorization": true,
+        "notice_and_attribution_required": true
+      },
+      "cmx_component": {
+        "identifier": "MIT",
+        "path": "LICENSE_CMX.txt",
+        "sha256": "687ff4d0ea13200541df7359799a08c2db626094ecacbb8a3fe63ffad177f2a1",
+        "does_not_override_overall_trufor_restriction": true
+      }
+    },
+    "runtime": {
+      "device": "cuda:0",
+      "seed": 42,
+      "precision": "float32",
+      "batch_size": 1,
+      "autocast": false,
+      "inference_mode": true,
+      "deterministic_algorithms_enabled": false,
+      "deterministic_algorithms_warn_only": false,
+      "cublas_workspace_config": null,
+      "cudnn": {
+        "enabled": false,
+        "benchmark": false,
+        "deterministic": false,
+        "allow_tf32": true,
+        "source": "official_trufor_ph3_config"
+      },
+      "matmul_allow_tf32": true,
+      "float32_matmul_precision": "high",
+      "torch_cuda_runtime": "12.8",
+      "cuda_initialized_before_configuration": false,
+      "cuda_initialized_after_configuration": true,
+      "cuda": {
+        "device_index": 0,
+        "device_name": "NVIDIA L20Z",
+        "total_memory_bytes": 85017624576,
+        "capability": [
+          9,
+          0
+        ]
+      }
+    },
+    "cpu_preflight": {
+      "performed_before_accelerator_configuration": true,
+      "report": {
+        "schema_version": "trufor_balanced_cpu_preflight_v2",
+        "status": "passed",
+        "environment": {
+          "python_executable": "/root/.cache/claimforge/venvs/trufor-ae54475/bin/python",
+          "python_prefix": "/root/.cache/claimforge/venvs/trufor-ae54475",
+          "python_base_prefix": "/usr",
+          "python_version": "3.12.3",
+          "platform": "Linux-5.10.134-16.103.al8.x86_64-x86_64-with-glibc2.39",
+          "pyvenv_cfg": {
+            "path": "/root/.cache/claimforge/venvs/trufor-ae54475/pyvenv.cfg",
+            "bytes": 205,
+            "sha256": "031b3a83d9970ae0167b24ae8ece3e31007082e16db51b061be6df9df2276d6c",
+            "include_system_site_packages": true
+          },
+          "packages": {
+            "torch": "2.8.0.dev20250627+cu128",
+            "torchvision": "0.23.0.dev20250627+cu128",
+            "timm": "0.5.4",
+            "numpy": "1.26.4",
+            "Pillow": "11.1.0",
+            "scikit-learn": "1.5.2",
+            "scipy": "1.16.0",
+            "yacs": "0.1.8",
+            "PyYAML": "6.0.2",
+            "matplotlib": "3.10.0",
+            "setuptools": "79.0.1"
+          }
+        },
+        "source": {
+          "repository": "https://github.com/grip-unina/TruFor",
+          "root": "/root/.cache/claimforge/third_party/TruFor/TruFor_train_test",
+          "git_root": "/root/.cache/claimforge/third_party/TruFor",
+          "commit": "ae54475df6f41a491d7615100feb19263dec13f7",
+          "tracked_and_untracked_clean": true,
+          "source_bound_files": {
+            "__init__.py": {
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "git_tracked": true
+            },
+            "lib/__init__.py": {
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "git_tracked": true
+            },
+            "lib/config/__init__.py": {
+              "bytes": 69,
+              "sha256": "81a4b734c2f951313dc863aa859e7cbce05460fe0f26ebcab2d175ebe3e4e65e",
+              "git_tracked": true
+            },
+            "lib/config/default.py": {
+              "bytes": 3317,
+              "sha256": "885d9c09fea7686ca347c05cc3a7cdf85d45e7494f058068fd9b7e3af6f3ff75",
+              "git_tracked": true
+            },
+            "lib/utils.py": {
+              "bytes": 10375,
+              "sha256": "6f2dcecb50d457f3116e30878c969d9f68e51f028f61cfe92bd606a121796b8e",
+              "git_tracked": true
+            },
+            "lib/models/__init__.py": {
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "git_tracked": true
+            },
+            "lib/models/DnCNN.py": {
+              "bytes": 5442,
+              "sha256": "3736b7c625d03b85accea77c26a41ea2da956dae07d70182532e7df9b74ae882",
+              "git_tracked": true
+            },
+            "lib/models/cmx/__init__.py": {
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "git_tracked": true
+            },
+            "lib/models/cmx/builder_np_conf.py": {
+              "bytes": 10608,
+              "sha256": "b31b02a96417b424228f0301ac653a44d257e522c3ddede414d3c95209d80ded",
+              "git_tracked": true
+            },
+            "lib/models/cmx/init_func.py": {
+              "bytes": 2273,
+              "sha256": "20dad47877caaf5ee485d49b6618c5c3de68261ef0090c586eb409e605f976a4",
+              "git_tracked": true
+            },
+            "lib/models/cmx/net_utils.py": {
+              "bytes": 8089,
+              "sha256": "171239507b49f00026ca46db88cbb101f8c24f47dd7a93b1b5a7f919deb8ed21",
+              "git_tracked": true
+            },
+            "lib/models/cmx/layer_utils.py": {
+              "bytes": 1388,
+              "sha256": "4d75874f1c793b6db0893f734853cd074d8efa1cafc3c33519360c8357005a2e",
+              "git_tracked": true
+            },
+            "lib/models/cmx/encoders/dual_segformer.py": {
+              "bytes": 24910,
+              "sha256": "faf1d8483a559d25d151c58fbf171e52b504c88ba4c05235d15dc96467a7ac60",
+              "git_tracked": true
+            },
+            "lib/models/cmx/decoders/MLPDecoder.py": {
+              "bytes": 3060,
+              "sha256": "172efeeb155591f9857f888263c513b9f8d03bb41c4ebf64a74eb15e8b250a91",
+              "git_tracked": true
+            },
+            "lib/config/trufor_ph3.yaml": {
+              "bytes": 1124,
+              "sha256": "a87108eb0df40d9bab6a303eb91419564b7c106d5105bbd5d8ecaec1567b5b8b",
+              "git_tracked": true
+            },
+            "LICENSE.txt": {
+              "bytes": 1837,
+              "sha256": "07201e07e3d2c1ac55480037a87734fcccacbb0cd0e25a31e3b89ac7ffadf8b4",
+              "git_tracked": true
+            },
+            "LICENSE_CMX.txt": {
+              "bytes": 1086,
+              "sha256": "687ff4d0ea13200541df7359799a08c2db626094ecacbb8a3fe63ffad177f2a1",
+              "git_tracked": true
+            }
+          }
+        },
+        "assets": {
+          "archive": {
+            "path": "/root/.cache/claimforge/checkpoints/trufor/TruFor_weights.zip",
+            "filename": "TruFor_weights.zip",
+            "bytes": 260878690,
+            "sha256": "953f1f7eda0dd2c5ece322ae9c185ba1079c1265aa5fdf319ef5a20604d206d8",
+            "url": "https://www.grip.unina.it/download/prog/TruFor/TruFor_weights.zip",
+            "published_md5": "7bee48f3476c75616c3c5721ab256ff8",
+            "members": [
+              "weights/",
+              "weights/trufor.pth.tar"
+            ],
+            "inner_checkpoint_uncompressed_bytes": 281496429
+          },
+          "checkpoint": {
+            "path": "/root/.cache/claimforge/checkpoints/trufor/weights/trufor.pth.tar",
+            "filename": "trufor.pth.tar",
+            "bytes": 281496429,
+            "sha256": "ac1d90e329a72e0d66e8665e123a19e94bfae3209c3ef8a4f9ca3b91578c7844",
+            "id": "trufor_ph3_epoch81",
+            "epoch": 81,
+            "weights_only": true,
+            "strict_model_load": true
+          },
+          "configuration": {
+            "path": "/root/.cache/claimforge/third_party/TruFor/TruFor_train_test/lib/config/trufor_ph3.yaml",
+            "bytes": 1124,
+            "sha256": "a87108eb0df40d9bab6a303eb91419564b7c106d5105bbd5d8ecaec1567b5b8b",
+            "constructor_pretrained": null,
+            "noiseprint_weights": null,
+            "constructor_external_weight_files_used": false
+          },
+          "licenses": {
+            "overall": {
+              "identifier": "TruFor_custom_informational_nonprofit_only",
+              "path": "LICENSE.txt",
+              "sha256": "07201e07e3d2c1ac55480037a87734fcccacbb0cd0e25a31e3b89ac7ffadf8b4",
+              "informational_and_nonprofit_only": true,
+              "unauthorized_industrial_or_profit_use_prohibited": true,
+              "commercial_use_requires_separate_authorization": true,
+              "notice_and_attribution_required": true,
+              "absolute_path": "/root/.cache/claimforge/third_party/TruFor/TruFor_train_test/LICENSE.txt",
+              "bytes": 1837
+            },
+            "cmx_component": {
+              "identifier": "MIT",
+              "path": "LICENSE_CMX.txt",
+              "sha256": "687ff4d0ea13200541df7359799a08c2db626094ecacbb8a3fe63ffad177f2a1",
+              "does_not_override_overall_trufor_restriction": true,
+              "absolute_path": "/root/.cache/claimforge/third_party/TruFor/TruFor_train_test/LICENSE_CMX.txt",
+              "bytes": 1086
+            }
+          }
+        },
+        "checkpoint_audit": {
+          "outer_type": "builtins.dict",
+          "outer_keys": [
+            "epoch",
+            "best_value",
+            "best_key",
+            "state_dict",
+            "optimizer"
+          ],
+          "epoch": 81,
+          "best_key": "loss",
+          "best_value": 0.14553078470670194,
+          "state_dict_type": "collections.OrderedDict",
+          "state_dict_tensors": 952,
+          "state_dict_elements": 68705510,
+          "dtype_counts": {
+            "torch.float32": 927,
+            "torch.int64": 25
+          },
+          "ordered_keys_sha256": "7bf9cb83a052ca0b70c3c7957111a732e83e4592e4ca563bcf21605a065e6d84",
+          "tensor_schema_sha256": "8a9ebd68344360a8117337c0d2e65b7b8ef82a0040503b1a7ac3cdf7a784f9cd",
+          "all_floating_tensors_finite": true,
+          "static_unsafe_globals": [
+            "numpy.core.multiarray.scalar",
+            "numpy.dtype"
+          ],
+          "safe_globals_allowlist": [
+            "numpy.core.multiarray.scalar",
+            "numpy.dtype",
+            "numpy.dtype[float64]_class"
+          ],
+          "weights_only": true,
+          "map_location": "cpu"
+        },
+        "model_audit": {
+          "construction_device": "cpu",
+          "strict_state_dict_load": true,
+          "missing_keys": [],
+          "unexpected_keys": [],
+          "eval_mode": true,
+          "parameters": 68697421,
+          "trainable_parameters": 1578242,
+          "buffers": 8089,
+          "modules": 872,
+          "constructor_external_weight_files_used": false,
+          "model_forwards": 0
+        },
+        "license": {
+          "overall": {
+            "identifier": "TruFor_custom_informational_nonprofit_only",
+            "path": "LICENSE.txt",
+            "sha256": "07201e07e3d2c1ac55480037a87734fcccacbb0cd0e25a31e3b89ac7ffadf8b4",
+            "informational_and_nonprofit_only": true,
+            "unauthorized_industrial_or_profit_use_prohibited": true,
+            "commercial_use_requires_separate_authorization": true,
+            "notice_and_attribution_required": true
+          },
+          "cmx_component": {
+            "identifier": "MIT",
+            "path": "LICENSE_CMX.txt",
+            "sha256": "687ff4d0ea13200541df7359799a08c2db626094ecacbb8a3fe63ffad177f2a1",
+            "does_not_override_overall_trufor_restriction": true
+          }
+        },
+        "accelerator_model_forwards": 0,
+        "balanced250_model_scores_computed": 0,
+        "cuda_initialized_before": false,
+        "cuda_initialized_after": false
+      }
+    },
+    "artifact_contract": {
+      "score_map_native": {
+        "format": "NumPy .npy, allow_pickle=False",
+        "shape": "native_height_by_native_width",
+        "dtype": "float32",
+        "range": [
+          0.0,
+          1.0
+        ],
+        "semantics": "softmax_localization_logits_channel_1_forged_probability",
+        "inventory": "one_per_successful_input"
+      },
+      "reliability_map_native": {
+        "format": "NumPy .npy, allow_pickle=False",
+        "shape": "native_height_by_native_width",
+        "dtype": "float32",
+        "range": [
+          0.0,
+          1.0
+        ],
+        "semantics": "sigmoid_TCP_localization_reliability_not_anomaly",
+        "inventory": "one_per_successful_input",
+        "used_for_primary_metrics": false
+      },
+      "mask_native": {
+        "format": "PNG",
+        "mode": "L",
+        "values": [
+          0,
+          255
+        ],
+        "shape": "native_height_by_native_width",
+        "threshold": 0.5,
+        "threshold_operator": ">=",
+        "inventory": "one_per_successful_t2_applicable_input"
+      }
+    },
+    "outputs": {
+      "results_path": "results/opensource/trufor/trufor_cvpr2023_balanced250_v1_smoke5x7_a_20260727/results.jsonl",
+      "expected_inputs_path": "results/opensource/trufor/trufor_cvpr2023_balanced250_v1_smoke5x7_a_20260727/expected_inputs.jsonl",
+      "summary_path": "results/opensource/trufor/trufor_cvpr2023_balanced250_v1_smoke5x7_a_20260727/summary.json",
+      "artifact_root": "outputs/opensource/trufor/trufor_cvpr2023_balanced250_v1_smoke5x7_a_20260727",
+      "score_maps_native_dir": "outputs/opensource/trufor/trufor_cvpr2023_balanced250_v1_smoke5x7_a_20260727/score_maps_native",
+      "reliability_maps_native_dir": "outputs/opensource/trufor/trufor_cvpr2023_balanced250_v1_smoke5x7_a_20260727/reliability_maps_native",
+      "masks_native_dir": "outputs/opensource/trufor/trufor_cvpr2023_balanced250_v1_smoke5x7_a_20260727/masks_native"
+    }
+  },
+  "dataset": {
+    "contract": {
+      "schema_version": "opensource_run_dataset_contract_v2",
+      "release": {
+        "schema_version": "claimforge_balanced250_canonical_v1",
+        "release_kind": "balanced250",
+        "dataset_id": "claimforge-balanced250-independent-panel-jpeg-q95-v1",
+        "manifest_path": "outputs/opensource/balanced250_v1/manifest.json",
+        "manifest_sha256": "b2bbf3eb7a835f9c729cdffe29a40247225125779fe21551270fefe95d667c7f",
+        "contract_sha256": "671d1739bebf4370d26b4629ca26b56cc546a817d469ba505cc39bda8b33102c"
+      },
+      "ledgers": {
+        "inputs": {
+          "path": "outputs/opensource/balanced250_v1/inputs.jsonl",
+          "sha256": "6b5128909eeffdbd88e61af02ca1bd191cb5460f94a23b47c87ebd0172e6d12c",
+          "rows": 1775
+        },
+        "panel": {
+          "path": "outputs/opensource/balanced250_v1/panel.jsonl",
+          "sha256": "e01d7985b41cee5262a3f8b6d71420986feae96771b11c46fda98c3e72a0d424",
+          "rows": 1750
+        },
+        "source_pairs": {
+          "path": "outputs/opensource/balanced250_v1/source_pairs.jsonl",
+          "sha256": "391fdcf06eecff4cf1843ddb3688acacf52a293725c501660b7a361173b09b30",
+          "rows": 1500
+        }
+      },
+      "capability": {
+        "name": "local_t1_t2",
+        "conditions": [
+          "real",
+          "local_mouse",
+          "local_cat",
+          "local_trash_can",
+          "fullframe_mouse",
+          "fullframe_cat",
+          "fullframe_trash_can"
+        ],
+        "valid_for_t1": true,
+        "valid_for_t2": true
+      },
+      "selection": {
+        "spec": {
+          "capability": "local_t1_t2",
+          "conditions": null,
+          "per_condition_limit": 5,
+          "sample_id": null,
+          "pair_limit": null
+        },
+        "selected_images": 35,
+        "selected_ids_sha256": "b420bc581386a540b742d917d60d007f0e5522b6cca43fa217797944c40667e5",
+        "counts_by_condition": {
+          "real": 5,
+          "local_mouse": 5,
+          "local_cat": 5,
+          "local_trash_can": 5,
+          "fullframe_mouse": 5,
+          "fullframe_cat": 5,
+          "fullframe_trash_can": 5
+        }
+      },
+      "score_spec": {
+        "key": "ai_score",
+        "direction": "higher_means_fake",
+        "fixed_threshold": 0.5,
+        "threshold_operator": ">="
+      }
+    },
+    "manifest_path": "outputs/opensource/balanced250_v1/manifest.json",
+    "manifest_sha256": "b2bbf3eb7a835f9c729cdffe29a40247225125779fe21551270fefe95d667c7f",
+    "expected_inputs_path": "results/opensource/trufor/trufor_cvpr2023_balanced250_v1_smoke5x7_a_20260727/expected_inputs.jsonl",
+    "expected_inputs_sha256": "21e556dd791960afde6cc900d9aba79da61a1a935c6da7b0e0928d3f6b26afa0",
+    "selected_images": 35,
+    "t2_applicable_images": 20
+  },
+  "outputs": {
+    "results_path": "results/opensource/trufor/trufor_cvpr2023_balanced250_v1_smoke5x7_a_20260727/results.jsonl",
+    "expected_inputs_path": "results/opensource/trufor/trufor_cvpr2023_balanced250_v1_smoke5x7_a_20260727/expected_inputs.jsonl",
+    "summary_path": "results/opensource/trufor/trufor_cvpr2023_balanced250_v1_smoke5x7_a_20260727/summary.json",
+    "artifact_root": "outputs/opensource/trufor/trufor_cvpr2023_balanced250_v1_smoke5x7_a_20260727",
+    "score_maps_native_dir": "outputs/opensource/trufor/trufor_cvpr2023_balanced250_v1_smoke5x7_a_20260727/score_maps_native",
+    "reliability_maps_native_dir": "outputs/opensource/trufor/trufor_cvpr2023_balanced250_v1_smoke5x7_a_20260727/reliability_maps_native",
+    "masks_native_dir": "outputs/opensource/trufor/trufor_cvpr2023_balanced250_v1_smoke5x7_a_20260727/masks_native",
+    "results_sha256": "da5dbcaa0d0ab447fcd788a257a54f65e15825b659754d930ac1bb16bca2983c",
+    "summary_sha256": "0dfd13ea14f0f8f24d96d043b52732f81bffc2772995cce9f696ce0880a57653",
+    "artifact_inventory": {
+      "score_maps_native": 35,
+      "reliability_maps_native": 35,
+      "masks_native": 20
+    }
+  },
+  "disk_preflight": {
+    "free_bytes_before_inference": 13229269577728,
+    "estimated_pending_map_bytes_plus_reserve": 2487401760,
+    "fixed_reserve_bytes": 2000000000
+  },
+  "execution": {
+    "new_successes": 35,
+    "resume_skips": 0,
+    "new_errors": 0,
+    "physical_result_rows": 35,
+    "latest_result_rows": 35,
+    "superseded_attempts": 0
+  }
+}

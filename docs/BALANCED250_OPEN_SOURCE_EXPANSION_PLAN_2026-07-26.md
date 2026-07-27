@@ -4,7 +4,7 @@
 
 **Updated:** 2026-07-27
 
-**Status:** 10/19 methods complete (9/9 whole-image, 1/10 local); next TruFor
+**Status:** 11/19 methods complete (9/9 whole-image, 2/10 local); next MVSS-Net
 
 **Scope:** the 19 executable open-source methods already completed on the
 Mouse benchmark: ten local-forensics methods and nine whole-image AIGC
@@ -150,7 +150,8 @@ Native T1+T2:
 
 1. OpenSDI / MaskCLIP — completed and pushed; see
    [formal report](MASKCLIP_BALANCED250_FULL_RESULTS_2026-07-26.md)
-2. TruFor
+2. TruFor — completed and pushed; see
+   [formal report](TRUFOR_BALANCED250_FULL_RESULTS_2026-07-27.md)
 3. MVSS-Net
 4. PSCC-Net
 5. HiFi-IFDL
@@ -205,11 +206,11 @@ NFA-ViT remains the analogous blocked local method.
 
 ### Expansion progress ledger
 
-- completed: 10/19;
+- completed: 11/19;
 - whole-image: 9/9 complete, 0 pending;
-- local-forensics: 1/10 complete, 9 pending;
-- total remaining: 9;
-- next queued method: TruFor.
+- local-forensics: 2/10 complete, 8 pending;
+- total remaining: 8;
+- next queued method: MVSS-Net.
 
 ## 6. Execution and audit order
 
@@ -252,10 +253,10 @@ The exhaustive capability-correct score cache requires 29,975 formal model
 forwards. A full fresh replay requires the same number again, for 59,950
 forwards before smoke tests.
 
-After OmniAID, the remaining executable queue requires 12,225 formal forwards
-and 12,225 fresh-replay forwards, or 24,450 total before smoke tests. This is
-four native-T1 local methods at 1,775 inputs each plus five T2-only methods at
-1,025 applicable inputs each. The original 29,975 / 59,950 figures above
+After TruFor, the remaining executable queue requires 10,450 formal forwards
+and 10,450 fresh-replay forwards, or 20,900 total before smoke tests. This is
+three native-T1 local methods at 1,775 inputs each plus five T2-only methods
+at 1,025 applicable inputs each. The original 29,975 / 59,950 figures above
 remain the frozen all-method totals.
 
 ## 7. GPU occupancy

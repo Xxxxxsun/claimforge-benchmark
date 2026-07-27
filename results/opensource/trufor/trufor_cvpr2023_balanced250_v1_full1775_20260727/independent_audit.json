@@ -1,0 +1,262 @@
+{
+  "schema_version": "trufor_balanced_replay_audit_v2",
+  "status": "replay_audit_passed",
+  "method": "TruFor",
+  "model_slug": "trufor_cvpr2023",
+  "run_id": "trufor_cvpr2023_balanced250_v1_full1775_20260727",
+  "run_manifest_fingerprint": "eb24f168fbfdad870064c487cd71553095c742cc4bfc565a7d700dc2ddf18997",
+  "audited_at": "2026-07-27T08:50:03.896696+00:00",
+  "selection": {
+    "formal_images_t1": 1775,
+    "formal_images_t2": 1025,
+    "condition_counts": {
+      "real": 275,
+      "local_mouse": 250,
+      "local_cat": 250,
+      "local_trash_can": 250,
+      "fullframe_mouse": 250,
+      "fullframe_cat": 250,
+      "fullframe_trash_can": 250
+    },
+    "selected_rows_sha256": "6b5128909eeffdbd88e61af02ca1bd191cb5460f94a23b47c87ebd0172e6d12c",
+    "selected_ids_sha256": "e4418d86461f889e4a4423f26aab63243e6f63a435a49624881c34979b812e41",
+    "fullframe_t2_not_applicable_images": 750
+  },
+  "coverage": {
+    "expected_images": 1775,
+    "physical_attempts": 1775,
+    "result_images": 1775,
+    "valid_images": 1775,
+    "error_images": 0,
+    "missing_images": 0,
+    "superseded_attempts": 0,
+    "coverage_fraction": 1.0,
+    "success_fraction": 1.0,
+    "is_complete": true,
+    "counts_by_condition": {
+      "real": {
+        "expected_images": 275,
+        "result_images": 275,
+        "valid_images": 275,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "local_mouse": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "local_cat": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "local_trash_can": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "fullframe_mouse": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "fullframe_cat": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      },
+      "fullframe_trash_can": {
+        "expected_images": 250,
+        "result_images": 250,
+        "valid_images": 250,
+        "error_images": 0,
+        "missing_images": 0
+      }
+    }
+  },
+  "evidence_snapshot": {
+    "manifest_sha256": "99d620a8ff39b3d33f2b713cc32c9b0eb22e37cfdac7c123a21c26188d951801",
+    "expected_inputs_sha256": "6b5128909eeffdbd88e61af02ca1bd191cb5460f94a23b47c87ebd0172e6d12c",
+    "results_sha256": "42b34721c087613d5a2e44f180957e66fba85443fe0f99608f9788ff5b35ef28",
+    "runtime_summary_sha256": "5c67402ace06c96a87fd3ff93b4ca7859d08cb130cbcebeb1fd1cb071880f461",
+    "dataset_manifest_sha256": "b2bbf3eb7a835f9c729cdffe29a40247225125779fe21551270fefe95d667c7f",
+    "artifact_inventory_sha256": "d49d5ec90f6f92606b0a2c4a16106db033b17079cf1e8e863a62b235f4264abc"
+  },
+  "independent_provenance": {
+    "source_exact_and_clean": true,
+    "source_commit": "ae54475df6f41a491d7615100feb19263dec13f7",
+    "source_bound_files": 17,
+    "archive_sha256": "953f1f7eda0dd2c5ece322ae9c185ba1079c1265aa5fdf319ef5a20604d206d8",
+    "checkpoint_sha256": "ac1d90e329a72e0d66e8665e123a19e94bfae3209c3ef8a4f9ca3b91578c7844",
+    "checkpoint_bytes": 281496429,
+    "configuration_sha256": "a87108eb0df40d9bab6a303eb91419564b7c106d5105bbd5d8ecaec1567b5b8b",
+    "overall_license_sha256": "07201e07e3d2c1ac55480037a87734fcccacbb0cd0e25a31e3b89ac7ffadf8b4",
+    "analysis_environment_exact": true,
+    "source_and_assets_unchanged_after_replay": true
+  },
+  "independent_structural_golden": {
+    "status": "independent_cpu_structural_golden_passed",
+    "kind": "checkpoint_schema_and_strict_model_load_no_forward",
+    "author_published_numerical_golden": null,
+    "author_published_numerical_golden_available": false,
+    "reason": "official TruFor release provides checkpoint/config but no frozen numerical output fixture",
+    "construction_device": "cpu",
+    "model_forwards": 0,
+    "cuda_initialized_before": false,
+    "cuda_initialized_after": false,
+    "checkpoint_audit_sha256": "decde70bbd322ca2cd3a7442850b73d748c7bf640e25e619758443fcbe6b4f4e",
+    "model_audit_sha256": "61bbb4da6ac8a305f66c578b2b1d41faa87134e50eba0ca4d53d388a73a03e8d",
+    "executable_numeric_gates": [
+      "frozen_smoke_A_B_exact_reproduction",
+      "formal_full_selection_exact_fresh_replay"
+    ]
+  },
+  "recorded_runtime": {
+    "device": "cuda:0",
+    "seed": 42,
+    "precision": "float32",
+    "batch_size": 1,
+    "autocast": false,
+    "inference_mode": true,
+    "deterministic_algorithms_enabled": false,
+    "deterministic_algorithms_warn_only": false,
+    "cublas_workspace_config": null,
+    "cudnn": {
+      "enabled": false,
+      "benchmark": false,
+      "deterministic": false,
+      "allow_tf32": true,
+      "source": "official_trufor_ph3_config"
+    },
+    "matmul_allow_tf32": true,
+    "float32_matmul_precision": "high",
+    "torch_cuda_runtime": "12.8",
+    "cuda_initialized_before_configuration": false,
+    "cuda_initialized_after_configuration": true,
+    "cuda": {
+      "device_index": 0,
+      "device_name": "NVIDIA L20Z",
+      "total_memory_bytes": 85017624576,
+      "capability": [
+        9,
+        0
+      ]
+    }
+  },
+  "recorded_runtime_reproduced": {
+    "device": "cuda:0",
+    "seed": 42,
+    "precision": "float32",
+    "batch_size": 1,
+    "autocast": false,
+    "inference_mode": true,
+    "deterministic_algorithms_enabled": false,
+    "deterministic_algorithms_warn_only": false,
+    "cublas_workspace_config": null,
+    "cudnn": {
+      "enabled": false,
+      "benchmark": false,
+      "deterministic": false,
+      "allow_tf32": true,
+      "source": "official_trufor_ph3_config"
+    },
+    "matmul_allow_tf32": true,
+    "float32_matmul_precision": "high",
+    "torch_cuda_runtime": "12.8",
+    "cuda_initialized_before_configuration": false,
+    "cuda_initialized_after_configuration": true,
+    "cuda": {
+      "device_index": 0,
+      "device_name": "NVIDIA L20Z",
+      "total_memory_bytes": 85017624576,
+      "capability": [
+        9,
+        0
+      ]
+    }
+  },
+  "artifact_audit": {
+    "raw_score_maps_float32_verified": 1775,
+    "raw_reliability_maps_float32_verified": 1775,
+    "native_threshold_png_masks_verified": 1025,
+    "fullframe_masks_absent": 750,
+    "all_paths_canonical": true,
+    "all_file_hashes_exact": true,
+    "all_array_hashes_exact": true,
+    "all_shapes_and_dtypes_exact": true,
+    "all_values_finite_and_in_unit_interval": true,
+    "applicable_png_exact_score_map_ge_0_5": true,
+    "reliability_used_for_primary_metrics": false,
+    "reliability_not_multiplied_into_score_map": true,
+    "fullframe_localization_metrics_absent": true
+  },
+  "metrics": {
+    "schema_version": "trufor_balanced250_summary_v2",
+    "t1_schema_version": "balanced250_t1_summary_v1",
+    "t2_schema_version": "balanced250_t2_summary_v1",
+    "bootstrap_iterations": 1000,
+    "bootstrap_seed": 20260726,
+    "shared_balanced250_metrics_only": true,
+    "metrics_sha256": "5a37b7fcdc74100197ab5a3f0e6180bdd609f94e2ecf9e29659de558e6e479a4"
+  },
+  "fresh_model_replay": {
+    "status": "fresh_full_model_replay_exact",
+    "selected_images_freshly_reopened": 1775,
+    "selected_images_freshly_preprocessed": 1775,
+    "model_forwards": 1775,
+    "t1_scores_compared_exact": 1775,
+    "detection_logits_compared_exact": 1775,
+    "raw_score_maps_compared_exact": 1775,
+    "raw_reliability_maps_compared_exact": 1775,
+    "applicable_masks_rederived_exact": 1025,
+    "fullframe_masks_not_created": 750,
+    "maximum_t1_score_abs_diff": 0.0,
+    "maximum_detection_logit_abs_diff": 0.0,
+    "maximum_score_map_abs_diff": 0.0,
+    "maximum_reliability_map_abs_diff": 0.0
+  },
+  "fresh_model_metrics_exact": true,
+  "fresh_model_metrics_equivalence_proof": {
+    "t1_inputs": "all_1775_metric_result_rows_exact",
+    "t2_inputs": "all_1025_applicable_native_score_maps_exact",
+    "reliability_excluded_from_primary_metrics": true,
+    "metric_reducer_rerun_on_identical_inputs": false
+  },
+  "scientific_boundaries": {
+    "t1_uses_all_1775_images": true,
+    "t2_uses_only_real_and_local_1025_images": true,
+    "fullframe_t2_is_not_applicable": true,
+    "fullframe_diagnostic_maps_are_not_t2_results": true,
+    "tcp_reliability_is_diagnostic_only": true,
+    "author_published_numeric_golden_available": false,
+    "no_numeric_golden_was_fabricated": true,
+    "fresh_full_model_replay_is_default": true
+  },
+  "license": {
+    "identifier": "TruFor_custom_informational_nonprofit_only",
+    "commercial_use_cleared": false,
+    "commercial_use_requires_separate_authorization": true,
+    "cmx_mit_does_not_override_overall_restriction": true
+  },
+  "analyzer_source": {
+    "path": "eval/opensource/analyze_trufor_balanced.py",
+    "bytes": 110812,
+    "sha256": "66d11687e616e03cb270af33b6ca37b9559395e17c567560412dd3a9bcbd2e92"
+  },
+  "artifacts": {
+    "metrics_path": "results/opensource/trufor/trufor_cvpr2023_balanced250_v1_full1775_20260727/balanced250_metrics.json",
+    "metrics_sha256": "5a37b7fcdc74100197ab5a3f0e6180bdd609f94e2ecf9e29659de558e6e479a4",
+    "audit_path": "results/opensource/trufor/trufor_cvpr2023_balanced250_v1_full1775_20260727/independent_audit.json"
+  }
+}
