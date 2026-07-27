@@ -14,7 +14,15 @@ from urllib.parse import urlsplit, urlunsplit
 
 from .client import RetryableError, VisionClient, retry_delay
 from .config import load_config
-from .inputs import ImageItem, from_jsonl, from_review_export, manifest_hash
+from .inputs import (
+    DEFAULT_BENCHMARK1000_LEDGER,
+    DEFAULT_BENCHMARK1000_MANIFEST,
+    ImageItem,
+    from_benchmark1000,
+    from_jsonl,
+    from_review_export,
+    manifest_hash,
+)
 from .masks import boxes_to_1000, boxes_to_pixels, write_union_mask
 from .prompts import (
     BBOX1000_PROTOCOL_SUITE_VERSION,
@@ -235,7 +243,7 @@ def _manifest_payload(
             protocol_suite_version,
             localization_coordinate_space,
         ),
-        "input": {"source": args.source, "review_export": str(args.review_export) if args.review_export else None, "review_status": args.review_status if args.source == "review-export" else None, "include_source_pairs": args.include_source_pairs if args.source == "review-export" else None, "list": str(args.list) if args.list else None, "images": len(items), "manifest_sha256": manifest_hash(items)},
+        "input": {"source": args.source, "review_export": str(args.review_export) if args.review_export else None, "review_status": args.review_status if args.source == "review-export" else None, "include_source_pairs": args.include_source_pairs if args.source == "review-export" else None, "list": str(args.list) if args.list else (str(DEFAULT_BENCHMARK1000_LEDGER) if args.source == "benchmark1000" else None), "benchmark_manifest": str(args.benchmark_manifest) if args.source == "benchmark1000" else None, "images": len(items), "manifest_sha256": manifest_hash(items)},
         "api": {"timeout_seconds": cfg["api"]["timeout"], "api_base": provider.get("apiBase"), "provider_header_keys": sorted(provider.get("headers", {}).keys()), "provider_extra_body_keys": sorted(provider.get("extraBody", {}).keys()), "model_omitted_extra_body_keys": sorted(model.get("omitExtraBodyKeys", []))},
         "retry": {"max_retries_per_replicate": cfg["retry"]["maxRetriesPerReplicate"], "base_backoff_seconds": cfg["retry"]["baseBackoffSeconds"]},
         "image": dict(cfg["image"]),
@@ -347,11 +355,24 @@ def _one_replicate(
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", type=Path, required=True)
-    parser.add_argument("--source", choices=["review-export", "list"], required=True)
+    parser.add_argument(
+        "--source",
+        choices=["review-export", "list", "benchmark1000"],
+        required=True,
+    )
     parser.add_argument("--review-export", type=Path)
     parser.add_argument("--review-status", default="good")
     parser.add_argument("--include-source-pairs", action="store_true")
     parser.add_argument("--list", type=Path)
+    parser.add_argument(
+        "--benchmark-manifest",
+        type=Path,
+        default=DEFAULT_BENCHMARK1000_MANIFEST,
+        help=(
+            "immutable 750-forged + 250-real manifest used by "
+            "--source benchmark1000"
+        ),
+    )
     parser.add_argument("--protocol", choices=["detection", "localization", "both"], default="both")
     parser.add_argument("--condition", required=True)
     parser.add_argument("--run-id", required=True, help="unique run identifier; used in result filenames and every record")
@@ -378,6 +399,10 @@ def main() -> None:
     args = parser.parse_args()
     if args.replicates != 3:
         raise SystemExit("MLLM protocol requires exactly --replicates 3")
+    if args.source == "review-export" and args.review_export is None:
+        raise SystemExit("--source review-export requires --review-export")
+    if args.source == "list" and args.list is None:
+        raise SystemExit("--source list requires --list")
     if args.write_metrics and args.source != "review-export":
         raise SystemExit("--write-metrics currently requires --source review-export")
     if args.concurrency is not None and args.concurrency < 1:
@@ -411,7 +436,21 @@ def main() -> None:
             raise SystemExit("--image-url-prefix and --image-url-map are mutually exclusive")
         cfg["image"]["urlPrefix"] = args.image_url_prefix.rstrip("/")
         cfg["image"]["localRoot"] = str(root)
-    manifest_items = from_review_export(args.review_export, root, args.review_status, args.include_source_pairs) if args.source == "review-export" else from_jsonl(args.list, root)
+    if args.source == "review-export":
+        manifest_items = from_review_export(
+            args.review_export,
+            root,
+            args.review_status,
+            args.include_source_pairs,
+        )
+    elif args.source == "list":
+        manifest_items = from_jsonl(args.list, root)
+    else:
+        manifest_items = from_benchmark1000(
+            args.benchmark_manifest,
+            args.list or DEFAULT_BENCHMARK1000_LEDGER,
+            root,
+        )
     if args.limit is not None:
         manifest_items = manifest_items[:args.limit]
     items = manifest_items

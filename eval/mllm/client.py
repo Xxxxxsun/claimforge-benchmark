@@ -77,15 +77,45 @@ class VisionClient:
             if not external_url:
                 raise ValueError("base64 transport requires image_path or image_url")
             return external_url
+        return self.image_data_url(path)
+
+    @staticmethod
+    def image_data_url(path: Path) -> str:
+        """Encode a local image for a multimodal message, independent of transport."""
         mime = mimetypes.guess_type(path.name)[0] or "application/octet-stream"
         return f"data:{mime};base64," + base64.b64encode(path.read_bytes()).decode("ascii")
+
+    def image_part(self, image: str) -> dict[str, Any]:
+        part: dict[str, Any] = {"type": "image_url", "image_url": {"url": image}}
+        if self.image_config.get("detail"):
+            part["image_url"]["detail"] = self.image_config["detail"]
+        return part
 
     def call(self, system_prompt: str, user_prompt: str, image: str) -> tuple[str, int]:
         if self.model.get("requestFormat") == "gemini_httpstream":
             return self._call_gemini_httpstream(system_prompt, user_prompt, image)
-        image_part: dict[str, Any] = {"type": "image_url", "image_url": {"url": image}}
-        if self.image_config.get("detail"):
-            image_part["image_url"]["detail"] = self.image_config["detail"]
+        return self.call_messages(
+            system_prompt,
+            [{
+                "role": "user",
+                "content": [
+                    {"type": "text", "text": user_prompt},
+                    self.image_part(image),
+                ],
+            }],
+        )
+
+    def call_messages(
+        self,
+        system_prompt: str,
+        messages: list[dict[str, Any]],
+    ) -> tuple[str, int]:
+        """Call an OpenAI-compatible endpoint with a complete multimodal history."""
+        if self.model.get("requestFormat") == "gemini_httpstream":
+            raise ValueError(
+                "gemini_httpstream does not support multi-turn agent messages; "
+                "use openai_chat_completions for the zoom agent"
+            )
         extra_body = dict(self.provider.get("extraBody", {}))
         for key in self.model.get("omitExtraBodyKeys", []):
             extra_body.pop(key, None)
@@ -93,7 +123,7 @@ class VisionClient:
             "model": self.model["id"],
             "messages": [
                 {"role": "system", "content": system_prompt},
-                {"role": "user", "content": [{"type": "text", "text": user_prompt}, image_part]},
+                *messages,
             ],
             "max_tokens": self.model["maxTokens"],
             **extra_body,

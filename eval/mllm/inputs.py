@@ -8,6 +8,15 @@ from pathlib import Path
 from typing import Any
 
 
+BENCHMARK1000_DATASET_ID = "claimforge-mllm-local750-real250-v1"
+DEFAULT_BENCHMARK1000_MANIFEST = Path(
+    "annotations/claimforge_mllm_benchmark1000_v1.manifest.json"
+)
+DEFAULT_BENCHMARK1000_LEDGER = Path(
+    "annotations/claimforge_mllm_benchmark1000_v1.jsonl"
+)
+
+
 @dataclass(frozen=True)
 class ImageItem:
     id: str
@@ -61,6 +70,98 @@ def from_jsonl(path: Path, root: Path) -> list[ImageItem]:
             raise FileNotFoundError(image_path)
         items.append(ImageItem(str(row["id"]), image_path, row.get("image_url"), row.get("task_id"), row.get("label"), row.get("mask_path"), row.get("metadata") or {}))
     return items
+
+
+def from_benchmark1000(
+    manifest_path: Path,
+    ledger_path: Path,
+    root: Path,
+) -> list[ImageItem]:
+    """Load the immutable 750-forged + 250-real aggregation ledger."""
+    resolved_manifest = _resolve(root, str(manifest_path))
+    if not resolved_manifest.is_file():
+        raise FileNotFoundError(resolved_manifest)
+    manifest = json.loads(resolved_manifest.read_text(encoding="utf-8"))
+    if manifest.get("dataset_id") != BENCHMARK1000_DATASET_ID:
+        raise ValueError("unexpected benchmark1000 dataset_id")
+    counts = manifest.get("counts") or {}
+    if not manifest.get("release_ready"):
+        raise ValueError("benchmark1000 is not release-ready")
+    expected_counts = {
+        "total": 1000,
+        "forged": 750,
+        "real": 250,
+        "trash_can": 250,
+        "mouse": 250,
+        "cat": 250,
+    }
+    for key, expected in expected_counts.items():
+        if counts.get(key) != expected:
+            raise ValueError(
+                f"benchmark1000 count mismatch: {key}="
+                f"{counts.get(key)!r}, expected {expected}"
+            )
+
+    resolved_ledger = _resolve(root, str(ledger_path))
+    if not resolved_ledger.is_file():
+        raise FileNotFoundError(resolved_ledger)
+    formal_ledger = manifest.get("formal_ledger") or {}
+    bound_path = formal_ledger.get("path")
+    if not isinstance(bound_path, str):
+        raise ValueError("benchmark1000 manifest lacks formal ledger path")
+    if _resolve(root, bound_path) != resolved_ledger:
+        raise ValueError(
+            "benchmark1000 ledger path does not match manifest"
+        )
+    raw = resolved_ledger.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != formal_ledger.get("sha256"):
+        raise ValueError(
+            "benchmark1000 ledger SHA-256 does not match manifest"
+        )
+    if formal_ledger.get("rows") != 1000:
+        raise ValueError("benchmark1000 ledger row binding is not 1000")
+    raw_rows: list[dict[str, Any]] = []
+    for number, line in enumerate(
+        raw.decode("utf-8").splitlines(), 1
+    ):
+        if not line.strip():
+            continue
+        row = json.loads(line)
+        metadata = row.get("metadata") or {}
+        if metadata.get("dataset_id") != BENCHMARK1000_DATASET_ID:
+            raise ValueError(
+                f"{resolved_ledger}:{number}: unexpected dataset_id"
+            )
+        raw_rows.append(row)
+    if len(raw_rows) != 1000:
+        raise ValueError(
+            f"benchmark1000 ledger has {len(raw_rows)} rows, expected 1000"
+        )
+    ids = [str(row.get("id", "")) for row in raw_rows]
+    if len(set(ids)) != 1000 or any(not value for value in ids):
+        raise ValueError("benchmark1000 IDs must be 1000 unique values")
+    category_counts: dict[str, int] = {}
+    label_counts: dict[str, int] = {}
+    for row in raw_rows:
+        category = str(row.get("candidate", ""))
+        category_counts[category] = category_counts.get(category, 0) + 1
+        label = str(row.get("label", ""))
+        label_counts[label] = label_counts.get(label, 0) + 1
+    if category_counts != {
+        "mouse": 250,
+        "cat": 250,
+        "trash_can": 250,
+        "real": 250,
+    }:
+        raise ValueError(
+            "benchmark1000 candidate counts mismatch: "
+            f"{category_counts}"
+        )
+    if label_counts != {"forged": 750, "real": 250}:
+        raise ValueError(
+            f"benchmark1000 label counts mismatch: {label_counts}"
+        )
+    return from_jsonl(resolved_ledger, root)
 
 
 def manifest_hash(items: list[ImageItem]) -> str:

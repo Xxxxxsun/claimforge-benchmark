@@ -1,0 +1,115 @@
+{
+  "schema_version": "claimforge_mllm_benchmark1000_v1",
+  "dataset_id": "claimforge-mllm-local750-real250-v1",
+  "release_ready": true,
+  "counts": {
+    "total": 1000,
+    "forged": 750,
+    "real": 250,
+    "mouse": 250,
+    "cat": 250,
+    "trash_can": 250,
+    "cat_population": 251,
+    "cat_excluded": 1,
+    "mouse_population": 275,
+    "mouse_excluded": 25,
+    "real_unique_sha256": 250,
+    "real_from_unique_trash_sources": 246,
+    "real_supplemental_unique": 4
+  },
+  "policy": {
+    "inference_may_process_superset": true,
+    "aggregation_must_filter_to_ledger": true,
+    "mouse_selection": "same scene/original as every final Trash-can-250 row",
+    "cat_selection": "seeded SHA-256 pseudorandom exclusion of one final Cat-251 row; no model outputs used",
+    "trash_can_selection": "all final Trash-can-250 rows",
+    "real_selection": "250 unique SHA-256 images previously evaluated as real; prioritize unique Trash-can sources, then supplement from Mouse-good275"
+  },
+  "cat_sampling": {
+    "algorithm": "exclude min SHA256(seed + NUL + sorted task_id)",
+    "seed": "claimforge-mllm-local750-real250-v1::cat-drop::20260727",
+    "excluded": {
+      "task_id": "cat_restaurant_295_slot_001",
+      "scene_id": "restaurant_295_slot_001",
+      "image": {
+        "path": "spliced_final/claimforge_cat_selected_251_20260725/cat_restaurant_295_slot_001.png",
+        "sha256": "72688fdddde74621bab544f31adb253df5ec7b2a6bd2478a70614cbd868a0e97",
+        "bytes": 2301208,
+        "width": 1800,
+        "height": 1200
+      },
+      "source": {
+        "path": "source_pool/openimages_v7_600/restaurant/restaurant_295.jpg",
+        "sha256": "2804b4a536afa631619061989407812734ef7351940ef1c7c8f7831a5f277b68",
+        "bytes": 336842,
+        "width": 1800,
+        "height": 1200
+      },
+      "selection": "sam3_local_diff",
+      "random_rank_sha256": "04a2b4412d60e7ed907801c13213f604ffe6eaccd044f7e47a507a6d8bc3a890"
+    }
+  },
+  "real_sampling": {
+    "historical_test_evidence": {
+      "path": "results/mllm/qwen3_7_plus/qwen37plus_pilot_good275_c15_v3_20260715T153257_0800.jsonl",
+      "sha256": "c288463c4fc0dd22e4ce2b3771abe12c02f135a2e4c136bff91bae9ad383d19a",
+      "bytes": 4463108
+    },
+    "unique_content_required": true,
+    "trash_source_priority_count": 246,
+    "supplemental_count": 4
+  },
+  "built_from": [
+    {
+      "path": "spliced_final/claimforge_trash_can_selected_250_20260725/manifest.jsonl",
+      "sha256": "d1bb8f8703da5eca12ef40196dacd6938e9aa03d753368fd08ebd039e5b8a023",
+      "bytes": 103369
+    },
+    {
+      "path": "spliced_final/claimforge_cat_selected_251_20260725/manifest.jsonl",
+      "sha256": "1e49164fbf4c8488e6c55ab88951977d3bb8d77e2a9a37e8553a49206a02ad55",
+      "bytes": 98219
+    },
+    {
+      "path": "claimforge_generation_review_labels.json",
+      "sha256": "29239266662cdaf5ee80199198735518f01ff628c9bd1e2e9fcecb0c475d5e58",
+      "bytes": 416491
+    },
+    {
+      "path": "annotations/trash_can_generation_tasks.jsonl",
+      "sha256": "29ff8ac7ec548ea5c316157aa479be99f999c126dfc74dc85d88bd620ddc2f09",
+      "bytes": 159131
+    },
+    {
+      "path": "annotations/cat_generation_tasks.jsonl",
+      "sha256": "62a8458cdd238395ee89ab3fb2f2903163bf90c2f76a51526bc7bf74cf89979b",
+      "bytes": 159770
+    },
+    {
+      "path": "results/mllm/qwen3_7_plus/qwen37plus_pilot_good275_c15_v3_20260715T153257_0800.jsonl",
+      "sha256": "c288463c4fc0dd22e4ce2b3771abe12c02f135a2e4c136bff91bae9ad383d19a",
+      "bytes": 4463108
+    }
+  ],
+  "formal_ledger": {
+    "path": "annotations/claimforge_mllm_benchmark1000_v1.jsonl",
+    "rows": 1000,
+    "sha256": "38fff147582d704eef03a4473e6b3a964a335b0dd0df251ad51b882ff50f6cf9"
+  },
+  "inference_superset": {
+    "dataset_id": "claimforge-mllm-inference-full1051-v1",
+    "path": "annotations/claimforge_mllm_inference_full1051_v1.jsonl",
+    "rows": 1051,
+    "sha256": "c878466bdbff4c6dafbfe47f6fab67b5268653957ffb12b5370cc1446a19393e",
+    "counts": {
+      "mouse": 275,
+      "cat": 251,
+      "trash_can": 250,
+      "real": 275,
+      "total": 1051,
+      "in_benchmark1000": 1000,
+      "aggregation_extras": 51
+    }
+  },
+  "content_sha256": "f9d8c0ecffe698a039f92a1d302b7d2dfea58d9212de5a52fdb7f375bee115ea"
+}

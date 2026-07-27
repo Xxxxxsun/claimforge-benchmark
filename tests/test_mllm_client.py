@@ -92,6 +92,48 @@ class GeminiOpenAICompatibilityTest(unittest.TestCase):
                     "data:image/png;base64,AA==",
                 )
 
+    def test_call_messages_preserves_multimodal_agent_history(self):
+        client = VisionClient(_gemini_model(), 120, {"detail": "high"})
+        response = _Response({
+            "choices": [{
+                "message": {
+                    "content": '{"action":"final"}',
+                },
+            }],
+        })
+        history = [
+            {
+                "role": "user",
+                "content": [
+                    {"type": "text", "text": "original"},
+                    client.image_part("data:image/png;base64,AA=="),
+                ],
+            },
+            {"role": "assistant", "content": '{"action":"zoom_in"}'},
+            {
+                "role": "user",
+                "content": [
+                    {"type": "text", "text": "tool result"},
+                    client.image_part("data:image/png;base64,BB=="),
+                ],
+            },
+        ]
+
+        with mock.patch(
+            "eval.mllm.client.urllib.request.urlopen",
+            return_value=response,
+        ) as urlopen:
+            content, _ = client.call_messages("system", history)
+
+        request = urlopen.call_args.args[0]
+        payload = json.loads(request.data)
+        self.assertEqual(content, '{"action":"final"}')
+        self.assertEqual(payload["messages"][0], {
+            "role": "system",
+            "content": "system",
+        })
+        self.assertEqual(payload["messages"][1:], history)
+
 
 if __name__ == "__main__":
     unittest.main()
