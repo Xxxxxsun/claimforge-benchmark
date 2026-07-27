@@ -32,7 +32,12 @@ def _prob(value: Any) -> int:
     return int(value)
 
 
-def parse(protocol: str, raw: str, image_size: tuple[int, int] | None = None) -> dict[str, Any]:
+def parse(
+    protocol: str,
+    raw: str,
+    image_size: tuple[int, int] | None = None,
+    coordinate_space: str = "bbox_px",
+) -> dict[str, Any]:
     value = _json(raw)
     p = _prob(value.get("p_ai_edited"))
     reasoning = value.get("reasoning")
@@ -54,6 +59,8 @@ def parse(protocol: str, raw: str, image_size: tuple[int, int] | None = None) ->
     width, height = image_size
     if width <= 0 or height <= 0:
         raise SchemaError("image dimensions must be positive")
+    if coordinate_space not in {"bbox_px", "bbox_1000"}:
+        raise SchemaError(f"unsupported localization coordinate space: {coordinate_space}")
     regions = value.get("regions", [])
     if not isinstance(regions, list) or len(regions) > 3:
         raise SchemaError("regions must be an array of at most 3 items")
@@ -61,13 +68,32 @@ def parse(protocol: str, raw: str, image_size: tuple[int, int] | None = None) ->
     for region in regions:
         if not isinstance(region, dict):
             raise SchemaError("region must be an object")
-        box = region.get("bbox_px")
+        box = region.get(coordinate_space)
         if not isinstance(box, list) or len(box) != 4 or not all(isinstance(x, (int, float)) and not isinstance(x, bool) for x in box):
-            raise SchemaError("bbox_px must contain four numbers")
+            raise SchemaError(f"{coordinate_space} must contain four numbers")
         x1, y1, x2, y2 = map(float, box)
+        if coordinate_space == "bbox_1000":
+            if not (0 <= x1 < x2 <= 1000 and 0 <= y1 < y2 <= 1000):
+                raise SchemaError("bbox_1000 is out of range or degenerate")
+            source_box = [x1, y1, x2, y2]
+            x1, y1, x2, y2 = (
+                x1 * width / 1000,
+                y1 * height / 1000,
+                x2 * width / 1000,
+                y2 * height / 1000,
+            )
+        else:
+            source_box = None
         if not (0 <= x1 < x2 <= width and 0 <= y1 < y2 <= height):
             raise SchemaError(f"bbox_px is out of range or degenerate for {width}x{height} image")
-        parsed.append({"bbox_px": [x1, y1, x2, y2], "confidence": _prob(region.get("confidence")), "evidence": str(region.get("evidence", ""))})
+        parsed_region = {
+            "bbox_px": [x1, y1, x2, y2],
+            "confidence": _prob(region.get("confidence")),
+            "evidence": str(region.get("evidence", "")),
+        }
+        if source_box is not None:
+            parsed_region["bbox_1000"] = source_box
+        parsed.append(parsed_region)
     if decision == "localized_edit" and not parsed:
         raise SchemaError("localized_edit requires a region")
     return {"reasoning": reasoning, "decision": decision, "p_ai_edited": p, "regions": parsed}

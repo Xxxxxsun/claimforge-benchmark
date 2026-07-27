@@ -48,6 +48,11 @@ def load_config(path: Path, model_slugs: set[str] | None = None) -> dict[str, An
         model.setdefault("temperature", 0)
         model.setdefault("maxTokens", 600)
         model.setdefault("concurrency", 1)
+        model.setdefault("localizationCoordinateSpace", "bbox_px")
+        if model["localizationCoordinateSpace"] not in {"bbox_px", "bbox_1000"}:
+            raise ValueError(
+                f"model {model['slug']}: localizationCoordinateSpace must be bbox_px or bbox_1000"
+            )
     config.setdefault("api", {}).setdefault("timeout", 120)
     config.setdefault("retry", {}).setdefault("maxRetriesPerReplicate", 5)
     config["retry"].setdefault("baseBackoffSeconds", [2, 4, 8, 16, 32])

@@ -2,7 +2,9 @@
 
 DETECTION_PROTOCOL_VERSION = "mllm_protocol_v3_reasoning_image_coordinates"
 LOCALIZATION_PROTOCOL_VERSION = "mllm_protocol_v4_reasoning_pixel_coordinates"
+LOCALIZATION_BBOX1000_PROTOCOL_VERSION = "mllm_protocol_v5_reasoning_bbox1000_coordinates"
 PROTOCOL_SUITE_VERSION = "mllm_protocol_suite_20260724"
+BBOX1000_PROTOCOL_SUITE_VERSION = "mllm_protocol_suite_20260727_bbox1000"
 PROTOCOL_VERSIONS = {
     "detection": DETECTION_PROTOCOL_VERSION,
     "localization": LOCALIZATION_PROTOCOL_VERSION,
@@ -52,6 +54,33 @@ Return exactly one JSON object and no Markdown:
     \"bbox_px\": [<x1>, <y1>, <x2>, <y2>],
     \"confidence\": <integer 0-100>,
     \"evidence\": \"<short visible-evidence statement>\"
+  }]
+}
+
+"""
+
+LOCALIZATION_BBOX1000_PROMPT = """
+Instructions:
+1. Provide a **detailed explanation** of your reasoning.
+2. Then, based on your analysis, provide a final decision on "localized_edit", "no_localized_edit".
+3. If your decision is "localized_edit", provide a list of regions in the format of { "bbox_1000": [<x1>, <y1>, <x2>, <y2>], "confidence": <integer 0-100>, "evidence": "<short visible-evidence statement>" }.
+
+Important Constraints:
+- Your reasoning must come before the result statement.
+- Coordinates use a normalized 0-1000 full-image coordinate system, not pixel coordinates and not coordinates from a crop.
+- The top-left corner is (0, 0) and the bottom-right corner is (1000, 1000).
+- Do not invent a region when there is no visual evidence. Use an empty regions array when no specific region can be supported by visible evidence.
+- Return no more than 3 regions, ordered by confidence.
+
+Return exactly one JSON object and no Markdown:
+{
+  "reasoning": "<detailed explanation>",
+  "decision": "localized_edit" | "no_localized_edit",
+  "p_ai_edited": <integer 0-100>,
+  "regions": [{
+    "bbox_1000": [<x1>, <y1>, <x2>, <y2>],
+    "confidence": <integer 0-100>,
+    "evidence": "<short visible-evidence statement>"
   }]
 }
 

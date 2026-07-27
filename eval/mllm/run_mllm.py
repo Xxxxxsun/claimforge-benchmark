@@ -17,6 +17,9 @@ from .config import load_config
 from .inputs import ImageItem, from_jsonl, from_review_export, manifest_hash
 from .masks import boxes_to_1000, boxes_to_pixels, write_union_mask
 from .prompts import (
+    BBOX1000_PROTOCOL_SUITE_VERSION,
+    LOCALIZATION_BBOX1000_PROMPT,
+    LOCALIZATION_BBOX1000_PROTOCOL_VERSION,
     PROMPTS,
     PROTOCOL_SUITE_VERSION,
     PROTOCOL_VERSIONS,
@@ -56,13 +59,47 @@ def _safe_run_id(value: str) -> str:
     return value
 
 
-def _protocol_prompt(protocol: str, image_size: tuple[int, int] | None = None) -> str:
-    prompt = PROMPTS[protocol]
+def _protocol_versions_for_model(
+    model: dict[str, Any],
+    protocols: list[str],
+) -> tuple[dict[str, str], str | None, str]:
+    coordinate_space = model.get("localizationCoordinateSpace", "bbox_px")
+    versions = {key: PROTOCOL_VERSIONS[key] for key in protocols}
+    if "localization" in protocols and coordinate_space == "bbox_1000":
+        versions["localization"] = LOCALIZATION_BBOX1000_PROTOCOL_VERSION
+    suite_version = None
+    if len(protocols) > 1:
+        suite_version = (
+            BBOX1000_PROTOCOL_SUITE_VERSION
+            if coordinate_space == "bbox_1000"
+            else PROTOCOL_SUITE_VERSION
+        )
+    return versions, suite_version, coordinate_space
+
+
+def _protocol_prompt(
+    protocol: str,
+    image_size: tuple[int, int] | None = None,
+    coordinate_space: str = "bbox_px",
+) -> str:
+    prompt = (
+        LOCALIZATION_BBOX1000_PROMPT
+        if protocol == "localization" and coordinate_space == "bbox_1000"
+        else PROMPTS[protocol]
+    )
     if protocol != "localization":
         return prompt
     if image_size is None:
         raise ValueError("localization requires image dimensions")
     width, height = image_size
+    if coordinate_space == "bbox_1000":
+        return prompt + f"""
+
+Image coordinate metadata (not an annotation): the original image is {width} pixels wide by {height} pixels high.
+Return every region as bbox_1000 in the normalized full-image coordinate system. Use top-left (0, 0), bottom-right (1000, 1000), and require 0 <= x1 < x2 <= 1000 and 0 <= y1 < y2 <= 1000. Do not return bbox_px. The evaluator will convert bbox_1000 to original-image pixels before validation and aggregation.
+"""
+    if coordinate_space != "bbox_px":
+        raise ValueError(f"unsupported localization coordinate space: {coordinate_space}")
     return prompt + f"""
 
 Image coordinate metadata (not an annotation): this image is exactly {width} pixels wide by {height} pixels high.
@@ -75,11 +112,19 @@ def _schema_repair_prompt(
     protocol: str,
     error: SchemaError,
     image_size: tuple[int, int] | None,
+    coordinate_space: str = "bbox_px",
 ) -> str:
     details = f"\n\nYour previous response was invalid: {error}."
     if protocol == "localization" and image_size is not None:
         width, height = image_size
-        details += f"""
+        if coordinate_space == "bbox_1000":
+            details += f"""
+Correct the JSON using bbox_1000 in the normalized full-image coordinate system for the original {width} x {height} image.
+Every bbox_1000 must satisfy 0 <= x1 < x2 <= 1000 and 0 <= y1 < y2 <= 1000.
+Do not return bbox_px. If you cannot support a valid normalized box, return
+decision "no_localized_edit" with an empty regions array."""
+        else:
+            details += f"""
 Correct the JSON using the original {width} x {height} pixel image coordinate system.
 Every bbox_px must satisfy 0 <= x1 < x2 <= {width} and 0 <= y1 < y2 <= {height}.
 Do not use normalized 0-1000 coordinates. If you cannot support a valid pixel box, return
@@ -136,12 +181,18 @@ def _recordable_image_url(value: str | None) -> str | None:
     return urlunsplit((parsed.scheme, parsed.netloc, parsed.path, "", "")) if parsed.scheme in {"http", "https"} else value
 
 
-def _protocol_manifest(protocols: list[str]) -> dict[str, Any]:
-    versions = {key: PROTOCOL_VERSIONS[key] for key in protocols}
+def _protocol_manifest(
+    protocols: list[str],
+    versions: dict[str, str] | None = None,
+    suite_version: str | None = None,
+    localization_coordinate_space: str = "bbox_px",
+) -> dict[str, Any]:
+    versions = versions or {key: PROTOCOL_VERSIONS[key] for key in protocols}
     combined = len(protocols) > 1
+    effective_suite_version = suite_version or PROTOCOL_SUITE_VERSION
     payload: dict[str, Any] = {
         "version": (
-            PROTOCOL_SUITE_VERSION
+            effective_suite_version
             if combined
             else versions[protocols[0]]
         ),
@@ -150,11 +201,26 @@ def _protocol_manifest(protocols: list[str]) -> dict[str, Any]:
         "replicates_required": 3,
     }
     if combined:
-        payload["suite_version"] = PROTOCOL_SUITE_VERSION
+        payload["suite_version"] = effective_suite_version
+    if "localization" in protocols and localization_coordinate_space != "bbox_px":
+        payload["localization_coordinate_space"] = localization_coordinate_space
     return payload
 
 
-def _manifest_payload(args: argparse.Namespace, cfg: dict[str, Any], model: dict[str, Any], items: list[ImageItem], run_id: str, manifest_path: Path, raw_path: Path, output_path: Path, protocols: list[str]) -> dict[str, Any]:
+def _manifest_payload(
+    args: argparse.Namespace,
+    cfg: dict[str, Any],
+    model: dict[str, Any],
+    items: list[ImageItem],
+    run_id: str,
+    manifest_path: Path,
+    raw_path: Path,
+    output_path: Path,
+    protocols: list[str],
+    protocol_versions: dict[str, str],
+    protocol_suite_version: str | None,
+    localization_coordinate_space: str,
+) -> dict[str, Any]:
     """Freeze a useful, secret-free description of one model run."""
     provider = model["provider"]
     metadata = {
@@ -162,8 +228,13 @@ def _manifest_payload(args: argparse.Namespace, cfg: dict[str, Any], model: dict
         "run_id": run_id,
         "created_at_utc": datetime.now(timezone.utc).isoformat(),
         "condition": args.condition,
-        "model": {"id": model["id"], "slug": model["slug"], "max_tokens": model["maxTokens"], "temperature": None if model.get("omitTemperature", False) else model["temperature"], "concurrency": model["concurrency"], "request_format": model.get("requestFormat", "openai_chat_completions")},
-        "protocol": _protocol_manifest(protocols),
+        "model": {"id": model["id"], "slug": model["slug"], "max_tokens": model["maxTokens"], "temperature": None if model.get("omitTemperature", False) else model["temperature"], "concurrency": model["concurrency"], "request_format": model.get("requestFormat", "openai_chat_completions"), "localization_coordinate_space": localization_coordinate_space},
+        "protocol": _protocol_manifest(
+            protocols,
+            protocol_versions,
+            protocol_suite_version,
+            localization_coordinate_space,
+        ),
         "input": {"source": args.source, "review_export": str(args.review_export) if args.review_export else None, "review_status": args.review_status if args.source == "review-export" else None, "include_source_pairs": args.include_source_pairs if args.source == "review-export" else None, "list": str(args.list) if args.list else None, "images": len(items), "manifest_sha256": manifest_hash(items)},
         "api": {"timeout_seconds": cfg["api"]["timeout"], "api_base": provider.get("apiBase"), "provider_header_keys": sorted(provider.get("headers", {}).keys()), "provider_extra_body_keys": sorted(provider.get("extraBody", {}).keys()), "model_omitted_extra_body_keys": sorted(model.get("omitExtraBodyKeys", []))},
         "retry": {"max_retries_per_replicate": cfg["retry"]["maxRetriesPerReplicate"], "base_backoff_seconds": cfg["retry"]["baseBackoffSeconds"]},
@@ -203,6 +274,11 @@ def _existing_or_new_manifest(fresh: dict[str, Any], path: Path) -> dict[str, An
         ("protocol.version", existing_protocol.get("version"), fresh_protocol.get("version")),
         ("protocol.keys", existing_protocol.get("keys"), fresh_protocol.get("keys")),
         ("protocol.versions", existing_versions, fresh_protocol.get("versions")),
+        (
+            "protocol.localization_coordinate_space",
+            existing_protocol.get("localization_coordinate_space", "bbox_px"),
+            fresh_protocol.get("localization_coordinate_space", "bbox_px"),
+        ),
         ("input.manifest_sha256", existing.get("input", {}).get("manifest_sha256"), fresh.get("input", {}).get("manifest_sha256")),
     )
     mismatch = [name for name, old, new in checks if old != new]
@@ -220,9 +296,18 @@ def _existing_or_new_manifest(fresh: dict[str, Any], path: Path) -> dict[str, An
     return existing
 
 
-def _one_replicate(client: VisionClient, item: ImageItem, protocol: str, replicate: int, retry: dict[str, Any], dry_run: bool, image_size: tuple[int, int] | None = None) -> dict[str, Any]:
+def _one_replicate(
+    client: VisionClient,
+    item: ImageItem,
+    protocol: str,
+    replicate: int,
+    retry: dict[str, Any],
+    dry_run: bool,
+    image_size: tuple[int, int] | None = None,
+    coordinate_space: str = "bbox_px",
+) -> dict[str, Any]:
     image = client.image_url(item.image_path, item.image_url)
-    attempts, base_prompt = [], _protocol_prompt(protocol, image_size)
+    attempts, base_prompt = [], _protocol_prompt(protocol, image_size, coordinate_space)
     prompt = base_prompt
     if dry_run:
         parsed = {"reasoning": "dry run", "decision": "no_localized_edit", "p_ai_edited": 50, "regions": []} if protocol == "localization" else {"reasoning": "dry run", "decision": "not_edited", "p_ai_edited": 50, "evidence": []}
@@ -231,7 +316,7 @@ def _one_replicate(client: VisionClient, item: ImageItem, protocol: str, replica
         retry_after = None
         try:
             raw, latency = client.call(SYSTEM_PROMPT, prompt, image)
-            parsed = parse(protocol, raw, image_size)
+            parsed = parse(protocol, raw, image_size, coordinate_space)
             attempts.append({"attempt": attempt + 1, "status": "ok", "latency_ms": latency})
             return {"status": "ok", "parsed": parsed, "raw_response": raw, "attempts": attempts, "latency_ms": latency}
         except SchemaError as exc:
@@ -241,7 +326,13 @@ def _one_replicate(client: VisionClient, item: ImageItem, protocol: str, replica
                 "error": str(exc),
                 "raw_response": raw,
             })
-            prompt = _schema_repair_prompt(base_prompt, protocol, exc, image_size)
+            prompt = _schema_repair_prompt(
+                base_prompt,
+                protocol,
+                exc,
+                image_size,
+                coordinate_space,
+            )
         except RetryableError as exc:
             retry_after = exc.retry_after
             attempts.append({"attempt": attempt + 1, "status": "retryable_error", "error": str(exc)})
@@ -272,6 +363,7 @@ def main() -> None:
     parser.add_argument("--resume", action="store_true", help="accepted for compatibility; successful rows are always resumed")
     parser.add_argument("--model-slug", action="append", help="run only matching model slug(s); can be repeated")
     parser.add_argument("--concurrency", type=int, help="override per-model request concurrency for this run")
+    parser.add_argument("--max-tokens", type=int, help="override the selected model output-token limit")
     parser.add_argument("--api-timeout", type=float, help="override the configured per-request timeout in seconds")
     parser.add_argument("--max-retries-per-replicate", type=int, help="override retries inside each replicate; failures remain recorded in raw JSONL")
     parser.add_argument("--retry-until-complete", action="store_true", help="requeue failed replicates before aggregation/metrics until every unit has three valid replies")
@@ -290,6 +382,8 @@ def main() -> None:
         raise SystemExit("--write-metrics currently requires --source review-export")
     if args.concurrency is not None and args.concurrency < 1:
         raise SystemExit("--concurrency must be at least 1")
+    if args.max_tokens is not None and args.max_tokens < 1:
+        raise SystemExit("--max-tokens must be at least 1")
     if args.api_timeout is not None and args.api_timeout <= 0:
         raise SystemExit("--api-timeout must be positive")
     if args.max_retries_per_replicate is not None and args.max_retries_per_replicate < 0:
@@ -301,6 +395,9 @@ def main() -> None:
     selected = set(args.model_slug or [])
     run_id = _safe_run_id(args.run_id)
     cfg, root = load_config(args.config, selected or None), args.repo_root.resolve()
+    if args.max_tokens is not None:
+        for model in cfg["models"]:
+            model["maxTokens"] = args.max_tokens
     if args.api_timeout is not None:
         cfg["api"]["timeout"] = args.api_timeout
     if args.max_retries_per_replicate is not None:
@@ -326,25 +423,37 @@ def main() -> None:
         cfg["image"]["signedUrlMapEntries"] = len(signed_url_map)
         cfg["image"]["signedUrlMapSha256"] = map_sha256
     protocols = ["detection", "localization"] if args.protocol == "both" else [args.protocol]
-    protocol_versions = {key: PROTOCOL_VERSIONS[key] for key in protocols}
-    protocol_suite_version = (
-        PROTOCOL_SUITE_VERSION if len(protocols) > 1 else None
-    )
     print(json.dumps({
         "run_id": run_id,
         "items": len(manifest_items),
         "manifest_sha256": manifest_hash(manifest_items),
-        "protocol_suite_version": protocol_suite_version,
-        "protocol_versions": protocol_versions,
+        "protocols": protocols,
+        "models": [model["slug"] for model in cfg["models"]],
     }, ensure_ascii=False))
     skipped_ids = set(args.skip_id)
     for model in cfg["models"]:
         if args.concurrency is not None:
             model["concurrency"] = args.concurrency
+        protocol_versions, protocol_suite_version, coordinate_space = (
+            _protocol_versions_for_model(model, protocols)
+        )
         folder = args.results_root / model["slug"]
         raw_path, output_path = folder / f"{run_id}.raw.jsonl", folder / f"{run_id}.jsonl"
         run_manifest_path = folder / f"{run_id}.run_manifest.json"
-        fresh_manifest = _manifest_payload(args, cfg, model, manifest_items, run_id, run_manifest_path, raw_path, output_path, protocols)
+        fresh_manifest = _manifest_payload(
+            args,
+            cfg,
+            model,
+            manifest_items,
+            run_id,
+            run_manifest_path,
+            raw_path,
+            output_path,
+            protocols,
+            protocol_versions,
+            protocol_suite_version,
+            coordinate_space,
+        )
         run_manifest = _existing_or_new_manifest(fresh_manifest, run_manifest_path)
         run_fields = {
             "run_id": run_id,
@@ -390,7 +499,17 @@ def main() -> None:
             failed = []
             with ThreadPoolExecutor(max_workers=int(model["concurrency"])) as executor:
                 futures = {
-                    executor.submit(_one_replicate, client, item, protocol, replicate, cfg["retry"], args.dry_run, size): (unit_key, replicate, item, protocol, digest, size, request_params)
+                    executor.submit(
+                        _one_replicate,
+                        client,
+                        item,
+                        protocol,
+                        replicate,
+                        cfg["retry"],
+                        args.dry_run,
+                        size,
+                        coordinate_space,
+                    ): (unit_key, replicate, item, protocol, digest, size, request_params)
                     for unit_key, replicate, item, protocol, digest, size, request_params in work
                 }
                 for future in as_completed(futures):
@@ -398,7 +517,7 @@ def main() -> None:
                     unit_key, replicate, item, protocol, digest, size, request_params = task
                     result = future.result()
                     effective_image_url = client.image_url(item.image_path, item.image_url) if cfg["image"].get("transport") == "url" else item.image_url
-                    row = {"schema_version": "mllm_raw_v1", "raw_id": _raw_id(run_id, item, protocol, replicate), "id": item.id, "task_id": item.task_id, "image_path": str(item.image_path) if item.image_path else None, "image_url": _recordable_image_url(effective_image_url), "image_sha256": digest, "image_size": size, "image_transport": cfg["image"].get("transport", "base64"), "condition": args.condition, "model": model["id"], "model_slug": model["slug"], "protocol_key": protocol, "protocol_id": PROTOCOL_IDS[protocol], "protocol_version": PROTOCOL_VERSIONS[protocol], "replicate_index": replicate, "request_params": request_params, **run_fields, **result}
+                    row = {"schema_version": "mllm_raw_v1", "raw_id": _raw_id(run_id, item, protocol, replicate), "id": item.id, "task_id": item.task_id, "image_path": str(item.image_path) if item.image_path else None, "image_url": _recordable_image_url(effective_image_url), "image_sha256": digest, "image_size": size, "image_transport": cfg["image"].get("transport", "base64"), "condition": args.condition, "model": model["id"], "model_slug": model["slug"], "protocol_key": protocol, "protocol_id": PROTOCOL_IDS[protocol], "protocol_version": protocol_versions[protocol], "localization_coordinate_space": coordinate_space if protocol == "localization" else None, "replicate_index": replicate, "request_params": request_params, **run_fields, **result}
                     append_jsonl(raw_path, row)
                     if result["status"] == "ok":
                         units[unit_key]["replies"].append(result["parsed"])
@@ -433,15 +552,15 @@ def main() -> None:
                 if protocol == "localization" and size is not None:
                     boxes = boxes_to_pixels(summary["regions"], size[0], size[1])
                     normalized_boxes = boxes_to_1000(summary["regions"], size[0], size[1])
-                    mask_file = folder / "masks" / f"{item.id}.png"
+                    mask_file = folder / "masks" / run_id / f"{item.id}.png"
                     write_union_mask(mask_file, size[0], size[1], boxes)
                     summary["regions_px"] = boxes
                     summary["regions_1000"] = normalized_boxes
                     mask_path = str(mask_file)
                 effective_image_url = client.image_url(item.image_path, item.image_url) if cfg["image"].get("transport") == "url" else item.image_url
-                append_jsonl(output_path, {"schema_version": "mllm_result_v1", "id": item.id, "task_id": item.task_id, "image_path": str(item.image_path) if item.image_path else None, "image_url": _recordable_image_url(effective_image_url), "image_sha256": digest, "image_size": size, "image_transport": cfg["image"].get("transport", "base64"), "condition": args.condition, "model": model["id"], "model_slug": model["slug"], "protocol_key": protocol, "protocol_id": PROTOCOL_IDS[protocol], "protocol_version": PROTOCOL_VERSIONS[protocol], "request_params": request_params, **run_fields, "status": "ok", "valid_for_metrics": True, "replicate_count": 3, "successful_replicates": 3, "aggregation": {"decision": "majority", "probability": "median", "regions": "two-vote-iou-clusters-pixel" if protocol == "localization" else None}, "decision": summary["decision"], "p_ai_edited": summary["p_ai_edited"], "score": summary["p_ai_edited"] / 100, "regions_1000": summary.get("regions_1000", []), "regions_px": summary.get("regions_px", []), "mask_path": mask_path, "result": summary})
+                append_jsonl(output_path, {"schema_version": "mllm_result_v1", "id": item.id, "task_id": item.task_id, "image_path": str(item.image_path) if item.image_path else None, "image_url": _recordable_image_url(effective_image_url), "image_sha256": digest, "image_size": size, "image_transport": cfg["image"].get("transport", "base64"), "condition": args.condition, "model": model["id"], "model_slug": model["slug"], "protocol_key": protocol, "protocol_id": PROTOCOL_IDS[protocol], "protocol_version": protocol_versions[protocol], "localization_coordinate_space": coordinate_space if protocol == "localization" else None, "request_params": request_params, **run_fields, "status": "ok", "valid_for_metrics": True, "replicate_count": 3, "successful_replicates": 3, "aggregation": {"decision": "majority", "probability": "median", "regions": "two-vote-iou-clusters-pixel" if protocol == "localization" else None}, "decision": summary["decision"], "p_ai_edited": summary["p_ai_edited"], "score": summary["p_ai_edited"] / 100, "regions_1000": summary.get("regions_1000", []), "regions_px": summary.get("regions_px", []), "mask_path": mask_path, "result": summary})
             else:
-                append_jsonl(output_path, {"schema_version": "mllm_result_v1", "id": item.id, "task_id": item.task_id, "image_path": str(item.image_path) if item.image_path else None, "image_sha256": digest, "image_size": size, "condition": args.condition, "model": model["id"], "model_slug": model["slug"], "protocol_key": protocol, "protocol_id": PROTOCOL_IDS[protocol], "protocol_version": PROTOCOL_VERSIONS[protocol], **run_fields, "status": "incomplete_replicates", "valid_for_metrics": False, "successful_replicates": len(replies), "replicate_count": 3})
+                append_jsonl(output_path, {"schema_version": "mllm_result_v1", "id": item.id, "task_id": item.task_id, "image_path": str(item.image_path) if item.image_path else None, "image_sha256": digest, "image_size": size, "condition": args.condition, "model": model["id"], "model_slug": model["slug"], "protocol_key": protocol, "protocol_id": PROTOCOL_IDS[protocol], "protocol_version": protocol_versions[protocol], "localization_coordinate_space": coordinate_space if protocol == "localization" else None, **run_fields, "status": "incomplete_replicates", "valid_for_metrics": False, "successful_replicates": len(replies), "replicate_count": 3})
         if args.write_metrics:
             from .metrics import evaluate_review_export
             metrics_dir = folder / "metrics" / run_id
