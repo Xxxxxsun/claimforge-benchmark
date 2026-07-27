@@ -54,8 +54,8 @@ T2；三类 full-frame 的 T2 严格为 `N/A`。
   score delta 为 `+0.172618`；
 - 三类 local 的等权 per-image pixel AP 为 **0.178419**；
 - 对应 per-image F1/IoU@0.5 只有 **0.007708 / 0.005300**；
-- local pooled micro recall 为 **0.70%**，micro IoU 为
-  **0.004149**；
+- local 750 张直接 pooled 的 micro recall 为 **0.692%**，micro IoU
+  为 **0.006453**；
 - 275 张 real 的 mean per-image false-positive fraction 为
   **0.008259**（约 0.83%），micro fraction 为 **0.008344**；
 - 两个 smoke 的 T1、logits、四级 progressive maps、native maps
@@ -265,15 +265,19 @@ reducer 的 `>= 0.5`，不是官方 mask artifact 的 strict `> 0.5`。
 | Trash-can | 0.219667 | 0.294861 | 0.381721 | 0.007813 | 0.007943 | 0.005053 |
 | **condition macro** | — | **0.178419** | **0.267882** | **0.013237** | **0.007708** | **0.005300** |
 
-三类 pooled micro 指标为：
+把三类 local 的像素直接合并后，pooled micro 指标为：
 
 | Metric | Estimate |
 |---|---:|
-| precision | 0.104659 |
-| recall | 0.006998 |
-| F1 | 0.008249 |
-| IoU | 0.004149 |
-| MCC | 0.000275 |
+| precision | 0.086913 |
+| recall | 0.006922 |
+| F1 | 0.012823 |
+| IoU | 0.006453 |
+| MCC | -0.002524 |
+
+若先在每个 local condition 内计算 micro 指标，再对三个 condition 等权
+macro，IoU 才是 `0.004149`。它与上表的直接 pooled micro 是不同
+aggregation，不能混用名称。
 
 Cat 与 Trash-can 的连续 AP 不能脱离 prevalence 解读：两类 target pixel
 fraction 分别约 6.37% 和 21.97%，而 Mouse 只有 0.135%。即使
