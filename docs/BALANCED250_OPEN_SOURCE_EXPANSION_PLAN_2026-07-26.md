@@ -4,7 +4,7 @@
 
 **Updated:** 2026-07-27
 
-**Status:** 8/19 methods complete (7/9 whole-image, 1/10 local); next Effort
+**Status:** 9/19 methods complete (8/9 whole-image, 1/10 local); next OmniAID
 
 **Scope:** the 19 executable open-source methods already completed on the
 Mouse benchmark: ten local-forensics methods and nine whole-image AIGC
@@ -192,8 +192,10 @@ Completed whole-image methods:
    [formal report](CNNDETECTION_BALANCED250_FULL_RESULTS_2026-07-26.md)
 7. B-Free —
    [formal report](BFREE_BALANCED250_FULL_RESULTS_2026-07-27.md)
+8. Effort —
+   [formal report](EFFORT_BALANCED250_FULL_RESULTS_2026-07-27.md)
 
-Pending whole-image methods, in frozen order: Effort, OmniAID.
+Pending whole-image method, in frozen order: OmniAID.
 
 All nine are evaluated on all seven panel conditions for T1. LTD remains
 blocked on exact official-weight access and is not counted as executable.
@@ -201,11 +203,11 @@ NFA-ViT remains the analogous blocked local method.
 
 ### Expansion progress ledger
 
-- completed: 8/19;
-- whole-image: 7/9 complete, 2 pending;
+- completed: 9/19;
+- whole-image: 8/9 complete, 1 pending;
 - local-forensics: 1/10 complete, 9 pending;
-- total remaining: 11;
-- next queued method: Effort.
+- total remaining: 10;
+- next queued method: OmniAID.
 
 ## 6. Execution and audit order
 
@@ -237,23 +239,26 @@ inputs (`real275 + local_mouse250 + local_cat250 + local_trash_can250`);
 full-frame rows are T1=`N/A`, T2=`N/A`, not synthetic image scores derived
 from map statistics.
 
-After the canaries, the remaining whole-image methods run one at a time,
-followed by the remaining local-forensics methods. A method is not marked
-complete or pushed until coverage, hashes, metrics, replay, documentation,
-and the clean-worktree check all pass.
+After the canaries, independent method preparation and GPU workloads may run
+in parallel when they use disjoint logical devices and fit the available
+memory. Each method still keeps an isolated run directory, artifacts,
+deterministic smoke, formal replay audit, report, commit, and push. A method is
+not marked complete or pushed until its own coverage, hashes, metrics, replay,
+documentation, and scoped worktree check all pass.
 
 The exhaustive capability-correct score cache requires 29,975 formal model
 forwards. A full fresh replay requires the same number again, for 59,950
 forwards before smoke tests.
 
-After B-Free, the remaining executable queue requires 15,775 formal forwards
-and 15,775 fresh-replay forwards, or 31,550 total before smoke tests. The
+After Effort, the remaining executable queue requires 14,000 formal forwards
+and 14,000 fresh-replay forwards, or 28,000 total before smoke tests. The
 original 29,975 / 59,950 figures above remain the frozen all-method totals.
 
 ## 7. GPU occupancy
 
 The Hunyuan keepalive remains active during CPU-only preparation, analysis,
-documentation, pushes, and after the complete queue finishes. Before each
-CUDA benchmark it is paused and allowed to drain all in-flight requests. It
-is resumed immediately after the CUDA window closes, including after a
-failure or interrupted run.
+documentation, pushes, and after the complete queue finishes. Before a
+single- or multi-method CUDA benchmark group it is paused once and allowed to
+drain all in-flight requests. Compatible jobs are pinned to explicit logical
+devices; same-device jobs remain FIFO. The keepalive is resumed once after
+the whole CUDA group closes, including after a child failure or interruption.
