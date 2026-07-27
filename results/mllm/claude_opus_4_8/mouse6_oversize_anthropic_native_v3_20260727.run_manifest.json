@@ -1,0 +1,64 @@
+{
+  "api": {
+    "api_base": "https://card.tiantianyy.com/v1",
+    "model_omitted_extra_body_keys": [],
+    "provider_extra_body_keys": [],
+    "provider_header_keys": [],
+    "timeout_seconds": 240
+  },
+  "condition": "mouse6_oversize_anthropic_native_v3",
+  "config_fingerprint_sha256": "54bae48ee5e3dc4109225c3f985dc7c64169bc9e5666a7215e6b7322b90c22c3",
+  "created_at_utc": "2026-07-27T16:37:41.851885+00:00",
+  "image": {
+    "detail": "high",
+    "transport": "base64"
+  },
+  "input": {
+    "benchmark_manifest": null,
+    "images": 6,
+    "include_source_pairs": null,
+    "list": "/tmp/claimforge_tiantian_mouse6_20260727/images.jsonl",
+    "manifest_sha256": "ef75272f345e14c6d16e4a7e38e74e4afbe2a98681fc1129437521737b66eb85",
+    "review_export": null,
+    "review_status": null,
+    "source": "list"
+  },
+  "model": {
+    "concurrency": 3,
+    "id": "claude-opus-4-8",
+    "localization_coordinate_space": "bbox_1000",
+    "max_tokens": 600,
+    "request_format": "anthropic_messages",
+    "slug": "claude_opus_4_8",
+    "temperature": 0
+  },
+  "outputs": {
+    "aggregate_jsonl": "results/mllm/claude_opus_4_8/mouse6_oversize_anthropic_native_v3_20260727.jsonl",
+    "metrics_dir": "results/mllm/claude_opus_4_8/metrics/mouse6_oversize_anthropic_native_v3_20260727",
+    "raw_jsonl": "results/mllm/claude_opus_4_8/mouse6_oversize_anthropic_native_v3_20260727.raw.jsonl",
+    "run_manifest": "results/mllm/claude_opus_4_8/mouse6_oversize_anthropic_native_v3_20260727.run_manifest.json"
+  },
+  "protocol": {
+    "keys": [
+      "detection",
+      "localization"
+    ],
+    "localization_coordinate_space": "bbox_1000",
+    "replicates_required": 3,
+    "version": "mllm_protocol_v3_reasoning_image_coordinates",
+    "versions": {
+      "detection": "mllm_protocol_v3_reasoning_image_coordinates",
+      "localization": "mllm_protocol_v3_reasoning_image_coordinates"
+    }
+  },
+  "retry": {
+    "base_backoff_seconds": [
+      2,
+      4,
+      8
+    ],
+    "max_retries_per_replicate": 2
+  },
+  "run_id": "mouse6_oversize_anthropic_native_v3_20260727",
+  "schema_version": "mllm_run_manifest_v1"
+}
