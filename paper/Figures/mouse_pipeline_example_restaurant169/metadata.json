@@ -1,0 +1,61 @@
+{
+  "schema_version": "claimforge_mouse_pipeline_figure_assets_v1",
+  "task_id": "restaurant_169_slot_001",
+  "benchmark_pair_id": "mouse/restaurant_169_slot_001",
+  "benchmark_release": "claimforge_v1_250x3x2",
+  "benchmark_method": "local_splice",
+  "category": "mouse",
+  "domain": "restaurant",
+  "image_size": [
+    1800,
+    1197
+  ],
+  "context_region_xyxy": [
+    1419,
+    313,
+    1797,
+    579
+  ],
+  "context_size": [
+    378,
+    266
+  ],
+  "edit_region_xyxy": [
+    1534,
+    366,
+    1764,
+    514
+  ],
+  "edit_region_in_context_xyxy": [
+    115,
+    53,
+    345,
+    201
+  ],
+  "source_image": "source_pool/openimages_v7_600/restaurant/restaurant_169.jpg",
+  "benchmark_image": "benchmark/claimforge_v1_250x3x2/local_splice/mouse/restaurant_169_slot_001.png",
+  "generator_input_context": "crops/context/restaurant_169_slot_001_context.jpg",
+  "generated_context": "new_test/generated_crops/restaurant_169_slot_001.png",
+  "sam3": {
+    "endpoint": "fal-ai/sam-3/image-rle",
+    "prompt": "mouse",
+    "prompt_mode": "text_only",
+    "provider_score": 0.947516679763794,
+    "quality_gate_pass": true,
+    "semantic_mask_pixels": 11888,
+    "semantic_mask_fraction": 0.11823208815690019,
+    "result_directory": "results/segmentation/fal_sam3_mouse_figure_restaurant169_20260727"
+  },
+  "mechanical_difference": {
+    "reference": "decoded source-image context crop",
+    "metric": "maximum absolute RGB-channel difference",
+    "threshold": 30,
+    "component_rule": "largest thresholded component anchored in the edit region",
+    "mask_pixels": 13955
+  },
+  "sam3_plus_local_difference": {
+    "support_radius": 6,
+    "local_support_pixels": 1762,
+    "combined_mask_pixels": 13650
+  }
+}

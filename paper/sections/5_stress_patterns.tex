@@ -1,0 +1,17 @@
+\section{Stress Patterns and Diagnostic Comparisons}
+
+\subsection{Edit Size and Domain}
+
+In the available TruFor slices, edit size is the strongest observed pattern. TruFor AUROC rises from 0.7223 in the smallest exact-edit quintile to 0.9412 in the largest; macro pixel AP rises from 0.4240 to 0.7393. Lodging is descriptively easier than restaurant for TruFor (AUROC 0.8416 versus 0.7913), but this slice is not designed for a causal domain comparison.
+
+\subsection{Conditional Versus End-to-End Localization}
+
+Commercial outputs illustrate why localization quality must include detection misses. In a forged-only run, Copyleaks returns a native mask for 111/275 mouse forgeries; on those positive cases the mean IoU is 0.8165, but treating 164 empty-mask misses as failures reduces all-image mean IoU to 0.3296. The run cannot estimate real-image false-positive rate, so it demonstrates conditional localization rather than reliable end-to-end coverage.
+
+\subsection{Separate Diagnostic Evidence}
+
+The legacy four-run MLLM export uses source-JPEG real images and PNG forgeries, and its localization protocol returns boxes rather than exact changed-pixel masks. We retain it only as a protocol-warning artifact; any MLLM performance claim awaits a matched-JPEG rerun. Commercial services are likewise reported by coverage and vendor-threshold verdicts because most runs are forged-only and cannot estimate paired AUROC or false-positive rate.
+
+\subsection{Operational Takeaways}
+
+Our results motivate evaluation protocols that jointly report low-FPR image detection, spatial evidence, explicit coverage, and defined empty-mask behavior. A whole-image score alone does not establish sensitivity to local AI edits, while an attractive mask on selected positives can hide a high miss rate.

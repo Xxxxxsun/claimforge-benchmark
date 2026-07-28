@@ -1,9 +1,0 @@
-\section{Discussion and Conclusion}
-
-CLAIMFORGE targets a practical but under-tested setting: a mostly real photograph whose decisive claim evidence is a small inserted object. The benchmark is intentionally strict. It requires localization as well as detection, uses matched post-processing to reduce dataset shortcuts, and asks baselines to generalize across editors, domains, and laundering transformations. These choices make the task harder, but they also make the results more relevant to consumer-claim verification.
-
-The current limitation is evidence maturity. The repository contains a strong construction plan and a partially instantiated data pipeline, but the detector evaluation has not yet been run at scale. The final paper should therefore avoid universal failure claims until the full baseline matrix is complete. The strongest defensible claim will be conditional and protocol-bound: across the tested families, no method reaches the pre-declared detection and localization bar under held-out-editor, held-out-domain, and laundered conditions.
-
-Ethics and release policy are central. CLAIMFORGE studies fraudulent evidence generation, so the dataset should be released with research-use terms, provenance documentation, and safeguards against operational misuse. At the same time, the benchmark can help service platforms, insurers, and forensic researchers evaluate whether a detector truly identifies local AI edits rather than exploiting dataset artifacts.
-
-In summary, this draft defines CLAIMFORGE as a benchmark and evasion study for localized AI object-insertion forgeries in consumer-claim imagery. It specifies the task, construction pipeline, baseline suite, metrics, controls, and current repository state. The next version should replace the status tables with full detector results and confidence intervals.

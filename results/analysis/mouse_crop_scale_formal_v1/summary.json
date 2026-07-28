@@ -1,0 +1,130 @@
+{
+  "arms": {
+    "real_control": 350,
+    "suspicious": 350
+  },
+  "condition_groups": 7,
+  "crop_factors": {
+    "1": 200,
+    "1.5": 100,
+    "2": 100,
+    "3": 100,
+    "4": 100,
+    "8": 100
+  },
+  "images": 700,
+  "protocol": {
+    "encoding": {
+      "format": "JPEG",
+      "metadata": "none",
+      "quality": 95,
+      "subsampling": 0
+    },
+    "field_of_view_factors": [
+      1.0,
+      1.5,
+      2.0,
+      3.0,
+      4.0,
+      8.0
+    ],
+    "main_render": {
+      "interpolation": "Pillow bicubic",
+      "mode": "resize512",
+      "output_size": [
+        512,
+        512
+      ]
+    },
+    "native_ablation": {
+      "field_of_view_factor": 1.0,
+      "interpolation": "none",
+      "mode": "native"
+    },
+    "oracle_region": "minimum square enclosing exact RGB-difference bbox",
+    "provider_compatibility": {
+      "all_conditions": {
+        "images": 700,
+        "order": "compat_order.json",
+        "review": "compat_review.json"
+      },
+      "resize512_only": {
+        "images": 600,
+        "order": "compat_order_resize512.json",
+        "review": "compat_review_resize512.json"
+      }
+    },
+    "real_control": "concentric crops inside the farthest unchanged max-factor square",
+    "request_order": "cyclic interleave across domains, conditions, and paired arms"
+  },
+  "render_modes": {
+    "native": 100,
+    "resize512": 600
+  },
+  "schema_version": "claimforge_mouse_crop_scale_formal_v1",
+  "selection": {
+    "eligibility": "8x crop fits and has a same-image unchanged control",
+    "eligible_tasks": 236,
+    "per_domain": 25,
+    "policy": "per-domain exact-diff tight-side quantiles",
+    "selected_domain_counts": {
+      "lodging": 25,
+      "restaurant": 25
+    },
+    "selected_tasks": [
+      "lodging_085_slot_001",
+      "restaurant_088_slot_001",
+      "lodging_150_slot_001",
+      "restaurant_115_slot_001",
+      "lodging_157_slot_001",
+      "restaurant_241_slot_001",
+      "lodging_061_slot_001",
+      "restaurant_020_slot_001",
+      "lodging_038_slot_001",
+      "restaurant_052_slot_001",
+      "lodging_230_slot_001",
+      "restaurant_245_slot_001",
+      "lodging_022_slot_001",
+      "restaurant_121_slot_001",
+      "lodging_097_slot_001",
+      "restaurant_024_slot_001",
+      "lodging_056_slot_001",
+      "restaurant_234_slot_001",
+      "lodging_129_slot_001",
+      "restaurant_173_slot_001",
+      "lodging_222_slot_001",
+      "restaurant_057_slot_001",
+      "lodging_094_slot_001",
+      "restaurant_008_slot_001",
+      "lodging_194_slot_001",
+      "restaurant_018_slot_001",
+      "lodging_090_slot_001",
+      "restaurant_138_slot_001",
+      "lodging_121_slot_001",
+      "restaurant_090_slot_001",
+      "lodging_225_slot_001",
+      "restaurant_010_slot_001",
+      "lodging_242_slot_001",
+      "restaurant_124_slot_001",
+      "lodging_075_slot_001",
+      "restaurant_036_slot_001",
+      "lodging_088_slot_001",
+      "restaurant_206_slot_001",
+      "lodging_199_slot_001",
+      "restaurant_051_slot_001",
+      "lodging_173_slot_001",
+      "restaurant_194_slot_001",
+      "lodging_184_slot_001",
+      "restaurant_091_slot_001",
+      "lodging_180_slot_001",
+      "restaurant_129_slot_001",
+      "lodging_058_slot_001",
+      "restaurant_256_slot_001",
+      "lodging_076_slot_001",
+      "restaurant_155_slot_001"
+    ]
+  },
+  "source_manifest": "benchmark/claimforge_v1_250x3x2/local_splice/mouse/manifest.jsonl",
+  "source_manifest_sha256": "54ed5fb9a2f45703341c56fbdbc29a93b1a6719fb710b1a8132281e77fb2ab48",
+  "tasks": 50
+}

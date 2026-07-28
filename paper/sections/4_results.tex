@@ -1,0 +1,16 @@
+\section{Main Results on the Canonical Mouse Core}
+\label{sec:results}
+
+\subsection{Image-Level Detection}
+
+TruFor provides the strongest image-level signal: AUROC 0.8179 (provisional paired-task bootstrap 95\% CI 0.7902--0.8447), average precision 0.8393, and TPR 0.4436 at FPR no greater than 5\%. At its public 0.5 threshold it still misses 140/275 forged images. MaskCLIP, MVSS-Net, PSCC-Net, and HiFi-IFDL remain near 0.5 AUROC. CAT-Net, IML-ViT, and Mesorch expose no registered T1 head and remain N/A.
+
+\subsection{Pixel-Level Localization}
+
+CAT-Net has the best continuous pixel ranking, with macro pixel AP 0.6123. TruFor has the best registered-threshold macro F1 point estimate, 0.5001, and macro IoU, 0.3741. Its provisional paired-task bootstrap F1 interval, 0.4676--0.5318, crosses the 0.50 reference. This strength is not sufficient by itself: at the same threshold, 273/275 pristine images contain at least one TruFor-positive pixel, and their mean positive area is 1.776\%. Mask quality must therefore be interpreted together with an image-level decision.
+
+\subsection{No Method Covers Both Capabilities}
+
+Among the eight reproduced methods evaluated under their registered native capabilities, none simultaneously reaches the base-condition references of AUROC 0.90 and macro pixel F1 0.50 on the canonical mouse core. TruFor's localization point estimate narrowly reaches 0.50, although its provisional interval crosses that reference, while its AUROC remains below 0.90; CAT-Net is a strong localizer without a registered detector. This result demonstrates a capability gap rather than universal random behavior.
+
+The reported confidence intervals currently resample task pairs. Five pristine image hashes occur twice among the 275 registered pairs, so pair-bootstrap intervals can be slightly optimistic. We retain the frozen protocol for comparability across methods and identify source-cluster bootstrap as a required final analysis.

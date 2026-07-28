@@ -1,0 +1,10 @@
+\subsection{Evaluation Gap}
+
+\paragraph{Whole-image detection.}
+GenImage evaluates image-level detection over complete synthetic images and multiple generators \citep{zhu2023genimage}. DIRE uses diffusion reconstruction discrepancies \citep{wang2023dire}, while CLIP-based variants target cross-category generalization \citep{tan2024c2pclip}. These methods matter operationally, but a whole-image score neither guarantees sensitivity to a tiny insertion nor identifies the evidence an adjudicator should inspect.
+
+\paragraph{Manipulation localization and inpainting.}
+TruFor combines an integrity score, localization, and reliability maps \citep{guillaro2022trufor}; HiFi-IFDL studies fine-grained detection and localization \citep{guo2023hifi}; and IMDL-BenCo unifies models and evaluation protocols \citep{ma2024imdldbenco}. GIM, OpenSDI, and COCO-Inpaint move toward diffusion inpainting with both image- and pixel-level evaluation \citep{chen2024gim,wang2025opensdi,yan2025cocoinpaint}. CLAIMFORGE differs in the conjunction of a consumer-evidence threat, extremely small semantic insertions, source-paired inputs, and capability-aware reporting.
+
+\paragraph{Shortcuts and missing evaluation.}
+``Fake or JPEG?'' shows that format differences can dominate generated-image benchmarks \citep{grommelt2024fakejpeg}, while calibration work warns against interpreting a single fixed threshold as separability \citep{yang2026calibration}. Inpainting Exchange shows that global-artifact detectors can degrade when local editing removes those traces \citep{nebioglu2026inpaintingexchange}. Mesorch and SAFIRE represent newer localization approaches \citep{zhu2024mesorch,kwon2024safire}. The unresolved evaluation gap is not simply another inpainting dataset: it is whether methods expose both low-FPR detection and actionable localization when nearly the whole consumer-evidence image is real.

@@ -1,0 +1,56 @@
+{
+  "arms": {
+    "real_control": 32,
+    "suspicious": 32
+  },
+  "crop_factors": {
+    "1": 16,
+    "2": 16,
+    "4": 16,
+    "8": 16
+  },
+  "images": 64,
+  "protocol": {
+    "control": "farthest same-size region with zero exact-diff pixels",
+    "encoding": {
+      "format": "JPEG",
+      "metadata": "none",
+      "quality": 95,
+      "subsampling": 0
+    },
+    "field_of_view_factors": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "interpolation": "Pillow bicubic",
+    "oracle_region": "minimum square enclosing exact RGB-difference bbox",
+    "output_size": [
+      512,
+      512
+    ]
+  },
+  "schema_version": "claimforge_mouse_crop_scale_probe_v1",
+  "selection": {
+    "eligible_tasks": 236,
+    "per_domain": 4,
+    "policy": "per-domain exact-diff tight-side quantiles",
+    "selected_domain_counts": {
+      "lodging": 4,
+      "restaurant": 4
+    },
+    "selected_tasks": [
+      "lodging_057_slot_001",
+      "lodging_126_slot_001",
+      "lodging_023_slot_001",
+      "lodging_182_slot_001",
+      "restaurant_000_slot_001",
+      "restaurant_095_slot_001",
+      "restaurant_062_slot_001",
+      "restaurant_071_slot_001"
+    ]
+  },
+  "source_manifest": "benchmark/claimforge_v1_250x3x2/local_splice/mouse/manifest.jsonl",
+  "source_manifest_sha256": "54ed5fb9a2f45703341c56fbdbc29a93b1a6719fb710b1a8132281e77fb2ab48"
+}

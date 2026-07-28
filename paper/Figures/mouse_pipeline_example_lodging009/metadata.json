@@ -1,0 +1,78 @@
+{
+  "schema_version": "claimforge_mouse_pipeline_figure_assets_v1",
+  "task_id": "lodging_009_slot_001",
+  "benchmark_pair_id": "mouse/lodging_009_slot_001",
+  "benchmark_release": "claimforge_v1_250x3x2",
+  "benchmark_method": "local_splice",
+  "category": "mouse",
+  "domain": "lodging",
+  "image_size": [
+    800,
+    533
+  ],
+  "context_region_xyxy": [
+    17,
+    271,
+    95,
+    324
+  ],
+  "context_size": [
+    78,
+    53
+  ],
+  "edit_region_xyxy": [
+    40,
+    287,
+    68,
+    307
+  ],
+  "edit_region_in_context_xyxy": [
+    23,
+    16,
+    51,
+    36
+  ],
+  "source_image": "images/lodging_009.jpg",
+  "benchmark_image": "benchmark/claimforge_v1_250x3x2/local_splice/mouse/lodging_009_slot_001.png",
+  "generated_context": "generated_crops/hunyuan_image3/lodging_009_slot_001.png",
+  "generator_input_context": {
+    "manifest_path": "crops/context/lodging_009_slot_001_context.jpg",
+    "status": "original_file_overwritten",
+    "expected_size": [
+      78,
+      53
+    ],
+    "current_stale_file_size": [
+      170,
+      120
+    ],
+    "figure_reconstruction": "04_reconstructed_manifest_context.png"
+  },
+  "sam3": {
+    "endpoint": "fal-ai/sam-3/image-rle",
+    "prompt": "mouse",
+    "prompt_mode": "text_only",
+    "provider_score": 0.6473903059959412,
+    "quality_gate_pass": true,
+    "semantic_mask_pixels": 181,
+    "semantic_mask_fraction": 0.04378326076439284,
+    "result_directory": "results/segmentation/fal_sam3_mouse_figure_lodging009_20260727"
+  },
+  "mechanical_difference": {
+    "reference": "decoded frozen source-image context crop",
+    "metric": "maximum absolute RGB-channel difference",
+    "threshold": 30,
+    "component_rule": "largest thresholded component anchored in the edit region",
+    "mask_pixels": 298
+  },
+  "sam3_plus_local_difference": {
+    "support_radius": 6,
+    "local_support_pixels": 40,
+    "combined_mask_pixels": 221
+  },
+  "figure_scale_assets": {
+    "scale": 8,
+    "photo_resampling": "Lanczos",
+    "mask_resampling": "nearest"
+  }
+}

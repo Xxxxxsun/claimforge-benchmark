@@ -1,0 +1,18 @@
+\section{Capability-Aware Evaluation Protocol}
+\label{sec:protocol}
+
+\subsection{Reproduced Methods and Native Outputs}
+
+The primary comparison reproduces MaskCLIP \citep{wang2025opensdi}, TruFor \citep{guillaro2022trufor}, CAT-Net v2, MVSS-Net, PSCC-Net, and IML-ViT through their registered releases or the IMDL-BenCo harness \citep{ma2024imdldbenco}, plus HiFi-IFDL \citep{guo2023hifi} and Mesorch \citep{zhu2024mesorch}. We use pinned public checkpoints and registered preprocessing, and report only capabilities exposed by the registered method. A localization-only method receives T1=N/A; we do not convert map means or maxima into an unofficial detector. This preserves the distinction between a method that fails a task and one that does not implement it.
+
+\subsection{Metrics}
+
+For T1 we compute AUROC, average precision, TPR at empirical FPR no greater than 5\%, the registered fixed-threshold decision, and paired score changes. Threshold-independent metrics are necessary because calibration can hide separability \citep{yang2026calibration}. For T2 we compute pixel AP, macro and micro F1/IoU/MCC at the public threshold, edit-box hits, and positive area on pristine images. Table~\ref{tab:main-results} summarizes the decision-relevant core; the full metric matrix and uncertainty are assigned to the supplement. We treat detection and localization as two capability dimensions rather than collapsing them into a scalar.
+
+\subsection{Reference Target and Statistics}
+
+The experiment design specifies base-condition references of image AUROC at least 0.90 and macro pixel F1 at least 0.50. Its broader proposed ``solved'' rule also requires retaining both thresholds after JPEG-75 laundering, which has not yet been evaluated. We therefore use the two thresholds only as study-specific comparison points and make no claim under the full composite rule. Existing confidence intervals use 1,000 paired-task bootstrap replicates. Because five pristine sources repeat, these intervals are provisional and may be slightly optimistic; a source-hash-cluster bootstrap is required before submission.
+
+\subsection{Separate Diagnostic Protocols}
+
+The available four-run multimodal export is a legacy diagnostic: real inputs are source JPEGs while forged inputs are PNGs, and its boxes are not comparable with exact-difference pixel masks. It cannot support a model-performance claim and must be rerun on matched canonical JPEGs. Commercial services use heterogeneous inputs, coverage, score semantics, and mostly forged-only runs. We therefore report these systems only as diagnostics with explicit denominators and never rank their vendor-threshold rates against the primary paired AUROC table.

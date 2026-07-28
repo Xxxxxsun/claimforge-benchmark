@@ -1,0 +1,21 @@
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lcccrrrr}
+\toprule
+Method & Registered T1 & AUROC & TPR@5\% & Pixel AP & Macro F1 & Macro IoU & Real FP area \\
+\midrule
+TruFor & yes & 0.8179 & 0.4436 & 0.5799 & 0.5001 & 0.3741 & 1.776\% \\
+CAT-Net v2 & no & N/A & N/A & \textbf{0.6123} & 0.4748 & 0.3574 & 0.436\% \\
+IML-ViT & no & N/A & N/A & 0.1551 & 0.1433 & 0.0984 & 0.802\% \\
+Mesorch & no & N/A & N/A & 0.0922 & 0.0454 & 0.0314 & 0.358\% \\
+MaskCLIP & yes & 0.5073 & 0.0509 & 0.0474 & 0.0056 & 0.0037 & 0.060\% \\
+MVSS-Net & yes & 0.5058 & 0.0473 & 0.0341 & 0.0196 & 0.0125 & 3.289\% \\
+PSCC-Net & yes & 0.5041 & 0.0473 & 0.0153 & $<0.001$ & $<0.001$ & 0.827\% \\
+HiFi-IFDL & yes & 0.4992 & 0.0509 & 0.0036 & $<0.001$ & $<0.001$ & 0.729\% \\
+\bottomrule
+\end{tabular}
+\caption{Primary zero-shot results on 275 canonical real/forged mouse pairs. TPR@5\% is measured at empirical FPR no greater than 5\%. Pixel metrics are per-image macro values on forged images at each registered threshold; pixel AP uses the continuous map. Real FP area is the mean thresholded positive fraction on pristine images. A missing registered image-level output is reported as N/A rather than manufactured from a map.}
+\label{tab:main-results}
+\end{table*}

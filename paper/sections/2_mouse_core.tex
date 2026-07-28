@@ -1,0 +1,51 @@
+\section{CLAIMFORGE Mouse-Core Construction}
+\label{sec:benchmark}
+
+\subsection{Threat and Tasks}
+
+Each example starts from a real source image $x$ and a human-marked context and insertion region. An image editor produces a modified context crop; a difference-derived object mask controls paste-back into the source frame to produce $\tilde{x}$, and the final composite is manually reviewed. The target contains an image label $y\in\{0,1\}$ and a pre-encoding exact RGB-difference mask $M$.
+
+The stress test has two required tasks:
+\begin{description}
+    \item[T1: Detection.] Predict whether an image is real or locally manipulated.
+    \item[T2: Localization.] Predict the pixels changed by the local manipulation.
+\end{description}
+The consumer-claim threat model motivates evaluating both: an image-level alert without spatial support and a mask without a reliable alert each leave a distinct review gap.
+
+\subsection{Source Screening, Generation, and Human QA}
+
+The source pool contains 600 screened restaurant and lodging candidates. The annotation manifests contain 594 mouse-generation slots; six screened candidates do not appear as annotated slots, and their exclusion reasons must be reconciled in the final release documentation. Human annotators marked one context and insertion region for each slot. The recorded generation workflow produced edited context crops, and difference-derived object-only masks controlled paste-back before review of the final composites. The 147 lodging records identify HunyuanImage-3, while the 128 restaurant records retain the legacy editor tag \texttt{new\_test}; exact editor provenance for those restaurant pairs is a release-blocking reconciliation item. Of 594 attempts, 275 were accepted, 288 were rejected for edit quality, and 31 had unsuitable sources. The accepted core contains 147 lodging and 128 restaurant pairs.
+
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lr}
+\toprule
+Data stage & Count \\
+\midrule
+Screened source candidates & 600 \\
+Reviewed mouse attempts & 594 \\
+Accepted mouse forgeries & 275 \\
+Canonical real/forged pairs & 275 \\
+Canonical images & 550 \\
+Lodging / restaurant pairs & 147 / 128 \\
+Selected cat expansion & 251 \\
+Selected trash-can expansion & 250 \\
+\bottomrule
+\end{tabular}
+\caption{Data-accounting funnel. Only the 275 canonical mouse pairs enter the results; the six-candidate screening/annotation gap still requires manifest reconciliation, and the cat/trash-can selections are unevaluated expansion assets.}
+\label{tab:data-funnel}
+\end{table}
+
+\subsection{Canonical Mouse Core}
+
+The paired release independently decodes the source and reviewed forged PNG to RGB, then freshly encodes both as JPEG at quality 95 with 4:4:4 subsampling and inherited EXIF stripped. The localization target is computed before this final encoding as the exact nonzero RGB difference. The builder rejects an empty target, a size mismatch, an invalid box, or any changed pixel outside the reviewed context. It records content hashes for inputs, masks, and manifests.
+
+Exact changed pixels occupy 0.02486\%--1.29272\% of an image, with median 0.11264\% and mean 0.16846\%. The 275 registered task pairs contain 270 unique pristine image hashes because five sources appear twice. The current confidence intervals resample task pairs; Section~\ref{sec:limitations} discusses the resulting dependence.
+
+\subsection{Scope Boundary}
+
+The repository also contains 251 selected cat and 250 selected trash-can variants. They are not part of the common detector matrix and are excluded from all headline results. Their cross-decoder pixel-integrity audit must be resolved before a broader multi-object release or claim. Likewise, second-editor, laundering, real-object paste-back, genuine-object, and human studies remain future evaluation rather than completed controls.
+
+% Schedule the full-width primary table early so it appears with Section 4.
+\input{sections/4_results_table}
