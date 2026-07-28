@@ -1,0 +1,93 @@
+{
+  "schema_version": "claimforge_benchmark_v1",
+  "selection_policy": "first eligible local-splice tasks in each frozen full-image task-list order; identical task IDs used for both generation routes",
+  "per_category_per_method": 250,
+  "methods": [
+    "local_splice",
+    "full_image"
+  ],
+  "category_order": [
+    "mouse",
+    "cat",
+    "trash_can"
+  ],
+  "total_pairs": 750,
+  "total_images": 1500,
+  "manifest": "benchmark/claimforge_v1_250x3x2/manifest.jsonl",
+  "pairs_manifest": "benchmark/claimforge_v1_250x3x2/pairs.jsonl",
+  "categories": {
+    "mouse": {
+      "frozen_tasks": 275,
+      "eligible_local_splice": 275,
+      "selected_tasks": 250,
+      "local_splice_images": 250,
+      "full_image_images": 250,
+      "unique_source_images": 250,
+      "task_order_source": "annotations/full_image_orange_box_mouse_good275_latest_20260724.jsonl",
+      "task_ids_sha256": "d4e0df7f9e99426e0bde8571ca446e7a58ca0c1939b65f2c3ccbf06f5f52ff67",
+      "excluded_eligible_task_ids": [
+        "lodging_256_slot_001",
+        "lodging_259_slot_001",
+        "lodging_261_slot_001",
+        "lodging_263_slot_001",
+        "lodging_265_slot_001",
+        "lodging_266_slot_001",
+        "lodging_268_slot_001",
+        "lodging_269_slot_001",
+        "lodging_270_slot_001",
+        "lodging_272_slot_001",
+        "lodging_273_slot_001",
+        "lodging_274_slot_001",
+        "lodging_275_slot_001",
+        "lodging_276_slot_001",
+        "lodging_280_slot_001",
+        "lodging_281_slot_001",
+        "lodging_285_slot_001",
+        "lodging_286_slot_001",
+        "lodging_287_slot_001",
+        "lodging_291_slot_001",
+        "lodging_292_slot_001",
+        "lodging_293_slot_001",
+        "lodging_294_slot_001",
+        "lodging_295_slot_001",
+        "lodging_297_slot_001"
+      ],
+      "local_splice_source": "claimforge_generation_review_labels.json",
+      "full_image_source": "generated_full_images/hunyuan_image3_distil_full_input_orange_box_mouse_good275_g5_v1_20260724"
+    },
+    "cat": {
+      "frozen_tasks": 272,
+      "eligible_local_splice": 251,
+      "selected_tasks": 250,
+      "local_splice_images": 250,
+      "full_image_images": 250,
+      "unique_source_images": 250,
+      "task_order_source": "annotations/full_image_orange_box_cat_latest272_20260724.jsonl",
+      "task_ids_sha256": "4c3d451d8ecc38790250c5e2301f76290b1bcac9d96a3789bf939d165300344b",
+      "excluded_eligible_task_ids": [
+        "cat_lodging_297_slot_001"
+      ],
+      "local_splice_source": "spliced_final/claimforge_cat_selected_251_20260725/manifest.jsonl",
+      "full_image_source": "generated_full_images/hunyuan_image3_distil_full_input_orange_box_cat_latest272_g5_v1_20260724"
+    },
+    "trash_can": {
+      "frozen_tasks": 260,
+      "eligible_local_splice": 250,
+      "selected_tasks": 250,
+      "local_splice_images": 250,
+      "full_image_images": 250,
+      "unique_source_images": 250,
+      "task_order_source": "annotations/full_image_orange_box_trash_can_latest260_20260724.jsonl",
+      "task_ids_sha256": "133c97169e70e431ef71485c6fb07781cf46a7bf39e976fb64ea7469226d5974",
+      "excluded_eligible_task_ids": [],
+      "local_splice_source": "spliced_final/claimforge_trash_can_selected_250_20260725/manifest.jsonl",
+      "full_image_source": "generated_full_images/hunyuan_image3_distil_full_input_orange_box_trash_can_latest260_g5_v1_20260724",
+      "full_image_manual_qc": {
+        "reviewed": 250,
+        "usable": 212,
+        "failed": 38,
+        "source": "annotations/full_image_orange_box_trash_can_single_shot_manual_qc_20260724.json"
+      }
+    }
+  }
+}
