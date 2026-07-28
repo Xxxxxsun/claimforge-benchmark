@@ -1,0 +1,82 @@
+{
+  "completed_at": "2026-07-24T19:23:18.970764+00:00",
+  "materialization": {
+    "api_results_source": "results/segmentation/mlx_sam3_cat_relabel_reject_both_partial28_variant3_20260724/api_results.jsonl",
+    "api_rows_latest": 28,
+    "api_status_counts": {
+      "ok": 28
+    },
+    "by_endpoint": {
+      "sam3": {
+        "completed": 28,
+        "endpoint": "fal-ai/sam-3/image-rle",
+        "hybrid_guard_fallback_ids": [
+          "cat_lodging_096_slot_001__sam3",
+          "cat_lodging_274_slot_001__sam3",
+          "cat_lodging_294_slot_001__sam3",
+          "cat_restaurant_115_slot_001__sam3",
+          "cat_restaurant_137_slot_001__sam3",
+          "cat_restaurant_262_slot_001__sam3"
+        ],
+        "hybrid_guard_fallbacks": 6,
+        "mean_distance_support_fraction": 0.012752239923680525,
+        "mean_edge_support_fraction": 0.035720405674330116,
+        "mean_hybrid_area_fraction": 0.15850302393124227,
+        "mean_hybrid_growth": 0.563327386956014,
+        "mean_hybrid_iou_with_current_t30": 0.6438301312656569,
+        "mean_provider_score": 0.8793043244097914,
+        "mean_semantic_area_fraction": 0.11003037833323163,
+        "outside_context_invariance_failures": 0,
+        "quality_gate_failure_ids": [],
+        "quality_gate_failures": 0
+      }
+    },
+    "endpoint_pair_agreement": {
+      "mean_hybrid_iou": null,
+      "mean_semantic_iou": null,
+      "paired_tasks": 0
+    },
+    "estimated_cost_if_all_requested_usd": 0.14,
+    "expected_requests": 28,
+    "expected_tasks": 28,
+    "materialization_errors": [],
+    "materialized_results": 28,
+    "new_api_cost_usd": null,
+    "postprocess": {
+      "alpha_feather": 1.0,
+      "diff_threshold": 20.0,
+      "edge_diff_threshold": 8.0,
+      "edge_radius": 6,
+      "far_diff_threshold": 40.0,
+      "far_shadow_luma_min": 5.0,
+      "far_shadow_min_y_ratio": 0.4,
+      "hysteresis_auto_expand_ratio": 0.75,
+      "hysteresis_close": 3,
+      "hysteresis_distance_power": 1.0,
+      "hysteresis_grow": 2,
+      "hysteresis_reach_ratio": 0.5,
+      "hysteresis_seed_radius": 2,
+      "max_added_fraction": 0.08,
+      "max_hybrid_growth": 3.5,
+      "mode": "semantic_hysteresis",
+      "reference": "exact_generation_input_context",
+      "shadow_feather": 3.0,
+      "shadow_output_grow": 1,
+      "support_radius": 6
+    },
+    "reused_api_results": false,
+    "schema_version": "fal_sam3_splice_summary_v1",
+    "updated_at": "2026-07-24T19:23:18.956598+00:00"
+  },
+  "model": "mlx-community/sam3-4bit",
+  "model_path": "/Users/macbook/.cache/huggingface/hub/models--mlx-community--sam3-4bit/snapshots/53c009b4ef4cfa5b1d9fa4549e7b153e881b5636",
+  "prompt": "cat",
+  "review_counts": {
+    "no_mask_fallback": 0,
+    "sam3_ok": 28,
+    "total": 28
+  },
+  "schema_version": "mlx_sam3_splice_run_v1",
+  "score_threshold": 0.1,
+  "selection_count": 28
+}

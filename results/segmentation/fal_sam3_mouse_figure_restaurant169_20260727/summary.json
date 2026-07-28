@@ -1,0 +1,45 @@
+{
+  "api_results_source": "results/segmentation/fal_sam3_mouse_figure_restaurant169_20260727/api_results.jsonl",
+  "api_rows_latest": 1,
+  "api_status_counts": {
+    "ok": 1
+  },
+  "by_endpoint": {
+    "sam3": {
+      "completed": 1,
+      "endpoint": "fal-ai/sam-3/image-rle",
+      "hybrid_guard_fallback_ids": [],
+      "hybrid_guard_fallbacks": 0,
+      "mean_distance_support_fraction": 0.0,
+      "mean_edge_support_fraction": 0.0175239686517882,
+      "mean_hybrid_area_fraction": 0.13575605680868838,
+      "mean_hybrid_growth": 0.14821668909825036,
+      "mean_hybrid_iou_with_current_t30": 0.9103806228373702,
+      "mean_provider_score": 0.947516679763794,
+      "mean_semantic_area_fraction": 0.11823208815690019,
+      "outside_context_invariance_failures": 0,
+      "quality_gate_failure_ids": [],
+      "quality_gate_failures": 0
+    }
+  },
+  "endpoint_pair_agreement": {
+    "mean_hybrid_iou": null,
+    "mean_semantic_iou": null,
+    "paired_tasks": 0
+  },
+  "estimated_cost_if_all_requested_usd": 0.005,
+  "expected_requests": 1,
+  "expected_tasks": 1,
+  "materialization_errors": [],
+  "materialized_results": 1,
+  "new_api_cost_usd": null,
+  "postprocess": {
+    "alpha_feather": 1.0,
+    "diff_threshold": 20.0,
+    "mode": "local",
+    "support_radius": 6
+  },
+  "reused_api_results": false,
+  "schema_version": "fal_sam3_splice_summary_v1",
+  "updated_at": "2026-07-27T13:30:21.997812+00:00"
+}

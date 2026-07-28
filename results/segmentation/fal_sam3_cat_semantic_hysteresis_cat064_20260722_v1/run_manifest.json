@@ -1,0 +1,86 @@
+{
+  "adapter_sha256": "c123ccf138e7fd5dda7cf396272ae31635f37bbb4d0a6727d6d93040d265c72b",
+  "api_results_source": "results/segmentation/fal_sam3_cat_textonly_full272_20260721_v1/api_results.jsonl",
+  "api_results_source_sha256": "1c4106fa20f5fd63427277f8c9e9a2a71836d52939c45b066912d2f1312a3125",
+  "base_manifest": "spliced_full/hunyuan_image3_distil_cat_272_fullblue_t30/manifest.jsonl",
+  "base_manifest_sha256": "9f3fd91a5fcd01e54983e9001870c904814ba1f8018cb9e8f91e7d7f0f5d6c39",
+  "created_at": "2026-07-22T12:53:46.377835+00:00",
+  "endpoints": [
+    "fal-ai/sam-3/image-rle"
+  ],
+  "expected_requests": 1,
+  "expected_tasks": 1,
+  "fal_platform_headers": {
+    "X-Fal-Object-Lifecycle-Preference": {
+      "expiration_duration_seconds": 3600
+    },
+    "X-Fal-Store-IO": "0"
+  },
+  "max_masks": 3,
+  "numpy_version": "1.26.4",
+  "ordered_inputs": [
+    {
+      "context_region_xyxy": [
+        74,
+        1057,
+        578,
+        1335
+      ],
+      "crop_size": [
+        504,
+        278
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.17997030946671236,
+      "edit_region_in_context_xyxy": [
+        135,
+        102,
+        332,
+        230
+      ],
+      "generated_bytes": 219175,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_cat_272/cat_lodging_064_slot_001.png",
+      "generated_sha256": "5b8cf892deea382b1ce36d5207a38f0c4f1dbfac5d2f769219885ffd5f6ecf11",
+      "mask_reference": "crops/context_cat/cat_lodging_064_slot_001_context.jpg",
+      "rank": 0,
+      "selection_reason": "explicit_quality_fallback",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_064.jpg",
+      "t30_t40_mask_disagreement": 0.10590027256693924,
+      "task_id": "cat_lodging_064_slot_001"
+    }
+  ],
+  "pillow_version": "12.1.1",
+  "postprocess": {
+    "alpha_feather": 1.0,
+    "diff_threshold": 20.0,
+    "edge_diff_threshold": 8.0,
+    "edge_radius": 6,
+    "far_diff_threshold": 40.0,
+    "hysteresis_auto_expand_ratio": 0.75,
+    "hysteresis_close": 3,
+    "hysteresis_distance_power": 1.0,
+    "hysteresis_grow": 2,
+    "hysteresis_reach_ratio": 0.5,
+    "hysteresis_seed_radius": 2,
+    "max_added_fraction": 0.15,
+    "max_hybrid_growth": 3.5,
+    "mode": "semantic_hysteresis",
+    "reference": "exact_generation_input_context",
+    "shadow_feather": 3.0,
+    "support_radius": 6
+  },
+  "prompt": "cat",
+  "provider": "fal",
+  "request_input": {
+    "apply_mask": false,
+    "box_prompt": false,
+    "include_boxes": true,
+    "include_scores": true,
+    "max_masks": 3,
+    "prompt": "cat",
+    "return_multiple_masks": true
+  },
+  "requests_version": "2.34.2",
+  "schema_version": "fal_sam3_splice_run_v2",
+  "selection_sha256": "4ba8d17add711c79df222ee42bbc2a26ecc16239fe0d45d02889313a00a3d0eb"
+}

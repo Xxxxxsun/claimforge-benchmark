@@ -1,0 +1,62 @@
+{
+  "api_results_source": "results/segmentation/fal_sam3_cat_textonly_full272_20260721_v1/api_results.jsonl",
+  "api_rows_latest": 272,
+  "api_status_counts": {
+    "ok": 272
+  },
+  "by_endpoint": {
+    "sam3": {
+      "completed": 4,
+      "endpoint": "fal-ai/sam-3/image-rle",
+      "hybrid_guard_fallback_ids": [
+        "cat_lodging_235_slot_001__sam3",
+        "cat_lodging_268_slot_001__sam3"
+      ],
+      "hybrid_guard_fallbacks": 2,
+      "mean_distance_support_fraction": 0.017152999232900847,
+      "mean_edge_support_fraction": 0.02667658608226878,
+      "mean_hybrid_area_fraction": 0.15889076990899337,
+      "mean_hybrid_growth": 0.5309859050505719,
+      "mean_hybrid_iou_with_current_t30": 0.8206611261541149,
+      "mean_provider_score": 0.9659596979618073,
+      "mean_semantic_area_fraction": 0.11506118459382375,
+      "outside_context_invariance_failures": 0,
+      "quality_gate_failure_ids": [],
+      "quality_gate_failures": 0
+    }
+  },
+  "endpoint_pair_agreement": {
+    "mean_hybrid_iou": null,
+    "mean_semantic_iou": null,
+    "paired_tasks": 0
+  },
+  "estimated_cost_if_all_requested_usd": 0.02,
+  "expected_requests": 4,
+  "expected_tasks": 4,
+  "materialization_errors": [],
+  "materialized_results": 4,
+  "new_api_cost_usd": 0.0,
+  "postprocess": {
+    "alpha_feather": 1.0,
+    "diff_threshold": 20.0,
+    "edge_diff_threshold": 8.0,
+    "edge_radius": 6,
+    "far_diff_threshold": 40.0,
+    "far_shadow_luma_min": 5.0,
+    "hysteresis_auto_expand_ratio": 0.75,
+    "hysteresis_close": 3,
+    "hysteresis_distance_power": 1.0,
+    "hysteresis_grow": 2,
+    "hysteresis_reach_ratio": 0.5,
+    "hysteresis_seed_radius": 2,
+    "max_added_fraction": 0.1,
+    "max_hybrid_growth": 3.5,
+    "mode": "semantic_hysteresis",
+    "reference": "exact_generation_input_context",
+    "shadow_feather": 3.0,
+    "support_radius": 6
+  },
+  "reused_api_results": true,
+  "schema_version": "fal_sam3_splice_summary_v1",
+  "updated_at": "2026-07-22T13:05:01.132968+00:00"
+}

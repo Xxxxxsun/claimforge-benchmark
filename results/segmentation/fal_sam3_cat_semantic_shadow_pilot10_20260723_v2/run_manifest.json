@@ -1,0 +1,350 @@
+{
+  "adapter_sha256": "93c761af411d8cdab00f26d021f4b483bc4ff49a77596888d8eb05420c0d5555",
+  "api_results_source": "results/segmentation/fal_sam3_cat_textonly_full272_20260721_v1/api_results.jsonl",
+  "api_results_source_sha256": "1c4106fa20f5fd63427277f8c9e9a2a71836d52939c45b066912d2f1312a3125",
+  "base_manifest": "spliced_full/hunyuan_image3_distil_cat_272_fullblue_t30/manifest.jsonl",
+  "base_manifest_sha256": "9f3fd91a5fcd01e54983e9001870c904814ba1f8018cb9e8f91e7d7f0f5d6c39",
+  "created_at": "2026-07-23T09:45:56.587416+00:00",
+  "endpoints": [
+    "fal-ai/sam-3/image-rle"
+  ],
+  "expected_requests": 10,
+  "expected_tasks": 10,
+  "fal_platform_headers": {
+    "X-Fal-Object-Lifecycle-Preference": {
+      "expiration_duration_seconds": 3600
+    },
+    "X-Fal-Store-IO": "0"
+  },
+  "max_masks": 3,
+  "numpy_version": "1.26.4",
+  "ordered_inputs": [
+    {
+      "context_region_xyxy": [
+        644,
+        814,
+        859,
+        942
+      ],
+      "crop_size": [
+        215,
+        128
+      ],
+      "domain": "restaurant",
+      "edit_area_fraction": 0.3236918604651163,
+      "edit_region_in_context_xyxy": [
+        43,
+        38,
+        174,
+        106
+      ],
+      "generated_bytes": 37827,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_cat_272/cat_restaurant_002_slot_001.png",
+      "generated_sha256": "e70da0f1edc5482a2be3a792b5223b15a14807c718d4247e7cc77a5571963b9c",
+      "mask_reference": "crops/context_cat/cat_restaurant_002_slot_001_context.jpg",
+      "rank": 0,
+      "selection_reason": "explicit_quality_fallback",
+      "source_image": "source_pool/openimages_v7_600/restaurant/restaurant_002.jpg",
+      "t30_t40_mask_disagreement": 1.0,
+      "task_id": "cat_restaurant_002_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        74,
+        1057,
+        578,
+        1335
+      ],
+      "crop_size": [
+        504,
+        278
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.17997030946671236,
+      "edit_region_in_context_xyxy": [
+        135,
+        102,
+        332,
+        230
+      ],
+      "generated_bytes": 219175,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_cat_272/cat_lodging_064_slot_001.png",
+      "generated_sha256": "5b8cf892deea382b1ce36d5207a38f0c4f1dbfac5d2f769219885ffd5f6ecf11",
+      "mask_reference": "crops/context_cat/cat_lodging_064_slot_001_context.jpg",
+      "rank": 1,
+      "selection_reason": "explicit_quality_fallback",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_064.jpg",
+      "t30_t40_mask_disagreement": 0.10590027256693924,
+      "task_id": "cat_lodging_064_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        529,
+        469,
+        955,
+        810
+      ],
+      "crop_size": [
+        426,
+        341
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.2220065259592747,
+      "edit_region_in_context_xyxy": [
+        139,
+        107,
+        354,
+        257
+      ],
+      "generated_bytes": 215116,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_cat_272/cat_lodging_242_slot_001.png",
+      "generated_sha256": "e45c6277ba8ebc55198001e5dc51754606fe84f253d476ee4a33b20586dda3e5",
+      "mask_reference": "crops/context_cat/cat_lodging_242_slot_001_context.jpg",
+      "rank": 2,
+      "selection_reason": "explicit_quality_fallback",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_242.jpg",
+      "t30_t40_mask_disagreement": 0.0674793208532869,
+      "task_id": "cat_lodging_242_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        319,
+        716,
+        744,
+        983
+      ],
+      "crop_size": [
+        425,
+        267
+      ],
+      "domain": "restaurant",
+      "edit_area_fraction": 0.1960608063450099,
+      "edit_region_in_context_xyxy": [
+        85,
+        100,
+        301,
+        203
+      ],
+      "generated_bytes": 206270,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_cat_272/cat_restaurant_058_slot_001.png",
+      "generated_sha256": "d314094874b51951908f464123dd680c8aa4daadcb7e0b6bc1a1efebfbcc56d2",
+      "mask_reference": "crops/context_cat/cat_restaurant_058_slot_001_context.jpg",
+      "rank": 3,
+      "selection_reason": "explicit_quality_fallback",
+      "source_image": "source_pool/openimages_v7_600/restaurant/restaurant_058.jpg",
+      "t30_t40_mask_disagreement": 0.08228346456692913,
+      "task_id": "cat_restaurant_058_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        728,
+        797,
+        1112,
+        1090
+      ],
+      "crop_size": [
+        384,
+        293
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.21832337883959044,
+      "edit_region_in_context_xyxy": [
+        116,
+        73,
+        294,
+        211
+      ],
+      "generated_bytes": 140409,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_cat_272/cat_lodging_022_slot_001.png",
+      "generated_sha256": "be37f593d8ea2db20f5f0db6dcedb72f0ba7f4b0ff8d57475a22a8511e162fbb",
+      "mask_reference": "crops/context_cat/cat_lodging_022_slot_001_context.jpg",
+      "rank": 4,
+      "selection_reason": "explicit_quality_fallback",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_022.jpg",
+      "t30_t40_mask_disagreement": 0.0955549640670748,
+      "task_id": "cat_lodging_022_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        512,
+        531,
+        844,
+        728
+      ],
+      "crop_size": [
+        332,
+        197
+      ],
+      "domain": "restaurant",
+      "edit_area_fraction": 0.2682098954192404,
+      "edit_region_in_context_xyxy": [
+        86,
+        37,
+        265,
+        135
+      ],
+      "generated_bytes": 111063,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_cat_272/cat_restaurant_063_slot_001.png",
+      "generated_sha256": "3d2d835ba4d66e814637135630f965b670ea025301a0055813182d65b83961b4",
+      "mask_reference": "crops/context_cat/cat_restaurant_063_slot_001_context.jpg",
+      "rank": 5,
+      "selection_reason": "explicit_quality_fallback",
+      "source_image": "source_pool/openimages_v7_600/restaurant/restaurant_063.jpg",
+      "t30_t40_mask_disagreement": 0.07720144752714113,
+      "task_id": "cat_restaurant_063_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        578,
+        385,
+        886,
+        631
+      ],
+      "crop_size": [
+        308,
+        246
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.17817548305353184,
+      "edit_region_in_context_xyxy": [
+        64,
+        62,
+        199,
+        162
+      ],
+      "generated_bytes": 121286,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_cat_272/cat_lodging_161_slot_001.png",
+      "generated_sha256": "c85fb3a81320976975f64c5d1d528ee8e82fcabf2e3ced16e4f1b0b481776573",
+      "mask_reference": "crops/context_cat/cat_lodging_161_slot_001_context.jpg",
+      "rank": 6,
+      "selection_reason": "explicit_quality_fallback",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_161.jpg",
+      "t30_t40_mask_disagreement": 0.05350589144292061,
+      "task_id": "cat_lodging_161_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        535,
+        430,
+        936,
+        702
+      ],
+      "crop_size": [
+        401,
+        272
+      ],
+      "domain": "restaurant",
+      "edit_area_fraction": 0.23419392694733754,
+      "edit_region_in_context_xyxy": [
+        67,
+        72,
+        273,
+        196
+      ],
+      "generated_bytes": 208567,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_cat_272/cat_restaurant_299_slot_001.png",
+      "generated_sha256": "48f70025cbb3852075de4f7334f90497bcf570ecf948d80b94aa709860976710",
+      "mask_reference": "crops/context_cat/cat_restaurant_299_slot_001_context.jpg",
+      "rank": 7,
+      "selection_reason": "explicit_quality_fallback",
+      "source_image": "source_pool/openimages_v7_600/restaurant/restaurant_299.jpg",
+      "t30_t40_mask_disagreement": 0.012784609765006697,
+      "task_id": "cat_restaurant_299_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        606,
+        43,
+        1685,
+        837
+      ],
+      "crop_size": [
+        1079,
+        794
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.44109435221996296,
+      "edit_region_in_context_xyxy": [
+        222,
+        144,
+        931,
+        677
+      ],
+      "generated_bytes": 1265725,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_cat_272/cat_lodging_231_slot_001.png",
+      "generated_sha256": "5f63e8501f3daf4f8c2f928d095315d1306cde015a5d93ea86e3a18623dc2b74",
+      "mask_reference": "crops/context_cat/cat_lodging_231_slot_001_context.jpg",
+      "rank": 8,
+      "selection_reason": "explicit_quality_fallback",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_231.jpg",
+      "t30_t40_mask_disagreement": 0.011794130102998873,
+      "task_id": "cat_lodging_231_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        520,
+        847,
+        912,
+        1111
+      ],
+      "crop_size": [
+        392,
+        264
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.17006802721088435,
+      "edit_region_in_context_xyxy": [
+        105,
+        118,
+        265,
+        228
+      ],
+      "generated_bytes": 151970,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_cat_272/cat_lodging_268_slot_001.png",
+      "generated_sha256": "77a543183feb2cafb726e218ea7e72e75da30dd75321af27a74c421bacdd0c06",
+      "mask_reference": "crops/context_cat/cat_lodging_268_slot_001_context.jpg",
+      "rank": 9,
+      "selection_reason": "explicit_quality_fallback",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_268.jpg",
+      "t30_t40_mask_disagreement": 0.04935844370860927,
+      "task_id": "cat_lodging_268_slot_001"
+    }
+  ],
+  "pillow_version": "12.1.1",
+  "postprocess": {
+    "alpha_feather": 1.0,
+    "diff_threshold": 20.0,
+    "edge_diff_threshold": 8.0,
+    "edge_radius": 6,
+    "far_diff_threshold": 40.0,
+    "far_shadow_luma_min": 5.0,
+    "far_shadow_min_y_ratio": 0.4,
+    "hysteresis_auto_expand_ratio": 0.75,
+    "hysteresis_close": 3,
+    "hysteresis_distance_power": 1.0,
+    "hysteresis_grow": 2,
+    "hysteresis_reach_ratio": 0.5,
+    "hysteresis_seed_radius": 2,
+    "max_added_fraction": 0.08,
+    "max_hybrid_growth": 3.5,
+    "mode": "semantic_shadow",
+    "reference": "exact_generation_input_context",
+    "shadow_feather": 3.0,
+    "shadow_output_grow": 1,
+    "support_radius": 6
+  },
+  "prompt": "cat",
+  "provider": "fal",
+  "request_input": {
+    "apply_mask": false,
+    "box_prompt": false,
+    "include_boxes": true,
+    "include_scores": true,
+    "max_masks": 3,
+    "prompt": "cat",
+    "return_multiple_masks": true
+  },
+  "requests_version": "2.34.2",
+  "schema_version": "fal_sam3_splice_run_v2",
+  "selection_sha256": "4a810ed4567c071030448e5ce14b4ba99487bb063fb6bb75e410cf7a2218359d"
+}
