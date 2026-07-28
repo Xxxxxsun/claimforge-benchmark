@@ -1,0 +1,263 @@
+{
+  "artifacts": {
+    "fullframe_mouse_results": {
+      "path": "results/commercial/resemble/claimforge_v1_full_image_mouse250_canonical_jpeg_q95_20260725.jsonl",
+      "sha256": "2cd37163c1f4a71b1c8396543044a31f5e1a145f95a338055b827837dce15e85"
+    },
+    "input_ledger": {
+      "path": "results/opensource/cnndetection/cnndetection_blur_jpg_prob0_1_native_balanced250_v1_full1775_20260726/expected_inputs.jsonl",
+      "sha256": "6b5128909eeffdbd88e61af02ca1bd191cb5460f94a23b47c87ebd0172e6d12c"
+    },
+    "local_mouse_results": {
+      "path": "results/commercial/resemble/good275_mouse_forged_canonical_jpeg_q95_20260720.jsonl",
+      "sha256": "19a625d858e8a687ed6cd0c63ebec343925355324ee69a1e4147214234adc63d"
+    },
+    "new_results": {
+      "path": "results/commercial/resemble/claimforge_balanced250_real_local750_canonical_jpeg_q95_20260727.jsonl",
+      "sha256": "cc81d52b238ce9ee58ccfa630c13a56a8fc4f35bafab26f566ae5921be84bb2c"
+    },
+    "new_run_manifest": {
+      "path": "results/commercial/resemble/claimforge_balanced250_real_local750_canonical_jpeg_q95_20260727.run_manifest.json",
+      "sha256": "5945fc8ec87a4c0915572f5fe690bd255a1921b454ae333a5e18a2ea8d2a0d63"
+    },
+    "summary": {
+      "path": "results/commercial/resemble/claimforge_balanced250_main_table_20260727.summary.json"
+    }
+  },
+  "bootstrap": {
+    "method": "independent stratified image bootstrap of real and forged panels",
+    "samples": 10000,
+    "seed_base": 20260727
+  },
+  "canonicalization_audit": {
+    "new_matches": 733,
+    "new_mismatches": 17,
+    "new_reference_available": 750
+  },
+  "conditions": {
+    "fullframe_cat": {
+      "expected": 250,
+      "reason": "deferred before API submission",
+      "status": "deferred",
+      "valid": 0
+    },
+    "fullframe_mouse": {
+      "balanced_accuracy": 0.992,
+      "balanced_accuracy_ci95": [
+        0.984,
+        0.998
+      ],
+      "expected": 250,
+      "false_negatives": 1,
+      "heatmaps_available": 250,
+      "ifl_score": {
+        "count": 250,
+        "max": 0.9984789736270905,
+        "mean": 0.9832053127713948,
+        "median": 0.9934038124084472,
+        "min": 0.015743388552218678
+      },
+      "provider_labels": {
+        "Fake": 248,
+        "Likely fake": 1,
+        "Real": 1
+      },
+      "provider_score": {
+        "count": 250,
+        "max": 0.998713823080063,
+        "mean": 0.9884477454059645,
+        "median": 0.996084023475647,
+        "min": 0.010900435162708163
+      },
+      "sensitivity": 0.996,
+      "specificity": 0.988,
+      "true_positives": 249,
+      "valid": 250,
+      "visualizations_available": 250
+    },
+    "fullframe_trash_can": {
+      "expected": 250,
+      "reason": "deferred before API submission",
+      "status": "deferred",
+      "valid": 0
+    },
+    "local_cat": {
+      "balanced_accuracy": 0.852,
+      "balanced_accuracy_ci95": [
+        0.8220000000000001,
+        0.88
+      ],
+      "expected": 250,
+      "false_negatives": 71,
+      "heatmaps_available": 250,
+      "ifl_score": {
+        "count": 250,
+        "max": 0.9979326689243316,
+        "mean": 0.705531462606037,
+        "median": 0.9736620849370956,
+        "min": 0.004755905027035623
+      },
+      "provider_labels": {
+        "Fake": 162,
+        "Likely fake": 17,
+        "Likely real": 5,
+        "Neutral/Uncertain": 11,
+        "Real": 55
+      },
+      "provider_score": {
+        "count": 250,
+        "max": 0.9973942732810974,
+        "mean": 0.7136999473621034,
+        "median": 0.9819425883293151,
+        "min": 0.0036582947212737056
+      },
+      "sensitivity": 0.716,
+      "specificity": 0.988,
+      "true_positives": 179,
+      "valid": 250,
+      "visualizations_available": 250
+    },
+    "local_mouse": {
+      "balanced_accuracy": 0.562,
+      "balanced_accuracy_ci95": [
+        0.54,
+        0.586
+      ],
+      "expected": 250,
+      "false_negatives": 216,
+      "heatmaps_available": 250,
+      "ifl_score": {
+        "count": 250,
+        "max": 0.9913794598579407,
+        "mean": 0.12832066173619777,
+        "median": 0.012941092100925743,
+        "min": 0.006687574155628681
+      },
+      "provider_labels": {
+        "Fake": 26,
+        "Likely fake": 8,
+        "Likely real": 34,
+        "Neutral/Uncertain": 5,
+        "Real": 177
+      },
+      "provider_score": {
+        "count": 250,
+        "max": 0.9977989728539985,
+        "mean": 0.22588733924571422,
+        "median": 0.09791666666666667,
+        "min": 0.003013444598980065
+      },
+      "sensitivity": 0.136,
+      "specificity": 0.988,
+      "true_positives": 34,
+      "valid": 250,
+      "visualizations_available": 250
+    },
+    "local_trash_can": {
+      "balanced_accuracy": 0.78,
+      "balanced_accuracy_ci95": [
+        0.748,
+        0.81
+      ],
+      "expected": 250,
+      "false_negatives": 107,
+      "heatmaps_available": 250,
+      "ifl_score": {
+        "count": 250,
+        "max": 0.998046800851822,
+        "mean": 0.5704854526320007,
+        "median": 0.8137413799762726,
+        "min": 0.004225683876313269
+      },
+      "provider_labels": {
+        "Fake": 126,
+        "Likely fake": 17,
+        "Likely real": 5,
+        "Neutral/Uncertain": 10,
+        "Real": 92
+      },
+      "provider_score": {
+        "count": 250,
+        "max": 0.9977685389518738,
+        "mean": 0.577752782778455,
+        "median": 0.8203731147050858,
+        "min": 0.003674966336460784
+      },
+      "sensitivity": 0.572,
+      "specificity": 0.988,
+      "true_positives": 143,
+      "valid": 250,
+      "visualizations_available": 250
+    }
+  },
+  "coverage": {
+    "deferred_images": 500,
+    "new_errors": 0,
+    "new_expected": 750,
+    "new_heatmaps": 750,
+    "new_raw_attempt_rows": 751,
+    "new_valid": 750,
+    "new_visualizations": 750,
+    "reused_expected": 500,
+    "reused_valid": 500,
+    "superseded_error_rows": 1,
+    "total_evaluated_expected": 1250,
+    "total_planned": 1750,
+    "total_valid": 1250
+  },
+  "dataset_id": "claimforge-commercial-balanced250-mouse-reuse-v1",
+  "generated_at": "2026-07-27T20:21:59.489604+00:00",
+  "provider": {
+    "decision_rule": "provider label is Fake or Likely fake",
+    "heatmap_interpretation": "provider-rendered RGB/JPEG artifact; not a calibrated score map",
+    "name": "Resemble Detect",
+    "upload_policy": "metadata-free RGB JPEG Q95 4:4:4"
+  },
+  "real_panel": {
+    "expected": 250,
+    "false_positive_rate": 0.012,
+    "false_positives": 3,
+    "ifl_score": {
+      "count": 250,
+      "max": 0.8493216753005981,
+      "mean": 0.02010094675095193,
+      "median": 0.005343712426489219,
+      "min": 0.004202907967381179
+    },
+    "provider_labels": {
+      "Fake": 1,
+      "Likely fake": 2,
+      "Likely real": 1,
+      "Real": 246
+    },
+    "provider_score": {
+      "count": 250,
+      "max": 0.8745943486690522,
+      "mean": 0.01997777148148138,
+      "median": 0.004071343934629113,
+      "min": 0.0034454436395317312
+    },
+    "specificity": 0.988,
+    "true_negatives": 247,
+    "valid": 250
+  },
+  "reuse_audit": {
+    "fullframe_mouse": {
+      "canonical_reference_available": 225,
+      "canonical_reference_unavailable": 25,
+      "canonical_upload_sha256_matches": 225,
+      "canonical_upload_sha256_mismatches": 0,
+      "raw_image_sha256_matches": 250,
+      "selected": 250
+    },
+    "local_mouse": {
+      "canonical_reference_available": 227,
+      "canonical_reference_unavailable": 23,
+      "canonical_upload_sha256_matches": 227,
+      "canonical_upload_sha256_mismatches": 0,
+      "raw_image_sha256_matches": 250,
+      "selected": 250
+    }
+  },
+  "schema_version": "resemble_detect_balanced250_main_table_v1"
+}

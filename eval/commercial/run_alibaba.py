@@ -10,6 +10,7 @@ submitted to ``aigcDetector_ultra`` in China (Beijing).
 from __future__ import annotations
 
 import argparse
+import hashlib
 import importlib.metadata
 import json
 import os
@@ -53,12 +54,21 @@ DEFAULT_OUTPUT = Path(
     "preflight_good_mouse_forged1_canonical_jpeg_q95_20260720.jsonl"
 )
 RISK_LABELS = ("risk_aigc", "risk_fake", "risk_edit")
+MAX_DATA_ID_LENGTH = 64
 
 
 def as_number(value: Any) -> float | None:
     if isinstance(value, bool) or not isinstance(value, (int, float)):
         return None
     return float(value)
+
+
+def provider_data_id(value: str) -> str:
+    if len(value) <= MAX_DATA_ID_LENGTH:
+        return value
+    digest = hashlib.sha256(value.encode("utf-8")).hexdigest()[:20]
+    prefix_length = MAX_DATA_ID_LENGTH - len(digest) - 2
+    return f"{value[:prefix_length]}__{digest}"
 
 
 class TemporaryUploader:
@@ -160,7 +170,7 @@ def classify(
         try:
             if service_parameters is None:
                 service_parameters = uploader.upload(upload_path)
-                service_parameters["dataId"] = item.id
+                service_parameters["dataId"] = provider_data_id(item.id)
             request = models.ImageModerationRequest(
                 service=service,
                 service_parameters=json.dumps(service_parameters),

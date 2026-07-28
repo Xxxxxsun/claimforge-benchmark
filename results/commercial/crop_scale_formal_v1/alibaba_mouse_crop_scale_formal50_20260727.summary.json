@@ -1,0 +1,49 @@
+{
+  "completed_images": 700,
+  "confidence_by_label": {
+    "risk_aigc": {
+      "count": 9,
+      "max": 96.41,
+      "mean": 91.47111111111111,
+      "median": 91.82,
+      "min": 84.18
+    },
+    "risk_edit": {
+      "count": 174,
+      "max": 99.86,
+      "mean": 84.44436781609195,
+      "median": 83.31,
+      "min": 70.09
+    },
+    "risk_fake": {
+      "count": 25,
+      "max": 99.97,
+      "mean": 86.1472,
+      "median": 86.21,
+      "min": 71.2
+    }
+  },
+  "detected_by_kind": {
+    "forged": {
+      "risk_aigc": 9,
+      "risk_edit": 174,
+      "risk_fake": 25
+    },
+    "real": {
+      "risk_aigc": 0,
+      "risk_edit": 0,
+      "risk_fake": 0
+    }
+  },
+  "error_images": 0,
+  "error_types": {},
+  "expected_images": 700,
+  "expected_tasks": 700,
+  "generated_at": "2026-07-27T13:24:09.730332+00:00",
+  "include": "forged",
+  "input_manifest_sha256": "2be3aa22a73277c05c0fbfe48e804039adcb7c80f2dc7a2aeaf8481d297a5d26",
+  "paired_risk_edit_outcomes": {},
+  "results_path": "/Users/macbook/Desktop/research/claimforge-benchmark/results/commercial/crop_scale_formal_v1/alibaba_mouse_crop_scale_formal50_20260727.jsonl",
+  "schema_version": "alibaba_ultra_summary_v1",
+  "valid_images": 700
+}

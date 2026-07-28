@@ -1,0 +1,41 @@
+{
+  "adapter_sha256": "aa0e359651085cb3e23cf5fdc61b382119db6ee00ff7ae9c39c2144a9e4647f4",
+  "candidate": "mouse",
+  "created_at": "2026-07-27T11:44:04.381592+00:00",
+  "endpoint_template": "https://api.copyleaks.com/v1/ai-image-detector/{scan_id}/check",
+  "expected_images": 1,
+  "include": "forged",
+  "input_manifest_sha256": "f2c45f39e8d4e8d051b3714e4a74bafc93fdc78322e3399a468eacafd4026dec",
+  "localization": {
+    "channel_absolute_difference_threshold": 0,
+    "ground_truth": "canonical_source_vs_forged_exact_pixel_difference",
+    "rle_order": "row_major_zero_based_per_vendor_example"
+  },
+  "login_endpoint": "https://id.copyleaks.com/v3/account/login/api",
+  "model": "ai-image-1-ultra",
+  "ordered_inputs": [
+    {
+      "domain": "lodging",
+      "file_bytes": 40334,
+      "id": "lodging_057_slot_001__oracle_suspicious__field_01x__forged",
+      "image_path": "results/analysis/mouse_crop_scale_probe_v1/images/lodging_057_slot_001__oracle_suspicious__field_01x.jpg",
+      "image_sha256": "83a87b516aef5b08b128f97fdd67f8747ad975fe5a126d92c161171251832790",
+      "kind": "forged",
+      "rank": 0,
+      "task_id": "lodging_057_slot_001__oracle_suspicious__field_01x"
+    }
+  ],
+  "pillow_version": "12.3.0",
+  "requests_version": "2.34.2",
+  "run_id": "copyleaks_mouse_crop_scale_probe_preflight1_20260727",
+  "sandbox": false,
+  "schema_version": "copyleaks_run_manifest_v1",
+  "upload": {
+    "color_mode": "RGB",
+    "filename": "image.png",
+    "format": "PNG",
+    "metadata": "stripped",
+    "minimum_side": 512,
+    "resize_filter": "Lanczos"
+  }
+}

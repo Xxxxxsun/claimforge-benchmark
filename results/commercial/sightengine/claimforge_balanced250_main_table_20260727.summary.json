@@ -1,0 +1,183 @@
+{
+  "artifacts": {
+    "fullframe_mouse_results": {
+      "path": "results/commercial/sightengine/claimforge_v1_full_image_mouse250_original_png_20260725.jsonl",
+      "sha256": "24945e1d9363136655dff4a1f9205ebd66457e985bdf4262273b1c9363159a03"
+    },
+    "input_ledger": {
+      "path": "results/opensource/cnndetection/cnndetection_blur_jpg_prob0_1_native_balanced250_v1_full1775_20260726/expected_inputs.jsonl",
+      "sha256": "6b5128909eeffdbd88e61af02ca1bd191cb5460f94a23b47c87ebd0172e6d12c"
+    },
+    "new_results": {
+      "path": "results/commercial/sightengine/claimforge_balanced250_core822_original_files_20260727.jsonl",
+      "sha256": "efcab9b55bd8fbd07930e414081924e4b3a819e980d4528933cb3ab50a9e7dc9"
+    },
+    "new_run_manifest": {
+      "path": "results/commercial/sightengine/claimforge_balanced250_core822_original_files_20260727.run_manifest.json",
+      "sha256": "8d9bddc62fcb2c460f2401e78cf3549116769d7371ac9b8d77eb2696e57f2d2d"
+    },
+    "prior_local_mouse_results": {
+      "path": "results/commercial/sightengine/pilot_good275_mouse_forged_original_png_20260720.jsonl",
+      "sha256": "91aa4245dc21d74e06806cbb31336cd26e23018603eee465d374659566f7d259"
+    },
+    "summary": {
+      "path": "results/commercial/sightengine/claimforge_balanced250_main_table_20260727.summary.json"
+    }
+  },
+  "bootstrap": {
+    "method": "independent stratified image bootstrap of real and forged panels",
+    "samples": 10000,
+    "seed_base": 20260727
+  },
+  "conditions": {
+    "fullframe_cat": {
+      "expected": 250,
+      "reason": "deferred before API submission",
+      "status": "deferred",
+      "valid": 0
+    },
+    "fullframe_mouse": {
+      "ai_probability": {
+        "count": 250,
+        "max": 0.99,
+        "mean": 0.939384,
+        "median": 0.99,
+        "min": 0.001
+      },
+      "balanced_accuracy": 0.974,
+      "balanced_accuracy_ci95": [
+        0.96,
+        0.986
+      ],
+      "expected": 250,
+      "false_negatives": 13,
+      "operations": 1250,
+      "sensitivity": 0.948,
+      "specificity": 1.0,
+      "true_positives": 237,
+      "valid": 250
+    },
+    "fullframe_trash_can": {
+      "expected": 250,
+      "reason": "deferred before API submission",
+      "status": "deferred",
+      "valid": 0
+    },
+    "local_cat": {
+      "ai_probability": {
+        "count": 250,
+        "max": 0.99,
+        "mean": 0.008084,
+        "median": 0.001,
+        "min": 0.001
+      },
+      "balanced_accuracy": 0.502,
+      "balanced_accuracy_ci95": [
+        0.5,
+        0.506
+      ],
+      "expected": 250,
+      "false_negatives": 249,
+      "operations": 1250,
+      "sensitivity": 0.004,
+      "specificity": 1.0,
+      "true_positives": 1,
+      "valid": 250
+    },
+    "local_mouse": {
+      "ai_probability": {
+        "count": 250,
+        "max": 0.05,
+        "mean": 0.001348,
+        "median": 0.001,
+        "min": 0.001
+      },
+      "balanced_accuracy": 0.5,
+      "balanced_accuracy_ci95": [
+        0.5,
+        0.5
+      ],
+      "expected": 250,
+      "false_negatives": 250,
+      "operations": 1250,
+      "sensitivity": 0.0,
+      "specificity": 1.0,
+      "true_positives": 0,
+      "valid": 250
+    },
+    "local_trash_can": {
+      "ai_probability": {
+        "count": 250,
+        "max": 0.98,
+        "mean": 0.008396,
+        "median": 0.001,
+        "min": 0.001
+      },
+      "balanced_accuracy": 0.504,
+      "balanced_accuracy_ci95": [
+        0.5,
+        0.51
+      ],
+      "expected": 250,
+      "false_negatives": 248,
+      "operations": 1250,
+      "sensitivity": 0.008,
+      "specificity": 1.0,
+      "true_positives": 2,
+      "valid": 250
+    }
+  },
+  "coverage": {
+    "deferred_images": 500,
+    "new_errors": 0,
+    "new_expected": 822,
+    "new_operations_consumed": 4110,
+    "new_raw_attempt_rows": 823,
+    "new_superseded_attempt_rows": 1,
+    "new_valid": 822,
+    "reused_expected": 428,
+    "reused_valid": 428,
+    "total_evaluated_expected": 1250,
+    "total_planned": 1750,
+    "total_valid": 1250
+  },
+  "dataset_id": "claimforge-commercial-balanced250-mouse-reuse-v1",
+  "generated_at": "2026-07-27T21:30:08.150519+00:00",
+  "provider": {
+    "decision_rule": "type.ai_generated >= 0.5",
+    "name": "Sightengine genai",
+    "upload_policy": "exact benchmark raw JPEG/PNG; no resize/re-encode"
+  },
+  "real_panel": {
+    "ai_probability": {
+      "count": 250,
+      "max": 0.03,
+      "mean": 0.0011519999999999998,
+      "median": 0.001,
+      "min": 0.001
+    },
+    "expected": 250,
+    "false_positive_rate": 0.0,
+    "false_positives": 0,
+    "specificity": 1.0,
+    "true_negatives": 250,
+    "valid": 250
+  },
+  "reuse_audit": {
+    "fullframe_mouse": {
+      "canonical_reference_available": 0,
+      "canonical_reference_unavailable": 250,
+      "canonical_upload_sha256_matches": 0,
+      "canonical_upload_sha256_mismatches": 0,
+      "raw_image_sha256_matches": 250,
+      "selected": 250
+    },
+    "local_mouse": {
+      "newly_submitted": 72,
+      "prior_reused": 178,
+      "raw_image_sha256_matches": 250,
+      "selected": 250
+    }
+  },
+  "schema_version": "sightengine_genai_balanced250_main_table_v1"
+}

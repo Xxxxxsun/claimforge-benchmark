@@ -1,0 +1,241 @@
+{
+  "artifacts": {
+    "fullframe_mouse_results": {
+      "path": "results/commercial/alibaba/claimforge_v1_full_image_mouse250_canonical_jpeg_q95_20260725.jsonl",
+      "sha256": "5c63f4b5ba184065c152d0ec5984eed2e94a394f4788451100f15698dca2259e"
+    },
+    "input_ledger": {
+      "path": "results/opensource/cnndetection/cnndetection_blur_jpg_prob0_1_native_balanced250_v1_full1775_20260726/expected_inputs.jsonl",
+      "sha256": "6b5128909eeffdbd88e61af02ca1bd191cb5460f94a23b47c87ebd0172e6d12c"
+    },
+    "local_mouse_results": {
+      "path": "results/commercial/alibaba/good275_mouse_forged_canonical_jpeg_q95_20260720.jsonl",
+      "sha256": "97264416e1fa15039a2d91311f5940f914a4493d43cd414e1a18037115925d4c"
+    },
+    "new_results": {
+      "path": "results/commercial/alibaba/claimforge_balanced250_missing1250_canonical_jpeg_q95_20260727.jsonl",
+      "sha256": "2bca94236d0ffd4ff70d6718979c4f5a5e85da13b81d4ab28869623fa23fedce"
+    },
+    "new_run_manifest": {
+      "path": "results/commercial/alibaba/claimforge_balanced250_missing1250_canonical_jpeg_q95_20260727.run_manifest.json",
+      "sha256": "03758e891891fa6c9e80cdff2ffa344f9f6de2d6d48b91571870d208e68ae571"
+    },
+    "summary": {
+      "path": "results/commercial/alibaba/claimforge_balanced250_main_table_20260727.summary.json"
+    }
+  },
+  "bootstrap": {
+    "method": "independent stratified image bootstrap of real and forged panels",
+    "samples": 10000,
+    "seed_base": 20260727
+  },
+  "canonicalization_audit": {
+    "canonical_matches": 1685,
+    "canonical_mismatches": 17,
+    "new_matches": 1233,
+    "new_mismatches": 17,
+    "reference_available": 1702,
+    "reference_unavailable": 48,
+    "total_uploads": 1750
+  },
+  "conditions": {
+    "fullframe_cat": {
+      "balanced_accuracy": 0.9319999999999999,
+      "balanced_accuracy_ci95": [
+        0.9099999999999999,
+        0.954
+      ],
+      "expected": 250,
+      "false_negatives": 6,
+      "label_positive": {
+        "risk_aigc": 2,
+        "risk_edit": 244,
+        "risk_fake": 4
+      },
+      "provider_risk_levels": {
+        "high": 235,
+        "low": 3,
+        "medium": 6,
+        "none": 6
+      },
+      "sensitivity": 0.976,
+      "specificity": 0.888,
+      "true_positives": 244,
+      "valid": 250
+    },
+    "fullframe_mouse": {
+      "balanced_accuracy": 0.904,
+      "balanced_accuracy_ci95": [
+        0.878,
+        0.9299999999999999
+      ],
+      "expected": 250,
+      "false_negatives": 20,
+      "label_positive": {
+        "risk_aigc": 0,
+        "risk_edit": 230,
+        "risk_fake": 4
+      },
+      "provider_risk_levels": {
+        "high": 217,
+        "low": 2,
+        "medium": 11,
+        "none": 20
+      },
+      "sensitivity": 0.92,
+      "specificity": 0.888,
+      "true_positives": 230,
+      "valid": 250
+    },
+    "fullframe_trash_can": {
+      "balanced_accuracy": 0.912,
+      "balanced_accuracy_ci95": [
+        0.886,
+        0.9359999999999999
+      ],
+      "expected": 250,
+      "false_negatives": 16,
+      "label_positive": {
+        "risk_aigc": 1,
+        "risk_edit": 234,
+        "risk_fake": 5
+      },
+      "provider_risk_levels": {
+        "high": 214,
+        "low": 3,
+        "medium": 17,
+        "none": 16
+      },
+      "sensitivity": 0.936,
+      "specificity": 0.888,
+      "true_positives": 234,
+      "valid": 250
+    },
+    "local_cat": {
+      "balanced_accuracy": 0.544,
+      "balanced_accuracy_ci95": [
+        0.514,
+        0.5760000000000001
+      ],
+      "expected": 250,
+      "false_negatives": 200,
+      "label_positive": {
+        "risk_aigc": 0,
+        "risk_edit": 49,
+        "risk_fake": 1
+      },
+      "provider_risk_levels": {
+        "high": 29,
+        "low": 11,
+        "medium": 10,
+        "none": 200
+      },
+      "sensitivity": 0.2,
+      "specificity": 0.888,
+      "true_positives": 50,
+      "valid": 250
+    },
+    "local_mouse": {
+      "balanced_accuracy": 0.502,
+      "balanced_accuracy_ci95": [
+        0.474,
+        0.53
+      ],
+      "expected": 250,
+      "false_negatives": 221,
+      "label_positive": {
+        "risk_aigc": 0,
+        "risk_edit": 28,
+        "risk_fake": 1
+      },
+      "provider_risk_levels": {
+        "high": 12,
+        "low": 9,
+        "medium": 8,
+        "none": 221
+      },
+      "sensitivity": 0.116,
+      "specificity": 0.888,
+      "true_positives": 29,
+      "valid": 250
+    },
+    "local_trash_can": {
+      "balanced_accuracy": 0.498,
+      "balanced_accuracy_ci95": [
+        0.472,
+        0.526
+      ],
+      "expected": 250,
+      "false_negatives": 223,
+      "label_positive": {
+        "risk_aigc": 0,
+        "risk_edit": 26,
+        "risk_fake": 1
+      },
+      "provider_risk_levels": {
+        "high": 11,
+        "low": 9,
+        "medium": 7,
+        "none": 223
+      },
+      "sensitivity": 0.108,
+      "specificity": 0.888,
+      "true_positives": 27,
+      "valid": 250
+    }
+  },
+  "coverage": {
+    "estimated_new_call_cost_cny": 25.0,
+    "new_errors": 0,
+    "new_expected": 1250,
+    "new_valid": 1250,
+    "reused_expected": 500,
+    "reused_valid": 500,
+    "total_expected": 1750,
+    "total_valid": 1750
+  },
+  "dataset_id": "claimforge-commercial-balanced250-mouse-reuse-v1",
+  "generated_at": "2026-07-27T17:30:20.609115+00:00",
+  "input_selection": {
+    "mouse": "frozen benchmark/claimforge_v1_250x3x2 panels, authorized reuse",
+    "real_cat_trash": "panel=true rows from claimforge-balanced250-independent-panel-jpeg-q95-v1"
+  },
+  "provider": {
+    "decision_rule": "risk_aigc OR risk_fake OR risk_edit",
+    "name": "Alibaba Cloud Content Moderation Enhanced Edition",
+    "region": "cn-beijing",
+    "service": "aigcDetector_ultra"
+  },
+  "real_panel": {
+    "expected": 250,
+    "false_positive_rate": 0.112,
+    "false_positives": 28,
+    "label_positive": {
+      "risk_aigc": 0,
+      "risk_edit": 27,
+      "risk_fake": 1
+    },
+    "specificity": 0.888,
+    "true_negatives": 222,
+    "valid": 250
+  },
+  "reuse_audit": {
+    "fullframe_mouse": {
+      "canonical_reference_available": 225,
+      "canonical_reference_unavailable": 25,
+      "canonical_upload_sha256_matches": 225,
+      "canonical_upload_sha256_mismatches": 0,
+      "raw_image_sha256_matches": 250,
+      "selected": 250
+    },
+    "local_mouse": {
+      "canonical_reference_available": 227,
+      "canonical_reference_unavailable": 23,
+      "canonical_upload_sha256_matches": 227,
+      "canonical_upload_sha256_mismatches": 0,
+      "raw_image_sha256_matches": 250,
+      "selected": 250
+    }
+  },
+  "schema_version": "alibaba_ultra_balanced250_main_table_v1"
+}

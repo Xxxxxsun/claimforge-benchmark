@@ -50,6 +50,17 @@ RETRYABLE_HTTP = {408, 409, 425, 500, 502, 503, 504}
 AUTH_OR_QUOTA_HTTP = {401, 403, 429}
 
 
+def upload_part(path: Path) -> tuple[str, str]:
+    suffix = path.suffix.lower()
+    if suffix == ".png":
+        return "image.png", "image/png"
+    if suffix in {".jpg", ".jpeg"}:
+        return "image.jpg", "image/jpeg"
+    if suffix == ".webp":
+        return "image.webp", "image/webp"
+    raise ValueError(f"unsupported Sightengine image extension: {path.suffix}")
+
+
 def stable_domain_order(items: list[ImageItem]) -> list[ImageItem]:
     """Interleave hash-sorted domain/orientation strata for balanced prefixes."""
     grouped: dict[tuple[str, str], list[ImageItem]] = defaultdict(list)
@@ -146,6 +157,7 @@ def classify(
         response: requests.Response | None = None
         started = time.monotonic()
         try:
+            upload_filename, upload_mime_type = upload_part(item.path)
             with item.path.open("rb") as image_handle:
                 response = session.post(
                     endpoint,
@@ -154,7 +166,13 @@ def classify(
                         "api_user": api_user,
                         "api_secret": api_secret,
                     },
-                    files={"media": ("image.png", image_handle, "image/png")},
+                    files={
+                        "media": (
+                            upload_filename,
+                            image_handle,
+                            upload_mime_type,
+                        )
+                    },
                     timeout=timeout,
                     allow_redirects=False,
                 )
@@ -244,6 +262,7 @@ def ensure_run_manifest(
     condition: str,
 ) -> Path:
     manifest_path = output_path.with_suffix(".run_manifest.json")
+    upload_filenames = {upload_part(item.path)[0] for item in items}
     expected = {
         "schema_version": "sightengine_run_manifest_v1",
         "run_id": run_id,
@@ -254,7 +273,11 @@ def ensure_run_manifest(
         "include": "forged",
         "expected_images": len(items),
         "input_manifest_sha256": manifest_sha256,
-        "upload_filename": "image.png",
+        "upload_filename": (
+            next(iter(upload_filenames))
+            if len(upload_filenames) == 1
+            else "per-input-extension"
+        ),
     }
     if manifest_path.exists():
         existing = json.loads(manifest_path.read_text(encoding="utf-8"))
@@ -472,7 +495,15 @@ def main() -> None:
             final_attempt.get("error_message") or ""
         ).lower()
         if final_http in AUTH_OR_QUOTA_HTTP or any(
-            marker in final_error for marker in ("auth", "credential", "quota", "operation limit")
+            marker in final_error
+            for marker in (
+                "auth",
+                "credential",
+                "quota",
+                "operation limit",
+                "usage_limit",
+                "usage limit",
+            )
         ):
             print("authentication/quota failure detected; stopping batch", flush=True)
             break

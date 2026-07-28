@@ -1,0 +1,46 @@
+{
+  "completed_images": 51,
+  "error_images": 1,
+  "expected_images": 64,
+  "expected_pairs": 0,
+  "expected_tasks": 64,
+  "generated_at": "2026-07-27T11:46:00.458025+00:00",
+  "http_error_counts": {
+    "429": 1
+  },
+  "include": "forged",
+  "input_manifest_sha256": "224e4f4ba34591eb8b25e96f284a13449ce8b4e45a15babf32e304acd41753e2",
+  "paired_delta": {
+    "count": 0,
+    "max": null,
+    "mean": null,
+    "median": null,
+    "min": null
+  },
+  "results_path": "/Users/macbook/Desktop/research/claimforge-benchmark/results/commercial/crop_scale_probe_v1/hive_mouse_oracle_vs_real_8x4x2_20260727.jsonl",
+  "schema_version": "hive_summary_v1",
+  "score_by_kind": {
+    "forged": {
+      "count": 50,
+      "detected": 1,
+      "detection_rate": 0.02,
+      "max": 0.9753548843574824,
+      "mean": 0.03680134478314723,
+      "median": 0.001191910554041613,
+      "min": 1.7025365970736785e-05,
+      "p95": 0.18530485733843982
+    },
+    "real": {
+      "count": 0,
+      "detected": 0,
+      "detection_rate": null,
+      "max": null,
+      "mean": null,
+      "median": null,
+      "min": null,
+      "p95": null
+    }
+  },
+  "threshold": 0.9,
+  "valid_images": 50
+}

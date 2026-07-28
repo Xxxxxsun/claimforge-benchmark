@@ -1,0 +1,102 @@
+{
+  "actual_credits": 250.0,
+  "completed_images": 250,
+  "error_images": 0,
+  "expected_images": 250,
+  "expected_tasks": 250,
+  "forged_localization": {
+    "all_forged": {
+      "iou": {
+        "count": 250,
+        "max": 0.28814481507745454,
+        "mean": 0.012345569258265878,
+        "median": 0.006286603415534422,
+        "min": 0.0,
+        "p95": 0.01899833613902366
+      },
+      "precision": {
+        "count": 220,
+        "max": 1.0,
+        "mean": 0.9997097014314877,
+        "median": 0.999955940630082,
+        "min": 0.9881814501619287,
+        "p95": 1.0
+      },
+      "recall": {
+        "count": 250,
+        "max": 0.28816213032510274,
+        "mean": 0.012346493193724833,
+        "median": 0.006286612177278127,
+        "min": 0.0,
+        "p95": 0.018999044028462905
+      }
+    },
+    "any_overlap": 220,
+    "detected_masks": 220,
+    "detected_only": {
+      "iou": {
+        "count": 220,
+        "max": 0.28814481507745454,
+        "mean": 0.014029055975302133,
+        "median": 0.006899818906169507,
+        "min": 0.0012254850704131097,
+        "p95": 0.030319723306648574
+      },
+      "precision": {
+        "count": 220,
+        "max": 1.0,
+        "mean": 0.9997097014314877,
+        "median": 0.999955940630082,
+        "min": 0.9881814501619287,
+        "p95": 1.0
+      },
+      "recall": {
+        "count": 220,
+        "max": 0.28816213032510274,
+        "mean": 0.014030105901960037,
+        "median": 0.0068998205240832725,
+        "min": 0.0012254850704131097,
+        "p95": 0.030319735035541348
+      }
+    },
+    "empty_masks": 30,
+    "evaluated": 250
+  },
+  "generated_at": "2026-07-25T21:38:19.657508+00:00",
+  "http_error_counts": {},
+  "include": "forged",
+  "input_manifest_sha256": "7bdc4a00c03533496ec4f3989d5f8646e4a67c733177ca7736d551d66ca3058d",
+  "paired_ai_score_delta": {
+    "count": 0,
+    "max": null,
+    "mean": null,
+    "median": null,
+    "min": null,
+    "p95": null
+  },
+  "results_path": "/Users/macbook/claimforge-commercial-run/results/commercial/copyleaks/claimforge_v1_full_image_mouse250_canonical_png_20260725.jsonl",
+  "schema_version": "copyleaks_summary_v1",
+  "score_by_kind": {
+    "forged": {
+      "count": 250,
+      "detected": 220,
+      "detection_rate": 0.88,
+      "max": 0.2881749,
+      "mean": 0.0123261724908,
+      "median": 0.0062831968,
+      "min": 0.0,
+      "p95": 0.018892600649999997
+    },
+    "real": {
+      "count": 0,
+      "detected": 0,
+      "detection_rate": null,
+      "max": null,
+      "mean": null,
+      "median": null,
+      "min": null,
+      "p95": null
+    }
+  },
+  "valid_images": 250
+}

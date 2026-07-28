@@ -53,6 +53,17 @@ RETRYABLE_HTTP = {408, 409, 425, 500, 502, 503, 504}
 DEFAULT_THRESHOLD = 0.9
 
 
+def _resolve_repo_image(repo_root: Path, relative_path: str, kind: str) -> Path:
+    path = (repo_root / relative_path).resolve()
+    try:
+        path.relative_to(repo_root)
+    except ValueError as exc:
+        raise ValueError(f"image path escapes repo: {relative_path}") from exc
+    if not path.is_file():
+        raise FileNotFoundError(f"missing {kind} image: {relative_path}")
+    return path
+
+
 def load_selected_items(
     repo_root: Path,
     review_path: Path,
@@ -91,18 +102,75 @@ def load_selected_items(
             variants.insert(0, ("real", "not_edited", "source_image"))
         for kind, label, field in variants:
             relative_path = str(record[field])
-            path = (repo_root / relative_path).resolve()
-            try:
-                path.relative_to(repo_root)
-            except ValueError as exc:
-                raise ValueError(f"image path escapes repo: {relative_path}") from exc
-            if not path.is_file():
-                raise FileNotFoundError(f"missing {kind} image: {relative_path}")
+            path = _resolve_repo_image(repo_root, relative_path, kind)
             items.append(
                 ImageItem(
                     id=f"{task_id}__{kind}",
                     task_id=task_id,
                     domain=task_id.split("_", 1)[0],
+                    kind=kind,
+                    label=label,
+                    path=path,
+                    relative_path=relative_path,
+                    image_size=image_size,
+                    sha256=sha256_file(path),
+                    file_bytes=path.stat().st_size,
+                )
+            )
+    return items
+
+
+def load_benchmark_items(
+    repo_root: Path,
+    manifest_path: Path,
+    task_count: int,
+    include: str,
+    category: str,
+    method: str,
+) -> list[ImageItem]:
+    rows: list[dict[str, Any]] = []
+    with manifest_path.open(encoding="utf-8") as handle:
+        for line_number, line in enumerate(handle, start=1):
+            if not line.strip():
+                continue
+            row = json.loads(line)
+            if not isinstance(row, dict):
+                raise ValueError(
+                    f"{manifest_path}:{line_number}: expected JSON object"
+                )
+            if row.get("category") == category and row.get("method") == method:
+                rows.append(row)
+    if len(rows) < task_count:
+        raise ValueError(
+            f"requested {task_count} {category}/{method} tasks, found {len(rows)}"
+        )
+
+    selected = rows[:task_count]
+    task_ids = [str(row.get("task_id") or "") for row in selected]
+    if any(not task_id for task_id in task_ids):
+        raise ValueError(f"missing task_id in {manifest_path}")
+    if len(set(task_ids)) != len(task_ids):
+        raise ValueError(f"duplicate selected task_id in {manifest_path}")
+
+    items: list[ImageItem] = []
+    for row, task_id in zip(selected, task_ids, strict=True):
+        raw_size = row.get("image_size")
+        if not isinstance(raw_size, dict):
+            raise ValueError(f"{task_id}: missing image_size in benchmark manifest")
+        image_size = (int(raw_size["width"]), int(raw_size["height"]))
+        variants = [("forged", "edited", "image")]
+        if include == "both":
+            variants.insert(0, ("real", "not_edited", "source_image"))
+        for kind, label, field in variants:
+            relative_path = str(row.get(field) or "")
+            if not relative_path:
+                raise ValueError(f"{task_id}: missing {field}")
+            path = _resolve_repo_image(repo_root, relative_path, kind)
+            items.append(
+                ImageItem(
+                    id=f"{task_id}__{kind}",
+                    task_id=task_id,
+                    domain=str(row.get("domain") or ""),
                     kind=kind,
                     label=label,
                     path=path,
@@ -375,6 +443,8 @@ def ensure_run_manifest(
     threshold: float,
     run_id: str,
     include: str,
+    candidate: str = "mouse",
+    input_selection: dict[str, Any] | None = None,
 ) -> None:
     path = output_path.with_suffix(".run_manifest.json")
     expected = {
@@ -382,7 +452,7 @@ def ensure_run_manifest(
         "run_id": run_id,
         "endpoint": endpoint,
         "model": "ai-generated-and-deepfake-content-detection",
-        "candidate": "mouse",
+        "candidate": candidate,
         "include": "paired_real_and_forged" if include == "both" else "forged",
         "expected_images": len(items),
         "input_manifest_sha256": manifest_sha256,
@@ -395,6 +465,8 @@ def ensure_run_manifest(
         },
         "threshold": threshold,
     }
+    if input_selection is not None:
+        expected["input_selection"] = input_selection
     if path.exists():
         existing = json.loads(path.read_text(encoding="utf-8"))
         mismatches = {
@@ -439,6 +511,17 @@ def main() -> None:
     parser.add_argument("--repo-root", type=Path, default=Path("."))
     parser.add_argument("--review", type=Path, default=DEFAULT_REVIEW)
     parser.add_argument("--order-manifest", type=Path, default=DEFAULT_ORDER_MANIFEST)
+    parser.add_argument(
+        "--benchmark-manifest",
+        type=Path,
+        help="load images from a CLAIMFORGE benchmark image manifest",
+    )
+    parser.add_argument("--benchmark-category", default="mouse")
+    parser.add_argument(
+        "--benchmark-method",
+        choices=("local_splice", "full_image"),
+        default="full_image",
+    )
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--endpoint", default=DEFAULT_ENDPOINT)
     parser.add_argument("--tasks", "--pairs", dest="task_count", type=int, default=5)
@@ -472,9 +555,38 @@ def main() -> None:
         else repo_root / args.order_manifest
     )
     output_path = args.output if args.output.is_absolute() else repo_root / args.output
-    items = load_selected_items(
-        repo_root, review_path, order_path, args.task_count, args.include
-    )
+    input_selection: dict[str, Any] | None = None
+    if args.benchmark_manifest is not None:
+        benchmark_manifest = (
+            args.benchmark_manifest
+            if args.benchmark_manifest.is_absolute()
+            else repo_root / args.benchmark_manifest
+        )
+        benchmark_manifest = benchmark_manifest.resolve()
+        try:
+            benchmark_manifest.relative_to(repo_root)
+        except ValueError as exc:
+            raise ValueError(
+                f"benchmark manifest escapes repo: {args.benchmark_manifest}"
+            ) from exc
+        items = load_benchmark_items(
+            repo_root,
+            benchmark_manifest,
+            args.task_count,
+            args.include,
+            args.benchmark_category,
+            args.benchmark_method,
+        )
+        input_selection = {
+            "kind": "benchmark_manifest",
+            "manifest": benchmark_manifest.relative_to(repo_root).as_posix(),
+            "category": args.benchmark_category,
+            "method": args.benchmark_method,
+        }
+    else:
+        items = load_selected_items(
+            repo_root, review_path, order_path, args.task_count, args.include
+        )
     manifest_sha256 = input_digest(items)
     latest = read_latest(output_path)
     pending = [item for item in items if latest.get(item.id, {}).get("status") != "ok"]
@@ -511,6 +623,8 @@ def main() -> None:
         args.threshold,
         args.run_id,
         args.include,
+        args.benchmark_category if input_selection is not None else "mouse",
+        input_selection,
     )
     session = requests.Session()
     session.headers.update({"User-Agent": "claimforge-benchmark/hive-pilot-v1"})

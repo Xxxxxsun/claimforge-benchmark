@@ -1,0 +1,229 @@
+{
+  "artifacts": {
+    "fullframe_mouse_results": {
+      "path": "results/commercial/aiornot/claimforge_v1_full_image_mouse250_canonical_jpeg_q95_20260725.jsonl",
+      "sha256": "4c68d2a91b1a6ff5c338ae7fa6dbb37701d1f69de20faebee5f8b4c5ec225968"
+    },
+    "input_ledger": {
+      "path": "results/opensource/cnndetection/cnndetection_blur_jpg_prob0_1_native_balanced250_v1_full1775_20260726/expected_inputs.jsonl",
+      "sha256": "6b5128909eeffdbd88e61af02ca1bd191cb5460f94a23b47c87ebd0172e6d12c"
+    },
+    "local_mouse_results": {
+      "path": "results/commercial/aiornot/good275_mouse_forged_canonical_jpeg_q95_20260720.jsonl",
+      "sha256": "f1cd3df36ebc8b5af9d85733001942d11e7ede3210a9dd14a8236d23b06eabae"
+    },
+    "new_results": {
+      "path": "results/commercial/aiornot/claimforge_balanced250_missing1250_canonical_jpeg_q95_20260727.jsonl",
+      "sha256": "9b3fcbe27149e5efbbda65f759a9053814a998846cbde911dba2ee59c7505652"
+    },
+    "new_run_manifest": {
+      "path": "results/commercial/aiornot/claimforge_balanced250_missing1250_canonical_jpeg_q95_20260727.run_manifest.json",
+      "sha256": "4cf4288fcce15279960e593f6ec0c51d92361d1f8009fac23401d2fc9d186d32"
+    },
+    "summary": {
+      "path": "results/commercial/aiornot/claimforge_balanced250_main_table_20260727.summary.json"
+    }
+  },
+  "bootstrap": {
+    "method": "independent stratified image bootstrap of real and forged panels",
+    "samples": 10000,
+    "seed_base": 20260727
+  },
+  "canonicalization_audit": {
+    "canonical_matches": 1685,
+    "canonical_mismatches": 17,
+    "new_matches": 1233,
+    "new_mismatches": 17,
+    "reference_available": 1702,
+    "reference_unavailable": 48,
+    "total_uploads": 1750
+  },
+  "conditions": {
+    "fullframe_cat": {
+      "ai_confidence": {
+        "count": 250,
+        "max": 0.996873140335083,
+        "mean": 0.9177761291954666,
+        "median": 0.9759336709976196,
+        "min": 0.006228019017726183
+      },
+      "balanced_accuracy": 0.964,
+      "balanced_accuracy_ci95": [
+        0.946,
+        0.98
+      ],
+      "expected": 250,
+      "false_negatives": 15,
+      "generator_attribution_nonempty": 0,
+      "sensitivity": 0.94,
+      "specificity": 0.988,
+      "true_positives": 235,
+      "valid": 250
+    },
+    "fullframe_mouse": {
+      "ai_confidence": {
+        "count": 250,
+        "max": 0.994173526763916,
+        "mean": 0.9056224251575768,
+        "median": 0.9762084186077118,
+        "min": 0.0068215010687708855
+      },
+      "balanced_accuracy": 0.954,
+      "balanced_accuracy_ci95": [
+        0.9359999999999999,
+        0.97
+      ],
+      "expected": 250,
+      "false_negatives": 20,
+      "generator_attribution_nonempty": 0,
+      "sensitivity": 0.92,
+      "specificity": 0.988,
+      "true_positives": 230,
+      "valid": 250
+    },
+    "fullframe_trash_can": {
+      "ai_confidence": {
+        "count": 250,
+        "max": 0.995089054107666,
+        "mean": 0.9050558744035662,
+        "median": 0.9762839078903198,
+        "min": 0.00665412750095129
+      },
+      "balanced_accuracy": 0.956,
+      "balanced_accuracy_ci95": [
+        0.938,
+        0.972
+      ],
+      "expected": 250,
+      "false_negatives": 19,
+      "generator_attribution_nonempty": 0,
+      "sensitivity": 0.924,
+      "specificity": 0.988,
+      "true_positives": 231,
+      "valid": 250
+    },
+    "local_cat": {
+      "ai_confidence": {
+        "count": 250,
+        "max": 0.8638598918914795,
+        "mean": 0.04274598948005587,
+        "median": 0.017698698677122593,
+        "min": 0.0034975484013557434
+      },
+      "balanced_accuracy": 0.498,
+      "balanced_accuracy_ci95": [
+        0.49,
+        0.506
+      ],
+      "expected": 250,
+      "false_negatives": 248,
+      "generator_attribution_nonempty": 0,
+      "sensitivity": 0.008,
+      "specificity": 0.988,
+      "true_positives": 2,
+      "valid": 250
+    },
+    "local_mouse": {
+      "ai_confidence": {
+        "count": 250,
+        "max": 0.9025217294692993,
+        "mean": 0.04074677242944017,
+        "median": 0.014800489414483309,
+        "min": 0.0017344002844765782
+      },
+      "balanced_accuracy": 0.502,
+      "balanced_accuracy_ci95": [
+        0.492,
+        0.512
+      ],
+      "expected": 250,
+      "false_negatives": 246,
+      "generator_attribution_nonempty": 0,
+      "sensitivity": 0.016,
+      "specificity": 0.988,
+      "true_positives": 4,
+      "valid": 250
+    },
+    "local_trash_can": {
+      "ai_confidence": {
+        "count": 250,
+        "max": 0.9199534058570862,
+        "mean": 0.04185402291640639,
+        "median": 0.016656900756061077,
+        "min": 0.002713890979066491
+      },
+      "balanced_accuracy": 0.5,
+      "balanced_accuracy_ci95": [
+        0.49,
+        0.51
+      ],
+      "expected": 250,
+      "false_negatives": 247,
+      "generator_attribution_nonempty": 0,
+      "sensitivity": 0.012,
+      "specificity": 0.988,
+      "true_positives": 3,
+      "valid": 250
+    }
+  },
+  "coverage": {
+    "estimated_new_call_cost_usd": 25.0,
+    "new_errors": 0,
+    "new_expected": 1250,
+    "new_valid": 1250,
+    "raw_attempt_rows": 1251,
+    "reused_expected": 500,
+    "reused_valid": 500,
+    "superseded_error_rows": 1,
+    "total_expected": 1750,
+    "total_valid": 1750
+  },
+  "dataset_id": "claimforge-commercial-balanced250-mouse-reuse-v1",
+  "generated_at": "2026-07-27T18:34:14.621727+00:00",
+  "input_selection": {
+    "mouse": "frozen benchmark/claimforge_v1_250x3x2 panels, authorized reuse",
+    "real_cat_trash": "panel=true rows from claimforge-balanced250-independent-panel-jpeg-q95-v1"
+  },
+  "provider": {
+    "decision_rule": "vendor ai_detected boolean",
+    "endpoint": "https://api.aiornot.com/v2/image/sync",
+    "name": "AI or Not",
+    "report_selection": [
+      "ai_generated"
+    ]
+  },
+  "real_panel": {
+    "ai_confidence": {
+      "count": 250,
+      "max": 0.9044647216796875,
+      "mean": 0.03877267502527684,
+      "median": 0.014868412632495165,
+      "min": 0.0018231449648737907
+    },
+    "expected": 250,
+    "false_positive_rate": 0.012,
+    "false_positives": 3,
+    "specificity": 0.988,
+    "true_negatives": 247,
+    "valid": 250
+  },
+  "reuse_audit": {
+    "fullframe_mouse": {
+      "canonical_reference_available": 225,
+      "canonical_reference_unavailable": 25,
+      "canonical_upload_sha256_matches": 225,
+      "canonical_upload_sha256_mismatches": 0,
+      "raw_image_sha256_matches": 250,
+      "selected": 250
+    },
+    "local_mouse": {
+      "canonical_reference_available": 227,
+      "canonical_reference_unavailable": 23,
+      "canonical_upload_sha256_matches": 227,
+      "canonical_upload_sha256_mismatches": 0,
+      "raw_image_sha256_matches": 250,
+      "selected": 250
+    }
+  },
+  "schema_version": "aiornot_balanced250_main_table_v1"
+}

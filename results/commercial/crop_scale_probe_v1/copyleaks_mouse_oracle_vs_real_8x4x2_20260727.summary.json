@@ -1,0 +1,104 @@
+{
+  "actual_credits": 30.0,
+  "completed_images": 64,
+  "error_images": 34,
+  "expected_images": 64,
+  "expected_tasks": 64,
+  "forged_localization": {
+    "all_forged": {
+      "iou": {
+        "count": 6,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "min": 0.0,
+        "p95": 0.0
+      },
+      "precision": {
+        "count": 6,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "min": 0.0,
+        "p95": 0.0
+      },
+      "recall": {
+        "count": 0,
+        "max": null,
+        "mean": null,
+        "median": null,
+        "min": null,
+        "p95": null
+      }
+    },
+    "any_overlap": 0,
+    "detected_masks": 6,
+    "detected_only": {
+      "iou": {
+        "count": 6,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "min": 0.0,
+        "p95": 0.0
+      },
+      "precision": {
+        "count": 6,
+        "max": 0.0,
+        "mean": 0.0,
+        "median": 0.0,
+        "min": 0.0,
+        "p95": 0.0
+      },
+      "recall": {
+        "count": 0,
+        "max": null,
+        "mean": null,
+        "median": null,
+        "min": null,
+        "p95": null
+      }
+    },
+    "empty_masks": 24,
+    "evaluated": 30
+  },
+  "generated_at": "2026-07-27T11:45:54.768863+00:00",
+  "http_error_counts": {
+    "400": 34
+  },
+  "include": "forged",
+  "input_manifest_sha256": "224e4f4ba34591eb8b25e96f284a13449ce8b4e45a15babf32e304acd41753e2",
+  "paired_ai_score_delta": {
+    "count": 0,
+    "max": null,
+    "mean": null,
+    "median": null,
+    "min": null,
+    "p95": null
+  },
+  "results_path": "/Users/macbook/Desktop/research/claimforge-benchmark/results/commercial/crop_scale_probe_v1/copyleaks_mouse_oracle_vs_real_8x4x2_20260727.jsonl",
+  "schema_version": "copyleaks_summary_v1",
+  "score_by_kind": {
+    "forged": {
+      "count": 30,
+      "detected": 6,
+      "detection_rate": 0.2,
+      "max": 0.077610016,
+      "mean": 0.006515884413333334,
+      "median": 0.0,
+      "min": 0.0,
+      "p95": 0.03453807849999998
+    },
+    "real": {
+      "count": 0,
+      "detected": 0,
+      "detection_rate": null,
+      "max": null,
+      "mean": null,
+      "median": null,
+      "min": null,
+      "p95": null
+    }
+  },
+  "valid_images": 30
+}

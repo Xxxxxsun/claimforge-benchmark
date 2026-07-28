@@ -1,0 +1,346 @@
+{
+  "artifacts": {
+    "fullframe_mouse_results": {
+      "path": "results/commercial/copyleaks/claimforge_v1_full_image_mouse250_canonical_png_20260725.jsonl",
+      "sha256": "eacde623a0868222ef2ee39a2a987d6e0e1600612a337d33c24eff6bd91152b6"
+    },
+    "input_ledger": {
+      "path": "results/opensource/cnndetection/cnndetection_blur_jpg_prob0_1_native_balanced250_v1_full1775_20260726/expected_inputs.jsonl",
+      "sha256": "6b5128909eeffdbd88e61af02ca1bd191cb5460f94a23b47c87ebd0172e6d12c"
+    },
+    "local_mouse_results": {
+      "path": "results/commercial/copyleaks/good275_mouse_forged_canonical_png_20260720.jsonl",
+      "sha256": "1667820ab0248f55e53dc69c2862f6985ae844ab34b95bc691ecbcf5a0e72182"
+    },
+    "new_results": {
+      "path": "results/commercial/copyleaks/claimforge_balanced250_missing1250_canonical_png_20260727.jsonl",
+      "sha256": "66d5649279763273a722e8ac3fc291cc3d1814143e40e2ce01d7af5a1ce1386b"
+    },
+    "new_run_manifest": {
+      "path": "results/commercial/copyleaks/claimforge_balanced250_missing1250_canonical_png_20260727.run_manifest.json",
+      "sha256": "b3e77a8746734ceac29ebc19b44b30176c06c7ef38f0ad48b08eea04dc8a3671"
+    },
+    "summary": {
+      "path": "results/commercial/copyleaks/claimforge_balanced250_main_table_20260727.summary.json"
+    }
+  },
+  "bootstrap": {
+    "method": "independent stratified image bootstrap of real and forged panels",
+    "samples": 10000,
+    "seed_base": 20260727
+  },
+  "conditions": {
+    "fullframe_cat": {
+      "expected": 250,
+      "reason": "deferred by user before API submission",
+      "status": "deferred",
+      "valid": 0
+    },
+    "fullframe_mouse": {
+      "ai_score": {
+        "count": 250,
+        "max": 0.2881749,
+        "mean": 0.0123261724908,
+        "median": 0.0062831968,
+        "min": 0.0
+      },
+      "balanced_accuracy": 0.94,
+      "balanced_accuracy_ci95": [
+        0.9199999999999999,
+        0.96
+      ],
+      "expected": 250,
+      "false_negatives": 30,
+      "sensitivity": 0.88,
+      "specificity": 1.0,
+      "true_positives": 220,
+      "valid": 250
+    },
+    "fullframe_trash_can": {
+      "expected": 250,
+      "reason": "deferred by user before API submission",
+      "status": "deferred",
+      "valid": 0
+    },
+    "local_cat": {
+      "ai_score": {
+        "count": 250,
+        "max": 0.06416321,
+        "mean": 0.010121519809,
+        "median": 0.0076528412,
+        "min": 0.0
+      },
+      "balanced_accuracy": 0.9159999999999999,
+      "balanced_accuracy_ci95": [
+        0.892,
+        0.938
+      ],
+      "expected": 250,
+      "false_negatives": 42,
+      "localization": {
+        "any_overlap": 208,
+        "detected_only": {
+          "iou": {
+            "count": 208,
+            "max": 0.963427279978729,
+            "mean": 0.7196406621048088,
+            "median": 0.8769546092150677,
+            "min": 0.001963398254701526
+          },
+          "precision": {
+            "count": 208,
+            "max": 0.9993566973400834,
+            "mean": 0.9339188881280384,
+            "median": 0.9413464787407839,
+            "min": 0.6996356064549714
+          },
+          "recall": {
+            "count": 208,
+            "max": 0.9996429209069809,
+            "mean": 0.769716892223443,
+            "median": 0.9434242589438979,
+            "min": 0.001963491563239436
+          }
+        },
+        "empty_or_negative_masks": 42,
+        "evaluated": 250,
+        "positive_masks": 208,
+        "unconditional": {
+          "iou": {
+            "count": 250,
+            "max": 0.963427279978729,
+            "mean": 0.5987410308712009,
+            "median": 0.8526494552090602,
+            "min": 0.0
+          },
+          "precision": {
+            "count": 208,
+            "max": 0.9993566973400834,
+            "mean": 0.9339188881280384,
+            "median": 0.9413464787407839,
+            "min": 0.6996356064549714
+          },
+          "recall": {
+            "count": 250,
+            "max": 0.9996429209069809,
+            "mean": 0.6404044543299046,
+            "median": 0.9234396574306472,
+            "min": 0.0
+          }
+        }
+      },
+      "sensitivity": 0.832,
+      "specificity": 1.0,
+      "true_positives": 208,
+      "valid": 250
+    },
+    "local_mouse": {
+      "ai_score": {
+        "count": 250,
+        "max": 0.009650879,
+        "mean": 0.00078367403096,
+        "median": 0.0,
+        "min": 0.0
+      },
+      "balanced_accuracy": 0.698,
+      "balanced_accuracy_ci95": [
+        0.668,
+        0.728
+      ],
+      "expected": 250,
+      "false_negatives": 151,
+      "localization": {
+        "any_overlap": 99,
+        "detected_only": {
+          "iou": {
+            "count": 99,
+            "max": 0.9543607377305408,
+            "mean": 0.8253960332943677,
+            "median": 0.856126737795021,
+            "min": 0.16154910096818811
+          },
+          "precision": {
+            "count": 99,
+            "max": 1.0,
+            "mean": 0.973986420307899,
+            "median": 0.984954325631381,
+            "min": 0.7914055505819159
+          },
+          "recall": {
+            "count": 99,
+            "max": 0.9996224990562477,
+            "mean": 0.8476027220464949,
+            "median": 0.8740740740740741,
+            "min": 0.16154910096818811
+          }
+        },
+        "empty_or_negative_masks": 151,
+        "evaluated": 250,
+        "positive_masks": 99,
+        "unconditional": {
+          "iou": {
+            "count": 250,
+            "max": 0.9543607377305408,
+            "mean": 0.3268568291845696,
+            "median": 0.0,
+            "min": 0.0
+          },
+          "precision": {
+            "count": 99,
+            "max": 1.0,
+            "mean": 0.973986420307899,
+            "median": 0.984954325631381,
+            "min": 0.7914055505819159
+          },
+          "recall": {
+            "count": 250,
+            "max": 0.9996224990562477,
+            "mean": 0.335650677930412,
+            "median": 0.0,
+            "min": 0.0
+          }
+        }
+      },
+      "sensitivity": 0.396,
+      "specificity": 1.0,
+      "true_positives": 99,
+      "valid": 250
+    },
+    "local_trash_can": {
+      "ai_score": {
+        "count": 250,
+        "max": 0.07786051,
+        "mean": 0.012823681347999999,
+        "median": 0.009756731,
+        "min": 0.0
+      },
+      "balanced_accuracy": 0.95,
+      "balanced_accuracy_ci95": [
+        0.9299999999999999,
+        0.968
+      ],
+      "expected": 250,
+      "false_negatives": 25,
+      "localization": {
+        "any_overlap": 225,
+        "detected_only": {
+          "iou": {
+            "count": 225,
+            "max": 0.9596623722789871,
+            "mean": 0.3586534861780778,
+            "median": 0.10173960870590085,
+            "min": 0.005694484463383934
+          },
+          "precision": {
+            "count": 225,
+            "max": 1.0,
+            "mean": 0.9843782065172733,
+            "median": 0.9911441222682474,
+            "min": 0.47178757705073493
+          },
+          "recall": {
+            "count": 225,
+            "max": 0.9862125639152666,
+            "mean": 0.36490030751224384,
+            "median": 0.10182505630559785,
+            "min": 0.00569539615824084
+          }
+        },
+        "empty_or_negative_masks": 25,
+        "evaluated": 250,
+        "positive_masks": 225,
+        "unconditional": {
+          "iou": {
+            "count": 250,
+            "max": 0.9596623722789871,
+            "mean": 0.32278813756027,
+            "median": 0.06953051563413185,
+            "min": 0.0
+          },
+          "precision": {
+            "count": 225,
+            "max": 1.0,
+            "mean": 0.9843782065172733,
+            "median": 0.9911441222682474,
+            "min": 0.47178757705073493
+          },
+          "recall": {
+            "count": 250,
+            "max": 0.9862125639152666,
+            "mean": 0.32841027676101947,
+            "median": 0.06972133832252246,
+            "min": 0.0
+          }
+        }
+      },
+      "sensitivity": 0.9,
+      "specificity": 1.0,
+      "true_positives": 225,
+      "valid": 250
+    }
+  },
+  "coverage": {
+    "deferred_images": 500,
+    "new_actual_credits": 750.0,
+    "new_errors": 0,
+    "new_expected": 750,
+    "new_raw_attempt_rows": 750,
+    "new_valid": 750,
+    "reused_expected": 500,
+    "reused_valid": 500,
+    "total_evaluated_expected": 1250,
+    "total_planned": 1750,
+    "total_valid": 1250
+  },
+  "dataset_id": "claimforge-commercial-balanced250-mouse-reuse-v1",
+  "generated_at": "2026-07-27T19:33:57.830622+00:00",
+  "input_selection": {
+    "mouse": "frozen benchmark panels, authorized reuse",
+    "real_cat_trash": "panel=true rows from claimforge-balanced250-independent-panel-jpeg-q95-v1"
+  },
+  "provider": {
+    "decision_rule": "vendor isAiDetected",
+    "model": "ai-image-1-ultra",
+    "name": "Copyleaks AI Image Detector",
+    "upload_policy": "metadata-free RGB PNG; resize only for contract"
+  },
+  "real_panel": {
+    "ai_score": {
+      "count": 250,
+      "max": 0.0,
+      "mean": 0.0,
+      "median": 0.0,
+      "min": 0.0
+    },
+    "expected": 250,
+    "false_positive_rate": 0.0,
+    "false_positives": 0,
+    "specificity": 1.0,
+    "true_negatives": 250,
+    "valid": 250
+  },
+  "reuse_audit": {
+    "fullframe_mouse": {
+      "canonical_reference_available": 0,
+      "canonical_reference_unavailable": 250,
+      "canonical_upload_sha256_matches": 0,
+      "canonical_upload_sha256_mismatches": 0,
+      "raw_image_sha256_matches": 250,
+      "selected": 250
+    },
+    "local_mouse": {
+      "canonical_reference_available": 0,
+      "canonical_reference_unavailable": 250,
+      "canonical_upload_sha256_matches": 0,
+      "canonical_upload_sha256_mismatches": 0,
+      "raw_image_sha256_matches": 250,
+      "selected": 250
+    }
+  },
+  "schema_version": "copyleaks_ultra_balanced250_main_table_v1",
+  "upload_audit": {
+    "canonical_jpeg_hash_comparison": "not_applicable",
+    "new_resized": 66,
+    "new_unresized": 684
+  }
+}

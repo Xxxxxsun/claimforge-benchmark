@@ -1,0 +1,209 @@
+{
+  "artifacts": {
+    "fullframe_mouse_results": {
+      "path": "results/commercial/hive/claimforge_v1_full_image_mouse250_canonical_jpeg_q95_20260725.jsonl",
+      "sha256": "678558de90249301e9d6150d6a5434c996eebc667642c7718850666043c151d9"
+    },
+    "input_ledger": {
+      "path": "results/opensource/cnndetection/cnndetection_blur_jpg_prob0_1_native_balanced250_v1_full1775_20260726/expected_inputs.jsonl",
+      "sha256": "6b5128909eeffdbd88e61af02ca1bd191cb5460f94a23b47c87ebd0172e6d12c"
+    },
+    "local_mouse_results": {
+      "path": "results/commercial/hive/good275_mouse_forged_canonical_jpeg_q95_20260720.jsonl",
+      "sha256": "974d33038b2c27fc0216c7ae396af8036bc86ee18d29559f58f26b4f3ca116a7"
+    },
+    "new_results": {
+      "path": "results/commercial/hive/claimforge_balanced250_real_local750_canonical_jpeg_q95_20260727.jsonl",
+      "sha256": "075c06f044a4e3a5940cf4d2d9b70da8641c822c347f62a84acfc0343ac95dcf"
+    },
+    "new_run_manifest": {
+      "path": "results/commercial/hive/claimforge_balanced250_real_local750_canonical_jpeg_q95_20260727.run_manifest.json",
+      "sha256": "f34ac7ff4bd2a7fb81a5b8a87a997533288c690939b193ab17bed5c588db51e0"
+    },
+    "summary": {
+      "path": "results/commercial/hive/claimforge_balanced250_main_table_20260727.summary.json"
+    }
+  },
+  "bootstrap": {
+    "method": "independent stratified image bootstrap of real and forged panels",
+    "samples": 10000,
+    "seed_base": 20260727
+  },
+  "canonicalization_audit": {
+    "new_matches": 750,
+    "new_mismatches": 0,
+    "new_reference_available": 750
+  },
+  "conditions": {
+    "fullframe_cat": {
+      "expected": 250,
+      "reason": "deferred before API submission",
+      "status": "deferred",
+      "valid": 0
+    },
+    "fullframe_mouse": {
+      "ai_probability": {
+        "count": 250,
+        "max": 0.9999949370192792,
+        "mean": 0.6048414053648884,
+        "median": 0.7773834207525461,
+        "min": 9.944070500366389e-06
+      },
+      "balanced_accuracy": 0.714,
+      "balanced_accuracy_ci95": [
+        0.6839999999999999,
+        0.744
+      ],
+      "expected": 250,
+      "false_negatives": 143,
+      "provider_models": {
+        "hive/ai-generated-and-deepfake-content-detection": 250
+      },
+      "provider_versions": {
+        "1": 250
+      },
+      "sensitivity": 0.428,
+      "specificity": 1.0,
+      "true_positives": 107,
+      "valid": 250
+    },
+    "fullframe_trash_can": {
+      "expected": 250,
+      "reason": "deferred before API submission",
+      "status": "deferred",
+      "valid": 0
+    },
+    "local_cat": {
+      "ai_probability": {
+        "count": 250,
+        "max": 0.9027443223715342,
+        "mean": 0.011202669967195449,
+        "median": 0.00023157821451064161,
+        "min": 6.74626171196367e-07
+      },
+      "balanced_accuracy": 0.502,
+      "balanced_accuracy_ci95": [
+        0.5,
+        0.506
+      ],
+      "expected": 250,
+      "false_negatives": 249,
+      "provider_models": {
+        "hive/ai-generated-and-deepfake-content-detection": 250
+      },
+      "provider_versions": {
+        "1": 250
+      },
+      "sensitivity": 0.004,
+      "specificity": 1.0,
+      "true_positives": 1,
+      "valid": 250
+    },
+    "local_mouse": {
+      "ai_probability": {
+        "count": 250,
+        "max": 0.03372797449170257,
+        "mean": 0.000778219894919473,
+        "median": 0.00016569485848579165,
+        "min": 8.03807653680546e-07
+      },
+      "balanced_accuracy": 0.5,
+      "balanced_accuracy_ci95": [
+        0.5,
+        0.5
+      ],
+      "expected": 250,
+      "false_negatives": 250,
+      "provider_models": {
+        "hive/ai-generated-and-deepfake-content-detection": 250
+      },
+      "provider_versions": {
+        "1": 250
+      },
+      "sensitivity": 0.0,
+      "specificity": 1.0,
+      "true_positives": 0,
+      "valid": 250
+    },
+    "local_trash_can": {
+      "ai_probability": {
+        "count": 250,
+        "max": 0.07312489453529031,
+        "mean": 0.00119808539362989,
+        "median": 0.0001920465910756967,
+        "min": 4.070642340825041e-07
+      },
+      "balanced_accuracy": 0.5,
+      "balanced_accuracy_ci95": [
+        0.5,
+        0.5
+      ],
+      "expected": 250,
+      "false_negatives": 250,
+      "provider_models": {
+        "hive/ai-generated-and-deepfake-content-detection": 250
+      },
+      "provider_versions": {
+        "1": 250
+      },
+      "sensitivity": 0.0,
+      "specificity": 1.0,
+      "true_positives": 0,
+      "valid": 250
+    }
+  },
+  "coverage": {
+    "deferred_images": 500,
+    "new_errors": 0,
+    "new_expected": 750,
+    "new_raw_attempt_rows": 814,
+    "new_valid": 750,
+    "reused_expected": 500,
+    "reused_valid": 500,
+    "superseded_attempt_rows": 64,
+    "total_evaluated_expected": 1250,
+    "total_planned": 1750,
+    "total_valid": 1250
+  },
+  "dataset_id": "claimforge-commercial-balanced250-mouse-reuse-v1",
+  "generated_at": "2026-07-28T09:05:09.702635+00:00",
+  "provider": {
+    "decision_rule": "ai_generated >= 0.9",
+    "name": "Hive V3",
+    "upload_policy": "metadata-free RGB JPEG Q95 4:4:4"
+  },
+  "real_panel": {
+    "ai_probability": {
+      "count": 250,
+      "max": 0.031725464717591814,
+      "mean": 0.00070747657987576,
+      "median": 0.00016977091153129713,
+      "min": 8.645203846417276e-07
+    },
+    "expected": 250,
+    "false_positive_rate": 0.0,
+    "false_positives": 0,
+    "specificity": 1.0,
+    "true_negatives": 250,
+    "valid": 250
+  },
+  "reuse_audit": {
+    "fullframe_mouse": {
+      "canonical_reference_available": 225,
+      "canonical_reference_unavailable": 25,
+      "canonical_upload_sha256_matches": 225,
+      "canonical_upload_sha256_mismatches": 0,
+      "raw_image_sha256_matches": 250,
+      "selected": 250
+    },
+    "local_mouse": {
+      "canonical_reference_available": 227,
+      "canonical_reference_unavailable": 23,
+      "canonical_upload_sha256_matches": 227,
+      "canonical_upload_sha256_mismatches": 0,
+      "raw_image_sha256_matches": 250,
+      "selected": 250
+    }
+  },
+  "schema_version": "hive_v3_balanced250_main_table_v1"
+}

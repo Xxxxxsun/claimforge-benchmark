@@ -1,0 +1,138 @@
+{
+  "schema_version": "claimforge_commercial_status_v1",
+  "date": "2026-07-25",
+  "last_updated": "2026-07-27",
+  "condition": "claimforge_v1_full_image_mouse250",
+  "artifact_sync_note": "All result artifacts referenced by this status file are synchronized in the main worktree.",
+  "selection": {
+    "category": "mouse",
+    "method": "full_image",
+    "expected_images": 250,
+    "domains": {
+      "lodging": 122,
+      "restaurant": 128
+    },
+    "rule": "first 250 successful rows in the frozen full-image generation manifest",
+    "generation_manifest_sha256": "331ab15ab8229d51ba2de2fe0dd4e3d5262dcc909170218949b938987db3f59c",
+    "annotations_sha256": "f92adee3aa4a8fa184bc70f5506f79df357eaa8f69569f0b460ac23bc822ca27"
+  },
+  "services": {
+    "hive": {
+      "status": "complete",
+      "valid_images": 250,
+      "pending_images": 0,
+      "detected_images": 107,
+      "detection_rate_on_valid": 0.428,
+      "decision_rule": "ai_generated >= 0.9",
+      "score_mean": 0.6048414054,
+      "score_median": 0.7773834208,
+      "artifact_sync_status": "synchronized",
+      "artifact": "results/commercial/hive/claimforge_v1_full_image_mouse250_canonical_jpeg_q95_20260725.jsonl"
+    },
+    "resemble": {
+      "status": "complete",
+      "valid_images": 250,
+      "pending_images": 0,
+      "fake": 248,
+      "likely_fake": 1,
+      "combined_positive": 249,
+      "heatmaps": 250,
+      "visualizations": 250,
+      "artifact_sync_status": "synchronized",
+      "artifact": "results/commercial/resemble/claimforge_v1_full_image_mouse250_canonical_jpeg_q95_20260725.jsonl"
+    },
+    "alibaba": {
+      "status": "complete",
+      "valid_images": 250,
+      "pending_images": 0,
+      "risk_edit": 230,
+      "risk_fake": 4,
+      "risk_aigc": 0,
+      "any_risk": 230,
+      "artifact": "results/commercial/alibaba/claimforge_v1_full_image_mouse250_canonical_jpeg_q95_20260725.jsonl"
+    },
+    "aiornot": {
+      "status": "complete",
+      "valid_images": 250,
+      "pending_images": 0,
+      "detected_images": 230,
+      "detection_rate_on_valid": 0.92,
+      "artifact": "results/commercial/aiornot/claimforge_v1_full_image_mouse250_canonical_jpeg_q95_20260725.jsonl"
+    },
+    "copyleaks": {
+      "status": "complete",
+      "valid_images": 250,
+      "pending_images": 0,
+      "detected_images": 220,
+      "detection_rate": 0.88,
+      "empty_masks": 30,
+      "mean_predicted_ai_fraction": 0.0123261725,
+      "credits_consumed": 250,
+      "artifact": "results/commercial/copyleaks/claimforge_v1_full_image_mouse250_canonical_png_20260725.jsonl"
+    },
+    "sightengine": {
+      "status": "complete",
+      "valid_images": 250,
+      "pending_images": 0,
+      "detected_images": 237,
+      "decision_rule": "ai_generated >= 0.5",
+      "detection_rate_on_valid": 0.948,
+      "operations_consumed": 1250,
+      "latest_quota_error_ids": 0,
+      "artifact": "results/commercial/sightengine/claimforge_v1_full_image_mouse250_original_png_20260725.jsonl"
+    },
+    "reality_defender": {
+      "status": "not_run_missing_credential",
+      "valid_images": 0,
+      "pending_images": 250,
+      "input_dry_run": "passed"
+    },
+    "illuminarty": {
+      "status": "unavailable_http_502",
+      "valid_images": 0,
+      "pending_images": 250,
+      "preflight_images": 1,
+      "preflight_attempts": 5,
+      "http_status": 502,
+      "artifact": "results/commercial/illuminarty/claimforge_v1_full_image_mouse250_original_png_20260725.jsonl"
+    }
+  },
+  "matched_local_splice_comparison": {
+    "hive": {
+      "matched_images": 250,
+      "local_splice_positive": 0,
+      "full_image_positive": 107,
+      "full_image_only_positive": 107
+    },
+    "resemble": {
+      "matched_images": 250,
+      "local_splice_positive": 34,
+      "full_image_positive": 249,
+      "full_image_only_positive": 215
+    },
+    "alibaba": {
+      "matched_images": 250,
+      "local_splice_positive": 29,
+      "full_image_positive": 230,
+      "full_image_only_positive": 202
+    },
+    "aiornot": {
+      "matched_images": 250,
+      "local_splice_positive": 4,
+      "full_image_positive": 230,
+      "full_image_only_positive": 226
+    },
+    "copyleaks": {
+      "matched_images": 250,
+      "local_splice_positive": 99,
+      "full_image_positive": 220,
+      "full_image_only_positive": 127
+    },
+    "sightengine": {
+      "matched_images": 178,
+      "local_splice_positive": 0,
+      "full_image_positive": 168,
+      "full_image_only_positive": 168
+    }
+  }
+}

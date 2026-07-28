@@ -1,0 +1,49 @@
+{
+  "completed_images": 250,
+  "confidence_by_label": {
+    "risk_aigc": {
+      "count": 0,
+      "max": null,
+      "mean": null,
+      "median": null,
+      "min": null
+    },
+    "risk_edit": {
+      "count": 230,
+      "max": 100.0,
+      "mean": 98.58560869565217,
+      "median": 99.99,
+      "min": 72.41
+    },
+    "risk_fake": {
+      "count": 4,
+      "max": 99.91,
+      "mean": 82.61,
+      "median": 78.545,
+      "min": 73.44
+    }
+  },
+  "detected_by_kind": {
+    "forged": {
+      "risk_aigc": 0,
+      "risk_edit": 230,
+      "risk_fake": 4
+    },
+    "real": {
+      "risk_aigc": 0,
+      "risk_edit": 0,
+      "risk_fake": 0
+    }
+  },
+  "error_images": 0,
+  "error_types": {},
+  "expected_images": 250,
+  "expected_tasks": 250,
+  "generated_at": "2026-07-25T21:19:40.280394+00:00",
+  "include": "forged",
+  "input_manifest_sha256": "7bdc4a00c03533496ec4f3989d5f8646e4a67c733177ca7736d551d66ca3058d",
+  "paired_risk_edit_outcomes": {},
+  "results_path": "/Users/macbook/claimforge-commercial-run/results/commercial/alibaba/claimforge_v1_full_image_mouse250_canonical_jpeg_q95_20260725.jsonl",
+  "schema_version": "alibaba_ultra_summary_v1",
+  "valid_images": 250
+}

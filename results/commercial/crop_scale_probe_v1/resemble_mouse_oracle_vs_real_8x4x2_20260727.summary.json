@@ -1,0 +1,77 @@
+{
+  "by_kind": {
+    "forged": {
+      "count": 36,
+      "ifl_score": {
+        "count": 36,
+        "max": 0.9967657310962678,
+        "mean": 0.6030338203860706,
+        "median": 0.617804622411728,
+        "min": 0.00460732791852206,
+        "p95": 0.9960193634033203
+      },
+      "labels": {
+        "Fake": 14,
+        "Likely fake": 6,
+        "Likely real": 5,
+        "Neutral/Uncertain": 6,
+        "Real": 5
+      },
+      "provider_fake": 14,
+      "provider_score": {
+        "count": 36,
+        "max": 0.9960204348564148,
+        "mean": 0.6171444954447604,
+        "median": 0.6459823348522187,
+        "min": 0.004071343934629113,
+        "p95": 0.9942512289285659
+      }
+    },
+    "real": {
+      "count": 0,
+      "ifl_score": {
+        "count": 0,
+        "max": null,
+        "mean": null,
+        "median": null,
+        "min": null,
+        "p95": null
+      },
+      "labels": {},
+      "provider_fake": 0,
+      "provider_score": {
+        "count": 0,
+        "max": null,
+        "mean": null,
+        "median": null,
+        "min": null,
+        "p95": null
+      }
+    }
+  },
+  "error_images": 1,
+  "expected_images": 64,
+  "expected_tasks": 64,
+  "generated_at": "2026-07-27T11:46:16.245378+00:00",
+  "heatmaps_saved": 36,
+  "include": "forged",
+  "input_manifest_sha256": "224e4f4ba34591eb8b25e96f284a13449ce8b4e45a15babf32e304acd41753e2",
+  "paired_ifl_score_delta": {
+    "count": 0,
+    "max": null,
+    "mean": null,
+    "median": null,
+    "min": null
+  },
+  "paired_provider_score_delta": {
+    "count": 0,
+    "max": null,
+    "mean": null,
+    "median": null,
+    "min": null
+  },
+  "results_path": "/Users/macbook/Desktop/research/claimforge-benchmark/results/commercial/crop_scale_probe_v1/resemble_mouse_oracle_vs_real_8x4x2_20260727.jsonl",
+  "schema_version": "resemble_summary_v1",
+  "valid_images": 36,
+  "visualizations_saved": 36
+}

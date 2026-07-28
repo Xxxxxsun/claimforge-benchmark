@@ -1,0 +1,104 @@
+{
+  "canonical_hash_mismatches": 17,
+  "completed_images": 1250,
+  "conditions": {
+    "fullframe_cat": {
+      "any_risk_positive": 244,
+      "any_risk_rate": 0.976,
+      "completed": 250,
+      "errors": 0,
+      "expected": 250,
+      "label_positive": {
+        "risk_aigc": 2,
+        "risk_edit": 244,
+        "risk_fake": 4
+      },
+      "valid": 250
+    },
+    "fullframe_trash_can": {
+      "any_risk_positive": 234,
+      "any_risk_rate": 0.936,
+      "completed": 250,
+      "errors": 0,
+      "expected": 250,
+      "label_positive": {
+        "risk_aigc": 1,
+        "risk_edit": 234,
+        "risk_fake": 5
+      },
+      "valid": 250
+    },
+    "local_cat": {
+      "any_risk_positive": 50,
+      "any_risk_rate": 0.2,
+      "completed": 250,
+      "errors": 0,
+      "expected": 250,
+      "label_positive": {
+        "risk_aigc": 0,
+        "risk_edit": 49,
+        "risk_fake": 1
+      },
+      "valid": 250
+    },
+    "local_trash_can": {
+      "any_risk_positive": 27,
+      "any_risk_rate": 0.108,
+      "completed": 250,
+      "errors": 0,
+      "expected": 250,
+      "label_positive": {
+        "risk_aigc": 0,
+        "risk_edit": 26,
+        "risk_fake": 1
+      },
+      "valid": 250
+    },
+    "real": {
+      "any_risk_positive": 28,
+      "any_risk_rate": 0.112,
+      "completed": 250,
+      "errors": 0,
+      "expected": 250,
+      "label_positive": {
+        "risk_aigc": 0,
+        "risk_edit": 27,
+        "risk_fake": 1
+      },
+      "valid": 250
+    }
+  },
+  "confidence": {
+    "risk_aigc": {
+      "count": 3,
+      "max": 99.26,
+      "mean": 97.22666666666667,
+      "median": 96.87,
+      "min": 95.55
+    },
+    "risk_edit": {
+      "count": 580,
+      "max": 100.0,
+      "mean": 96.52422413793104,
+      "median": 99.94,
+      "min": 70.13
+    },
+    "risk_fake": {
+      "count": 12,
+      "max": 99.99,
+      "mean": 86.01333333333334,
+      "median": 83.785,
+      "min": 71.09
+    }
+  },
+  "error_images": 0,
+  "error_types": {},
+  "estimated_successful_call_cost_cny": 25.0,
+  "expected_images": 1250,
+  "generated_at": "2026-07-27T17:23:37.514035+00:00",
+  "remaining_images": 0,
+  "results_path": "/Users/macbook/Desktop/research/claimforge-benchmark/results/commercial/alibaba/claimforge_balanced250_missing1250_canonical_jpeg_q95_20260727.jsonl",
+  "run_id": "alibaba_ultra_balanced250_missing1250_20260727",
+  "schema_version": "alibaba_ultra_balanced250_summary_v1",
+  "valid_images": 1250
+}

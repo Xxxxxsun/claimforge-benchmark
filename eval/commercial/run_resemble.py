@@ -25,7 +25,11 @@ from typing import Any
 import requests
 from PIL import Image
 
-from eval.commercial.run_hive import canonicalize, load_selected_items
+from eval.commercial.run_hive import (
+    canonicalize,
+    load_benchmark_items,
+    load_selected_items,
+)
 from eval.commercial.run_illuminarty import (
     ImageItem,
     append_jsonl,
@@ -364,13 +368,15 @@ def ensure_run_manifest(
     quality: int,
     include: str,
     run_id: str,
+    candidate: str = "mouse",
+    input_selection: dict[str, Any] | None = None,
 ) -> None:
     path = output_path.with_suffix(".run_manifest.json")
     expected = {
         "schema_version": "resemble_run_manifest_v1",
         "run_id": run_id,
         "endpoint": endpoint,
-        "candidate": "mouse",
+        "candidate": candidate,
         "include": include,
         "expected_images": len(items),
         "input_manifest_sha256": manifest_sha256,
@@ -385,6 +391,8 @@ def ensure_run_manifest(
             "filename": "image.jpg",
         },
     }
+    if input_selection is not None:
+        expected["input_selection"] = input_selection
     if path.exists():
         existing = json.loads(path.read_text(encoding="utf-8"))
         mismatches = {
@@ -429,6 +437,17 @@ def main() -> None:
     parser.add_argument("--repo-root", type=Path, default=Path("."))
     parser.add_argument("--review", type=Path, default=DEFAULT_REVIEW)
     parser.add_argument("--order-manifest", type=Path, default=DEFAULT_ORDER_MANIFEST)
+    parser.add_argument(
+        "--benchmark-manifest",
+        type=Path,
+        help="load images from a CLAIMFORGE benchmark image manifest",
+    )
+    parser.add_argument("--benchmark-category", default="mouse")
+    parser.add_argument(
+        "--benchmark-method",
+        choices=("local_splice", "full_image"),
+        default="full_image",
+    )
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--artifact-root", type=Path)
     parser.add_argument("--endpoint", default=DEFAULT_ENDPOINT)
@@ -440,6 +459,11 @@ def main() -> None:
     parser.add_argument("--read-timeout", type=float, default=300.0)
     parser.add_argument("--minimum-interval", type=float, default=0.25)
     parser.add_argument("--workers", type=int, default=1)
+    parser.add_argument(
+        "--max-pending",
+        type=int,
+        help="process at most this many currently pending images",
+    )
     parser.add_argument("--run-id", default="resemble_pilot_good_mouse_pairs5_20260720")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
@@ -447,6 +471,8 @@ def main() -> None:
         parser.error("--tasks must be positive and JPEG quality must be in [1, 100]")
     if args.max_attempts < 1 or args.workers < 1:
         parser.error("--max-attempts and --workers must be positive")
+    if args.max_pending is not None and args.max_pending < 1:
+        parser.error("--max-pending must be positive")
 
     repo_root = args.repo_root.resolve()
     review_path = args.review if args.review.is_absolute() else repo_root / args.review
@@ -460,20 +486,53 @@ def main() -> None:
     artifact_root = (
         artifact_root if artifact_root.is_absolute() else repo_root / artifact_root
     ).resolve()
-    items = load_selected_items(
-        repo_root, review_path, order_path, args.tasks, args.include
-    )
+    input_selection: dict[str, Any] | None = None
+    if args.benchmark_manifest is not None:
+        benchmark_manifest = (
+            args.benchmark_manifest
+            if args.benchmark_manifest.is_absolute()
+            else repo_root / args.benchmark_manifest
+        )
+        benchmark_manifest = benchmark_manifest.resolve()
+        try:
+            benchmark_manifest.relative_to(repo_root)
+        except ValueError as exc:
+            raise ValueError(
+                f"benchmark manifest escapes repo: {args.benchmark_manifest}"
+            ) from exc
+        items = load_benchmark_items(
+            repo_root,
+            benchmark_manifest,
+            args.tasks,
+            args.include,
+            args.benchmark_category,
+            args.benchmark_method,
+        )
+        input_selection = {
+            "kind": "benchmark_manifest",
+            "manifest": benchmark_manifest.relative_to(repo_root).as_posix(),
+            "category": args.benchmark_category,
+            "method": args.benchmark_method,
+        }
+    else:
+        items = load_selected_items(
+            repo_root, review_path, order_path, args.tasks, args.include
+        )
     manifest_sha256 = input_digest(items)
     latest = read_latest(output_path)
     pending = [item for item in items if latest.get(item.id, {}).get("status") != "ok"]
+    pending_total = len(pending)
+    if args.max_pending is not None:
+        pending = pending[: args.max_pending]
     print(
         json.dumps(
             {
                 "selected_tasks": args.tasks,
                 "include": args.include,
                 "selected_images": len(items),
-                "already_valid": len(items) - len(pending),
-                "pending": len(pending),
+                "already_valid": len(items) - pending_total,
+                "pending": pending_total,
+                "scheduled": len(pending),
                 "output": output_path.as_posix(),
                 "artifact_root": artifact_root.as_posix(),
                 "workers": args.workers,
@@ -497,6 +556,8 @@ def main() -> None:
         args.jpeg_quality,
         args.include,
         args.run_id,
+        args.benchmark_category if input_selection is not None else "mouse",
+        input_selection,
     )
     with tempfile.TemporaryDirectory(prefix="claimforge-resemble-") as temporary:
         temporary_dir = Path(temporary)
