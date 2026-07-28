@@ -1,0 +1,51 @@
+{
+  "api_results_source": "results/segmentation/mlx_sam3_trash_can_relabel_reject_both_partial55_variant3_20260724/api_results.jsonl",
+  "api_rows_latest": 55,
+  "api_status_counts": {
+    "error": 1,
+    "ok": 54
+  },
+  "by_endpoint": {
+    "sam3": {
+      "completed": 54,
+      "endpoint": "fal-ai/sam-3/image-rle",
+      "hybrid_guard_fallback_ids": [],
+      "hybrid_guard_fallbacks": 0,
+      "mean_distance_support_fraction": 0.0,
+      "mean_edge_support_fraction": 0.0068264347506242,
+      "mean_hybrid_area_fraction": 0.06528574599365326,
+      "mean_hybrid_growth": 0.12879394484733883,
+      "mean_hybrid_iou_with_current_t30": 0.5651779180988281,
+      "mean_provider_score": 0.7174506859370956,
+      "mean_semantic_area_fraction": 0.05845931124302907,
+      "outside_context_invariance_failures": 0,
+      "quality_gate_failure_ids": [
+        "trash_can_lodging_122_slot_001__sam3",
+        "trash_can_lodging_173_slot_001__sam3",
+        "trash_can_restaurant_095_slot_001__sam3",
+        "trash_can_lodging_157_slot_001__sam3"
+      ],
+      "quality_gate_failures": 4
+    }
+  },
+  "endpoint_pair_agreement": {
+    "mean_hybrid_iou": null,
+    "mean_semantic_iou": null,
+    "paired_tasks": 0
+  },
+  "estimated_cost_if_all_requested_usd": 0.275,
+  "expected_requests": 55,
+  "expected_tasks": 55,
+  "materialization_errors": [],
+  "materialized_results": 54,
+  "new_api_cost_usd": 0.0,
+  "postprocess": {
+    "alpha_feather": 1.0,
+    "diff_threshold": 20.0,
+    "mode": "local",
+    "support_radius": 6
+  },
+  "reused_api_results": true,
+  "schema_version": "fal_sam3_splice_summary_v1",
+  "updated_at": "2026-07-24T20:53:33.325831+00:00"
+}

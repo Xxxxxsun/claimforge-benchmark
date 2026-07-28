@@ -1,0 +1,89 @@
+{
+  "completed_at": "2026-07-24T19:49:55.518071+00:00",
+  "materialization": {
+    "api_results_source": "results/segmentation/mlx_sam3_trash_can_relabel_reject_both_partial55_variant1_20260724/api_results.jsonl",
+    "api_rows_latest": 55,
+    "api_status_counts": {
+      "ok": 55
+    },
+    "by_endpoint": {
+      "sam3": {
+        "completed": 55,
+        "endpoint": "fal-ai/sam-3/image-rle",
+        "hybrid_guard_fallback_ids": [
+          "trash_can_lodging_031_slot_001__sam3",
+          "trash_can_lodging_162_slot_001__sam3",
+          "trash_can_restaurant_132_slot_001__sam3"
+        ],
+        "hybrid_guard_fallbacks": 3,
+        "mean_distance_support_fraction": 0.01132182258148571,
+        "mean_edge_support_fraction": 0.012163930365678378,
+        "mean_hybrid_area_fraction": 0.07603753307411502,
+        "mean_hybrid_growth": 0.5248944813057626,
+        "mean_hybrid_iou_with_current_t30": 0.4951765682911374,
+        "mean_provider_score": 0.7129351534626701,
+        "mean_semantic_area_fraction": 0.052551780126950935,
+        "outside_context_invariance_failures": 0,
+        "quality_gate_failure_ids": [
+          "trash_can_lodging_157_slot_001__sam3",
+          "trash_can_lodging_173_slot_001__sam3",
+          "trash_can_lodging_209_slot_001__sam3",
+          "trash_can_lodging_249_slot_001__sam3",
+          "trash_can_restaurant_023_slot_001__sam3",
+          "trash_can_restaurant_095_slot_001__sam3",
+          "trash_can_restaurant_121_slot_001__sam3",
+          "trash_can_restaurant_132_slot_001__sam3",
+          "trash_can_restaurant_138_slot_001__sam3"
+        ],
+        "quality_gate_failures": 9
+      }
+    },
+    "endpoint_pair_agreement": {
+      "mean_hybrid_iou": null,
+      "mean_semantic_iou": null,
+      "paired_tasks": 0
+    },
+    "estimated_cost_if_all_requested_usd": 0.275,
+    "expected_requests": 55,
+    "expected_tasks": 55,
+    "materialization_errors": [],
+    "materialized_results": 55,
+    "new_api_cost_usd": null,
+    "postprocess": {
+      "alpha_feather": 1.0,
+      "diff_threshold": 20.0,
+      "edge_diff_threshold": 8.0,
+      "edge_radius": 6,
+      "far_diff_threshold": 40.0,
+      "far_shadow_luma_min": 5.0,
+      "far_shadow_min_y_ratio": 0.4,
+      "hysteresis_auto_expand_ratio": 0.75,
+      "hysteresis_close": 3,
+      "hysteresis_distance_power": 1.0,
+      "hysteresis_grow": 2,
+      "hysteresis_reach_ratio": 0.5,
+      "hysteresis_seed_radius": 2,
+      "max_added_fraction": 0.08,
+      "max_hybrid_growth": 3.5,
+      "mode": "semantic_hysteresis",
+      "reference": "exact_generation_input_context",
+      "shadow_feather": 3.0,
+      "shadow_output_grow": 1,
+      "support_radius": 6
+    },
+    "reused_api_results": false,
+    "schema_version": "fal_sam3_splice_summary_v1",
+    "updated_at": "2026-07-24T19:49:55.494450+00:00"
+  },
+  "model": "mlx-community/sam3-4bit",
+  "model_path": "/Users/macbook/.cache/huggingface/hub/models--mlx-community--sam3-4bit/snapshots/53c009b4ef4cfa5b1d9fa4549e7b153e881b5636",
+  "prompt": "trash can",
+  "review_counts": {
+    "no_mask_fallback": 0,
+    "sam3_ok": 55,
+    "total": 55
+  },
+  "schema_version": "mlx_sam3_splice_run_v1",
+  "score_threshold": 0.1,
+  "selection_count": 55
+}

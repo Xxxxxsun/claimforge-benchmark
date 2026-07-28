@@ -1,0 +1,55 @@
+{
+  "api_results_source": "results/segmentation/mlx_sam3_trash_can_relabel_reject_both_partial55_variant1_20260724/api_results.jsonl",
+  "api_rows_latest": 55,
+  "api_status_counts": {
+    "ok": 55
+  },
+  "by_endpoint": {
+    "sam3": {
+      "completed": 55,
+      "endpoint": "fal-ai/sam-3/image-rle",
+      "hybrid_guard_fallback_ids": [],
+      "hybrid_guard_fallbacks": 0,
+      "mean_distance_support_fraction": 0.0,
+      "mean_edge_support_fraction": 0.006391210991384829,
+      "mean_hybrid_area_fraction": 0.058942991118335765,
+      "mean_hybrid_growth": 0.12805704553580463,
+      "mean_hybrid_iou_with_current_t30": 0.5284223289270782,
+      "mean_provider_score": 0.7129351534626701,
+      "mean_semantic_area_fraction": 0.052551780126950935,
+      "outside_context_invariance_failures": 0,
+      "quality_gate_failure_ids": [
+        "trash_can_restaurant_023_slot_001__sam3",
+        "trash_can_lodging_173_slot_001__sam3",
+        "trash_can_restaurant_138_slot_001__sam3",
+        "trash_can_lodging_209_slot_001__sam3",
+        "trash_can_restaurant_121_slot_001__sam3",
+        "trash_can_restaurant_132_slot_001__sam3",
+        "trash_can_lodging_249_slot_001__sam3",
+        "trash_can_restaurant_095_slot_001__sam3",
+        "trash_can_lodging_157_slot_001__sam3"
+      ],
+      "quality_gate_failures": 9
+    }
+  },
+  "endpoint_pair_agreement": {
+    "mean_hybrid_iou": null,
+    "mean_semantic_iou": null,
+    "paired_tasks": 0
+  },
+  "estimated_cost_if_all_requested_usd": 0.275,
+  "expected_requests": 55,
+  "expected_tasks": 55,
+  "materialization_errors": [],
+  "materialized_results": 55,
+  "new_api_cost_usd": 0.0,
+  "postprocess": {
+    "alpha_feather": 1.0,
+    "diff_threshold": 20.0,
+    "mode": "local",
+    "support_radius": 6
+  },
+  "reused_api_results": true,
+  "schema_version": "fal_sam3_splice_summary_v1",
+  "updated_at": "2026-07-24T20:52:49.240371+00:00"
+}

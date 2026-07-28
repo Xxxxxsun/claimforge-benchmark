@@ -1,0 +1,1641 @@
+{
+  "adapter_sha256": "f47b5090ee7a1131acc65844281ab6e7c46c9608e070b6f3113918a492a629d2",
+  "api_results_source": "results/segmentation/mlx_sam3_trash_can_relabel_reject_both_partial55_variant1_20260724/api_results.jsonl",
+  "api_results_source_sha256": "f5c1b5916e683867d85da19f407aafcae6d2d367f63ce6e41b18e5050928e212",
+  "base_manifest": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/manifest.jsonl",
+  "base_manifest_sha256": "9dc5f134d4fec128bc25c8f5d2dd5dcd244c69a43a92557b23d8602d8aa8ebbd",
+  "created_at": "2026-07-24T20:24:30.241223+00:00",
+  "endpoints": [
+    "fal-ai/sam-3/image-rle"
+  ],
+  "expected_requests": 55,
+  "expected_tasks": 55,
+  "fal_platform_headers": {
+    "X-Fal-Object-Lifecycle-Preference": {
+      "expiration_duration_seconds": 3600
+    },
+    "X-Fal-Store-IO": "0"
+  },
+  "max_masks": 3,
+  "numpy_version": "1.26.4",
+  "ordered_inputs": [
+    {
+      "context_region_xyxy": [
+        900,
+        573,
+        1427,
+        1010
+      ],
+      "crop_size": [
+        527,
+        437
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.18198081624323162,
+      "edit_region_in_context_xyxy": [
+        136,
+        164,
+        390,
+        329
+      ],
+      "generated_bytes": 277885,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_lodging_056_slot_001.png",
+      "generated_sha256": "2cdee92cfc6ea65094f83f0ffec35959e629fe92f957484329105337167d1545",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_lodging_056_slot_001_context.jpg",
+      "rank": 0,
+      "selection_reason": "lodging:small:max_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_056.jpg",
+      "t30_t40_mask_disagreement": 1.0,
+      "task_id": "trash_can_lodging_056_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        191,
+        758,
+        848,
+        1453
+      ],
+      "crop_size": [
+        657,
+        695
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.3143195033014684,
+      "edit_region_in_context_xyxy": [
+        202,
+        130,
+        535,
+        561
+      ],
+      "generated_bytes": 410309,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_lodging_122_slot_001.png",
+      "generated_sha256": "f5d50588d064cdaca7285f0011e587d5424ce0bdc686221d180782bfdc4c791c",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_lodging_122_slot_001_context.jpg",
+      "rank": 1,
+      "selection_reason": "lodging:large:max_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_122.jpg",
+      "t30_t40_mask_disagreement": 1.0,
+      "task_id": "trash_can_lodging_122_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        827,
+        359,
+        1165,
+        737
+      ],
+      "crop_size": [
+        338,
+        378
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.2624683009298394,
+      "edit_region_in_context_xyxy": [
+        121,
+        72,
+        283,
+        279
+      ],
+      "generated_bytes": 187490,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_lodging_285_slot_001.png",
+      "generated_sha256": "3cdf5f9477724dd0295e4ead55bc6ffdff12b35a9f45dd0fd2b5dbeb00b1c7ab",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_lodging_285_slot_001_context.jpg",
+      "rank": 2,
+      "selection_reason": "lodging:medium:max_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_285.jpg",
+      "t30_t40_mask_disagreement": 1.0,
+      "task_id": "trash_can_lodging_285_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        262,
+        756,
+        649,
+        1161
+      ],
+      "crop_size": [
+        387,
+        405
+      ],
+      "domain": "restaurant",
+      "edit_area_fraction": 0.2564455928797014,
+      "edit_region_in_context_xyxy": [
+        148,
+        140,
+        322,
+        371
+      ],
+      "generated_bytes": 199175,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_restaurant_023_slot_001.png",
+      "generated_sha256": "ec29a89dc719d4bb3057b9b964cef3924e42ac25ea917ac45035f67f4f06c4dd",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_restaurant_023_slot_001_context.jpg",
+      "rank": 3,
+      "selection_reason": "restaurant:small:max_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/restaurant/restaurant_023.jpg",
+      "t30_t40_mask_disagreement": 1.0,
+      "task_id": "trash_can_restaurant_023_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        63,
+        544,
+        358,
+        901
+      ],
+      "crop_size": [
+        295,
+        357
+      ],
+      "domain": "restaurant",
+      "edit_area_fraction": 0.2508284669800123,
+      "edit_region_in_context_xyxy": [
+        78,
+        90,
+        205,
+        298
+      ],
+      "generated_bytes": 151920,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_restaurant_299_slot_001.png",
+      "generated_sha256": "4161e569f286914e8c474aae86b249b9aaf474ec4417b78358b9965026fa9b32",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_restaurant_299_slot_001_context.jpg",
+      "rank": 4,
+      "selection_reason": "restaurant:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/restaurant/restaurant_299.jpg",
+      "t30_t40_mask_disagreement": 1.0,
+      "task_id": "trash_can_restaurant_299_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        38,
+        209,
+        304,
+        563
+      ],
+      "crop_size": [
+        266,
+        354
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.30612548319952426,
+      "edit_region_in_context_xyxy": [
+        57,
+        98,
+        199,
+        301
+      ],
+      "generated_bytes": 99288,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_lodging_169_slot_001.png",
+      "generated_sha256": "773eb74a84dac93114519fe31af1689e165906ddba042f1579d5edb25f9af90f",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_lodging_169_slot_001_context.jpg",
+      "rank": 5,
+      "selection_reason": "lodging:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_169.jpg",
+      "t30_t40_mask_disagreement": 0.9785858585858586,
+      "task_id": "trash_can_lodging_169_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        25,
+        1200,
+        568,
+        1782
+      ],
+      "crop_size": [
+        543,
+        582
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.2621050166758431,
+      "edit_region_in_context_xyxy": [
+        110,
+        180,
+        358,
+        514
+      ],
+      "generated_bytes": 328536,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_lodging_173_slot_001.png",
+      "generated_sha256": "24571da62036f053c0c90cba34ee03b8fdf7c504c29b3f32640750c41652638c",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_lodging_173_slot_001_context.jpg",
+      "rank": 6,
+      "selection_reason": "lodging:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_173.jpg",
+      "t30_t40_mask_disagreement": 0.7138975155279503,
+      "task_id": "trash_can_lodging_173_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        81,
+        174,
+        613,
+        631
+      ],
+      "crop_size": [
+        532,
+        457
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.31771441733436434,
+      "edit_region_in_context_xyxy": [
+        121,
+        118,
+        435,
+        364
+      ],
+      "generated_bytes": 271088,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_lodging_121_slot_001.png",
+      "generated_sha256": "cf81cf2eca66444b6850858ba3fa621efd434219f83f189960d10449d0c1ef11",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_lodging_121_slot_001_context.jpg",
+      "rank": 7,
+      "selection_reason": "lodging:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_121.jpg",
+      "t30_t40_mask_disagreement": 0.6841896711134593,
+      "task_id": "trash_can_lodging_121_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        521,
+        103,
+        877,
+        503
+      ],
+      "crop_size": [
+        356,
+        400
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.2512921348314607,
+      "edit_region_in_context_xyxy": [
+        133,
+        135,
+        301,
+        348
+      ],
+      "generated_bytes": 177153,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_lodging_235_slot_001.png",
+      "generated_sha256": "99f10b6c78e61fe0569cc0034d80f53a51604744d0c5083dc75f3de8c079cde7",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_lodging_235_slot_001_context.jpg",
+      "rank": 8,
+      "selection_reason": "lodging:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_235.jpg",
+      "t30_t40_mask_disagreement": 0.6598126570710532,
+      "task_id": "trash_can_lodging_235_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        1472,
+        786,
+        1770,
+        1147
+      ],
+      "crop_size": [
+        298,
+        361
+      ],
+      "domain": "restaurant",
+      "edit_area_fraction": 0.2556656565468776,
+      "edit_region_in_context_xyxy": [
+        63,
+        115,
+        207,
+        306
+      ],
+      "generated_bytes": 150137,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_restaurant_138_slot_001.png",
+      "generated_sha256": "5d8245741ee3c829c3d19272a51855eb1c92ede8ca41790991fae697b4208629",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_restaurant_138_slot_001_context.jpg",
+      "rank": 9,
+      "selection_reason": "restaurant:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/restaurant/restaurant_138.jpg",
+      "t30_t40_mask_disagreement": 0.5668896321070234,
+      "task_id": "trash_can_restaurant_138_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        448,
+        802,
+        924,
+        1340
+      ],
+      "crop_size": [
+        476,
+        538
+      ],
+      "domain": "restaurant",
+      "edit_area_fraction": 0.3146574614976102,
+      "edit_region_in_context_xyxy": [
+        167,
+        158,
+        404,
+        498
+      ],
+      "generated_bytes": 311402,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_restaurant_134_slot_001.png",
+      "generated_sha256": "9d3beab8e1d97c6825ea72678feab22e1672e842d784434afe428818e5f96933",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_restaurant_134_slot_001_context.jpg",
+      "rank": 10,
+      "selection_reason": "restaurant:medium:max_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/restaurant/restaurant_134.jpg",
+      "t30_t40_mask_disagreement": 0.5578063737810395,
+      "task_id": "trash_can_restaurant_134_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        779,
+        484,
+        1471,
+        1207
+      ],
+      "crop_size": [
+        692,
+        723
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.2730074592857314,
+      "edit_region_in_context_xyxy": [
+        234,
+        257,
+        548,
+        692
+      ],
+      "generated_bytes": 565134,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_lodging_162_slot_001.png",
+      "generated_sha256": "bdebb583cd6663fde57fd90405711cd16efe7caf660c5c1b556dd5143e7cdaa2",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_lodging_162_slot_001_context.jpg",
+      "rank": 11,
+      "selection_reason": "lodging:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_162.jpg",
+      "t30_t40_mask_disagreement": 0.5258395088903564,
+      "task_id": "trash_can_lodging_162_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        158,
+        854,
+        510,
+        1277
+      ],
+      "crop_size": [
+        352,
+        423
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.3010154738878143,
+      "edit_region_in_context_xyxy": [
+        95,
+        101,
+        275,
+        350
+      ],
+      "generated_bytes": 169803,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_lodging_209_slot_001.png",
+      "generated_sha256": "dfcf8f15c3266e5dd21ce6465b483a96c93760531f98b5bdaf387634ce0e7223",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_lodging_209_slot_001_context.jpg",
+      "rank": 12,
+      "selection_reason": "lodging:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_209.jpg",
+      "t30_t40_mask_disagreement": 0.5225733634311512,
+      "task_id": "trash_can_lodging_209_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        1381,
+        725,
+        1722,
+        1181
+      ],
+      "crop_size": [
+        341,
+        456
+      ],
+      "domain": "restaurant",
+      "edit_area_fraction": 0.338728970520142,
+      "edit_region_in_context_xyxy": [
+        99,
+        123,
+        280,
+        414
+      ],
+      "generated_bytes": 187737,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_restaurant_121_slot_001.png",
+      "generated_sha256": "e99373212d1d4aa4bcfe49ee118ed2b5664f01a79dd775156e933e9c6fdaf207",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_restaurant_121_slot_001_context.jpg",
+      "rank": 13,
+      "selection_reason": "restaurant:large:max_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/restaurant/restaurant_121.jpg",
+      "t30_t40_mask_disagreement": 0.5038805970149254,
+      "task_id": "trash_can_restaurant_121_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        1103,
+        594,
+        1614,
+        1132
+      ],
+      "crop_size": [
+        511,
+        538
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.18169781534857668,
+      "edit_region_in_context_xyxy": [
+        92,
+        178,
+        316,
+        401
+      ],
+      "generated_bytes": 308823,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_lodging_050_slot_001.png",
+      "generated_sha256": "4c7d482667a4228d7801439b809921884e69e13150ca6c680e6ff058d3cb4e63",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_lodging_050_slot_001_context.jpg",
+      "rank": 14,
+      "selection_reason": "lodging:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_050.jpg",
+      "t30_t40_mask_disagreement": 0.5006363063309507,
+      "task_id": "trash_can_lodging_050_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        455,
+        600,
+        750,
+        925
+      ],
+      "crop_size": [
+        295,
+        325
+      ],
+      "domain": "restaurant",
+      "edit_area_fraction": 0.27844589308996087,
+      "edit_region_in_context_xyxy": [
+        66,
+        108,
+        208,
+        296
+      ],
+      "generated_bytes": 135213,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_restaurant_260_slot_001.png",
+      "generated_sha256": "80c7119b6487f1395ca5843aec20aece87a7c35c43c43a27518df77e04261f12",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_restaurant_260_slot_001_context.jpg",
+      "rank": 15,
+      "selection_reason": "restaurant:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/restaurant/restaurant_260.jpg",
+      "t30_t40_mask_disagreement": 0.48725212464589235,
+      "task_id": "trash_can_restaurant_260_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        593,
+        772,
+        927,
+        1096
+      ],
+      "crop_size": [
+        334,
+        324
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.2975530420640201,
+      "edit_region_in_context_xyxy": [
+        93,
+        48,
+        268,
+        232
+      ],
+      "generated_bytes": 155870,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_lodging_031_slot_001.png",
+      "generated_sha256": "fc1624960780b6988bfc378e5e6c4f31c1d5365adbdf7099b8bf60f100beb8e6",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_lodging_031_slot_001_context.jpg",
+      "rank": 16,
+      "selection_reason": "lodging:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_031.jpg",
+      "t30_t40_mask_disagreement": 0.4858088328878707,
+      "task_id": "trash_can_lodging_031_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        378,
+        467,
+        969,
+        1082
+      ],
+      "crop_size": [
+        591,
+        615
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.23345851732629003,
+      "edit_region_in_context_xyxy": [
+        232,
+        197,
+        498,
+        516
+      ],
+      "generated_bytes": 430281,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_lodging_199_slot_001.png",
+      "generated_sha256": "953edee867a9e4b405cdc5ce4674815c5bc51153edba64354a60bfcc3abfa628",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_lodging_199_slot_001_context.jpg",
+      "rank": 17,
+      "selection_reason": "lodging:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_199.jpg",
+      "t30_t40_mask_disagreement": 0.4677465010221733,
+      "task_id": "trash_can_lodging_199_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        205,
+        102,
+        460,
+        401
+      ],
+      "crop_size": [
+        255,
+        299
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.29608498917961834,
+      "edit_region_in_context_xyxy": [
+        70,
+        84,
+        199,
+        259
+      ],
+      "generated_bytes": 98613,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_lodging_256_slot_001.png",
+      "generated_sha256": "ef36577c61ff605df6fdde96cb011eac398be7da51be0821704e8e41c86cf205",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_lodging_256_slot_001_context.jpg",
+      "rank": 18,
+      "selection_reason": "lodging:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_256.jpg",
+      "t30_t40_mask_disagreement": 0.4016949152542373,
+      "task_id": "trash_can_lodging_256_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        753,
+        160,
+        1336,
+        782
+      ],
+      "crop_size": [
+        583,
+        622
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.22613381279886163,
+      "edit_region_in_context_xyxy": [
+        223,
+        160,
+        460,
+        506
+      ],
+      "generated_bytes": 460013,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_lodging_272_slot_001.png",
+      "generated_sha256": "8ce51a94a49582e266d7fa74a4501f28d4346318a7fd6a239e0741a81dd47547",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_lodging_272_slot_001_context.jpg",
+      "rank": 19,
+      "selection_reason": "lodging:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_272.jpg",
+      "t30_t40_mask_disagreement": 0.39172749391727496,
+      "task_id": "trash_can_lodging_272_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        708,
+        280,
+        1126,
+        724
+      ],
+      "crop_size": [
+        418,
+        444
+      ],
+      "domain": "restaurant",
+      "edit_area_fraction": 0.3710019828440881,
+      "edit_region_in_context_xyxy": [
+        103,
+        94,
+        338,
+        387
+      ],
+      "generated_bytes": 258438,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_restaurant_132_slot_001.png",
+      "generated_sha256": "dd696af0e2cadf1cdf06c3962e3a1f0f2d9d7337809e87f43bf6e05175d3b9dc",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_restaurant_132_slot_001_context.jpg",
+      "rank": 20,
+      "selection_reason": "restaurant:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/restaurant/restaurant_132.jpg",
+      "t30_t40_mask_disagreement": 0.3905325443786982,
+      "task_id": "trash_can_restaurant_132_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        773,
+        711,
+        1333,
+        1147
+      ],
+      "crop_size": [
+        560,
+        436
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.24250491480996067,
+      "edit_region_in_context_xyxy": [
+        121,
+        156,
+        431,
+        347
+      ],
+      "generated_bytes": 294028,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_lodging_225_slot_001.png",
+      "generated_sha256": "187cf823a8822aa767d53c4a0a8e045fce8934d476eea026a8ba3d9d7cf334fd",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_lodging_225_slot_001_context.jpg",
+      "rank": 21,
+      "selection_reason": "lodging:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_225.jpg",
+      "t30_t40_mask_disagreement": 0.38744422218802893,
+      "task_id": "trash_can_lodging_225_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        339,
+        682,
+        675,
+        1024
+      ],
+      "crop_size": [
+        336,
+        342
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.2910139933166249,
+      "edit_region_in_context_xyxy": [
+        99,
+        58,
+        256,
+        271
+      ],
+      "generated_bytes": 117389,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_lodging_151_slot_001.png",
+      "generated_sha256": "a278b219149f4c52a1ab0aed41dedb1e7ac6eb63e1a5ba6882a5a79d587f60db",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_lodging_151_slot_001_context.jpg",
+      "rank": 22,
+      "selection_reason": "lodging:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_151.jpg",
+      "t30_t40_mask_disagreement": 0.3527734577501296,
+      "task_id": "trash_can_lodging_151_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        410,
+        541,
+        904,
+        1104
+      ],
+      "crop_size": [
+        494,
+        563
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.265868935215481,
+      "edit_region_in_context_xyxy": [
+        166,
+        131,
+        403,
+        443
+      ],
+      "generated_bytes": 344753,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_lodging_219_slot_001.png",
+      "generated_sha256": "152116e400520b1b0619b2c7f52eacedf4f30a11fec48deb5ed49a8477a84751",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_lodging_219_slot_001_context.jpg",
+      "rank": 23,
+      "selection_reason": "lodging:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_219.jpg",
+      "t30_t40_mask_disagreement": 0.3279088689991863,
+      "task_id": "trash_can_lodging_219_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        597,
+        291,
+        1018,
+        875
+      ],
+      "crop_size": [
+        421,
+        584
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.2224156444213061,
+      "edit_region_in_context_xyxy": [
+        132,
+        163,
+        328,
+        442
+      ],
+      "generated_bytes": 299580,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_lodging_242_slot_001.png",
+      "generated_sha256": "d96d3355eb0e9473be247fccc202e21f05ea4de681fff721c29635c0f1dc86dd",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_lodging_242_slot_001_context.jpg",
+      "rank": 24,
+      "selection_reason": "lodging:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_242.jpg",
+      "t30_t40_mask_disagreement": 0.3096661454980226,
+      "task_id": "trash_can_lodging_242_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        794,
+        376,
+        1118,
+        800
+      ],
+      "crop_size": [
+        324,
+        424
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.2611809923130678,
+      "edit_region_in_context_xyxy": [
+        86,
+        113,
+        242,
+        343
+      ],
+      "generated_bytes": 200773,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_lodging_249_slot_001.png",
+      "generated_sha256": "501be5a7931390b7a4c6e5dfee7d1834c7749016730737b2f4fce0e39cc73d26",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_lodging_249_slot_001_context.jpg",
+      "rank": 25,
+      "selection_reason": "lodging:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_249.jpg",
+      "t30_t40_mask_disagreement": 0.2992922143579373,
+      "task_id": "trash_can_lodging_249_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        479,
+        928,
+        1064,
+        1480
+      ],
+      "crop_size": [
+        585,
+        552
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.22703765638548248,
+      "edit_region_in_context_xyxy": [
+        141,
+        218,
+        482,
+        433
+      ],
+      "generated_bytes": 354881,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_lodging_197_slot_001.png",
+      "generated_sha256": "92482a708f644cc686eade01043d352cfab5e66f74b57ca6ed7f01e3173ef7b0",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_lodging_197_slot_001_context.jpg",
+      "rank": 26,
+      "selection_reason": "lodging:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_197.jpg",
+      "t30_t40_mask_disagreement": 0.28131484110516547,
+      "task_id": "trash_can_lodging_197_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        1243,
+        309,
+        1691,
+        834
+      ],
+      "crop_size": [
+        448,
+        525
+      ],
+      "domain": "restaurant",
+      "edit_area_fraction": 0.29474914965986393,
+      "edit_region_in_context_xyxy": [
+        160,
+        104,
+        395,
+        399
+      ],
+      "generated_bytes": 306618,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_restaurant_073_slot_001.png",
+      "generated_sha256": "4396f21d236c2e26812816540cb13fe5a32ead526035ffddfc2b15e66f1f83c0",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_restaurant_073_slot_001_context.jpg",
+      "rank": 27,
+      "selection_reason": "restaurant:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/restaurant/restaurant_073.jpg",
+      "t30_t40_mask_disagreement": 0.24728316588066435,
+      "task_id": "trash_can_restaurant_073_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        111,
+        1108,
+        657,
+        1744
+      ],
+      "crop_size": [
+        546,
+        636
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.31427534729421525,
+      "edit_region_in_context_xyxy": [
+        125,
+        162,
+        407,
+        549
+      ],
+      "generated_bytes": 385195,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_lodging_265_slot_001.png",
+      "generated_sha256": "085d5dbd76a12b95d8220169ae99364caf078a73351bf62aaa27875e18776ff9",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_lodging_265_slot_001_context.jpg",
+      "rank": 28,
+      "selection_reason": "lodging:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_265.jpg",
+      "t30_t40_mask_disagreement": 0.21423254429060593,
+      "task_id": "trash_can_lodging_265_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        1309,
+        199,
+        1793,
+        812
+      ],
+      "crop_size": [
+        484,
+        613
+      ],
+      "domain": "restaurant",
+      "edit_area_fraction": 0.26760074420611274,
+      "edit_region_in_context_xyxy": [
+        201,
+        131,
+        438,
+        466
+      ],
+      "generated_bytes": 369386,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_restaurant_040_slot_001.png",
+      "generated_sha256": "8127cef5a02acf6c788f76b7a79d2aff72b710ce0246176ef6614c08ce6fd16e",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_restaurant_040_slot_001_context.jpg",
+      "rank": 29,
+      "selection_reason": "restaurant:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/restaurant/restaurant_040.jpg",
+      "t30_t40_mask_disagreement": 0.19433641225085074,
+      "task_id": "trash_can_restaurant_040_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        238,
+        726,
+        624,
+        1190
+      ],
+      "crop_size": [
+        386,
+        464
+      ],
+      "domain": "restaurant",
+      "edit_area_fraction": 0.29777112738967304,
+      "edit_region_in_context_xyxy": [
+        114,
+        153,
+        313,
+        421
+      ],
+      "generated_bytes": 241362,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_restaurant_106_slot_001.png",
+      "generated_sha256": "4c37e84d7cbac64585b6f2bf9df716d9f43672c996d53dc036d6246b1fde0687",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_restaurant_106_slot_001_context.jpg",
+      "rank": 30,
+      "selection_reason": "restaurant:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/restaurant/restaurant_106.jpg",
+      "t30_t40_mask_disagreement": 0.18028797404177652,
+      "task_id": "trash_can_restaurant_106_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        73,
+        265,
+        327,
+        506
+      ],
+      "crop_size": [
+        254,
+        241
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.21024602215179533,
+      "edit_region_in_context_xyxy": [
+        75,
+        91,
+        174,
+        221
+      ],
+      "generated_bytes": 103198,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_lodging_078_slot_001.png",
+      "generated_sha256": "74eadcdc24fe52a2119c2287d97b25b877df7d4ed0e6401d5132352a9f5415e4",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_lodging_078_slot_001_context.jpg",
+      "rank": 31,
+      "selection_reason": "lodging:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_078.jpg",
+      "t30_t40_mask_disagreement": 0.16763783056925147,
+      "task_id": "trash_can_lodging_078_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        718,
+        758,
+        1037,
+        1127
+      ],
+      "crop_size": [
+        319,
+        369
+      ],
+      "domain": "restaurant",
+      "edit_area_fraction": 0.31906958568018284,
+      "edit_region_in_context_xyxy": [
+        81,
+        85,
+        259,
+        296
+      ],
+      "generated_bytes": 152362,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_restaurant_043_slot_001.png",
+      "generated_sha256": "e7020e4c5a5deab12f68ece1c7e3192d443e442ce7811f1aaecd0fb315735738",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_restaurant_043_slot_001_context.jpg",
+      "rank": 32,
+      "selection_reason": "restaurant:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/restaurant/restaurant_043.jpg",
+      "t30_t40_mask_disagreement": 0.14913809800503583,
+      "task_id": "trash_can_restaurant_043_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        740,
+        252,
+        1071,
+        482
+      ],
+      "crop_size": [
+        331,
+        230
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.22891107316432419,
+      "edit_region_in_context_xyxy": [
+        110,
+        82,
+        267,
+        193
+      ],
+      "generated_bytes": 86067,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_lodging_075_slot_001.png",
+      "generated_sha256": "8e8957bd8eb5722b2d03c8efcb503bc126b5dcccc8947768b60490cfa6623791",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_lodging_075_slot_001_context.jpg",
+      "rank": 33,
+      "selection_reason": "lodging:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_075.jpg",
+      "t30_t40_mask_disagreement": 0.14268218003674218,
+      "task_id": "trash_can_lodging_075_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        391,
+        72,
+        723,
+        497
+      ],
+      "crop_size": [
+        332,
+        425
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.3384266477675408,
+      "edit_region_in_context_xyxy": [
+        87,
+        74,
+        275,
+        328
+      ],
+      "generated_bytes": 210536,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_lodging_281_slot_001.png",
+      "generated_sha256": "ab1090873ed048d42297999282726ed6eb22b16254b0df7c8ce0b6e1f18efc98",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_lodging_281_slot_001_context.jpg",
+      "rank": 34,
+      "selection_reason": "lodging:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_281.jpg",
+      "t30_t40_mask_disagreement": 0.13614374568071874,
+      "task_id": "trash_can_lodging_281_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        1009,
+        564,
+        1421,
+        1095
+      ],
+      "crop_size": [
+        412,
+        531
+      ],
+      "domain": "restaurant",
+      "edit_area_fraction": 0.25407273325654106,
+      "edit_region_in_context_xyxy": [
+        123,
+        151,
+        316,
+        439
+      ],
+      "generated_bytes": 305821,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_restaurant_107_slot_001.png",
+      "generated_sha256": "0702527f9b94d2c30952e12175939d5b0e4ec8723dc81dd958af70b2c7fc437e",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_restaurant_107_slot_001_context.jpg",
+      "rank": 35,
+      "selection_reason": "restaurant:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/restaurant/restaurant_107.jpg",
+      "t30_t40_mask_disagreement": 0.1306758820220204,
+      "task_id": "trash_can_restaurant_107_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        212,
+        313,
+        409,
+        502
+      ],
+      "crop_size": [
+        197,
+        189
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.2921601804850536,
+      "edit_region_in_context_xyxy": [
+        57,
+        51,
+        155,
+        162
+      ],
+      "generated_bytes": 52206,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_lodging_221_slot_001.png",
+      "generated_sha256": "541c811f226147364b0f3ca92a0c8c494e37f6091ebc1f889e973cf388ff3bf1",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_lodging_221_slot_001_context.jpg",
+      "rank": 36,
+      "selection_reason": "lodging:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_221.jpg",
+      "t30_t40_mask_disagreement": 0.12467076382791922,
+      "task_id": "trash_can_lodging_221_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        145,
+        603,
+        595,
+        1083
+      ],
+      "crop_size": [
+        450,
+        480
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.26107407407407407,
+      "edit_region_in_context_xyxy": [
+        130,
+        148,
+        342,
+        414
+      ],
+      "generated_bytes": 261213,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_lodging_022_slot_001.png",
+      "generated_sha256": "f80482f73316c93d2854f41fcc64fa040904d3337af4dc7d7c0f6c658d0106d0",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_lodging_022_slot_001_context.jpg",
+      "rank": 37,
+      "selection_reason": "lodging:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_022.jpg",
+      "t30_t40_mask_disagreement": 0.11716392893060677,
+      "task_id": "trash_can_lodging_022_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        480,
+        702,
+        879,
+        1141
+      ],
+      "crop_size": [
+        399,
+        439
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.24352452886201836,
+      "edit_region_in_context_xyxy": [
+        121,
+        145,
+        293,
+        393
+      ],
+      "generated_bytes": 256063,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_lodging_220_slot_001.png",
+      "generated_sha256": "cdfff442ed3e529de86483946e89b4bafd8818aa0624f2745a78fc735531bebc",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_lodging_220_slot_001_context.jpg",
+      "rank": 38,
+      "selection_reason": "lodging:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_220.jpg",
+      "t30_t40_mask_disagreement": 0.10153966088481778,
+      "task_id": "trash_can_lodging_220_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        537,
+        197,
+        710,
+        432
+      ],
+      "crop_size": [
+        173,
+        235
+      ],
+      "domain": "restaurant",
+      "edit_area_fraction": 0.3625630303775673,
+      "edit_region_in_context_xyxy": [
+        45,
+        62,
+        155,
+        196
+      ],
+      "generated_bytes": 51864,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_restaurant_168_slot_001.png",
+      "generated_sha256": "92e5d1d7719aa713c16301780e621b2f9dc0935dbf6794150a35a399c5f3bbd9",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_restaurant_168_slot_001_context.jpg",
+      "rank": 39,
+      "selection_reason": "restaurant:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/restaurant/restaurant_168.jpg",
+      "t30_t40_mask_disagreement": 0.09302325581395349,
+      "task_id": "trash_can_restaurant_168_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        248,
+        199,
+        595,
+        620
+      ],
+      "crop_size": [
+        347,
+        421
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.30786449170699653,
+      "edit_region_in_context_xyxy": [
+        134,
+        141,
+        309,
+        398
+      ],
+      "generated_bytes": 153989,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_lodging_156_slot_001.png",
+      "generated_sha256": "0dc33e21cd07f48a0cd7644ffb632d3a409663f7a23fa34abd8fd06b679e5458",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_lodging_156_slot_001_context.jpg",
+      "rank": 40,
+      "selection_reason": "lodging:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_156.jpg",
+      "t30_t40_mask_disagreement": 0.07825523994497047,
+      "task_id": "trash_can_lodging_156_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        1077,
+        178,
+        1605,
+        734
+      ],
+      "crop_size": [
+        528,
+        556
+      ],
+      "domain": "restaurant",
+      "edit_area_fraction": 0.3416005831698278,
+      "edit_region_in_context_xyxy": [
+        130,
+        90,
+        419,
+        437
+      ],
+      "generated_bytes": 357865,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_restaurant_064_slot_001.png",
+      "generated_sha256": "7cf1418bb2716582d62bd9ad41916dd4b6abc968f8f3e26fffe0fdebd55bb962",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_restaurant_064_slot_001_context.jpg",
+      "rank": 41,
+      "selection_reason": "restaurant:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/restaurant/restaurant_064.jpg",
+      "t30_t40_mask_disagreement": 0.07782526115859449,
+      "task_id": "trash_can_restaurant_064_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        577,
+        374,
+        929,
+        809
+      ],
+      "crop_size": [
+        352,
+        435
+      ],
+      "domain": "restaurant",
+      "edit_area_fraction": 0.34835423197492166,
+      "edit_region_in_context_xyxy": [
+        56,
+        116,
+        266,
+        370
+      ],
+      "generated_bytes": 220366,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_restaurant_095_slot_001.png",
+      "generated_sha256": "723135c060a09233ea24489b93ae8a2b699f20ddfbd91eacfe0b52fc6b603a38",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_restaurant_095_slot_001_context.jpg",
+      "rank": 42,
+      "selection_reason": "restaurant:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/restaurant/restaurant_095.jpg",
+      "t30_t40_mask_disagreement": 0.07507507507507508,
+      "task_id": "trash_can_restaurant_095_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        1146,
+        422,
+        1477,
+        816
+      ],
+      "crop_size": [
+        331,
+        394
+      ],
+      "domain": "restaurant",
+      "edit_area_fraction": 0.28531446010397654,
+      "edit_region_in_context_xyxy": [
+        85,
+        88,
+        242,
+        325
+      ],
+      "generated_bytes": 203975,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_restaurant_090_slot_001.png",
+      "generated_sha256": "e4b4665294889479bf09bfea47321df420d494daf93952c33eb621444ac47fdb",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_restaurant_090_slot_001_context.jpg",
+      "rank": 43,
+      "selection_reason": "restaurant:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/restaurant/restaurant_090.jpg",
+      "t30_t40_mask_disagreement": 0.06858531115679312,
+      "task_id": "trash_can_restaurant_090_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        1140,
+        754,
+        1542,
+        1252
+      ],
+      "crop_size": [
+        402,
+        498
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.35032168474894604,
+      "edit_region_in_context_xyxy": [
+        80,
+        131,
+        313,
+        432
+      ],
+      "generated_bytes": 285857,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_lodging_291_slot_001.png",
+      "generated_sha256": "1e976ad85574d66bde5de501dca98cb9f7854c6713616a56f3f0366640885a59",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_lodging_291_slot_001_context.jpg",
+      "rank": 44,
+      "selection_reason": "lodging:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_291.jpg",
+      "t30_t40_mask_disagreement": 0.06315034086831718,
+      "task_id": "trash_can_lodging_291_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        684,
+        738,
+        1118,
+        1276
+      ],
+      "crop_size": [
+        434,
+        538
+      ],
+      "domain": "restaurant",
+      "edit_area_fraction": 0.4135473592242989,
+      "edit_region_in_context_xyxy": [
+        90,
+        120,
+        362,
+        475
+      ],
+      "generated_bytes": 360713,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_restaurant_194_slot_001.png",
+      "generated_sha256": "b19e76e9956fa7f558063d0ae64e518d6936068c9bff22741ab61da10b4316fa",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_restaurant_194_slot_001_context.jpg",
+      "rank": 45,
+      "selection_reason": "restaurant:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/restaurant/restaurant_194.jpg",
+      "t30_t40_mask_disagreement": 0.062258612698903135,
+      "task_id": "trash_can_restaurant_194_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        459,
+        198,
+        740,
+        550
+      ],
+      "crop_size": [
+        281,
+        352
+      ],
+      "domain": "restaurant",
+      "edit_area_fraction": 0.3369156421869945,
+      "edit_region_in_context_xyxy": [
+        76,
+        93,
+        231,
+        308
+      ],
+      "generated_bytes": 142838,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_restaurant_236_slot_001.png",
+      "generated_sha256": "b61e9798becf4c1cb0e3754de877ef6ff7d8748ae752d9054b5058eddbd0bf00",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_restaurant_236_slot_001_context.jpg",
+      "rank": 46,
+      "selection_reason": "restaurant:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/restaurant/restaurant_236.jpg",
+      "t30_t40_mask_disagreement": 0.06169397002439875,
+      "task_id": "trash_can_restaurant_236_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        635,
+        597,
+        1106,
+        1164
+      ],
+      "crop_size": [
+        471,
+        567
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.1887462227164987,
+      "edit_region_in_context_xyxy": [
+        210,
+        217,
+        396,
+        488
+      ],
+      "generated_bytes": 338989,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_lodging_246_slot_001.png",
+      "generated_sha256": "e085ddf6fd8cd6c4bf87e354734edc89372c0997bc950b1bc6ff2b5318e2167e",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_lodging_246_slot_001_context.jpg",
+      "rank": 47,
+      "selection_reason": "lodging:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_246.jpg",
+      "t30_t40_mask_disagreement": 0.049083631767432065,
+      "task_id": "trash_can_lodging_246_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        844,
+        98,
+        1344,
+        712
+      ],
+      "crop_size": [
+        500,
+        614
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.18003908794788273,
+      "edit_region_in_context_xyxy": [
+        135,
+        292,
+        417,
+        488
+      ],
+      "generated_bytes": 385267,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_lodging_224_slot_001.png",
+      "generated_sha256": "598a5dceae94a240c28058973a448eaae987eb9c5d587e6a7caec8d27e21c07c",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_lodging_224_slot_001_context.jpg",
+      "rank": 48,
+      "selection_reason": "lodging:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_224.jpg",
+      "t30_t40_mask_disagreement": 0.035447351066168385,
+      "task_id": "trash_can_lodging_224_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        378,
+        1140,
+        850,
+        1752
+      ],
+      "crop_size": [
+        472,
+        612
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.2811011410213803,
+      "edit_region_in_context_xyxy": [
+        147,
+        125,
+        379,
+        475
+      ],
+      "generated_bytes": 388347,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_lodging_117_slot_001.png",
+      "generated_sha256": "73407b211d3e5b261e99110cebc98992f36032dc0ed70e46130d9b069b2f4c4f",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_lodging_117_slot_001_context.jpg",
+      "rank": 49,
+      "selection_reason": "lodging:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_117.jpg",
+      "t30_t40_mask_disagreement": 0.03393565447333627,
+      "task_id": "trash_can_lodging_117_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        319,
+        180,
+        532,
+        433
+      ],
+      "crop_size": [
+        213,
+        253
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.43199910928018703,
+      "edit_region_in_context_xyxy": [
+        61,
+        46,
+        181,
+        240
+      ],
+      "generated_bytes": 96846,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_lodging_263_slot_001.png",
+      "generated_sha256": "1f090e338bd8a2bff023b2247b30cfc83353bde244c121dab2cc1b2f4a126352",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_lodging_263_slot_001_context.jpg",
+      "rank": 50,
+      "selection_reason": "lodging:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_263.jpg",
+      "t30_t40_mask_disagreement": 0.028868360277136258,
+      "task_id": "trash_can_lodging_263_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        298,
+        98,
+        544,
+        389
+      ],
+      "crop_size": [
+        246,
+        291
+      ],
+      "domain": "restaurant",
+      "edit_area_fraction": 0.21657866063196715,
+      "edit_region_in_context_xyxy": [
+        68,
+        98,
+        182,
+        234
+      ],
+      "generated_bytes": 122182,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_restaurant_285_slot_001.png",
+      "generated_sha256": "2dfcb69ce21bd68bcc6c48700336432479c451f7997922690033ad129305f141",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_restaurant_285_slot_001_context.jpg",
+      "rank": 51,
+      "selection_reason": "restaurant:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/restaurant/restaurant_285.jpg",
+      "t30_t40_mask_disagreement": 0.027263875365141188,
+      "task_id": "trash_can_restaurant_285_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        103,
+        670,
+        602,
+        1155
+      ],
+      "crop_size": [
+        499,
+        485
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.3010722475879594,
+      "edit_region_in_context_xyxy": [
+        84,
+        130,
+        337,
+        418
+      ],
+      "generated_bytes": 304342,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_lodging_013_slot_001.png",
+      "generated_sha256": "d1ee0262eafcc61653eb6a6107b85db18b0f006b4ba4a4817fa3b7ffeb2e0e17",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_lodging_013_slot_001_context.jpg",
+      "rank": 52,
+      "selection_reason": "lodging:high_t30_t40_disagreement",
+      "source_image": "images/lodging_013.jpg",
+      "t30_t40_mask_disagreement": 0.019588750787559426,
+      "task_id": "trash_can_lodging_013_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        831,
+        531,
+        1322,
+        1072
+      ],
+      "crop_size": [
+        491,
+        541
+      ],
+      "domain": "restaurant",
+      "edit_area_fraction": 0.32323034585571714,
+      "edit_region_in_context_xyxy": [
+        99,
+        134,
+        369,
+        452
+      ],
+      "generated_bytes": 344581,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_restaurant_032_slot_001.png",
+      "generated_sha256": "533fad34c4b6642c485825c5641c1f80c98710cb988e935361dda58e583ceefb",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_restaurant_032_slot_001_context.jpg",
+      "rank": 53,
+      "selection_reason": "restaurant:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/restaurant/restaurant_032.jpg",
+      "t30_t40_mask_disagreement": 0.004786215698787492,
+      "task_id": "trash_can_restaurant_032_slot_001"
+    },
+    {
+      "context_region_xyxy": [
+        373,
+        279,
+        563,
+        491
+      ],
+      "crop_size": [
+        190,
+        212
+      ],
+      "domain": "lodging",
+      "edit_area_fraction": 0.22939424031777558,
+      "edit_region_in_context_xyxy": [
+        45,
+        49,
+        122,
+        169
+      ],
+      "generated_bytes": 54099,
+      "generated_crop": "generated_crops/hunyuan_image3_distil_trash_can_relabel_reject_both_partial55_variant1_20260724/trash_can_lodging_157_slot_001.png",
+      "generated_sha256": "bd1f0901b0918f055d6fdd69a096264e6a465eafff6e8e822a74a8e57f445de6",
+      "mask_reference": "crops/context_trash_can_relabel_reject_both_partial55_20260724/trash_can_lodging_157_slot_001_context.jpg",
+      "rank": 54,
+      "selection_reason": "lodging:high_t30_t40_disagreement",
+      "source_image": "source_pool/openimages_v7_600/lodging/lodging_157.jpg",
+      "t30_t40_mask_disagreement": 0.0,
+      "task_id": "trash_can_lodging_157_slot_001"
+    }
+  ],
+  "pillow_version": "12.1.1",
+  "postprocess": {
+    "alpha_feather": 0.0,
+    "diff_threshold": 20.0,
+    "mode": "semantic",
+    "support_radius": 6
+  },
+  "prompt": "trash can",
+  "provider": "fal",
+  "request_input": {
+    "apply_mask": false,
+    "box_prompt": true,
+    "include_boxes": true,
+    "include_scores": true,
+    "max_masks": 3,
+    "prompt": "trash can",
+    "return_multiple_masks": true
+  },
+  "requests_version": "2.34.2",
+  "schema_version": "fal_sam3_splice_run_v2",
+  "selection_sha256": "9a87e120fe2c1f84a011d4f0a49492ae713dbcaa59f794e5bc8535834e3fbd18",
+  "task_manifest": "annotations/trash_can_generation_tasks_relabel_reject_both_partial55_20260724.jsonl",
+  "task_manifest_sha256": "ee5031cf0111e3573ce829c828c82efdebe8d040011e79b8bd490861ce79ccdc"
+}
