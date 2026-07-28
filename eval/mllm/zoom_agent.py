@@ -3,7 +3,6 @@ from __future__ import annotations
 
 import csv
 import json
-import math
 import re
 import statistics
 import time
@@ -11,11 +10,12 @@ from pathlib import Path
 from typing import Any
 
 from .client import RetryableError, VisionClient, retry_delay
+from .results import iter_jsonl
 from .schema import SchemaError, parse
 
-AGENT_PROTOCOL_VERSION = "mllm_zoom_agent_v1_20260727"
-DETECTION_PROTOCOL_VERSION = "mllm_zoom_agent_detection_v1_20260727"
-LOCALIZATION_PROTOCOL_VERSION = "mllm_zoom_agent_localization_v1_bbox1000_20260727"
+AGENT_PROTOCOL_VERSION = "mllm_zoom_agent_v2_bboxpx_20260728"
+DETECTION_PROTOCOL_VERSION = "mllm_zoom_agent_detection_v2_20260728"
+LOCALIZATION_PROTOCOL_VERSION = "mllm_zoom_agent_localization_v2_bboxpx_20260728"
 PROTOCOL_VERSIONS = {
     "detection": DETECTION_PROTOCOL_VERSION,
     "localization": LOCALIZATION_PROTOCOL_VERSION,
@@ -29,17 +29,19 @@ ZOOM_TOOL_SCHEMA: dict[str, Any] = {
     "input_schema": {
         "type": "object",
         "properties": {
-            "bbox_1000": {
+            "bbox_px": {
                 "type": "array",
                 "description": (
-                    "Original full-image normalized [x1,y1,x2,y2] box."
+                    "Original full-image pixel [x1,y1,x2,y2] box. Bounds "
+                    "depend on the original image dimensions supplied in "
+                    "the prompt."
                 ),
-                "items": {"type": "number", "minimum": 0, "maximum": 1000},
+                "items": {"type": "integer", "minimum": 0},
                 "minItems": 4,
                 "maxItems": 4,
             },
         },
-        "required": ["bbox_1000"],
+        "required": ["bbox_px"],
         "additionalProperties": False,
     },
 }
@@ -49,12 +51,13 @@ SYSTEM_PROMPT = """You are an image-forensics agent. Examine the supplied image 
 INITIAL_PROMPT = """Analyze the original full image for digital editing.
 
 You have access to one application tool:
-zoom_in(bbox_1000): crop a rectangular region from the ORIGINAL full-resolution image and return an enlarged observation.
+zoom_in(bbox_px): crop a rectangular region from the ORIGINAL full-resolution image and return an enlarged observation.
 
-Tool coordinates always use the ORIGINAL full-image normalized coordinate system:
-- top-left is (0, 0), bottom-right is (1000, 1000)
-- bbox_1000 is [x1, y1, x2, y2]
-- require 0 <= x1 < x2 <= 1000 and 0 <= y1 < y2 <= 1000
+The ORIGINAL full image is {width} x {height} pixels.
+Tool coordinates always use its ORIGINAL full-image pixel coordinate system:
+- top-left is (0, 0), bottom-right is ({width}, {height})
+- bbox_px is [x1, y1, x2, y2] using integer pixel coordinates
+- require 0 <= x1 < x2 <= {width} and 0 <= y1 < y2 <= {height}
 - a crop observation does not create a new coordinate system
 
 You may call zoom_in at most {max_zoom_calls} times. Use it only when closer inspection can resolve a specific uncertainty. You may inspect different or overlapping regions. When enough evidence is available, finish without spending unused calls.
@@ -63,7 +66,7 @@ For a tool call, return exactly one JSON object:
 {{
   "action": "zoom_in",
   "reasoning": "<why this original-image region needs closer inspection>",
-  "bbox_1000": [<x1>, <y1>, <x2>, <y2>]
+  "bbox_px": [<x1>, <y1>, <x2>, <y2>]
 }}
 
 For the final answer, return exactly one JSON object:
@@ -74,14 +77,14 @@ For the final answer, return exactly one JSON object:
   "p_ai_edited": <integer 0-100>,
   "evidence": [<at most 3 short visible-evidence statements>],
   "regions": [{{
-    "bbox_1000": [<x1>, <y1>, <x2>, <y2>],
+    "bbox_px": [<x1>, <y1>, <x2>, <y2>],
     "confidence": <integer 0-100>,
     "evidence": "<short visible-evidence statement>"
   }}]
 }}
 
 Final-answer rules:
-- regions use the ORIGINAL full-image bbox_1000 coordinates, never crop-relative coordinates
+- regions use the ORIGINAL full-image bbox_px coordinates, never crop-relative coordinates
 - return at most 3 regions, ordered by confidence
 - if decision is not_edited, regions must be []
 - if edited evidence is visible but cannot be localized reliably, decision may be edited with regions []
@@ -110,16 +113,31 @@ def _json_object(raw: str) -> dict[str, Any]:
     return value
 
 
-def _bbox_1000(value: Any) -> list[float]:
+def _bbox_px(
+    value: Any,
+    image_size: tuple[int, int],
+) -> list[int]:
     if (
         not isinstance(value, list)
         or len(value) != 4
-        or not all(isinstance(x, (int, float)) and not isinstance(x, bool) for x in value)
+        or not all(
+            isinstance(x, (int, float))
+            and not isinstance(x, bool)
+            and int(x) == x
+            for x in value
+        )
     ):
-        raise SchemaError("bbox_1000 must contain four numbers")
-    box = [float(x) for x in value]
-    if not (0 <= box[0] < box[2] <= 1000 and 0 <= box[1] < box[3] <= 1000):
-        raise SchemaError("bbox_1000 is out of range or degenerate")
+        raise SchemaError("bbox_px must contain four integer pixel coordinates")
+    box = [int(x) for x in value]
+    width, height = image_size
+    if not (
+        0 <= box[0] < box[2] <= width
+        and 0 <= box[1] < box[3] <= height
+    ):
+        raise SchemaError(
+            f"bbox_px is out of range or degenerate for "
+            f"{width}x{height} image"
+        )
     return box
 
 
@@ -129,7 +147,7 @@ def parse_agent_action(
     zoom_calls_used: int,
     max_zoom_calls: int,
 ) -> dict[str, Any]:
-    """Parse one agent action and normalize final localization boxes to pixels."""
+    """Parse one agent action in original full-image pixel coordinates."""
     value = _json_object(raw)
     action = value.get("action")
     reasoning = value.get("reasoning")
@@ -141,7 +159,7 @@ def parse_agent_action(
         return {
             "action": "zoom_in",
             "reasoning": reasoning.strip(),
-            "bbox_1000": _bbox_1000(value.get("bbox_1000")),
+            "bbox_px": _bbox_px(value.get("bbox_px"), image_size),
         }
     if action != "final":
         raise SchemaError("action must be zoom_in or final")
@@ -168,7 +186,7 @@ def parse_agent_action(
         "localization",
         json.dumps(localization_value),
         image_size=image_size,
-        coordinate_space="bbox_1000",
+        coordinate_space="bbox_px",
     )
     return {
         "action": "final",
@@ -177,22 +195,9 @@ def parse_agent_action(
     }
 
 
-def bbox_1000_to_pixels(
-    bbox: list[float],
-    image_size: tuple[int, int],
-) -> list[int]:
-    """Convert a normalized box to an enclosing, non-empty original-image crop."""
-    width, height = image_size
-    x1 = max(0, min(width - 1, math.floor(bbox[0] * width / 1000)))
-    y1 = max(0, min(height - 1, math.floor(bbox[1] * height / 1000)))
-    x2 = max(x1 + 1, min(width, math.ceil(bbox[2] * width / 1000)))
-    y2 = max(y1 + 1, min(height, math.ceil(bbox[3] * height / 1000)))
-    return [x1, y1, x2, y2]
-
-
 def create_zoom_crop(
     original_path: Path,
-    bbox_1000: list[float],
+    bbox_px: list[int],
     output_path: Path,
     long_side: int,
 ) -> dict[str, Any]:
@@ -203,7 +208,7 @@ def create_zoom_crop(
 
     with Image.open(original_path) as opened:
         original = ImageOps.exif_transpose(opened).convert("RGB")
-        bbox_px = bbox_1000_to_pixels(bbox_1000, original.size)
+        bbox_px = _bbox_px(bbox_px, original.size)
         crop = original.crop(tuple(bbox_px))
         input_size = crop.size
         scale = max(1.0, long_side / max(crop.size))
@@ -216,7 +221,6 @@ def create_zoom_crop(
         output_path.parent.mkdir(parents=True, exist_ok=True)
         crop.save(output_path, format="PNG", optimize=False)
     return {
-        "bbox_1000": bbox_1000,
         "bbox_px": bbox_px,
         "crop_input_size": list(input_size),
         "crop_output_size": list(output_size),
@@ -285,8 +289,11 @@ def run_agent_episode(
         "content": [
             {
                 "type": "text",
-                "text": INITIAL_PROMPT.format(max_zoom_calls=max_zoom_calls)
-                + f"\nThe original image dimensions are {image_size[0]} x {image_size[1]} pixels.",
+                "text": INITIAL_PROMPT.format(
+                    max_zoom_calls=max_zoom_calls,
+                    width=image_size[0],
+                    height=image_size[1],
+                ),
             },
             client.image_part(original_image),
         ],
@@ -389,7 +396,7 @@ def run_agent_episode(
         )
         tool_result = create_zoom_crop(
             image_path,
-            parsed_action["bbox_1000"],
+            parsed_action["bbox_px"],
             crop_path,
             zoom_long_side,
         )
@@ -398,8 +405,7 @@ def run_agent_episode(
         calls_remaining = max_zoom_calls - len(tool_calls)
         tool_text = (
             "zoom_in tool result: this observation is the enlarged crop "
-            f"from original bbox_1000={tool_result['bbox_1000']} "
-            f"(original pixels={tool_result['bbox_px']}). "
+            f"from original bbox_px={tool_result['bbox_px']}. "
             f"zoom_in calls remaining: {calls_remaining}. "
             "Retain the original full-image coordinate system for any "
             "next tool call and for final regions."
@@ -422,10 +428,10 @@ def run_agent_episode(
                         "type": "text",
                         "text": (
                             INITIAL_PROMPT.format(
-                                max_zoom_calls=max_zoom_calls
+                                max_zoom_calls=max_zoom_calls,
+                                width=image_size[0],
+                                height=image_size[1],
                             )
-                            + "\nThe original image dimensions are "
-                            f"{image_size[0]} x {image_size[1]} pixels."
                             + "\nPreviously executed action JSON objects:\n"
                             + "\n".join(prior_action_summaries)
                             + "\n"
@@ -471,10 +477,7 @@ def summarize_agent_run(
     """Summarize latest per-episode tool use and validity without using GT."""
     latest: dict[tuple[str, int], dict[str, Any]] = {}
     if raw_path.is_file():
-        for line in raw_path.read_text(encoding="utf-8").splitlines():
-            if not line.strip():
-                continue
-            row = json.loads(line)
+        for row in iter_jsonl(raw_path):
             if (
                 row.get("run_id") == run_id
                 and row.get("protocol_version") == AGENT_PROTOCOL_VERSION

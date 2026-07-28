@@ -45,8 +45,8 @@ from .zoom_agent import (
 )
 
 PROTOCOL_IDS = {
-    "detection": "mllm_zoom_agent_detection_v1",
-    "localization": "mllm_zoom_agent_localization_v1",
+    "detection": "mllm_zoom_agent_detection_v2",
+    "localization": "mllm_zoom_agent_localization_v2",
 }
 
 
@@ -87,7 +87,7 @@ def _manifest_payload(
             "keys": ["detection", "localization"],
             "versions": PROTOCOL_VERSIONS,
             "replicates_required": 3,
-            "coordinate_space": "bbox_1000",
+            "coordinate_space": "bbox_px",
             "max_zoom_calls_per_episode": args.max_zoom_calls,
             "max_inference_turns_per_episode": args.max_zoom_calls + 1,
             "zoom_long_side": args.zoom_long_side,
@@ -331,7 +331,7 @@ def _append_aggregate(
                 "protocol_version": PROTOCOL_VERSIONS[protocol],
                 "protocol_suite_version": AGENT_PROTOCOL_VERSION,
                 "localization_coordinate_space": (
-                    "bbox_1000" if protocol == "localization" else None
+                    "bbox_px" if protocol == "localization" else None
                 ),
                 "request_params": request_params,
                 **run_fields,
@@ -667,7 +667,7 @@ def main() -> None:
                     if not model.get("omitTemperature", False):
                         request_params["temperature"] = model["temperature"]
                     row = {
-                        "schema_version": "mllm_zoom_agent_raw_v1",
+                        "schema_version": "mllm_zoom_agent_raw_v2",
                         "raw_id": (
                             f"{run_id}:{item.id}:agent_zoom:{replicate}"
                         ),
@@ -685,7 +685,7 @@ def main() -> None:
                         "model": model["id"],
                         "model_slug": model["slug"],
                         "protocol_key": "agent_zoom",
-                        "protocol_id": "mllm_zoom_agent_v1",
+                        "protocol_id": "mllm_zoom_agent_v2",
                         "protocol_version": AGENT_PROTOCOL_VERSION,
                         "replicate_index": replicate,
                         "request_params": request_params,

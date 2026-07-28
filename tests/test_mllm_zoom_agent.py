@@ -7,9 +7,9 @@ from pathlib import Path
 from PIL import Image
 
 from eval.mllm.schema import SchemaError
+from eval.mllm.results import completed_raw_keys, successful_raw
 from eval.mllm.zoom_agent import (
     AGENT_PROTOCOL_VERSION,
-    bbox_1000_to_pixels,
     create_zoom_crop,
     parse_agent_action,
     run_agent_episode,
@@ -21,7 +21,7 @@ def _zoom(box):
     return json.dumps({
         "action": "zoom_in",
         "reasoning": "inspect a suspicious edge",
-        "bbox_1000": box,
+        "bbox_px": box,
     })
 
 
@@ -33,7 +33,7 @@ def _final():
         "p_ai_edited": 83,
         "evidence": ["inconsistent edge"],
         "regions": [{
-            "bbox_1000": [500, 200, 900, 800],
+            "bbox_px": [50, 20, 75, 40],
             "confidence": 88,
             "evidence": "edge halo",
         }],
@@ -60,34 +60,43 @@ class _FakeClient:
 class ZoomAgentSchemaTest(unittest.TestCase):
     def test_parses_zoom_and_final_in_original_coordinates(self):
         zoom = parse_agent_action(
-            _zoom([100, 200, 400, 800]),
+            _zoom([20, 20, 80, 80]),
             (200, 100),
             0,
             2,
         )
         self.assertEqual(zoom["action"], "zoom_in")
-        self.assertEqual(zoom["bbox_1000"], [100.0, 200.0, 400.0, 800.0])
+        self.assertEqual(zoom["bbox_px"], [20, 20, 80, 80])
 
         final = parse_agent_action(_final(), (200, 100), 2, 2)
         self.assertEqual(final["detection"]["decision"], "edited")
         self.assertEqual(
             final["localization"]["regions"][0]["bbox_px"],
-            [100.0, 20.0, 180.0, 80.0],
+            [50.0, 20.0, 75.0, 40.0],
         )
+
+    def test_rejects_out_of_range_pixel_box(self):
+        with self.assertRaisesRegex(SchemaError, "200x100"):
+            parse_agent_action(
+                _zoom([180, 20, 220, 80]),
+                (200, 100),
+                0,
+                2,
+            )
 
     def test_rejects_zoom_after_call_limit(self):
         with self.assertRaisesRegex(SchemaError, "limit"):
-            parse_agent_action(_zoom([0, 0, 500, 500]), (100, 100), 2, 2)
+            parse_agent_action(_zoom([0, 0, 50, 50]), (100, 100), 2, 2)
 
     def test_executes_only_first_object_from_imagined_trajectory(self):
         response = "\n".join([
-            _zoom([0, 0, 500, 500]),
-            _zoom([500, 500, 1000, 1000]),
+            _zoom([0, 0, 50, 50]),
+            _zoom([50, 50, 100, 100]),
             _final(),
         ])
         action = parse_agent_action(response, (100, 100), 0, 2)
         self.assertEqual(action["action"], "zoom_in")
-        self.assertEqual(action["bbox_1000"], [0.0, 0.0, 500.0, 500.0])
+        self.assertEqual(action["bbox_px"], [0, 0, 50, 50])
 
     def test_not_edited_cannot_return_regions(self):
         value = json.loads(_final())
@@ -106,7 +115,7 @@ class ZoomCropTest(unittest.TestCase):
 
             result = create_zoom_crop(
                 original,
-                [100, 200, 600, 800],
+                [10, 10, 60, 40],
                 output,
                 long_side=200,
             )
@@ -117,11 +126,18 @@ class ZoomCropTest(unittest.TestCase):
             with Image.open(output) as crop:
                 self.assertEqual(crop.size, (200, 120))
 
-    def test_fractional_box_encloses_requested_region(self):
-        self.assertEqual(
-            bbox_1000_to_pixels([1, 1, 999, 999], (101, 51)),
-            [0, 0, 101, 51],
-        )
+    def test_crop_rejects_fractional_pixel_coordinates(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            original = root / "original.png"
+            Image.new("RGB", (101, 51), "white").save(original)
+            with self.assertRaisesRegex(SchemaError, "integer"):
+                create_zoom_crop(
+                    original,
+                    [1.5, 1, 99, 49],
+                    root / "crop.png",
+                    long_side=100,
+                )
 
 
 class ZoomAgentLoopTest(unittest.TestCase):
@@ -131,8 +147,8 @@ class ZoomAgentLoopTest(unittest.TestCase):
             original = root / "original.png"
             Image.new("RGB", (120, 80), (40, 50, 60)).save(original)
             client = _FakeClient([
-                _zoom([0, 0, 500, 500]),
-                _zoom([500, 200, 900, 800]),
+                _zoom([0, 0, 60, 40]),
+                _zoom([60, 16, 108, 64]),
                 _final(),
             ])
 
@@ -160,7 +176,7 @@ class ZoomAgentLoopTest(unittest.TestCase):
             self.assertEqual(len(client.histories[1][1]), 3)
             self.assertEqual(len(client.histories[2][1]), 5)
             self.assertIn(
-                "original bbox_1000",
+                "original bbox_px",
                 client.histories[1][1][-1]["content"][0]["text"],
             )
 
@@ -170,11 +186,11 @@ class ZoomAgentLoopTest(unittest.TestCase):
             original = root / "original.png"
             Image.new("RGB", (100, 100), "white").save(original)
             client = _FakeClient([
-                _zoom([0, 0, 500, 500]),
-                _zoom([100, 100, 600, 600]),
-                _zoom([200, 200, 700, 700]),
-                _zoom([300, 300, 800, 800]),
-                _zoom([400, 400, 900, 900]),
+                _zoom([0, 0, 50, 50]),
+                _zoom([10, 10, 60, 60]),
+                _zoom([20, 20, 70, 70]),
+                _zoom([30, 30, 80, 80]),
+                _zoom([40, 40, 90, 90]),
                 _final(),
             ])
 
@@ -203,9 +219,9 @@ class ZoomAgentLoopTest(unittest.TestCase):
             original = root / "original.png"
             Image.new("RGB", (80, 80), "white").save(original)
             client = _FakeClient([
-                _zoom([0, 0, 500, 500]),
-                _zoom([500, 500, 1000, 1000]),
-                _zoom([100, 100, 900, 900]),
+                _zoom([0, 0, 40, 40]),
+                _zoom([40, 40, 80, 80]),
+                _zoom([10, 10, 70, 70]),
                 _final(),
             ])
 
@@ -236,7 +252,7 @@ class ZoomAgentLoopTest(unittest.TestCase):
             original = root / "original.png"
             Image.new("RGB", (120, 80), (40, 50, 60)).save(original)
             client = _FakeClient([
-                _zoom([0, 0, 500, 500]),
+                _zoom([0, 0, 60, 40]),
                 _final(),
             ])
 
@@ -268,6 +284,37 @@ class ZoomAgentLoopTest(unittest.TestCase):
 
 
 class ZoomAgentMetricsTest(unittest.TestCase):
+    def test_resume_handles_unicode_line_separator_inside_json_string(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "run.raw.jsonl"
+            row = {
+                "id": "a",
+                "protocol_key": "agent_zoom",
+                "replicate_index": 1,
+                "protocol_version": AGENT_PROTOCOL_VERSION,
+                "status": "ok",
+                "parsed": {
+                    "detection": {
+                        "reasoning": "first\u2028second",
+                        "decision": "not_edited",
+                    },
+                },
+            }
+            path.write_text(
+                json.dumps(row, ensure_ascii=False) + "\n",
+                encoding="utf-8",
+            )
+
+            self.assertEqual(
+                completed_raw_keys(path, AGENT_PROTOCOL_VERSION),
+                {("a", "agent_zoom", 1)},
+            )
+            parsed = successful_raw(path, AGENT_PROTOCOL_VERSION)
+            self.assertEqual(
+                parsed[("a", "agent_zoom", 1)]["detection"]["reasoning"],
+                "first\u2028second",
+            )
+
     def test_latest_episode_rows_drive_tool_use_summary(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -290,7 +337,7 @@ class ZoomAgentMetricsTest(unittest.TestCase):
                     "status": "ok",
                     "latency_ms": 10,
                     "turns": [{"attempts": [{"status": "ok"}]}],
-                    "tool_calls": [{"bbox_1000": [0, 0, 10, 10]}],
+                    "tool_calls": [{"bbox_px": [0, 0, 10, 10]}],
                     "parsed": {"detection": {"decision": "edited"}},
                 },
                 {
