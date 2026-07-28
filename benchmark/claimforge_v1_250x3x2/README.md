@@ -7,16 +7,24 @@ This directory is the frozen edited-image benchmark slice with:
   orange-box conditional generation;
 - 250 matched tasks per category and route.
 
-The result contains 1500 edited PNGs arranged as:
+The original release materialized 1,500 edited PNG copies under:
 
 ```text
 local_splice/<category>/*.png
 full_image/<category>/*.png
 ```
 
-`pairs.jsonl` contains the 750 matched task pairs.
-`manifest.jsonl` contains one row per edited image. Each method/category
-directory also has its own 250-row `manifest.jsonl`.
+Those duplicate image directories were removed on 2026-07-28. The authoritative
+MLLM scope now points directly to the existing source artifacts through
+`annotations/claimforge_mllm_benchmark1000_v2.jsonl`, so keeping another
+2.8 GiB copy is unnecessary.
+
+`pairs.jsonl` retains the 750 historical matched task pairs and
+`manifest.jsonl` retains one row per historical edited image. Their `image`
+fields record the removed materialized paths; use each row's `source_artifact`
+to locate the original repository image. `summary.json` remains the selection
+audit. Running the rebuild command below will materialize the deleted copies
+again.
 
 ## Selection policy
 

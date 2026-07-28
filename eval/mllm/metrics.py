@@ -458,15 +458,37 @@ def evaluate_review_export(
         result = results.get((gt.id, "localization"))
         is_valid = _valid(result)
         boxes = _boxes(result) if is_valid else []
+        raw_regions = result.get("regions_px") if is_valid else []
+        raw_region_count = len(raw_regions) if isinstance(raw_regions, list) else 0
+        invalid_or_out_of_bounds_box_count = raw_region_count - len(boxes)
         target = None
         gt_mask_kind = "exact_diff" if gt.spliced_image is not None else "all_zero"
         gt_mask_sha256 = None
         pixel_metrics = None
         union_box_iou = None
         box_hit_at_0_3 = None
-        if is_valid:
+        # Strict forged-image protocol: every expected forged image is scored.
+        # Missing/invalid output is represented by an empty prediction mask and
+        # therefore contributes a localization miss instead of disappearing
+        # from the denominator.  Real-image localization remains a coverage
+        # diagnostic; detection is the authoritative negative-class protocol.
+        localization_scored = gt.edit_region_xyxy is not None or is_valid
+        if localization_scored:
             target, gt_mask_kind = _target_mask(gt)
             gt_mask_sha256 = hashlib.sha256(target.tobytes()).hexdigest()
+            width, height = target.size
+            in_bounds_boxes = [
+                box
+                for box in boxes
+                if (
+                    0 <= box[0] < box[2] <= width
+                    and 0 <= box[1] < box[3] <= height
+                )
+            ]
+            invalid_or_out_of_bounds_box_count += (
+                len(boxes) - len(in_bounds_boxes)
+            )
+            boxes = in_bounds_boxes
             prediction = _rasterize_boxes(target.size, boxes)
             reported_size = result.get("image_size")
             if (
@@ -480,23 +502,22 @@ def evaluate_review_export(
             pixel_metrics = _binary_mask_metrics(prediction, target)
         if gt.edit_region_xyxy is not None:
             gt_box = list(map(float, gt.edit_region_xyxy))
-            best_iou = max((_iou(box, gt_box) for box in boxes), default=0.0) if is_valid else None
-            any_overlap = any(_overlaps(box, gt_box) for box in boxes) if is_valid else None
-            iou_at_0_1 = best_iou >= 0.10 if best_iou is not None else None
-            iou_at_0_25 = best_iou >= 0.25 if best_iou is not None else None
-            iou_at_0_5 = best_iou >= 0.50 if best_iou is not None else None
-            all_inside = bool(boxes) and all(_inside(box, gt_box) for box in boxes) if is_valid else None
-            if is_valid:
-                union_box_metrics = _binary_mask_metrics(
-                    prediction,
-                    _box_mask(target.size, gt_box),
-                )
-                union_box_iou = union_box_metrics["iou"]
-                box_hit_at_0_3 = (
-                    union_box_iou > 0.3
-                    if union_box_iou is not None
-                    else False
-                )
+            best_iou = max((_iou(box, gt_box) for box in boxes), default=0.0)
+            any_overlap = any(_overlaps(box, gt_box) for box in boxes)
+            iou_at_0_1 = best_iou >= 0.10
+            iou_at_0_25 = best_iou >= 0.25
+            iou_at_0_5 = best_iou >= 0.50
+            all_inside = bool(boxes) and all(_inside(box, gt_box) for box in boxes)
+            union_box_metrics = _binary_mask_metrics(
+                prediction,
+                _box_mask(target.size, gt_box),
+            )
+            union_box_iou = union_box_metrics["iou"]
+            box_hit_at_0_3 = (
+                union_box_iou > 0.3
+                if union_box_iou is not None
+                else False
+            )
             real_rejection_correct = None
         else:
             gt_box = None
@@ -525,8 +546,15 @@ def evaluate_review_export(
             ),
             "result_status": result.get("status") if result else "missing_result",
             "valid_for_metrics": is_valid,
+            "localization_scored": localization_scored,
+            "strict_localization_miss": (
+                gt.edit_region_xyxy is not None and not boxes
+            ),
             "model_decision": result.get("decision") if is_valid else None,
             "predicted_regions_xyxy": boxes,
+            "invalid_or_out_of_bounds_box_count": (
+                invalid_or_out_of_bounds_box_count
+            ),
             "predicted_mask_path": result.get("mask_path") if is_valid else None,
             "prediction_adapter": "aggregated_bbox_union_binary_mask",
             "model_aggregate": result.get("result") if is_valid else None,
@@ -554,21 +582,22 @@ def evaluate_review_export(
         })
     forged_localization = [row for row in localization_rows if row["gt_label"] == "edited"]
     valid_forged = [row for row in forged_localization if row["valid_for_metrics"]]
+    scored_forged = forged_localization
     real_localization = [row for row in localization_rows if row["gt_label"] == "not_edited"]
     valid_real = [row for row in real_localization if row["valid_for_metrics"]]
-    overlap_success = sum(bool(row["any_box_overlaps_gt"]) for row in valid_forged)
-    iou_at_0_1_success = sum(bool(row["box_iou_at_0_1"]) for row in valid_forged)
-    iou_at_0_25_success = sum(bool(row["box_iou_at_0_25"]) for row in valid_forged)
-    iou_at_0_5_success = sum(bool(row["box_iou_at_0_5"]) for row in valid_forged)
+    overlap_success = sum(bool(row["any_box_overlaps_gt"]) for row in scored_forged)
+    iou_at_0_1_success = sum(bool(row["box_iou_at_0_1"]) for row in scored_forged)
+    iou_at_0_25_success = sum(bool(row["box_iou_at_0_25"]) for row in scored_forged)
+    iou_at_0_5_success = sum(bool(row["box_iou_at_0_5"]) for row in scored_forged)
     box_hit_at_0_3_success = sum(
-        bool(row["box_hit_at_0_3"]) for row in valid_forged
+        bool(row["box_hit_at_0_3"]) for row in scored_forged
     )
-    contained_success = sum(bool(row["all_predicted_boxes_inside_gt"]) for row in valid_forged)
+    contained_success = sum(bool(row["all_predicted_boxes_inside_gt"]) for row in scored_forged)
     real_rejection_success = sum(bool(row["real_no_edit_correct"]) for row in valid_real)
     pixel_counts = {
         name: sum(
             int(row["pixel_metrics"][name])
-            for row in valid_forged
+            for row in scored_forged
             if isinstance(row.get("pixel_metrics"), dict)
         )
         for name in ("tp", "fp", "fn", "tn")
@@ -599,7 +628,7 @@ def evaluate_review_export(
         for row in valid_real
         if isinstance(row.get("pixel_metrics"), dict)
     )
-    primary_pixel_iou = _mean_metric(valid_forged, "pixel_iou")
+    primary_pixel_iou = _mean_metric(scored_forged, "pixel_iou")
     localization_summary: dict[str, Any] = {
         **run_metadata,
         "protocol": "localization",
@@ -620,14 +649,24 @@ def evaluate_review_export(
         "forged_expected": len(forged_localization),
         "forged_valid": len(valid_forged),
         "forged_coverage": _safe_div(len(valid_forged), len(forged_localization)),
+        "forged_scored": len(scored_forged),
+        "strict_missing_or_empty_bbox_misses": sum(
+            bool(row["strict_localization_miss"]) for row in scored_forged
+        ),
+        "invalid_or_missing_result_misses": sum(
+            not row["valid_for_metrics"] for row in scored_forged
+        ),
+        "localization_denominator_policy": (
+            "all_expected_forged_images; missing, invalid, or empty bbox is miss"
+        ),
         "forged_pixel_macro_precision": _mean_metric(
-            valid_forged,
+            scored_forged,
             "pixel_precision",
         ),
-        "forged_pixel_macro_recall": _mean_metric(valid_forged, "pixel_recall"),
-        "forged_pixel_macro_f1": _mean_metric(valid_forged, "pixel_f1"),
+        "forged_pixel_macro_recall": _mean_metric(scored_forged, "pixel_recall"),
+        "forged_pixel_macro_f1": _mean_metric(scored_forged, "pixel_f1"),
         "forged_pixel_macro_iou": primary_pixel_iou,
-        "forged_pixel_macro_mcc": _mean_metric(valid_forged, "pixel_mcc"),
+        "forged_pixel_macro_mcc": _mean_metric(scored_forged, "pixel_mcc"),
         "forged_pixel_micro_tp": pixel_counts["tp"],
         "forged_pixel_micro_fp": pixel_counts["fp"],
         "forged_pixel_micro_fn": pixel_counts["fn"],
@@ -643,18 +682,18 @@ def evaluate_review_export(
         "auxiliary_box_hit_successes": box_hit_at_0_3_success,
         "auxiliary_box_hit_accuracy": _safe_div(
             box_hit_at_0_3_success,
-            len(valid_forged),
+            len(scored_forged),
         ),
         "box_overlap_successes": overlap_success,
-        "box_overlap_accuracy": _safe_div(overlap_success, len(valid_forged)),
+        "box_overlap_accuracy": _safe_div(overlap_success, len(scored_forged)),
         "box_iou_at_0_1_successes": iou_at_0_1_success,
-        "box_iou_at_0_1_accuracy": _safe_div(iou_at_0_1_success, len(valid_forged)),
+        "box_iou_at_0_1_accuracy": _safe_div(iou_at_0_1_success, len(scored_forged)),
         "box_iou_at_0_25_successes": iou_at_0_25_success,
-        "box_iou_at_0_25_accuracy": _safe_div(iou_at_0_25_success, len(valid_forged)),
+        "box_iou_at_0_25_accuracy": _safe_div(iou_at_0_25_success, len(scored_forged)),
         "box_iou_at_0_5_successes": iou_at_0_5_success,
-        "box_iou_at_0_5_accuracy": _safe_div(iou_at_0_5_success, len(valid_forged)),
+        "box_iou_at_0_5_accuracy": _safe_div(iou_at_0_5_success, len(scored_forged)),
         "all_boxes_inside_gt_successes": contained_success,
-        "all_boxes_inside_gt_accuracy": _safe_div(contained_success, len(valid_forged)),
+        "all_boxes_inside_gt_accuracy": _safe_div(contained_success, len(scored_forged)),
         "real_expected": len(real_localization),
         "real_valid": len(valid_real),
         "real_coverage": _safe_div(len(valid_real), len(real_localization)),

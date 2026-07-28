@@ -1,0 +1,30 @@
+{
+  "built_from": {
+    "path": "results/opensource/community_forensics/community_forensics_highres_vit_s16_384_balanced250_v1_full1775_20260726/expected_inputs.jsonl",
+    "rows": 1775,
+    "sha256": "6b5128909eeffdbd88e61af02ca1bd191cb5460f94a23b47c87ebd0172e6d12c"
+  },
+  "counts": {
+    "cat": 250,
+    "forged": 750,
+    "mouse": 250,
+    "real": 250,
+    "total": 1000,
+    "trash_can": 250
+  },
+  "dataset_id": "claimforge-mllm-balanced250-local750-real250-v2",
+  "formal_ledger": {
+    "path": "annotations/claimforge_mllm_benchmark1000_v2.jsonl",
+    "rows": 1000,
+    "sha256": "21e58592509686c0bc725a505f1f596722cbae77d920003e5c0f598c7ad9ed7b"
+  },
+  "policy": {
+    "aggregation_must_filter_to_ledger_sha256": true,
+    "image_materialization_required": false,
+    "localization_strict_missing_policy": "Every forged sample is in the denominator. Missing, invalid, empty, or out-of-bounds bbox output is a localization miss.",
+    "selection": "Commercial API Balanced250 panel=true rows; raw image paths; real + local_mouse + local_cat + local_trash_can only",
+    "selection_source": "claimforge-balanced250-independent-panel-jpeg-q95-v1"
+  },
+  "release_ready": true,
+  "schema_version": "claimforge_mllm_benchmark1000_v2"
+}

@@ -1,0 +1,108 @@
+{
+  "api": {
+    "api_base": "https://llm-chat-api.alibaba-inc.com/openai",
+    "model_omitted_extra_body_keys": [
+      "thinking",
+      "thinking_type"
+    ],
+    "provider_extra_body_keys": [
+      "access_key",
+      "app",
+      "quota_id",
+      "user_id"
+    ],
+    "provider_header_keys": [],
+    "timeout_seconds": 120
+  },
+  "condition": "zoom_agent_full1051_bboxpx_v2",
+  "config_fingerprint_sha256": "f8071cc603bd59737c1033e36245a3c12910a2e9908b9abba54b728fcb358fc7",
+  "created_at_utc": "2026-07-27T17:49:12.060059+00:00",
+  "image": {
+    "detail": "high",
+    "maxLongSide": 2048,
+    "transport": "base64"
+  },
+  "input": {
+    "benchmark_manifest": null,
+    "images": 1051,
+    "include_source_pairs": null,
+    "list": "annotations/claimforge_mllm_inference_full1051_v1.jsonl",
+    "manifest_sha256": "dafebb9d4a9890b009a1462729e29e89a62aa82dddaeec4336404305c4a46860",
+    "review_export": null,
+    "review_status": null,
+    "source": "list"
+  },
+  "model": {
+    "concurrency": 15,
+    "id": "claude-opus-4-8",
+    "max_tokens": 600,
+    "request_format": "openai_chat_completions",
+    "slug": "claude_opus_4_8",
+    "temperature": null
+  },
+  "outputs": {
+    "agent_metrics_csv": "results/mllm/claude_opus_4_8/agent_zoom/claudeopus48_zoom_full1051_c15_z5_bboxpx_v2_20260728.agent_metrics.csv",
+    "agent_metrics_json": "results/mllm/claude_opus_4_8/agent_zoom/claudeopus48_zoom_full1051_c15_z5_bboxpx_v2_20260728.agent_metrics.json",
+    "aggregate_jsonl": "results/mllm/claude_opus_4_8/agent_zoom/claudeopus48_zoom_full1051_c15_z5_bboxpx_v2_20260728.jsonl",
+    "crops_dir": "results/mllm/claude_opus_4_8/agent_zoom/crops/claudeopus48_zoom_full1051_c15_z5_bboxpx_v2_20260728",
+    "masks_dir": "results/mllm/claude_opus_4_8/agent_zoom/masks/claudeopus48_zoom_full1051_c15_z5_bboxpx_v2_20260728",
+    "metrics_dir": "results/mllm/claude_opus_4_8/agent_zoom/metrics/claudeopus48_zoom_full1051_c15_z5_bboxpx_v2_20260728",
+    "raw_jsonl": "results/mllm/claude_opus_4_8/agent_zoom/claudeopus48_zoom_full1051_c15_z5_bboxpx_v2_20260728.raw.jsonl",
+    "run_manifest": "results/mllm/claude_opus_4_8/agent_zoom/claudeopus48_zoom_full1051_c15_z5_bboxpx_v2_20260728.run_manifest.json"
+  },
+  "protocol": {
+    "coordinate_space": "bbox_px",
+    "crop_source": "original_full_resolution_image",
+    "keys": [
+      "detection",
+      "localization"
+    ],
+    "max_inference_turns_per_episode": 6,
+    "max_zoom_calls_per_episode": 5,
+    "replicates_required": 3,
+    "single_image_turns": false,
+    "tool_schema": {
+      "description": "Crop and enlarge a rectangular region from the original full-resolution image.",
+      "input_schema": {
+        "additionalProperties": false,
+        "properties": {
+          "bbox_px": {
+            "description": "Original full-image pixel [x1,y1,x2,y2] box. Bounds depend on the original image dimensions supplied in the prompt.",
+            "items": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "maxItems": 4,
+            "minItems": 4,
+            "type": "array"
+          }
+        },
+        "required": [
+          "bbox_px"
+        ],
+        "type": "object"
+      },
+      "name": "zoom_in"
+    },
+    "tool_transport": "application_json_action",
+    "version": "mllm_zoom_agent_v2_bboxpx_20260728",
+    "versions": {
+      "detection": "mllm_zoom_agent_detection_v2_20260728",
+      "localization": "mllm_zoom_agent_localization_v2_bboxpx_20260728"
+    },
+    "zoom_long_side": 1536
+  },
+  "retry": {
+    "base_backoff_seconds": [
+      2,
+      4,
+      8,
+      16,
+      32
+    ],
+    "max_retries_per_replicate": 5,
+    "max_retries_per_turn": 5
+  },
+  "run_id": "claudeopus48_zoom_full1051_c15_z5_bboxpx_v2_20260728",
+  "schema_version": "mllm_zoom_agent_run_manifest_v1"
+}

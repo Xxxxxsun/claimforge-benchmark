@@ -8,12 +8,14 @@ from pathlib import Path
 from typing import Any
 
 
-BENCHMARK1000_DATASET_ID = "claimforge-mllm-local750-real250-v1"
+BENCHMARK1000_DATASET_ID = (
+    "claimforge-mllm-balanced250-local750-real250-v2"
+)
 DEFAULT_BENCHMARK1000_MANIFEST = Path(
-    "annotations/claimforge_mllm_benchmark1000_v1.manifest.json"
+    "annotations/claimforge_mllm_benchmark1000_v2.manifest.json"
 )
 DEFAULT_BENCHMARK1000_LEDGER = Path(
-    "annotations/claimforge_mllm_benchmark1000_v1.jsonl"
+    "annotations/claimforge_mllm_benchmark1000_v2.jsonl"
 )
 
 
